@@ -11,16 +11,16 @@ import javafx.application.Application;
 
     @SpringBootApplication
     public class BookingApp extends Application{
-        private ConfigurableApplicationContext springContext;
-        private Parent rootNode;
-        private FXMLLoader fxmlLoader;
+    private ConfigurableApplicationContext springContext;
+    private Parent rootNode;
+    private FXMLLoader fxmlLoader;
 
-        public static void main(String[] args) {
+    public static void main(String[] args) {
             launch(args);
         }
 
         @Override
-        public void init() throws Exception {
+        public void init(){
             springContext = SpringApplication.run(BookingApp.class);
             fxmlLoader = new FXMLLoader();
             fxmlLoader.setControllerFactory(springContext::getBean);
