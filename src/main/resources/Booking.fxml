@@ -62,21 +62,21 @@
             </Label>
          </children>
       </Pane>
-      <ButtonBar layoutY="347.0" prefHeight="40.0" prefWidth="280.0">
+      <ButtonBar layoutX="8.0" layoutY="347.0" prefHeight="40.0" prefWidth="285.0">
          <buttons>
           <Button fx:id="menuButton" mnemonicParsing="false" onAction="#menuButtonClicked" prefHeight="31.0" prefWidth="121.0" style="-fx-background-color: #3399FF; -fx-font-weight: bold;" text="Menu główne" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button fx:id="planButton" mnemonicParsing="false" prefHeight="31.0" prefWidth="150.0" style="-fx-background-color: #3399FF; -fx-font-weight: bold;" stylesheets="@Booking.css" text="Plan" textFill="WHITE">
+            <Button fx:id="planButton" mnemonicParsing="false" onAction="#planButtonClicked" prefHeight="31.0" prefWidth="150.0" style="-fx-background-color: #3399FF; -fx-font-weight: bold;" stylesheets="@Booking.css" text="Plan" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>
             </Button>
          </buttons>
       </ButtonBar>
-      <Button fx:id="bookButton" layoutX="568.0" layoutY="340.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="166.0" style="-fx-background-color: #0000FF; -fx-background-radius: 20; -fx-font-weight: bold; -fx-border-color: #FFBB33; -fx-border-width: 5; -fx-border-radius: 15;" stylesheets="@Booking.css" text="REZERWUJ" textFill="WHITE">
+      <Button fx:id="bookButton" layoutX="568.0" layoutY="340.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="166.0" style="-fx-background-color: #2222FF; -fx-background-radius: 10; -fx-font-weight: bold; -fx-border-width: 5;" stylesheets="@Booking.css" text="REZERWUJ" textFill="WHITE">
          <font>
             <Font size="20.0" />
          </font>

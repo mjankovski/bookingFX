@@ -5,7 +5,7 @@
 
 #bookButton:hover
 {
-	-fx-background-color: #4444CC  !important;
+	-fx-background-color: #4444CC !important;
 	-fx-font-size: 20px !important;
 }
 
@@ -27,7 +27,7 @@
 
 #menuButton:hover{
 	-fx-font-size: 15px !important;
-	-fx-background-color: #1177DD !important;
+	-fx-background-color: #11742D !important;
 }
 
 

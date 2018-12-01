@@ -3,80 +3,65 @@ package fx.booking;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.DatePicker;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
-
-public class BookingController {
+public class PlanController {
 
     @FXML
-    private AnchorPane informationAnchorPane;
+    private AnchorPane planAnchorPane;
 
     @FXML
-    private ScrollPane bookingScrollPane;
+    private ScrollPane planScrollPane;
 
     @FXML
-    private TextArea outputTextArea;
+    private AnchorPane imageAnchorPane;
 
     @FXML
-    private Pane outputPane;
+    private ImageView planImageView;
 
     @FXML
     private Label titleLabel;
 
     @FXML
-    private Pane infoPane;
+    private ComboBox<?> floorComboBox;
 
     @FXML
-    private Label peopleLabel;
+    private Label filtersLabel;
 
     @FXML
-    private Label costLabel;
+    private CheckBox twoPeopleCheckBox;
 
     @FXML
-    private Label bookDateLabel;
+    private CheckBox threePeopleChechBox;
 
     @FXML
-    private Label floorLabel;
+    private CheckBox fourPeopleCheckBox;
 
     @FXML
-    private DatePicker fromDatePicker;
+    private CheckBox fivePeopleCheckBox;
 
     @FXML
-    private DatePicker toDatePicker;
-
-    @FXML
-    private Label fromLabel;
-
-    @FXML
-    private Label toLabel;
-
-    @FXML
-    private Button bookButton;
-
-    @FXML
-    private ButtonBar buttonBar;
+    private Label pepoleNumberLabel;
 
     @FXML
     private Button menuButton;
 
     @FXML
-    private Button planButton;
+    public void initialize() {
+
+    }
 
     @FXML
     public void menuButtonClicked(ActionEvent event) throws IOException {
@@ -94,9 +79,9 @@ public class BookingController {
     }
 
     @FXML
-    public void planButtonClicked(ActionEvent event) throws IOException {
+    public void sampleButtonClicked(ActionEvent event) throws IOException {
         try {
-            Parent tableViewParent = FXMLLoader.load(getClass().getResource("/Plan.fxml"));
+            Parent tableViewParent = FXMLLoader.load(getClass().getResource("/Booking.fxml"));
             Scene tableViewScene = new Scene(tableViewParent);
 
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -108,12 +93,4 @@ public class BookingController {
         }
     }
 
-
-
-
-    @FXML
-    public void initialize() {
-
-    }
 }
-
