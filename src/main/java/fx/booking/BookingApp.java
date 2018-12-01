@@ -31,6 +31,7 @@ import javafx.application.Application;
             rootNode = fxmlLoader.load(getClass().getResource("/Booking.fxml"));
             primaryStage.setTitle("bookingFX");
             primaryStage.setScene(new Scene(rootNode));
+            primaryStage.setResizable(false);
             primaryStage.show();
         }
 
