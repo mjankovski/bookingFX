@@ -29,8 +29,9 @@ import javafx.application.Application;
         @Override
         public void start(Stage primaryStage) throws Exception{
             rootNode = fxmlLoader.load(getClass().getResource("/Booking.fxml"));
+            Scene scene = new Scene(rootNode);
             primaryStage.setTitle("bookingFX");
-            primaryStage.setScene(new Scene(rootNode));
+            primaryStage.setScene(scene);
             primaryStage.setResizable(false);
             primaryStage.show();
         }
