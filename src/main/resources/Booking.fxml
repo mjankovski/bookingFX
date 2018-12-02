@@ -5,38 +5,81 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="informationAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="informationAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" style="-fx-background-color: #FFFFCC;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fx.booking.BookingController">
    <children>
-      <Label fx:id="titleLabel" layoutX="185.0" layoutY="6.0" prefHeight="60.0" prefWidth="378.0" text="Informacje o pokoju nr ">
-         <font>
-            <Font size="34.0" />
-         </font>
-      </Label>
-      <DatePicker fx:id="fromDatePicker" layoutX="255.0" layoutY="178.0" />
-      <DatePicker fx:id="toDatePicker" layoutX="495.0" layoutY="178.0" />
-      <Label fx:id="peopleLabel" layoutX="94.0" layoutY="89.0" text="Iluosobowy:" />
-      <Label fx:id="costLabel" layoutX="94.0" layoutY="119.0" text="Cena za noc:" />
-      <Label fx:id="bookDateLabel" layoutX="94.0" layoutY="182.0" text="Data rezerwacji:" />
-      <Label fx:id="fromLabel" layoutX="213.0" layoutY="182.0" text="od" />
-      <Label fx:id="toLabel" layoutX="458.0" layoutY="182.0" text="do" />
-      <ScrollPane fx:id="bookingScrollPane" layoutX="94.0" layoutY="226.0" prefHeight="88.0" prefWidth="589.0">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
-        </content>
+      <ScrollPane fx:id="bookingScrollPane" layoutX="94.0" layoutY="184.0" prefHeight="142.0" prefWidth="602.0" style="-fx-border-color: #FFBB33; -fx-background-radius: 20; -fx-border-width: 5; -fx-border-radius: 8;">
+         <content>
+            <TextArea prefHeight="142.0" prefWidth="620.0" />
+         </content>
       </ScrollPane>
-      <Button fx:id="bookButton" layoutX="563.0" layoutY="336.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="165.0" text="REZRWUJ">
+      <Pane layoutX="-3.0" layoutY="-2.0" prefHeight="54.0" prefWidth="807.0" style="-fx-background-color: #3399FF;">
+         <children>
+            <Label fx:id="titleLabel" layoutX="190.0" layoutY="-3.0" prefHeight="60.0" prefWidth="517.0" style="-fx-font-weight: bold; -fx-font-family: Constantia;" text="Informacje o pokoju nr " textFill="WHITE">
+               <font>
+                  <Font size="34.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane layoutX="88.0" layoutY="52.0" prefHeight="127.0" prefWidth="699.0">
+         <children>
+            <Label fx:id="peopleLabel" layoutX="8.0" layoutY="27.0" style="-fx-font-weight: bold; -fx-font-family: Times New Roman;" text="Iluosobowy:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="costLabel" layoutX="7.0" layoutY="54.0" style="-fx-font-weight: bold; -fx-font-family: Times New Roman;" text="Cena za noc:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="bookDateLabel" layoutX="7.0" layoutY="85.0" style="-fx-font-weight: bold; -fx-font-family: Times New Roman;" text="Data rezerwacji:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="8.0" layoutY="1.0" style="-fx-font-weight: bold; -fx-font-family: Times New Roman;" text="Piętro:  ">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <DatePicker fx:id="fromDatePicker" layoutX="449.0" layoutY="86.0" />
+            <DatePicker fx:id="toDatePicker" layoutX="183.0" layoutY="86.0" />
+            <Label fx:id="fromLabel" layoutX="150.0" layoutY="85.0" style="-fx-font-weight: bold; -fx-font-family: Times New Roman;" text="od:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="toLabel" layoutX="412.0" layoutY="85.0" style="-fx-font-weight: bold; -fx-font-family: Times New Roman;" text="do:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <ButtonBar layoutX="8.0" layoutY="347.0" prefHeight="40.0" prefWidth="285.0">
+         <buttons>
+          <Button fx:id="menuButton" mnemonicParsing="false" onAction="#menuButtonClicked" prefHeight="31.0" prefWidth="121.0" style="-fx-background-color: #3399FF; -fx-font-weight: bold;" text="Menu główne" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+            <Button fx:id="planButton" mnemonicParsing="false" onAction="#planButtonClicked" prefHeight="31.0" prefWidth="150.0" style="-fx-background-color: #3399FF; -fx-font-weight: bold;" stylesheets="@Booking.css" text="Plan" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+         </buttons>
+      </ButtonBar>
+      <Button fx:id="bookButton" layoutX="568.0" layoutY="340.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="166.0" style="-fx-background-color: #2222FF; -fx-background-radius: 10; -fx-font-weight: bold; -fx-border-width: 5;" stylesheets="@Booking.css" text="REZERWUJ" textFill="WHITE">
          <font>
             <Font size="20.0" />
          </font>
       </Button>
-      <ButtonBar fx:id="buttonBar" layoutX="-73.0" layoutY="336.0" prefHeight="40.0" prefWidth="338.0">
-        <buttons>
-          <Button fx:id="menuButton" mnemonicParsing="false" text="Menu główne" />
-            <Button fx:id="planButton" mnemonicParsing="false" text="Plan" />
-        </buttons>
-      </ButtonBar>
    </children>
 </AnchorPane>

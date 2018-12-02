@@ -1,0 +1,34 @@
+#bookButton
+{
+	-fx-font-size: 20px !important;
+}
+
+#bookButton:hover
+{
+	-fx-background-color: #4444CC !important;
+	-fx-font-size: 20px !important;
+}
+
+#planButton
+{
+	-fx-font-size: 15px !important;
+}
+
+#planButton:hover
+{
+	-fx-font-size: 15px !important;
+	-fx-background-color: #1177DD !important;
+}
+
+#menuButton
+{
+	-fx-font-size: 15px !important;
+}
+
+#menuButton:hover{
+	-fx-font-size: 15px !important;
+	-fx-background-color: #11742D !important;
+}
+
+
+
