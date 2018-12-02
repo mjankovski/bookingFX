@@ -9,8 +9,7 @@ import javafx.application.Application;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 
-
-    public class BookingApp extends Application{
+public class BookingApp extends Application{
     private ConfigurableApplicationContext springContext;
     private FXMLLoader fxmlLoader;
     private Parent rootNode;
@@ -28,7 +27,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
         @Override
         public void start(Stage primaryStage) throws Exception{
-            fxmlLoader.setLocation(getClass().getResource("/TestController.fxml"));
+            fxmlLoader.setLocation(getClass().getResource("/Booking.fxml"));
             rootNode = fxmlLoader.load();
 
             primaryStage.setTitle("bookingFX");
