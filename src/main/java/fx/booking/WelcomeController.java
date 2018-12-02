@@ -13,9 +13,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
 
+@Controller
 public class WelcomeController {
 
     @FXML

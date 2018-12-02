@@ -16,12 +16,13 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-
+@Controller
 public class BookingController {
 
     @FXML

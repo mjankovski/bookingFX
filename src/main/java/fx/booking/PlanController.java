@@ -14,9 +14,11 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
 
+@Controller
 public class PlanController {
 
     @FXML
