@@ -49,7 +49,7 @@
       <Label layoutX="18.0" layoutY="307.0" style="-fx-font-weight: bold;" text="do" />
       <ScrollPane layoutX="221.0" layoutY="137.0" prefHeight="197.0" prefWidth="556.0">
          <content>
-            <Button fx:id="sampleButton" onAction="#sampleButtonClicked" mnemonicParsing="false" text="Informacja" />
+            <Button fx:id="sampleButton" mnemonicParsing="false" onAction="#sampleButtonClicked" text="Informacja" />
          </content></ScrollPane>
       <Button fx:id="menuButton" layoutX="42.0" layoutY="354.0" mnemonicParsing="false" onAction="#menuButtonClicked" style="-fx-background-color: #3399FF; -fx-font-weight: bold;" text="MENU GŁÓWNE" textFill="WHITE">
          <font>

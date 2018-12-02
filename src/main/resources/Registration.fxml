@@ -27,7 +27,7 @@
       <TextField fx:id="passwordTextField" layoutX="364.0" layoutY="143.0" promptText="Wpisz hasło" />
       <TextField fx:id="emailTextField" layoutX="365.0" layoutY="200.0" promptText="Wpisz swój e-mail" />
       <Label fx:id="emailLabel" layoutX="366.0" layoutY="178.0" style="-fx-font-weight: bold;" text="E-mail" />
-      <Button fx:id="menuButton" onAction="#menuButtonClicked" layoutX="59.0" layoutY="359.0" mnemonicParsing="false" style="-fx-background-color: #3399FF; -fx-font-weight: bold;" text="MENU GŁÓWNE" textFill="WHITE">
+      <Button fx:id="menuButton" layoutX="59.0" layoutY="359.0" mnemonicParsing="false" onAction="#menuButtonClicked" style="-fx-background-color: #3399FF; -fx-font-weight: bold;" text="MENU GŁÓWNE" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font></Button>
