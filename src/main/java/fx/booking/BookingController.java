@@ -83,7 +83,10 @@ public class BookingController {
     @FXML
     public void menuButtonClicked(ActionEvent event) throws IOException {
         try {
-            Parent tableViewParent = FXMLLoader.load(getClass().getResource("/Welcome.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setControllerFactory(springContext::getBean);
+            fxmlLoader.setLocation(getClass().getResource("/Welcome.fxml"));
+            Parent tableViewParent = fxmlLoader.load();
             Scene tableViewScene = new Scene(tableViewParent);
 
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -98,7 +101,10 @@ public class BookingController {
     @FXML
     public void planButtonClicked(ActionEvent event) throws IOException {
         try {
-            Parent tableViewParent = FXMLLoader.load(getClass().getResource("/Plan.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setControllerFactory(springContext::getBean);
+            fxmlLoader.setLocation(getClass().getResource("/Plan.fxml"));
+            Parent tableViewParent = fxmlLoader.load();
             Scene tableViewScene = new Scene(tableViewParent);
 
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
