@@ -14,12 +14,17 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
 
 @Controller
 public class PlanController {
+
+    @Autowired
+    private ConfigurableApplicationContext springContext;
 
     @FXML
     private AnchorPane planAnchorPane;
@@ -68,7 +73,10 @@ public class PlanController {
     @FXML
     public void menuButtonClicked(ActionEvent event) throws IOException {
         try {
-            Parent tableViewParent = FXMLLoader.load(getClass().getResource("/Welcome.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setControllerFactory(springContext::getBean);
+            fxmlLoader.setLocation(getClass().getResource("/Welcome.fxml"));
+            Parent tableViewParent = fxmlLoader.load();
             Scene tableViewScene = new Scene(tableViewParent);
 
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -83,7 +91,10 @@ public class PlanController {
     @FXML
     public void sampleButtonClicked(ActionEvent event) throws IOException {
         try {
-            Parent tableViewParent = FXMLLoader.load(getClass().getResource("/Booking.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setControllerFactory(springContext::getBean);
+            fxmlLoader.setLocation(getClass().getResource("/Booking.fxml"));
+            Parent tableViewParent = fxmlLoader.load();
             Scene tableViewScene = new Scene(tableViewParent);
 
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();

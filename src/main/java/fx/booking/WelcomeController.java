@@ -13,12 +13,20 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
 
 @Controller
 public class WelcomeController {
+
+    @Autowired
+    private ConfigurableApplicationContext springContext;
+
+    @Autowired
+    private AccountDAO accountDAO;
 
     @FXML
     private AnchorPane menuAnchorPane;
@@ -48,23 +56,29 @@ public class WelcomeController {
     private Label loginLabel;
 
     @FXML
-    private Label PassLabel;
+    private Label passLabel;
 
     @FXML
-    private PasswordField PassTextField;
+    private PasswordField passTextField;
 
     @FXML
     private Button authorsButton;
 
     @FXML
     public void loginButtonClicked(ActionEvent event) throws IOException {
+        int login = accountDAO.login(loginTextField.getText(),passTextField.getText());
         try {
-            Parent tableViewParent = FXMLLoader.load(getClass().getResource("/Plan.fxml"));
-            Scene tableViewScene = new Scene(tableViewParent);
+            if(login>0) {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setControllerFactory(springContext::getBean);
+                fxmlLoader.setLocation(getClass().getResource("/Plan.fxml"));
+                Parent tableViewParent = fxmlLoader.load();
+                Scene tableViewScene = new Scene(tableViewParent);
 
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            window.setScene(tableViewScene);
-            window.show();
+                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                window.setScene(tableViewScene);
+                window.show();
+            }
         }
         catch(Exception e) {
             e.printStackTrace();
@@ -74,7 +88,10 @@ public class WelcomeController {
     @FXML
     public void makeAccountButtonClicked(ActionEvent event) throws IOException {
         try {
-            Parent tableViewParent = FXMLLoader.load(getClass().getResource("/Registration.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setControllerFactory(springContext::getBean);
+            fxmlLoader.setLocation(getClass().getResource("/Registration.fxml"));
+            Parent tableViewParent = fxmlLoader.load();
             Scene tableViewScene = new Scene(tableViewParent);
 
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();

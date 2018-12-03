@@ -11,12 +11,17 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
 
 @Controller
 public class RegistrationController {
+
+    @Autowired
+    private ConfigurableApplicationContext springContext;
 
     @FXML
     private AnchorPane accountAnchorPane;
@@ -94,7 +99,10 @@ public class RegistrationController {
     @FXML
     public void menuButtonClicked(ActionEvent event) throws IOException {
         try {
-            Parent tableViewParent = FXMLLoader.load(getClass().getResource("/Welcome.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setControllerFactory(springContext::getBean);
+            fxmlLoader.setLocation(getClass().getResource("/Welcome.fxml"));
+            Parent tableViewParent = fxmlLoader.load();
             Scene tableViewScene = new Scene(tableViewParent);
 
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
