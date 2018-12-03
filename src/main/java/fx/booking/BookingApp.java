@@ -7,7 +7,7 @@ import javafx.stage.Stage;
 import org.springframework.context.ConfigurableApplicationContext;
 import javafx.application.Application;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-
+import org.springframework.stereotype.Component;
 
 public class BookingApp extends Application{
     private ConfigurableApplicationContext springContext;
@@ -39,7 +39,4 @@ public class BookingApp extends Application{
         public void stop() {
             springContext.stop();
         }
-
-
-
     }

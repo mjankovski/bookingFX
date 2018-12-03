@@ -18,10 +18,10 @@ public class SpringJDBCConfiguration {
     @Bean
     public DataSource dataSource() {
         MysqlDataSource dataSource = new MysqlDataSource();
-        dataSource.setDatabaseName("");
-        dataSource.setServerName("");
-        dataSource.setUser("");
-        dataSource.setPassword("");
+        dataSource.setDatabaseName("mjankovski");
+        dataSource.setServerName("bookingfx.cba.pl");
+        dataSource.setUser("bookingfx");
+        dataSource.setPassword("W@i6b2s123");
 
         return dataSource;
     }

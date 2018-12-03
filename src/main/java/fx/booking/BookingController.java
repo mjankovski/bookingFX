@@ -16,6 +16,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
@@ -24,6 +26,8 @@ import java.util.ResourceBundle;
 
 @Controller
 public class BookingController {
+    @Autowired
+    private ConfigurableApplicationContext springContext;
 
     @FXML
     private AnchorPane informationAnchorPane;
@@ -80,9 +84,16 @@ public class BookingController {
     private Button planButton;
 
     @FXML
+    public void initialize() {
+    }
+
+    @FXML
     public void menuButtonClicked(ActionEvent event) throws IOException {
         try {
-            Parent tableViewParent = FXMLLoader.load(getClass().getResource("/Welcome.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setControllerFactory(springContext::getBean);
+            fxmlLoader.setLocation(getClass().getResource("/Welcome.fxml"));
+            Parent tableViewParent = fxmlLoader.load();
             Scene tableViewScene = new Scene(tableViewParent);
 
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -97,7 +108,10 @@ public class BookingController {
     @FXML
     public void planButtonClicked(ActionEvent event) throws IOException {
         try {
-            Parent tableViewParent = FXMLLoader.load(getClass().getResource("/Plan.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setControllerFactory(springContext::getBean);
+            fxmlLoader.setLocation(getClass().getResource("/Plan.fxml"));
+            Parent tableViewParent = fxmlLoader.load();
             Scene tableViewScene = new Scene(tableViewParent);
 
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -107,14 +121,6 @@ public class BookingController {
         catch(Exception e) {
             e.printStackTrace();
         }
-    }
-
-
-
-
-    @FXML
-    public void initialize() {
-
     }
 }
 
