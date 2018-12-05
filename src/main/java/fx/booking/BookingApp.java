@@ -39,7 +39,4 @@ public class BookingApp extends Application{
         public void stop() {
             springContext.stop();
         }
-
-
-
     }
