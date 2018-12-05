@@ -17,8 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Controller;
 
-import java.io.IOException;
-
 @Controller
 public class WelcomeController {
 
@@ -65,10 +63,11 @@ public class WelcomeController {
     private Button authorsButton;
 
     @FXML
-    public void loginButtonClicked(ActionEvent event) throws IOException {
+    public void loginButtonClicked(ActionEvent event) {
         int login = accountDAO.login(loginTextField.getText(),passTextField.getText());
         try {
             if(login>0) {
+                accountDAO.getAccountInformation(loginTextField.getText());
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setControllerFactory(springContext::getBean);
                 fxmlLoader.setLocation(getClass().getResource("/Plan.fxml"));
@@ -86,7 +85,7 @@ public class WelcomeController {
     }
 
     @FXML
-    public void makeAccountButtonClicked(ActionEvent event) throws IOException {
+    public void makeAccountButtonClicked(ActionEvent event) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setControllerFactory(springContext::getBean);
