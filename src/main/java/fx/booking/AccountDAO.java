@@ -5,6 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
+
 
 @Repository
 public class AccountDAO{
@@ -33,20 +37,19 @@ public class AccountDAO{
     }
 
     public int login(String login, String pw) {
-        int result = jdbcTemplate.queryForObject("select (case when(select count(LOGIN) from Administrator WHERE Administrator.LOGIN=? AND Administrator.HASLO=? = 1) THEN (select UPRAWNIENIA from Administrator WHERE Administrator.LOGIN=? AND Administrator.HASLO=?) ELSE 0 END) FROM Administrator", Integer.class,login,pw,login,pw);
-        int result2 = jdbcTemplate.queryForObject("select (case when(select count(LOGIN) from Klient WHERE Klient.LOGIN=? AND Klient.HASLO=? = 1) THEN (select UPRAWNIENIA from Klient WHERE Klient.LOGIN=? AND Klient.HASLO=?) ELSE 0 END) FROM Klient", Integer.class,login,pw,login,pw);
-        System.out.println(result+result2);
-        return result+result2;
+        int result = jdbcTemplate.queryForObject("select (case when(count(LOGIN) = 1) THEN UPRAWNIENIA ELSE 0 END) FROM Uzytkownicy WHERE Uzytkownicy.LOGIN=? AND Uzytkownicy.HASLO=?", Integer.class,login,pw);
+        return result;
     }
 
     public void getAccountInformation(String login){
         this.login = login;
-        this.firstname = jdbcTemplate.queryForObject("SELECT IMIE FROM Klient WHERE LOGIN=?", String.class,login);
-        this.lastname = jdbcTemplate.queryForObject("SELECT NAZWISKO FROM Klient WHERE LOGIN=?", String.class,login);
-        this.email = jdbcTemplate.queryForObject("SELECT EMAIL FROM Klient WHERE LOGIN=?", String.class,login);
-        this.creditCardNumber = jdbcTemplate.queryForObject("SELECT NR_KARTY_KRED FROM Klient WHERE LOGIN=?", String.class,login);
-        this.pesel = jdbcTemplate.queryForObject("SELECT PESEL FROM Klient WHERE LOGIN=?", String.class,login);
-        this.phoneNumber = jdbcTemplate.queryForObject("SELECT NR_TEL FROM Klient WHERE LOGIN=?", String.class,login);
-        this.permissions = jdbcTemplate.queryForObject("SELECT UPRAWNIENIA FROM Klient WHERE LOGIN=?", Integer.class,login);
+        Map<String,Object> results = jdbcTemplate.queryForMap("SELECT IMIE,NAZWISKO,EMAIL,NR_KARTY_KRED,PESEL,NR_TEL,UPRAWNIENIA FROM Uzytkownicy WHERE LOGIN=?", login);
+        this.firstname=(String)results.get("IMIE");
+        this.lastname=(String)results.get("NAZWISKO");
+        this.email=(String)results.get("EMAIL");
+        this.creditCardNumber=results.get("NR_KARTY_KRED").toString();
+        this.pesel=results.get("PESEL").toString();
+        this.phoneNumber=results.get("NR_TEL").toString();
+        this.permissions=(int)results.get("UPRAWNIENIA");
     }
 }
