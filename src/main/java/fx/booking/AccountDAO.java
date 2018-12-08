@@ -2,11 +2,12 @@ package fx.booking;
 
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
-import java.util.LinkedList;
+
+import java.sql.SQLException;
 import java.util.Map;
 
 
@@ -34,6 +35,17 @@ public class AccountDAO{
     @Autowired
     private void setJdbcTemplate(JdbcTemplate jdbcTemplate){
         this.jdbcTemplate = jdbcTemplate;
+    }
+
+    public void createAccount(String login, String pw, String firstname, String lastname, String email, String creditCardNumber, String pesel, String phoneNumber, int permissions) throws IllegalArgumentException, DuplicateKeyException {
+        if(!creditCardNumber.matches("^[0-9]*$") || creditCardNumber.length()!=16) throw new IllegalArgumentException();
+        if(!pesel.matches("^[0-9]*$") || pesel.length()!=11) throw new IllegalArgumentException();
+        if(!phoneNumber.matches("^[0-9]*$") || phoneNumber.length()!=9) throw new IllegalArgumentException();
+
+        jdbcTemplate.update(
+                "INSERT INTO mjankovski.Uzytkownicy (LOGIN, HASLO, IMIE, NAZWISKO, EMAIL, NR_KARTY_KRED, PESEL, NR_TEL, UPRAWNIENIA) VALUES (?, ?, ?, ?, ?, ? ,? ,?, ?)",
+                login, pw, firstname, lastname, email, creditCardNumber, pesel, phoneNumber, permissions
+        );
     }
 
     public int login(String login, String pw) {

@@ -13,12 +13,17 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 @Controller
 public class RegistrationController {
+
+    @Autowired
+    private AccountDAO accountDAO;
 
     @Autowired
     private ConfigurableApplicationContext springContext;
@@ -42,7 +47,7 @@ public class RegistrationController {
     private Label creditCardLabel;
 
     @FXML
-    private TextField PartFourCardNumberLabel1;
+    private TextField partFourCardNumberTextField1;
 
     @FXML
     private Label peselLabel;
@@ -87,30 +92,57 @@ public class RegistrationController {
     private Label titleLabel;
 
     @FXML
-    private TextField PartFourCardNumberLabel4;
+    private TextField partFourCardNumberTextField4;
 
     @FXML
-    private TextField PartFourCardNumberLabel3;
+    private TextField partFourCardNumberTextField3;
 
     @FXML
-    private TextField PartFourCardNumberLabel2;
+    private TextField partFourCardNumberTextField2;
 
 
     @FXML
     public void menuButtonClicked(ActionEvent event) throws IOException {
+        /*to nie powinno byc tu*/
+        int flag = 1;
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setControllerFactory(springContext::getBean);
-            fxmlLoader.setLocation(getClass().getResource("/Welcome.fxml"));
-            Parent tableViewParent = fxmlLoader.load();
-            Scene tableViewScene = new Scene(tableViewParent);
-
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            window.setScene(tableViewScene);
-            window.show();
+            accountDAO.createAccount(
+                    loginTextField.getText(),
+                    passwordTextField.getText(),
+                    nameTextField.getText(),
+                    surnameTextfield.getText(),
+                    emailTextField.getText(),
+                    partFourCardNumberTextField1.getText() + partFourCardNumberTextField2.getText() + partFourCardNumberTextField3.getText() + partFourCardNumberTextField4.getText(),
+                    peselTextField.getText(),
+                    phoneNumberTextField.getText(),
+                    1
+            );
+            flag=1;
+        } catch (IllegalArgumentException e){
+            System.out.println("bledny argument");
+            flag = 0;
+            //tu powinno byc wyswietlenie komunikatu
+        } catch (DuplicateKeyException e){
+            System.out.println("blad na bazie");
+            flag=0;
+            //tu powinno byc wyswietlenie komunikatu
         }
-        catch(Exception e) {
-            e.printStackTrace();
+        /*to nie powinno byc tu*/
+
+        if(flag==1) {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setControllerFactory(springContext::getBean);
+                fxmlLoader.setLocation(getClass().getResource("/Welcome.fxml"));
+                Parent tableViewParent = fxmlLoader.load();
+                Scene tableViewScene = new Scene(tableViewParent);
+
+                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                window.setScene(tableViewScene);
+                window.show();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }
