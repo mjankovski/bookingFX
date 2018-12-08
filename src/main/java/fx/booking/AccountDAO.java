@@ -41,6 +41,7 @@ public class AccountDAO{
         if(!creditCardNumber.matches("^[0-9]*$") || creditCardNumber.length()!=16) throw new IllegalArgumentException();
         if(!pesel.matches("^[0-9]*$") || pesel.length()!=11) throw new IllegalArgumentException();
         if(!phoneNumber.matches("^[0-9]*$") || phoneNumber.length()!=9) throw new IllegalArgumentException();
+        if(!email.matches("[a-zA-Z0-9]{3,}@[a-zA-Z0-9]{2,}.[a-zA-Z]{2,3}")) throw new IllegalArgumentException();
 
         jdbcTemplate.update(
                 "INSERT INTO mjankovski.Uzytkownicy (LOGIN, HASLO, IMIE, NAZWISKO, EMAIL, NR_KARTY_KRED, PESEL, NR_TEL, UPRAWNIENIA) VALUES (?, ?, ?, ?, ?, ? ,? ,?, ?)",
