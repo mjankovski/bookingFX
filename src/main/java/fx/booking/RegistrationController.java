@@ -13,15 +13,26 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.simplejavamail.email.Email;
+import org.simplejavamail.email.EmailBuilder;
+import org.simplejavamail.mailer.Mailer;
+import org.simplejavamail.mailer.MailerBuilder;
+import org.simplejavamail.mailer.config.TransportStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
 
 @Controller
+@PropertySource("classpath:mail.properties")
 public class RegistrationController {
+
+    @Autowired
+    private Environment env;
 
     @Autowired
     private AccountDAO accountDAO;
@@ -118,6 +129,7 @@ public class RegistrationController {
                     phoneNumberTextField.getText(),
                     1
             );
+                    sendMail(emailTextField.getText());
         } catch (InvalidEmailException e){
             showAlert("Błąd!", "Konto nie zostało utworzone. Błędny adres e-mail!");
             isSigned = false;
@@ -158,6 +170,22 @@ public class RegistrationController {
         alert.setTitle(title);
         alert.setHeaderText(header);
         alert.showAndWait();
+    }
+
+    private void sendMail(String clientEmail){
+        Email email = EmailBuilder.startingBlank()
+                .from("BookingFX", env.getProperty("mail.from"))
+                .to("Klient", clientEmail)
+                .withSubject(env.getProperty("mail.subject"))
+                .withPlainText(env.getProperty("mail.text"))
+                .buildEmail();
+
+        Mailer mailer = MailerBuilder
+                .withSMTPServer(env.getProperty("mail.host"), 587, env.getProperty("mail.from"), env.getProperty("mail.password"))
+                .withTransportStrategy(TransportStrategy.SMTP)
+                .buildMailer();
+
+        mailer.sendMail(email);
     }
 }
 
