@@ -1,11 +1,13 @@
 package fx.booking;
 
+import fx.booking.dao.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -17,7 +19,6 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 @Controller
 public class RegistrationController {
@@ -104,9 +105,9 @@ public class RegistrationController {
     @FXML
     public void menuButtonClicked(ActionEvent event) throws IOException {
         /*to nie powinno byc tu*/
-        int flag = 1;
+        boolean isSigned;
         try {
-            accountDAO.createAccount(
+                    isSigned = accountDAO.createAccount(
                     loginTextField.getText(),
                     passwordTextField.getText(),
                     nameTextField.getText(),
@@ -117,19 +118,25 @@ public class RegistrationController {
                     phoneNumberTextField.getText(),
                     1
             );
-            flag=1;
-        } catch (IllegalArgumentException e){
-            System.out.println("bledny argument");
-            flag = 0;
-            //tu powinno byc wyswietlenie komunikatu
-        } catch (DuplicateKeyException e){
-            System.out.println("blad na bazie");
-            flag=0;
-            //tu powinno byc wyswietlenie komunikatu
+        } catch (InvalidEmailException e){
+            showAlert("Błąd!", "Konto nie zostało utworzone. Błędny adres e-mail!");
+            isSigned = false;
+        } catch (InvalidPhoneNumberException e){
+            showAlert("Błąd!", "Konto nie zostało utworzone. Błędny adres numer telefonu!");
+            isSigned = false;
+        } catch (InvalidCreditCardNumberException e){
+            showAlert("Błąd!", "Konto nie zostało utworzone. Błędny numer karty kredytowej!");
+            isSigned = false;;
+        } catch (InvalidPeselException e){
+            showAlert("Błąd!", "Konto nie zostało utworzone. Błędny numer pesel!");
+            isSigned = false;
+        }  catch (DuplicateKeyException e){
+            showAlert("Błąd!", "Konto nie zostało utworzone. Login lub adres e-mail są już w użyciu!");
+            isSigned=false;
         }
         /*to nie powinno byc tu*/
 
-        if(flag==1) {
+        if(isSigned) {
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setControllerFactory(springContext::getBean);
@@ -144,6 +151,13 @@ public class RegistrationController {
                 e.printStackTrace();
             }
         }
+    }
+
+    private void showAlert(String title, String header){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.showAndWait();
     }
 }
 

@@ -1,18 +1,21 @@
 package fx.booking;
 
+import fx.booking.dao.InvalidCreditCardNumberException;
+import fx.booking.dao.InvalidEmailException;
+import fx.booking.dao.InvalidPeselException;
+import fx.booking.dao.InvalidPhoneNumberException;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-
-import java.sql.SQLException;
 import java.util.Map;
 
 
 @Repository
 public class AccountDAO{
+
     private JdbcTemplate jdbcTemplate;
 
     @Getter
@@ -37,21 +40,24 @@ public class AccountDAO{
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public void createAccount(String login, String pw, String firstname, String lastname, String email, String creditCardNumber, String pesel, String phoneNumber, int permissions) throws IllegalArgumentException, DuplicateKeyException {
-        if(!creditCardNumber.matches("^[0-9]*$") || creditCardNumber.length()!=16) throw new IllegalArgumentException();
-        if(!pesel.matches("^[0-9]*$") || pesel.length()!=11) throw new IllegalArgumentException();
-        if(!phoneNumber.matches("^[0-9]*$") || phoneNumber.length()!=9) throw new IllegalArgumentException();
-        if(!email.matches("[a-zA-Z0-9]{3,}@[a-zA-Z0-9]{2,}.[a-zA-Z]{2,3}")) throw new IllegalArgumentException();
+    public boolean createAccount(String login, String pw, String firstname, String lastname, String email, String creditCardNumber, String pesel, String phoneNumber, int permissions)
+            throws InvalidCreditCardNumberException, InvalidPeselException, InvalidPhoneNumberException,
+            InvalidEmailException, DuplicateKeyException {
+
+        if(!creditCardNumber.matches("^[0-9]*$") || creditCardNumber.length()!=16) throw new InvalidCreditCardNumberException();
+        if(!pesel.matches("^[0-9]*$") || pesel.length()!=11) throw new InvalidPeselException();
+        if(!phoneNumber.matches("^[0-9]*$") || phoneNumber.length()!=9) throw new InvalidPhoneNumberException();
+        if(!email.matches("[a-zA-Z0-9]{3,}@[a-zA-Z0-9]{2,}\\.[a-zA-Z]{2,3}")) throw new InvalidEmailException();
 
         jdbcTemplate.update(
                 "INSERT INTO mjankovski.Uzytkownicy (LOGIN, HASLO, IMIE, NAZWISKO, EMAIL, NR_KARTY_KRED, PESEL, NR_TEL, UPRAWNIENIA) VALUES (?, ?, ?, ?, ?, ? ,? ,?, ?)",
                 login, pw, firstname, lastname, email, creditCardNumber, pesel, phoneNumber, permissions
         );
+        return true;
     }
 
     public int login(String login, String pw) {
-        int result = jdbcTemplate.queryForObject("select (case when(count(LOGIN) = 1) THEN UPRAWNIENIA ELSE 0 END) FROM Uzytkownicy WHERE Uzytkownicy.LOGIN=? AND Uzytkownicy.HASLO=?", Integer.class,login,pw);
-        return result;
+        return jdbcTemplate.queryForObject("select (case when(count(LOGIN) = 1) THEN UPRAWNIENIA ELSE 0 END) FROM Uzytkownicy WHERE Uzytkownicy.LOGIN=? AND Uzytkownicy.HASLO=?", Integer.class,login,pw);
     }
 
     public void getAccountInformation(String login){
