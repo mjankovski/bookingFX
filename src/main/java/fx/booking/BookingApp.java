@@ -10,6 +10,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 
 public class BookingApp extends Application{
+
     private ConfigurableApplicationContext springContext;
     private FXMLLoader fxmlLoader;
     private Parent rootNode;

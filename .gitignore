@@ -8,6 +8,9 @@ src/main/resources/dbconfig.properties
 .idea/**/shelf
 .idea/vcs.xml
 .idea
+src/main/resources/dbconfig.properties
+src/main/resources/mail.properties
+
 
 # Generated files
 .idea/**/contentModel.xml

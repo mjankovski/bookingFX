@@ -14,7 +14,7 @@
       <Label fx:id="nameLabel" layoutX="98.0" layoutY="60.0" style="-fx-font-weight: bold;" text="Imię:" />
       <Label fx:id="surnameLabel" layoutX="365.0" layoutY="60.0" style="-fx-font-weight: bold;" text="Nazwisko:" />
       <Label fx:id="creditCardLabel" layoutX="100.0" layoutY="234.0" prefHeight="18.0" prefWidth="173.0" style="-fx-font-weight: bold;" text="Numer karty kredytowej:" />
-      <TextField fx:id="PartFourCardNumberLabel1" layoutX="100.0" layoutY="260.0" prefHeight="26.0" prefWidth="65.0" promptText="XXXX" />
+      <TextField fx:id="partFourCardNumberTextField1" layoutX="100.0" layoutY="260.0" prefHeight="26.0" prefWidth="65.0" promptText="XXXX" />
       <Label fx:id="peselLabel" layoutX="102.0" layoutY="179.0" style="-fx-font-weight: bold;" text="PESEL:" />
       <TextField fx:id="peselTextField" layoutX="102.0" layoutY="201.0" promptText="00000000000" />
       <Label fx:id="phoneNumberLabel" layoutX="102.0" layoutY="295.0" style="-fx-font-weight: bold;" text="Numer telefonu:" />
@@ -44,8 +44,8 @@
             </Label>
          </children>
       </Pane>
-      <TextField fx:id="PartFourCardNumberLabel4" layoutX="351.0" layoutY="260.0" prefHeight="26.0" prefWidth="65.0" promptText="XXXX" />
-      <TextField fx:id="PartFourCardNumberLabel3" layoutX="268.0" layoutY="260.0" prefHeight="26.0" prefWidth="65.0" promptText="XXXX" />
-      <TextField fx:id="PartFourCardNumberLabel2" layoutX="182.0" layoutY="260.0" prefHeight="26.0" prefWidth="65.0" promptText="XXXX" />
+      <TextField fx:id="partFourCardNumberTextField4" layoutX="351.0" layoutY="260.0" prefHeight="26.0" prefWidth="65.0" promptText="XXXX" />
+      <TextField fx:id="partFourCardNumberTextField3" layoutX="268.0" layoutY="260.0" prefHeight="26.0" prefWidth="65.0" promptText="XXXX" />
+      <TextField fx:id="partFourCardNumberTextField2" layoutX="182.0" layoutY="260.0" prefHeight="26.0" prefWidth="65.0" promptText="XXXX" />
    </children>
 </AnchorPane>
