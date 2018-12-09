@@ -48,6 +48,10 @@ public class AccountDAO{
         if(!pesel.matches("^[0-9]*$") || pesel.length()!=11) throw new InvalidPeselException();
         if(!phoneNumber.matches("^[0-9]*$") || phoneNumber.length()!=9) throw new InvalidPhoneNumberException();
         if(!email.matches("[a-zA-Z0-9]{3,}@[a-zA-Z0-9]{2,}\\.[a-zA-Z]{2,3}")) throw new InvalidEmailException();
+        if(!login.matches("[a-zA-Z0-9]{3,20}")) throw new IllegalArgumentException();
+        if(!pw.matches("[a-zA-Z0-9]{3,20}")) throw new IllegalArgumentException();
+        if(!firstname.matches("[a-zA-Z0-9]{2,30}")) throw new IllegalArgumentException();
+        if(!lastname.matches("[a-zA-Z0-9]{2,30}")) throw new IllegalArgumentException();
 
         jdbcTemplate.update(
                 "INSERT INTO mjankovski.Uzytkownicy (LOGIN, HASLO, IMIE, NAZWISKO, EMAIL, NR_KARTY_KRED, PESEL, NR_TEL, UPRAWNIENIA) VALUES (?, ?, ?, ?, ?, ? ,? ,?, ?)",

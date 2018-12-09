@@ -118,7 +118,7 @@ public class RegistrationController {
         /*to nie powinno byc tu*/
         boolean isSigned;
         try {
-                    isSigned = accountDAO.createAccount(
+            isSigned = accountDAO.createAccount(
                     loginTextField.getText(),
                     passwordTextField.getText(),
                     nameTextField.getText(),
@@ -129,12 +129,15 @@ public class RegistrationController {
                     phoneNumberTextField.getText(),
                     1
             );
-                    sendMail(emailTextField.getText());
+            sendMail(emailTextField.getText());
+        } catch (IllegalArgumentException e){
+            showAlert("Błąd!", "Konto nie zostało utworzone. Pola nie moga byc puste lub krotsze niz 3 znaki!");
+            isSigned = false;
         } catch (InvalidEmailException e){
             showAlert("Błąd!", "Konto nie zostało utworzone. Błędny adres e-mail!");
             isSigned = false;
         } catch (InvalidPhoneNumberException e){
-            showAlert("Błąd!", "Konto nie zostało utworzone. Błędny adres numer telefonu!");
+            showAlert("Błąd!", "Konto nie zostało utworzone. Błędny numer telefonu!");
             isSigned = false;
         } catch (InvalidCreditCardNumberException e){
             showAlert("Błąd!", "Konto nie zostało utworzone. Błędny numer karty kredytowej!");
