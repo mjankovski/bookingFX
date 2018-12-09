@@ -33,7 +33,7 @@ public class WelcomeController {
     private Label descriptionLabel;
 
     @FXML
-    private Label FXlabel;
+    private Label fxLabel;
 
     @FXML
     private Label hotelLabel;
