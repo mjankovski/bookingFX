@@ -55,13 +55,13 @@
             <Font size="17.0" />
          </font>
       </Label>
-      <Pane fx:id="formPane" layoutX="289.0" layoutY="192.0" prefHeight="452.0" prefWidth="788.0" style="-fx-background-color: #B37700; -fx-border-insets: -8; -fx-border-color: #4D2600; -fx-border-width: 8; -fx-border-radius: 10;">
+      <Pane fx:id="formPane" layoutX="289.0" layoutY="192.0" prefHeight="491.0" prefWidth="788.0" style="-fx-background-color: #B37700; -fx-border-insets: -8; -fx-border-color: #4D2600; -fx-border-width: 8; -fx-border-radius: 10;">
          <children>
-            <Button fx:id="logButton" layoutX="255.0" layoutY="274.0" mnemonicParsing="false" onAction="#loginButtonClicked" prefHeight="66.0" prefWidth="292.0" text="ZALOGUJ" textFill="WHITE">
+            <Button fx:id="logButton" layoutX="255.0" layoutY="260.0" mnemonicParsing="false" onAction="#loginButtonClicked" prefHeight="66.0" prefWidth="292.0" text="ZALOGUJ" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font></Button>
-            <Button fx:id="makeAccountButton" layoutX="255.0" layoutY="358.0" mnemonicParsing="false" onAction="#makeAccountButtonClicked" prefHeight="66.0" prefWidth="292.0" text="ZAŁÓŻ KONTO" textFill="WHITE">
+            <Button fx:id="makeAccountButton" layoutX="255.0" layoutY="340.0" mnemonicParsing="false" onAction="#makeAccountButtonClicked" prefHeight="66.0" prefWidth="292.0" text="ZAŁÓŻ KONTO" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font></Button>
@@ -85,16 +85,13 @@
                   <Font size="26.0" />
                </font>
             </PasswordField>
+            <Label fx:id="wrongDataLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="173.0" layoutY="428.0" prefHeight="39.0" prefWidth="442.0" text="Niepoprawny login lub hasło!" textFill="#f80000" />
          </children>
       </Pane>
-      <Pane layoutY="702.0" prefHeight="66.0" prefWidth="1366.0" style="-fx-background-color: #4D2600;">
-         <children>
-            <Button fx:id="authorsButton" layoutX="1167.0" layoutY="18.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="158.0" style="-fx-background-color: #2222FF; -fx-font-weight: bold;" text="O AUTORACH" textFill="WHITE">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Button>
-         </children>
-      </Pane>
+      <Button fx:id="authorsButton" layoutX="1039.0" layoutY="697.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="251.0" text="O AUTORACH" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

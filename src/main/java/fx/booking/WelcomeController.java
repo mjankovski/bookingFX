@@ -13,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -63,10 +64,19 @@ public class WelcomeController {
     private Button authorsButton;
 
     @FXML
+    private Label wrongDataLabel;
+
+    @FXML
+    public void initialize() {
+       wrongDataLabel.setVisible(false);
+    }
+
+    @FXML
     public void loginButtonClicked(ActionEvent event) {
         int login = accountDAO.login(loginTextField.getText(),passTextField.getText());
         try {
             if(login>0) {
+                wrongDataLabel.setVisible(false);
                 accountDAO.getAccountInformation(loginTextField.getText());
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setControllerFactory(springContext::getBean);
@@ -76,7 +86,12 @@ public class WelcomeController {
 
                 Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 window.setScene(tableViewScene);
+                window.setResizable(false);
+                window.centerOnScreen();
                 window.show();
+            }
+            else {
+                wrongDataLabel.setVisible(true);
             }
         }
         catch(Exception e) {

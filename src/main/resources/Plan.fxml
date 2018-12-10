@@ -7,54 +7,87 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="planAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" style="-fx-background-color: #FFFFCC;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fx.booking.PlanController">
+<AnchorPane fx:id="planAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" stylesheets="@/Plan.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fx.booking.PlanController">
    <children>
-      <ComboBox fx:id="floorComboBox" layoutX="635.0" layoutY="84.0" prefWidth="150.0" promptText="Piętro" />
-      <Label fx:id="filtersLabel" layoutX="14.0" layoutY="71.0" style="-fx-font-weight: bold;" text="Filtry:">
+      <ComboBox fx:id="floorComboBox" layoutX="1157.0" layoutY="203.0" onAction="#floorComboBoxUsed" prefWidth="150.0" promptText="Piętro" />
+      <Label fx:id="filtersLabel" layoutX="104.0" layoutY="203.0" style="-fx-font-weight: bold;" text="Filtry:">
          <font>
             <Font size="23.0" />
          </font>
       </Label>
-      <CheckBox fx:id="twoPeopleCheckBox" layoutX="32.0" layoutY="136.0" mnemonicParsing="false" style="-fx-font-weight: bold;" text="Dwuosobowe" />
-      <CheckBox fx:id="threePeopleChechBox" layoutX="32.0" layoutY="164.0" mnemonicParsing="false" style="-fx-font-weight: bold;" text="Trójosobowe" />
-      <CheckBox fx:id="fourPeopleCheckBox" layoutX="32.0" layoutY="195.0" mnemonicParsing="false" style="-fx-font-weight: bold;" text="Czteroosobowe" />
-      <CheckBox fx:id="fivePeopleCheckBox" layoutX="32.0" layoutY="225.0" mnemonicParsing="false" style="-fx-font-weight: bold;" text="Pięcioosobowe" />
-      <Label fx:id="pepoleNumberLabel" layoutX="21.0" layoutY="105.0" style="-fx-font-weight: bold;" text="Liczba osób:">
+      <CheckBox fx:id="twoPeopleCheckBox" layoutX="121.0" layoutY="285.0" mnemonicParsing="false" style="-fx-font-weight: bold;" text="Dwuosobowe" />
+      <CheckBox fx:id="threePeopleChechBox" layoutX="121.0" layoutY="313.0" mnemonicParsing="false" style="-fx-font-weight: bold;" text="Trójosobowe" />
+      <CheckBox fx:id="fourPeopleCheckBox" layoutX="121.0" layoutY="344.0" mnemonicParsing="false" style="-fx-font-weight: bold;" text="Czteroosobowe" />
+      <CheckBox fx:id="fivePeopleCheckBox" layoutX="121.0" layoutY="374.0" mnemonicParsing="false" style="-fx-font-weight: bold;" text="Pięcioosobowe" />
+      <Label fx:id="pepoleNumberLabel" layoutX="111.0" layoutY="246.0" prefWidth="134.0" style="-fx-font-weight: bold;" text="Liczba osób:">
          <font>
             <Font size="19.0" />
          </font></Label>
-      <Pane prefHeight="66.0" prefWidth="842.0" style="-fx-background-color: #3399FF;">
-         <children>
-            <Label fx:id="titleLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="276.0" layoutY="10.0" prefHeight="34.0" prefWidth="256.0" style="-fx-font-weight: bold; -fx-font-family: constantia;" text="Plan hotelu" textFill="WHITE">
-               <font>
-                  <Font size="38.0" />
-               </font>
-            </Label>
-         </children>
-      </Pane>
-      <Slider layoutX="42.0" layoutY="275.0" prefHeight="14.0" prefWidth="80.0" />
-      <Slider layoutX="42.0" layoutY="308.0" prefHeight="14.0" prefWidth="80.0" />
-      <TextField layoutX="132.0" layoutY="302.0" prefHeight="26.0" prefWidth="55.0" />
-      <TextField layoutX="132.0" layoutY="269.0" prefHeight="26.0" prefWidth="55.0" />
-      <Label layoutX="19.0" layoutY="243.0" style="-fx-font-weight: bold;" text="Cena:">
+      <Slider layoutX="132.0" layoutY="455.0" prefHeight="14.0" prefWidth="80.0" />
+      <Slider layoutX="132.0" layoutY="488.0" prefHeight="14.0" prefWidth="80.0" />
+      <TextField layoutX="222.0" layoutY="482.0" prefHeight="26.0" prefWidth="55.0" />
+      <TextField layoutX="222.0" layoutY="449.0" prefHeight="26.0" prefWidth="55.0" />
+      <Label layoutX="118.0" layoutY="412.0" style="-fx-font-weight: bold;" text="Cena:">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label layoutX="18.0" layoutY="274.0" style="-fx-font-weight: bold;" text="od" />
-      <Label layoutX="18.0" layoutY="307.0" style="-fx-font-weight: bold;" text="do" />
-      <ScrollPane layoutX="221.0" layoutY="137.0" prefHeight="197.0" prefWidth="556.0">
-         <content>
-            <Button fx:id="sampleButton" mnemonicParsing="false" onAction="#sampleButtonClicked" text="Informacja" />
-         </content></ScrollPane>
-      <Button fx:id="menuButton" layoutX="42.0" layoutY="354.0" mnemonicParsing="false" onAction="#menuButtonClicked" style="-fx-background-color: #3399FF; -fx-font-weight: bold;" text="MENU GŁÓWNE" textFill="WHITE">
+      <Label layoutX="108.0" layoutY="454.0" style="-fx-font-weight: bold;" text="od" />
+      <Label layoutX="108.0" layoutY="487.0" style="-fx-font-weight: bold;" text="do" />
+      <Button fx:id="menuButton" layoutX="1118.0" layoutY="697.0" mnemonicParsing="false" onAction="#menuButtonClicked" prefHeight="55.0" prefWidth="181.0" style="-fx-background-color: #3399FF; -fx-font-weight: bold;" text="WYLOGUJ" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>
       </Button>
+      <Pane prefHeight="101.0" prefWidth="1381.0" style="-fx-background-color: #4D2600;">
+         <children>
+            <Label fx:id="hotelLabel" layoutX="74.0" layoutY="-2.0" prefHeight="81.0" prefWidth="199.0" text="Hotel " textAlignment="JUSTIFY" textFill="WHITE">
+               <font>
+                  <Font size="72.0" />
+               </font>
+            </Label>
+            <Label fx:id="fxLabel" layoutX="256.0" layoutY="-18.0" prefHeight="113.0" prefWidth="125.0" style="-fx-font-family: constantia; -fx-font-weight: bold;" text="FX" textFill="WHITE">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="24.0" fitWidth="37.0" layoutX="113.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@img/star.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="24.0" fitWidth="37.0" layoutX="150.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@img/star.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="24.0" fitWidth="37.0" layoutX="184.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@img/star.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="24.0" fitWidth="28.0" layoutX="220.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@img/star.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="24.0" fitWidth="37.0" layoutX="257.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@img/star.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Button fx:id="sampleButton" mnemonicParsing="false" onAction="#sampleButtonClicked" text="Informacja" />
+      <ScrollPane layoutX="370.0" layoutY="203.0" prefHeight="418.0" prefWidth="672.0">
+         <content>
+            <Pane fx:id="mapPane" prefHeight="554.0" prefWidth="723.0" />
+         </content></ScrollPane>
    </children>
 </AnchorPane>

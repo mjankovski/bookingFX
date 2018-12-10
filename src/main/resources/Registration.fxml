@@ -2,50 +2,83 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="accountAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" style="-fx-background-color: #FFFFCC;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fx.booking.RegistrationController">
+<AnchorPane fx:id="accountAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: #FFFFCC;" stylesheets="@/Registration.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fx.booking.RegistrationController">
    <children>
-      <TextField fx:id="nameTextField" layoutX="98.0" layoutY="82.0" promptText="Wpisz imię" />
-      <TextField fx:id="surnameTextfield" layoutX="363.0" layoutY="81.0" promptText="Wpisz nazwisko" />
-      <Label fx:id="nameLabel" layoutX="98.0" layoutY="60.0" style="-fx-font-weight: bold;" text="Imię:" />
-      <Label fx:id="surnameLabel" layoutX="365.0" layoutY="60.0" style="-fx-font-weight: bold;" text="Nazwisko:" />
-      <Label fx:id="creditCardLabel" layoutX="100.0" layoutY="234.0" prefHeight="18.0" prefWidth="173.0" style="-fx-font-weight: bold;" text="Numer karty kredytowej:" />
-      <TextField fx:id="partFourCardNumberTextField1" layoutX="100.0" layoutY="260.0" prefHeight="26.0" prefWidth="65.0" promptText="XXXX" />
-      <Label fx:id="peselLabel" layoutX="102.0" layoutY="179.0" style="-fx-font-weight: bold;" text="PESEL:" />
-      <TextField fx:id="peselTextField" layoutX="102.0" layoutY="201.0" promptText="00000000000" />
-      <Label fx:id="phoneNumberLabel" layoutX="102.0" layoutY="295.0" style="-fx-font-weight: bold;" text="Numer telefonu:" />
-      <TextField fx:id="directionNumbertextField" layoutX="120.0" layoutY="321.0" prefHeight="26.0" prefWidth="37.0" promptText="48" />
-      <TextField fx:id="phoneNumberTextField" layoutX="168.0" layoutY="321.0" prefHeight="26.0" prefWidth="118.0" promptText="000000000" />
-      <Label fx:id="plusLabel" layoutX="104.0" layoutY="326.0" text="+" />
-      <Label fx:id="loginLabel" layoutX="100.0" layoutY="119.0" style="-fx-font-weight: bold;" text="Login:" />
-      <Label fx:id="passwordLabel" layoutX="362.0" layoutY="118.0" style="-fx-font-weight: bold;" text="Hasło:" />
-      <TextField fx:id="loginTextField" layoutX="100.0" layoutY="144.0" promptText="Wpisz login" />
-      <TextField fx:id="passwordTextField" layoutX="364.0" layoutY="143.0" promptText="Wpisz hasło" />
-      <TextField fx:id="emailTextField" layoutX="365.0" layoutY="200.0" promptText="Wpisz swój e-mail" />
-      <Label fx:id="emailLabel" layoutX="366.0" layoutY="178.0" style="-fx-font-weight: bold;" text="E-mail" />
-      <Button fx:id="menuButton" layoutX="59.0" layoutY="359.0" mnemonicParsing="false" onAction="#menuButtonClicked" style="-fx-background-color: #3399FF; -fx-font-weight: bold;" text="MENU GŁÓWNE" textFill="WHITE">
+      <Label fx:id="nameLabel" layoutX="98.0" layoutY="139.0" style="-fx-font-weight: bold;" text="Imię:" />
+      <Label fx:id="surnameLabel" layoutX="365.0" layoutY="139.0" style="-fx-font-weight: bold;" text="Nazwisko:" />
+      <TextField fx:id="nameTextField" layoutX="98.0" layoutY="254.0" promptText="Wpisz imię" />
+      <TextField fx:id="surnameTextfield" layoutX="363.0" layoutY="253.0" promptText="Wpisz nazwisko" />
+      <Label fx:id="loginLabel" layoutX="100.0" layoutY="291.0" style="-fx-font-weight: bold;" text="Login:" />
+      <Label fx:id="passwordLabel" layoutX="362.0" layoutY="290.0" style="-fx-font-weight: bold;" text="Hasło:" />
+      <TextField fx:id="loginTextField" layoutX="100.0" layoutY="316.0" promptText="Wpisz login" />
+      <PasswordField fx:id="pass" layoutX="363.0" layoutY="316.0" promptText="Wpisz hasło" />
+      <Label fx:id="peselLabel" layoutX="102.0" layoutY="351.0" style="-fx-font-weight: bold;" text="PESEL:" />
+      <Label fx:id="emailLabel" layoutX="366.0" layoutY="351.0" prefHeight="21.0" prefWidth="101.0" style="-fx-font-weight: bold;" text="E-mail" />
+      <TextField fx:id="peselTextField" layoutX="102.0" layoutY="373.0" onKeyPressed="#peselTextFieldEntered" promptText="00000000000" />
+      <TextField fx:id="emailTextField" layoutX="365.0" layoutY="372.0" promptText="Wpisz swój e-mail" />
+      <Label fx:id="creditCardLabel" layoutX="105.0" layoutY="411.0" prefHeight="21.0" prefWidth="187.0" style="-fx-font-weight: bold;" text="Numer karty kredytowej:" />
+      <TextField fx:id="partFourCardNumberTextField1" layoutX="100.0" layoutY="432.0" onKeyPressed="#cardNumberTextField1Entered" prefHeight="26.0" prefWidth="65.0" promptText="XXXX" />
+      <TextField fx:id="partFourCardNumberTextField2" layoutX="182.0" layoutY="432.0" onKeyPressed="#cardNumberTextField2Entered" prefHeight="26.0" prefWidth="65.0" promptText="XXXX" />
+      <TextField fx:id="partFourCardNumberTextField3" layoutX="268.0" layoutY="432.0" onKeyPressed="#cardNumberTextField3Entered" prefHeight="26.0" prefWidth="65.0" promptText="XXXX" />
+      <TextField fx:id="partFourCardNumberTextField4" layoutX="352.0" layoutY="432.0" onKeyPressed="#cardNumberTextField4Entered" prefHeight="26.0" prefWidth="65.0" promptText="XXXX" />
+      <Label fx:id="phoneNumberLabel" layoutX="102.0" layoutY="467.0" style="-fx-font-weight: bold;" text="Numer telefonu:" />
+      <Label fx:id="plusLabel" layoutX="104.0" layoutY="498.0" text="+" />
+      <TextField fx:id="directionNumbertextField" layoutX="120.0" layoutY="493.0" onKeyPressed="#directionNumberTextFieldEntered" prefHeight="26.0" prefWidth="37.0" promptText="48" />
+      <TextField fx:id="phoneNumberTextField" layoutX="168.0" layoutY="493.0" onKeyPressed="#numberTextFieldEntered" prefHeight="26.0" prefWidth="118.0" promptText="000000000" />
+      <Button fx:id="menuButton" layoutX="59.0" layoutY="531.0" mnemonicParsing="false" onAction="#menuButtonClicked" style="-fx-background-color: #3399FF; -fx-font-weight: bold;" text="MENU GŁÓWNE" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font></Button>
-      <Button fx:id="makeAccountButton" layoutX="595.0" layoutY="334.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="149.0" style="-fx-background-color: #2222FF; -fx-font-weight: bold;" text="ZAŁÓŻ KONTO" textFill="WHITE">
+      <Button fx:id="makeAccountButton" layoutX="595.0" layoutY="506.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="149.0" style="-fx-background-color: #2222FF; -fx-font-weight: bold;" text="ZAŁÓŻ KONTO" textFill="WHITE">
          <font>
             <Font size="17.0" />
          </font></Button>
-      <Pane layoutX="-14.0" layoutY="-5.0" prefHeight="60.0" prefWidth="816.0" style="-fx-background-color: #3399FF;">
+      <Pane layoutX="-7.0" prefHeight="101.0" prefWidth="1381.0" style="-fx-background-color: #4D2600;">
          <children>
-            <Label fx:id="titleLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="109.0" layoutY="5.0" prefHeight="51.0" prefWidth="598.0" style="-fx-font-weight: bold; -fx-font-family: constantia;" text="Zakładanie konta klienta" textAlignment="JUSTIFY" textFill="WHITE">
+            <Label fx:id="hotelLabel" layoutX="74.0" layoutY="-2.0" prefHeight="81.0" prefWidth="199.0" text="Hotel " textAlignment="JUSTIFY" textFill="WHITE">
                <font>
-                  <Font size="35.0" />
+                  <Font size="72.0" />
                </font>
             </Label>
+            <Label fx:id="fxLabel" layoutX="256.0" layoutY="-18.0" prefHeight="113.0" prefWidth="125.0" style="-fx-font-family: constantia; -fx-font-weight: bold;" text="FX" textFill="WHITE">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="24.0" fitWidth="37.0" layoutX="113.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@img/star.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="24.0" fitWidth="37.0" layoutX="150.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@img/star.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="24.0" fitWidth="37.0" layoutX="184.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@img/star.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="24.0" fitWidth="28.0" layoutX="220.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@img/star.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="24.0" fitWidth="37.0" layoutX="257.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@img/star.png" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
-      <TextField fx:id="partFourCardNumberTextField4" layoutX="351.0" layoutY="260.0" prefHeight="26.0" prefWidth="65.0" promptText="XXXX" />
-      <TextField fx:id="partFourCardNumberTextField3" layoutX="268.0" layoutY="260.0" prefHeight="26.0" prefWidth="65.0" promptText="XXXX" />
-      <TextField fx:id="partFourCardNumberTextField2" layoutX="182.0" layoutY="260.0" prefHeight="26.0" prefWidth="65.0" promptText="XXXX" />
    </children>
 </AnchorPane>

@@ -1,5 +1,6 @@
 package fx.booking;
 
+import com.sun.org.apache.xpath.internal.functions.FuncFloor;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,8 +12,12 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -42,7 +47,7 @@ public class PlanController {
     private Label titleLabel;
 
     @FXML
-    private ComboBox<?> floorComboBox;
+    private ComboBox<Integer> floorComboBox;
 
     @FXML
     private Label filtersLabel;
@@ -66,8 +71,11 @@ public class PlanController {
     private Button menuButton;
 
     @FXML
-    public void initialize() {
+    private Pane mapPane;
 
+    @FXML
+    public void initialize() {
+        floorComboBox.getItems().addAll(1,2,3);
     }
 
     @FXML
@@ -103,6 +111,22 @@ public class PlanController {
         }
         catch(Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void floorComboBoxUsed(ActionEvent e) {
+
+        switch(floorComboBox.getValue()) {
+            case 1:
+                mapPane.setStyle("-fx-background-image: url(img/Floor1.jpg);");
+                break;
+            case 2:
+                mapPane.setStyle("-fx-background-image: url(img/Floor2.jpg);");
+                break;
+            case 3:
+                mapPane.setStyle("-fx-background-image: url(img/Floor3.jpg);");
+                break;
         }
     }
 

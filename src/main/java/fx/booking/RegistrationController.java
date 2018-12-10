@@ -11,6 +11,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.simplejavamail.email.Email;
@@ -112,6 +113,60 @@ public class RegistrationController {
     @FXML
     private TextField partFourCardNumberTextField2;
 
+    @FXML
+    public void initialize() {
+
+    }
+
+
+    @FXML
+    public void peselTextFieldEntered(KeyEvent event) {
+        if(peselTextField.getText().length() >= 11) {
+            emailTextField.requestFocus();
+        }
+    }
+
+    @FXML
+    public void cardNumberTextField1Entered (KeyEvent event) {
+        if(partFourCardNumberTextField1.getText().length() >= 4) {
+           partFourCardNumberTextField2.requestFocus();
+        }
+    }
+
+    @FXML
+    public void cardNumberTextField2Entered(KeyEvent event) {
+        if(partFourCardNumberTextField2.getText().length() >= 4) {
+            partFourCardNumberTextField3.requestFocus();
+        }
+    }
+
+    @FXML
+    public void cardNumberTextField3Entered(KeyEvent event) {
+        if(partFourCardNumberTextField3.getText().length() >= 4) {
+            partFourCardNumberTextField4.requestFocus();
+        }
+    }
+
+    @FXML
+    public void cardNumberTextField4Entered(KeyEvent event) {
+        if(partFourCardNumberTextField4.getText().length() >= 4) {
+            directionNumbertextField.requestFocus();
+        }
+    }
+
+    @FXML
+    public void directionNumberTextFieldEntered(KeyEvent event) {
+        if(directionNumbertextField.getText().length() >= 2) {
+            phoneNumberTextField.requestFocus();
+        }
+    }
+
+    @FXML
+    public void numberTextFieldEntered(KeyEvent event) {
+        if(phoneNumberTextField.getText().length() >= 9) {
+            menuButton.requestFocus();
+        }
+    }
 
     @FXML
     public void menuButtonClicked(ActionEvent event) throws IOException {
