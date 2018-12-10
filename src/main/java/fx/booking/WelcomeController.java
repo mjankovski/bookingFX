@@ -64,7 +64,7 @@ public class WelcomeController {
 
     @FXML
     public void loginButtonClicked(ActionEvent event) {
-        int login = accountDAO.login(loginTextField.getText(),passTextField.getText());
+        int login = accountDAO.login(loginTextField.getText(),Hash.getSHA256(passTextField.getText(), accountDAO.getSalt(loginTextField.getText())));
         try {
             if(login>0) {
                 accountDAO.getAccountInformation(loginTextField.getText());

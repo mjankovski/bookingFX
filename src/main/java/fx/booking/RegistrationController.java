@@ -26,6 +26,7 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 
 @Controller
 @PropertySource("classpath:mail.properties")
@@ -116,7 +117,7 @@ public class RegistrationController {
     @FXML
     public void menuButtonClicked(ActionEvent event) throws IOException {
         /*to nie powinno byc tu*/
-        boolean isSigned;
+        boolean isSigned = false;
         try {
             isSigned = accountDAO.createAccount(
                     loginTextField.getText(),
