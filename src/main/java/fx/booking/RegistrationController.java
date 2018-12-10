@@ -88,7 +88,7 @@ public class RegistrationController {
     private TextField loginTextField;
 
     @FXML
-    private TextField passwordTextField;
+    private TextField passField;
 
     @FXML
     private TextField emailTextField;
@@ -211,7 +211,7 @@ public class RegistrationController {
         try {
             isSigned = accountDAO.createAccount(
                     loginTextField.getText(),
-                    passwordTextField.getText(),
+                    passField.getText(),
                     nameTextField.getText(),
                     surnameTextfield.getText(),
                     emailTextField.getText(),
