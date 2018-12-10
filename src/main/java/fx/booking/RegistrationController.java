@@ -11,6 +11,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -122,48 +123,83 @@ public class RegistrationController {
     @FXML
     public void peselTextFieldEntered(KeyEvent event) {
         if(peselTextField.getText().length() >= 11) {
+            if(event.getCode() == KeyCode.BACK_SPACE || event.getCode() == KeyCode.TAB) {
+                return;
+            }
             emailTextField.requestFocus();
+            String text = peselTextField.getText().substring(0,11);
+            peselTextField.setText(text);
         }
     }
 
     @FXML
     public void cardNumberTextField1Entered (KeyEvent event) {
         if(partFourCardNumberTextField1.getText().length() >= 4) {
-           partFourCardNumberTextField2.requestFocus();
+            if(event.getCode() == KeyCode.BACK_SPACE || event.getCode() == KeyCode.TAB) {
+                return;
+            }
+            partFourCardNumberTextField2.requestFocus();
+            String text = partFourCardNumberTextField1.getText().substring(0,4);
+            partFourCardNumberTextField1.setText(text);
         }
     }
 
     @FXML
     public void cardNumberTextField2Entered(KeyEvent event) {
         if(partFourCardNumberTextField2.getText().length() >= 4) {
+            if(event.getCode() == KeyCode.BACK_SPACE || event.getCode() == KeyCode.TAB) {
+                return;
+            }
             partFourCardNumberTextField3.requestFocus();
+            String text = partFourCardNumberTextField2.getText().substring(0,4);
+            partFourCardNumberTextField2.setText(text);
         }
     }
 
     @FXML
     public void cardNumberTextField3Entered(KeyEvent event) {
         if(partFourCardNumberTextField3.getText().length() >= 4) {
+            if(event.getCode() == KeyCode.BACK_SPACE || event.getCode() == KeyCode.TAB) {
+                return;
+            }
             partFourCardNumberTextField4.requestFocus();
+            String text = partFourCardNumberTextField3.getText().substring(0,4);
+            partFourCardNumberTextField3.setText(text);
         }
     }
 
     @FXML
     public void cardNumberTextField4Entered(KeyEvent event) {
         if(partFourCardNumberTextField4.getText().length() >= 4) {
+            if(event.getCode() == KeyCode.BACK_SPACE || event.getCode() == KeyCode.TAB) {
+                return;
+            }
             directionNumbertextField.requestFocus();
+            String text = partFourCardNumberTextField4.getText().substring(0,4);
+            partFourCardNumberTextField4.setText(text);
         }
     }
 
     @FXML
     public void directionNumberTextFieldEntered(KeyEvent event) {
         if(directionNumbertextField.getText().length() >= 2) {
+            if(event.getCode() == KeyCode.BACK_SPACE || event.getCode() == KeyCode.TAB) {
+                return;
+            }
             phoneNumberTextField.requestFocus();
+            String text = directionNumbertextField.getText().substring(0,2);
+            directionNumbertextField.setText(text);
         }
     }
 
     @FXML
     public void numberTextFieldEntered(KeyEvent event) {
         if(phoneNumberTextField.getText().length() >= 9) {
+            if(event.getCode() == KeyCode.BACK_SPACE || event.getCode() == KeyCode.TAB) {
+                return;
+            }
+            phoneNumberTextField.requestFocus();
+            String text = phoneNumberTextField.getText().substring(0,9);
             menuButton.requestFocus();
         }
     }

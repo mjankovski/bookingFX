@@ -22,17 +22,17 @@
       <PasswordField fx:id="pass" layoutX="363.0" layoutY="316.0" promptText="Wpisz hasło" />
       <Label fx:id="peselLabel" layoutX="102.0" layoutY="351.0" style="-fx-font-weight: bold;" text="PESEL:" />
       <Label fx:id="emailLabel" layoutX="366.0" layoutY="351.0" prefHeight="21.0" prefWidth="101.0" style="-fx-font-weight: bold;" text="E-mail" />
-      <TextField fx:id="peselTextField" layoutX="102.0" layoutY="373.0" onKeyReleased="#peselTextFieldEntered" promptText="00000000000" />
+      <TextField fx:id="peselTextField" layoutX="102.0" layoutY="373.0" onKeyPressed="#peselTextFieldEntered" onKeyReleased="#peselTextFieldEntered" promptText="00000000000" />
       <TextField fx:id="emailTextField" layoutX="365.0" layoutY="372.0" promptText="Wpisz swój e-mail" />
       <Label fx:id="creditCardLabel" layoutX="105.0" layoutY="411.0" prefHeight="21.0" prefWidth="187.0" style="-fx-font-weight: bold;" text="Numer karty kredytowej:" />
-      <TextField fx:id="partFourCardNumberTextField1" layoutX="100.0" layoutY="432.0" onKeyReleased="#cardNumberTextField1Entered" prefHeight="26.0" prefWidth="65.0" promptText="XXXX" />
-      <TextField fx:id="partFourCardNumberTextField2" layoutX="182.0" layoutY="432.0" onKeyReleased="#cardNumberTextField2Entered" prefHeight="26.0" prefWidth="65.0" promptText="XXXX" />
-      <TextField fx:id="partFourCardNumberTextField3" layoutX="268.0" layoutY="432.0" onKeyReleased="#cardNumberTextField3Entered" prefHeight="26.0" prefWidth="65.0" promptText="XXXX" />
-      <TextField fx:id="partFourCardNumberTextField4" layoutX="352.0" layoutY="432.0" onKeyReleased="#cardNumberTextField4Entered" prefHeight="26.0" prefWidth="65.0" promptText="XXXX" />
+      <TextField fx:id="partFourCardNumberTextField1" layoutX="100.0" layoutY="432.0" onKeyPressed="#cardNumberTextField1Entered" onKeyReleased="#cardNumberTextField1Entered" prefHeight="26.0" prefWidth="65.0" promptText="XXXX" />
+      <TextField fx:id="partFourCardNumberTextField2" layoutX="182.0" layoutY="432.0" onKeyPressed="#cardNumberTextField2Entered" onKeyReleased="#cardNumberTextField2Entered" prefHeight="26.0" prefWidth="65.0" promptText="XXXX" />
+      <TextField fx:id="partFourCardNumberTextField3" layoutX="268.0" layoutY="432.0" onKeyPressed="#cardNumberTextField3Entered" onKeyReleased="#cardNumberTextField3Entered" prefHeight="26.0" prefWidth="65.0" promptText="XXXX" />
+      <TextField fx:id="partFourCardNumberTextField4" layoutX="352.0" layoutY="432.0" onKeyPressed="#cardNumberTextField4Entered" onKeyReleased="#cardNumberTextField4Entered" prefHeight="26.0" prefWidth="65.0" promptText="XXXX" />
       <Label fx:id="phoneNumberLabel" layoutX="102.0" layoutY="467.0" style="-fx-font-weight: bold;" text="Numer telefonu:" />
       <Label fx:id="plusLabel" layoutX="104.0" layoutY="498.0" text="+" />
-      <TextField fx:id="directionNumbertextField" layoutX="120.0" layoutY="493.0" onKeyReleased="#directionNumberTextFieldEntered" prefHeight="26.0" prefWidth="37.0" promptText="48" />
-      <TextField fx:id="phoneNumberTextField" layoutX="168.0" layoutY="493.0" onKeyReleased="#numberTextFieldEntered" prefHeight="26.0" prefWidth="118.0" promptText="000000000" />
+      <TextField fx:id="directionNumbertextField" layoutX="120.0" layoutY="493.0" onKeyPressed="#directionNumberTextFieldEntered" onKeyReleased="#directionNumberTextFieldEntered" prefHeight="26.0" prefWidth="37.0" promptText="48" />
+      <TextField fx:id="phoneNumberTextField" layoutX="168.0" layoutY="493.0" onKeyPressed="#numberTextFieldEntered" onKeyReleased="#numberTextFieldEntered" prefHeight="26.0" prefWidth="118.0" promptText="000000000" />
       <Button fx:id="menuButton" layoutX="59.0" layoutY="531.0" mnemonicParsing="false" onAction="#menuButtonClicked" style="-fx-background-color: #3399FF; -fx-font-weight: bold;" text="MENU GŁÓWNE" textFill="WHITE">
          <font>
             <Font size="15.0" />
