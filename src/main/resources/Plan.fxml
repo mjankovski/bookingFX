@@ -15,8 +15,8 @@
 
 <AnchorPane fx:id="planAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" stylesheets="@/Plan.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fx.booking.PlanController">
    <children>
-      <ComboBox fx:id="floorComboBox" layoutX="1157.0" layoutY="203.0" onAction="#floorComboBoxUsed" prefWidth="150.0" promptText="Piętro" />
-      <Label fx:id="filtersLabel" layoutX="104.0" layoutY="203.0" style="-fx-font-weight: bold;" text="Filtry:">
+      <ComboBox fx:id="floorComboBox" layoutX="1118.0" layoutY="198.0" onAction="#floorComboBoxUsed" prefHeight="55.0" prefWidth="150.0" promptText="Piętro" />
+      <Label fx:id="filtersLabel" layoutX="104.0" layoutY="181.0" prefHeight="44.0" prefWidth="134.0" style="-fx-font-weight: bold;" text="Filtry:">
          <font>
             <Font size="23.0" />
          </font>
