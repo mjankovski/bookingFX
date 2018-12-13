@@ -210,6 +210,27 @@ public class PlanController {
     public void initialize() {
         floorComboBox.getItems().addAll(1,2);
         mapPane.setStyle("-fx-background-image: url(img/Floor1.png);");
+        room201Button.setVisible(false);
+        room202Button.setVisible(false);
+        room203Button.setVisible(false);
+        room204Button.setVisible(false);
+        room205Button.setVisible(false);
+        room206Button.setVisible(false);
+        room207Button.setVisible(false);
+        room208Button.setVisible(false);
+        room209Button.setVisible(false);
+        room210Button.setVisible(false);
+        room211Button.setVisible(false);
+        room212Button.setVisible(false);
+        room213Button.setVisible(false);
+        room214Button.setVisible(false);
+        room215Button.setVisible(false);
+        room216Button.setVisible(false);
+        room217Button.setVisible(false);
+        room218Button.setVisible(false);
+        room219Button.setVisible(false);
+        room220Button.setVisible(false);
+        room221Button.setVisible(false);
     }
 
     @FXML
