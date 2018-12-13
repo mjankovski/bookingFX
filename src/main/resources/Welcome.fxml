@@ -85,7 +85,6 @@
                   <Font size="26.0" />
                </font>
             </PasswordField>
-            <Label fx:id="wrongDataLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="173.0" layoutY="428.0" prefHeight="39.0" prefWidth="442.0" text="Niepoprawny login lub hasło!" textFill="#f80000" />
          </children>
       </Pane>
       <Button fx:id="authorsButton" layoutX="1039.0" layoutY="697.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="251.0" text="O AUTORACH" textFill="WHITE">

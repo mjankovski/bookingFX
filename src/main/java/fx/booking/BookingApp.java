@@ -29,13 +29,11 @@ public class BookingApp extends Application{
 
         @Override
         public void start(Stage primaryStage) throws Exception{
-            fxmlLoader.setLocation(getClass().getResource("/Welcome.fxml"));
+            fxmlLoader.setLocation(getClass().getResource("/Plan.fxml"));
             rootNode = fxmlLoader.load();
 
             primaryStage.setTitle("bookingFX");
             primaryStage.setScene(new Scene(rootNode));
-            primaryStage.setResizable(false);
-            primaryStage.initStyle(StageStyle.UTILITY);
             primaryStage.centerOnScreen();
             primaryStage.show();
         }

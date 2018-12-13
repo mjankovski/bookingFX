@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
@@ -7,87 +8,168 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="planAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" stylesheets="@/Plan.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fx.booking.PlanController">
+<VBox prefHeight="850.0" prefWidth="1200.0" style="-fx-background-color: #CCCCCC;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fx.booking.PlanController">
    <children>
-      <ComboBox fx:id="floorComboBox" layoutX="1118.0" layoutY="198.0" onAction="#floorComboBoxUsed" prefHeight="55.0" prefWidth="150.0" promptText="Piętro" />
-      <Label fx:id="filtersLabel" layoutX="104.0" layoutY="181.0" prefHeight="44.0" prefWidth="134.0" style="-fx-font-weight: bold;" text="Filtry:">
-         <font>
-            <Font size="23.0" />
-         </font>
-      </Label>
-      <CheckBox fx:id="twoPeopleCheckBox" layoutX="121.0" layoutY="285.0" mnemonicParsing="false" style="-fx-font-weight: bold;" text="Dwuosobowe" />
-      <CheckBox fx:id="threePeopleChechBox" layoutX="121.0" layoutY="313.0" mnemonicParsing="false" style="-fx-font-weight: bold;" text="Trójosobowe" />
-      <CheckBox fx:id="fourPeopleCheckBox" layoutX="121.0" layoutY="344.0" mnemonicParsing="false" style="-fx-font-weight: bold;" text="Czteroosobowe" />
-      <CheckBox fx:id="fivePeopleCheckBox" layoutX="121.0" layoutY="374.0" mnemonicParsing="false" style="-fx-font-weight: bold;" text="Pięcioosobowe" />
-      <Label fx:id="pepoleNumberLabel" layoutX="111.0" layoutY="246.0" prefWidth="134.0" style="-fx-font-weight: bold;" text="Liczba osób:">
-         <font>
-            <Font size="19.0" />
-         </font></Label>
-      <Slider layoutX="132.0" layoutY="455.0" prefHeight="14.0" prefWidth="80.0" />
-      <Slider layoutX="132.0" layoutY="488.0" prefHeight="14.0" prefWidth="80.0" />
-      <TextField layoutX="222.0" layoutY="482.0" prefHeight="26.0" prefWidth="55.0" />
-      <TextField layoutX="222.0" layoutY="449.0" prefHeight="26.0" prefWidth="55.0" />
-      <Label layoutX="118.0" layoutY="412.0" style="-fx-font-weight: bold;" text="Cena:">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Label layoutX="108.0" layoutY="454.0" style="-fx-font-weight: bold;" text="od" />
-      <Label layoutX="108.0" layoutY="487.0" style="-fx-font-weight: bold;" text="do" />
-      <Button fx:id="menuButton" layoutX="1118.0" layoutY="697.0" mnemonicParsing="false" onAction="#menuButtonClicked" prefHeight="55.0" prefWidth="181.0" style="-fx-background-color: #3399FF; -fx-font-weight: bold;" text="WYLOGUJ" textFill="WHITE">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Button>
-      <Pane prefHeight="101.0" prefWidth="1381.0" style="-fx-background-color: #4D2600;">
+      <HBox prefHeight="83.0" prefWidth="1200.0">
          <children>
-            <Label fx:id="hotelLabel" layoutX="74.0" layoutY="-2.0" prefHeight="81.0" prefWidth="199.0" text="Hotel " textAlignment="JUSTIFY" textFill="WHITE">
+            <Label fx:id="hotelLabel" prefHeight="81.0" prefWidth="199.0" text="Hotel " textAlignment="JUSTIFY" HBox.hgrow="ALWAYS">
                <font>
-                  <Font size="72.0" />
+                  <Font size="46.0" />
                </font>
             </Label>
-            <Label fx:id="fxLabel" layoutX="256.0" layoutY="-18.0" prefHeight="113.0" prefWidth="125.0" style="-fx-font-family: constantia; -fx-font-weight: bold;" text="FX" textFill="WHITE">
+            <Label fx:id="fxLabel" prefHeight="113.0" prefWidth="125.0" style="-fx-font-family: constantia; -fx-font-weight: bold;" text="FX" HBox.hgrow="ALWAYS">
                <font>
                   <Font size="30.0" />
                </font>
             </Label>
-            <ImageView fitHeight="24.0" fitWidth="37.0" layoutX="113.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@img/star.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="24.0" fitWidth="37.0" layoutX="150.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@img/star.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="24.0" fitWidth="37.0" layoutX="184.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@img/star.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="24.0" fitWidth="28.0" layoutX="220.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@img/star.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="24.0" fitWidth="37.0" layoutX="257.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@img/star.png" />
-               </image>
-            </ImageView>
          </children>
-      </Pane>
-      <Button fx:id="sampleButton" mnemonicParsing="false" onAction="#sampleButtonClicked" text="Informacja" />
-      <ScrollPane layoutX="370.0" layoutY="203.0" prefHeight="418.0" prefWidth="672.0">
-         <content>
-            <Pane fx:id="mapPane" prefHeight="554.0" prefWidth="723.0" />
-         </content></ScrollPane>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+         <children>
+            <VBox prefHeight="605.0" prefWidth="240.0">
+               <children>
+                  <Label fx:id="filtersLabel" prefHeight="44.0" prefWidth="134.0" style="-fx-font-weight: bold;" text="Filtry:">
+                     <font>
+                        <Font size="23.0" />
+                     </font>
+                     <padding>
+                        <Insets right="1.0" />
+                     </padding>
+                  </Label>
+                  <ComboBox fx:id="floorComboBox" onAction="#floorComboBoxUsed" prefHeight="55.0" prefWidth="150.0" promptText="Piętro" />
+                  <Label fx:id="pepoleNumberLabel" prefWidth="134.0" style="-fx-font-weight: bold;" text="Liczba osób:">
+                     <font>
+                        <Font size="19.0" />
+                     </font>
+                  </Label>
+                  <CheckBox fx:id="twoPeopleCheckBox" mnemonicParsing="false" style="-fx-font-weight: bold;" text="Dwuosobowe" />
+                  <CheckBox fx:id="threePeopleChechBox" mnemonicParsing="false" style="-fx-font-weight: bold;" text="Trójosobowe" />
+                  <CheckBox fx:id="fourPeopleCheckBox" mnemonicParsing="false" style="-fx-font-weight: bold;" text="Czteroosobowe" />
+                  <CheckBox fx:id="fivePeopleCheckBox" mnemonicParsing="false" style="-fx-font-weight: bold;" text="Pięcioosobowe" />
+                  <Label style="-fx-font-weight: bold;" text="Cena:">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <TextField prefHeight="31.0" prefWidth="237.0" />
+                  <Slider prefHeight="18.0" prefWidth="287.0" />
+                  <Label style="-fx-font-weight: bold;" text="od" />
+                  <TextField prefHeight="31.0" prefWidth="253.0" />
+                  <Slider prefHeight="18.0" prefWidth="252.0" />
+                  <Label style="-fx-font-weight: bold;" text="do" />
+               </children>
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
+            </VBox>
+            <VBox prefHeight="476.0" prefWidth="344.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <ScrollPane prefHeight="600.0" prefWidth="800.0" VBox.vgrow="ALWAYS">
+                     <content>
+                        <Pane fx:id="mapPane" nodeOrientation="LEFT_TO_RIGHT" prefHeight="789.0" prefWidth="972.0">
+                           <children>
+                              <Button fx:id="room101Button" layoutX="52.0" layoutY="159.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="59.0" text="101" />
+                              <Button fx:id="room102Button" layoutX="133.0" layoutY="159.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="60.0" text="102" />
+                              <Button fx:id="room103Button" layoutX="210.0" layoutY="159.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="59.0" text="103" />
+                              <Button fx:id="room104Button" layoutX="288.0" layoutY="159.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="62.0" text="104" />
+                              <Button fx:id="room105Button" layoutX="366.0" layoutY="159.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="64.0" text="105" />
+                              <Button fx:id="room106Button" layoutX="446.0" layoutY="159.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="65.0" text="106" />
+                              <Button fx:id="room107Button" layoutX="522.0" layoutY="159.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="68.0" text="107" />
+                              <Button fx:id="room108Button" layoutX="605.0" layoutY="159.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="65.0" text="108" />
+                              <Button fx:id="room109Button" layoutX="684.0" layoutY="159.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="62.0" text="109" />
+                              <Button fx:id="room110Button" layoutX="765.0" layoutY="159.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="64.0" text="110" />
+                              <Button fx:id="room111Button" layoutX="844.0" layoutY="159.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="60.0" text="111" />
+                              <Button fx:id="room112Button" layoutX="52.0" layoutY="319.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="63.0" text="112" />
+                              <Button fx:id="room113Button" layoutX="133.0" layoutY="319.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="61.0" text="113" />
+                              <Button fx:id="room114Button" layoutX="209.0" layoutY="319.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="62.0" text="114" />
+                              <Button fx:id="room115Button" layoutX="288.0" layoutY="319.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="66.0" text="115" />
+                              <Button fx:id="room116Button" layoutX="605.0" layoutY="319.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="65.0" text="116" />
+                              <Button fx:id="room117Button" layoutX="684.0" layoutY="319.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="66.0" text="117" />
+                              <Button fx:id="room218Button" layoutX="765.0" layoutY="319.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="61.0" text="118" />
+                              <Button fx:id="room119Button" layoutX="844.0" layoutY="319.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="61.0" text="119" />
+                              <Button fx:id="room120Button" layoutX="320.0" layoutY="415.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="70.0" text="120" />
+                              <Button fx:id="room121Button" layoutX="573.0" layoutY="415.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="52.0" text="121" />
+                              <Button fx:id="room122Button" layoutX="52.0" layoutY="521.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="62.0" text="122" />
+                              <Button fx:id="room123Button" layoutX="133.0" layoutY="521.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="63.0" text="123" />
+                              <Button fx:id="room224Button" layoutX="210.0" layoutY="521.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="66.0" text="124" />
+                              <Button fx:id="room125Button" layoutX="290.0" layoutY="521.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="63.0" text="125" />
+                              <Button fx:id="room126Button" layoutX="605.0" layoutY="521.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="63.0" text="126" />
+                              <Button fx:id="room227Button" layoutX="684.0" layoutY="521.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="63.0" text="127" />
+                              <Button fx:id="room128Button" layoutX="765.0" layoutY="521.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="63.0" text="128" />
+                              <Button fx:id="room129Button" layoutX="844.0" layoutY="521.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="65.0" text="129" />
+                              <Button fx:id="room130Button" layoutX="50.0" layoutY="685.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="67.0" text="130" />
+                              <Button fx:id="room131Button" layoutX="131.0" layoutY="685.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="64.0" text="131" />
+                              <Button fx:id="room132Button" layoutX="212.0" layoutY="685.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="62.0" text="132" />
+                              <Button fx:id="room133Button" layoutX="288.0" layoutY="685.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="66.0" text="133" />
+                              <Button fx:id="room134Button" layoutX="368.0" layoutY="685.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="64.0" text="134" />
+                              <Button fx:id="room135Button" layoutX="446.0" layoutY="685.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="67.0" text="135" />
+                              <Button fx:id="room136Button" layoutX="523.0" layoutY="685.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="67.0" text="136" />
+                              <Button fx:id="room137Button" layoutX="605.0" layoutY="685.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="65.0" text="137" />
+                              <Button fx:id="room138Button" layoutX="684.0" layoutY="685.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="67.0" text="138" />
+                              <Button fx:id="room139Button" layoutX="767.0" layoutY="685.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="60.0" text="139" />
+                              <Button fx:id="room140Button" layoutX="838.0" layoutY="685.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="68.0" text="140" />
+                              <Button fx:id="room201Button" layoutX="54.0" layoutY="159.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="59.0" text="201" />
+                              <Button fx:id="room202Button" layoutX="134.0" layoutY="159.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="60.0" text="202" />
+                              <Button fx:id="room203Button" layoutX="210.0" layoutY="159.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="59.0" text="203" />
+                              <Button fx:id="room204Button" layoutX="289.0" layoutY="159.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="62.0" text="204" />
+                              <Button fx:id="room205Button" layoutX="366.0" layoutY="159.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="64.0" text="205" />
+                              <Button fx:id="room106Button1" layoutX="446.0" layoutY="159.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="65.0" text="206" />
+                              <Button fx:id="room207Button" layoutX="522.0" layoutY="159.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="68.0" text="207" />
+                              <Button fx:id="room208Button" layoutX="605.0" layoutY="159.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="65.0" text="208" />
+                              <Button fx:id="room110Button" layoutX="765.0" layoutY="159.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="64.0" text="210" />
+                              <Button fx:id="room211Button" layoutX="847.0" layoutY="159.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="60.0" text="211" />
+                              <Button fx:id="room212Button" layoutX="52.0" layoutY="319.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="63.0" text="212" />
+                              <Button fx:id="room213Button" layoutX="132.0" layoutY="319.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="63.0" text="213" />
+                              <Button fx:id="room214Button" layoutX="209.0" layoutY="319.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="62.0" text="214" />
+                              <Button fx:id="room215Button" layoutX="288.0" layoutY="319.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="66.0" text="215" />
+                              <Button fx:id="room215Button" layoutX="605.0" layoutY="319.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="65.0" text="216" />
+                              <Button fx:id="room217Button" layoutX="685.0" layoutY="319.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="66.0" text="217" />
+                              <Button fx:id="room219Button" layoutX="847.0" layoutY="319.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="61.0" text="219" />
+                              <Button fx:id="room220Button" layoutX="320.0" layoutY="415.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="70.0" text="220" />
+                              <Button fx:id="room221Button" layoutX="573.0" layoutY="415.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="52.0" text="221" />
+                              <Button fx:id="room222Button" layoutX="53.0" layoutY="521.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="62.0" text="222" />
+                              <Button fx:id="room223Button" layoutX="133.0" layoutY="521.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="63.0" text="223" />
+                              <Button fx:id="room225Button" layoutX="290.0" layoutY="521.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="64.0" text="225" />
+                              <Button fx:id="room226Button" layoutX="606.0" layoutY="521.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="63.0" text="226" />
+                              <Button fx:id="room228Button" layoutX="764.0" layoutY="521.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="63.0" text="228" />
+                              <Button fx:id="room229Button" layoutX="845.0" layoutY="521.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="65.0" text="229" />
+                              <Button fx:id="room230Button" layoutX="51.0" layoutY="685.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="67.0" text="230" />
+                              <Button fx:id="room231Button" layoutX="133.0" layoutY="685.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="64.0" text="231" />
+                              <Button fx:id="room232Button" layoutX="212.0" layoutY="692.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="62.0" text="232" />
+                              <Button fx:id="room233Button" layoutX="289.0" layoutY="685.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="66.0" text="233" />
+                              <Button fx:id="room234Button" layoutX="368.0" layoutY="685.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="64.0" text="234" />
+                              <Button fx:id="room235Button" layoutX="445.0" layoutY="677.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="67.0" text="235" />
+                              <Button layoutX="523.0" layoutY="685.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="67.0" text="136" />
+                           </children>
+                        </Pane>
+                     </content>
+                  </ScrollPane>
+               </children>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </VBox>
+         </children>
+         <VBox.margin>
+            <Insets left="50.0" right="50.0" />
+         </VBox.margin>
+      </HBox>
+      <HBox prefHeight="40.0" prefWidth="1200.0">
+         <children>
+            <Button fx:id="menuButton" mnemonicParsing="false" onAction="#menuButtonClicked" prefHeight="55.0" prefWidth="181.0" style="-fx-background-color: #3399FF; -fx-font-weight: bold;" text="WYLOGUJ" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+         </children>
+         <VBox.margin>
+            <Insets top="30.0" />
+         </VBox.margin>
+      </HBox>
    </children>
-</AnchorPane>
+</VBox>

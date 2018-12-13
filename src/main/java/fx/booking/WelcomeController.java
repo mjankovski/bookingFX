@@ -68,7 +68,6 @@ public class WelcomeController {
 
     @FXML
     public void initialize() {
-       wrongDataLabel.setVisible(false);
     }
 
     @FXML
@@ -76,7 +75,6 @@ public class WelcomeController {
         int login = accountDAO.login(loginTextField.getText(),passTextField.getText());
         try {
             if(login>0) {
-                wrongDataLabel.setVisible(false);
                 accountDAO.getAccountInformation(loginTextField.getText());
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setControllerFactory(springContext::getBean);
@@ -91,7 +89,6 @@ public class WelcomeController {
                 window.show();
             }
             else {
-                wrongDataLabel.setVisible(true);
             }
         }
         catch(Exception e) {
