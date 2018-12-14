@@ -221,22 +221,22 @@ public class RegistrationController {
             );
             sendMail(emailTextField.getText());
         } catch (IllegalArgumentException e){
-            showAlert("Błąd!", "Konto nie zostało utworzone. Pola nie moga byc puste lub krotsze niz 3 znaki!");
+            showAlert("Błąd!", "Konto nie zostało utworzone. Pola nie moga byc puste lub krotsze niz 3 znaki!", Alert.AlertType.ERROR);
             isSigned = false;
         } catch (InvalidEmailException e){
-            showAlert("Błąd!", "Konto nie zostało utworzone. Błędny adres e-mail!");
+            showAlert("Błąd!", "Konto nie zostało utworzone. Błędny adres e-mail!", Alert.AlertType.ERROR);
             isSigned = false;
         } catch (InvalidPhoneNumberException e){
-            showAlert("Błąd!", "Konto nie zostało utworzone. Błędny numer telefonu!");
+            showAlert("Błąd!", "Konto nie zostało utworzone. Błędny numer telefonu!", Alert.AlertType.ERROR);
             isSigned = false;
         } catch (InvalidCreditCardNumberException e){
-            showAlert("Błąd!", "Konto nie zostało utworzone. Błędny numer karty kredytowej!");
+            showAlert("Błąd!", "Konto nie zostało utworzone. Błędny numer karty kredytowej!", Alert.AlertType.ERROR);
             isSigned = false;;
         } catch (InvalidPeselException e){
-            showAlert("Błąd!", "Konto nie zostało utworzone. Błędny numer pesel!");
+            showAlert("Błąd!", "Konto nie zostało utworzone. Błędny numer pesel!", Alert.AlertType.ERROR);
             isSigned = false;
         }  catch (DuplicateKeyException e){
-            showAlert("Błąd!", "Konto nie zostało utworzone. Login lub adres e-mail są już w użyciu!");
+            showAlert("Błąd!", "Konto nie zostało utworzone. Login lub adres e-mail są już w użyciu!", Alert.AlertType.ERROR);
             isSigned=false;
         }
 
@@ -254,6 +254,7 @@ public class RegistrationController {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            showAlert("Info", "Konto zostało utworzone. Sprawdź e-maila.", Alert.AlertType.INFORMATION);
         }
     }
 
@@ -274,8 +275,8 @@ public class RegistrationController {
             }
         }
 
-    private void showAlert(String title, String header){
-        Alert alert = new Alert(Alert.AlertType.ERROR);
+    private void showAlert(String title, String header, Alert.AlertType type){
+        Alert alert = new Alert(type);
         alert.setTitle(title);
         alert.setHeaderText(header);
         alert.showAndWait();
