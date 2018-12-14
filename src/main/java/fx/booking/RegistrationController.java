@@ -206,12 +206,6 @@ public class RegistrationController {
 
     @FXML
     public void registerButtonPressed(ActionEvent event) {
-        
-    }
-
-    @FXML
-    public void menuButtonClicked(ActionEvent event) throws IOException {
-        /*to nie powinno byc tu*/
         boolean isSigned;
         try {
             isSigned = accountDAO.createAccount(
@@ -245,7 +239,6 @@ public class RegistrationController {
             showAlert("Błąd!", "Konto nie zostało utworzone. Login lub adres e-mail są już w użyciu!");
             isSigned=false;
         }
-        /*to nie powinno byc tu*/
 
         if(isSigned) {
             try {
@@ -263,6 +256,23 @@ public class RegistrationController {
             }
         }
     }
+
+    @FXML
+    public void menuButtonClicked(ActionEvent event) throws IOException {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setControllerFactory(springContext::getBean);
+                fxmlLoader.setLocation(getClass().getResource("/Welcome.fxml"));
+                Parent tableViewParent = fxmlLoader.load();
+                Scene tableViewScene = new Scene(tableViewParent);
+
+                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                window.setScene(tableViewScene);
+                window.show();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
     private void showAlert(String title, String header){
         Alert alert = new Alert(Alert.AlertType.ERROR);
