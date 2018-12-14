@@ -6,10 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -88,6 +85,7 @@ public class WelcomeController {
                 window.show();
             }
             else {
+                showAlertInfo("Błąd!", "Błędne dane logowania!");
             }
         }
         catch(Exception e) {
@@ -113,5 +111,11 @@ public class WelcomeController {
         }
     }
 
+    private void showAlertInfo(String title, String header){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.showAndWait();
+    }
 }
 
