@@ -1,6 +1,5 @@
 package fx.booking;
 
-import com.sun.org.apache.xpath.internal.functions.FuncFloor;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,22 +7,17 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Controller;
 
-import javax.swing.*;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 public class PlanController {

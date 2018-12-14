@@ -4,8 +4,10 @@ import fx.booking.dao.InvalidCreditCardNumberException;
 import fx.booking.dao.InvalidEmailException;
 import fx.booking.dao.InvalidPeselException;
 import fx.booking.dao.InvalidPhoneNumberException;
+
 import lombok.Getter;
 import lombok.SneakyThrows;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -65,7 +67,7 @@ public class AccountDAO{
     }
 
     public byte[] getSalt(String login){
-        return jdbcTemplate.queryForObject("SELECT TOKEN FROM Uzytkownicy WHERE LOGIN=?", byte[].class, login);
+        return jdbcTemplate.queryForObject("SELECT (CASE WHEN(COUNT(LOGIN)=1) THEN TOKEN ELSE 0 END) FROM Uzytkownicy WHERE LOGIN=?", byte[].class, login);
     }
 
     public int login(String login, String pw) {

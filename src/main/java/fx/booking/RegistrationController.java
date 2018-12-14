@@ -1,6 +1,10 @@
 package fx.booking;
 
-import fx.booking.dao.*;
+import fx.booking.dao.InvalidCreditCardNumberException;
+import fx.booking.dao.InvalidEmailException;
+import fx.booking.dao.InvalidPeselException;
+import fx.booking.dao.InvalidPhoneNumberException;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,11 +19,13 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+
 import org.simplejavamail.email.Email;
 import org.simplejavamail.email.EmailBuilder;
 import org.simplejavamail.mailer.Mailer;
 import org.simplejavamail.mailer.MailerBuilder;
 import org.simplejavamail.mailer.config.TransportStrategy;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.PropertySource;
