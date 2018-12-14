@@ -5,7 +5,6 @@ import fx.booking.dao.InvalidEmailException;
 import fx.booking.dao.InvalidPeselException;
 import fx.booking.dao.InvalidPhoneNumberException;
 import lombok.Getter;
-import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -41,7 +40,6 @@ public class AccountDAO{
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    @SneakyThrows
     public boolean createAccount(String login, String pw, String firstname, String lastname, String email, String creditCardNumber, String pesel, String phoneNumber, int permissions)
             throws InvalidCreditCardNumberException, InvalidPeselException, InvalidPhoneNumberException,
             InvalidEmailException, DuplicateKeyException {
@@ -54,18 +52,12 @@ public class AccountDAO{
         if(!pw.matches("[a-zA-Z0-9]{3,20}")) throw new IllegalArgumentException();
         if(!firstname.matches("[a-zA-Z0-9]{2,30}")) throw new IllegalArgumentException();
         if(!lastname.matches("[a-zA-Z0-9]{2,30}")) throw new IllegalArgumentException();
-        byte[] salt = Hash.getSalt();
-        String pwH = Hash.getSHA256(pw, salt);
 
         jdbcTemplate.update(
-                "INSERT INTO mjankovski.Uzytkownicy (LOGIN, HASLO, IMIE, NAZWISKO, EMAIL, NR_KARTY_KRED, PESEL, NR_TEL, TOKEN, UPRAWNIENIA) VALUES (?, ?, ?, ?, ?, ? ,? ,?, ?, ?)",
-                login, pwH, firstname, lastname, email, creditCardNumber, pesel, phoneNumber, salt, permissions
+                "INSERT INTO mjankovski.Uzytkownicy (LOGIN, HASLO, IMIE, NAZWISKO, EMAIL, NR_KARTY_KRED, PESEL, NR_TEL, UPRAWNIENIA) VALUES (?, ?, ?, ?, ?, ? ,? ,?, ?)",
+                login, pw, firstname, lastname, email, creditCardNumber, pesel, phoneNumber, permissions
         );
         return true;
-    }
-
-    public byte[] getSalt(String login){
-        return jdbcTemplate.queryForObject("SELECT TOKEN FROM Uzytkownicy WHERE LOGIN=?", byte[].class, login);
     }
 
     public int login(String login, String pw) {
