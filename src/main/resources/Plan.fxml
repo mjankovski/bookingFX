@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Slider?>
@@ -61,6 +62,10 @@
                   <TextField fx:id="toPriceTextField" onAction="#toPriceTextFieldEntered" prefHeight="31.0" prefWidth="253.0" />
                   <Slider prefHeight="18.0" prefWidth="252.0" />
                   <Label style="-fx-font-weight: bold;" text="do" />
+                  <Label text="Data od" />
+                  <DatePicker fx:id="fromDatePicker" onAction="#fromDatePickerAccessed" />
+                  <Label text="Data do" />
+                  <DatePicker fx:id="toDatePicker" onAction="#toDatePickerAccessed" />
                </children>
                <HBox.margin>
                   <Insets right="20.0" />

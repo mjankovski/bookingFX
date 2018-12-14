@@ -7,11 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -75,6 +71,12 @@ public class PlanController {
 
     @FXML
     private Button menuButton;
+
+    @FXML
+    private DatePicker fromDatePicker;
+
+    @FXML
+    private DatePicker toDatePicker;
 
     @FXML
     private Pane mapPane;
@@ -255,6 +257,16 @@ public class PlanController {
 
     @FXML
     public void toPriceTextFieldEntered(ActionEvent event) throws IOException {
+
+    }
+
+    @FXML
+    public void fromDatePickerAccessed(ActionEvent event) throws IOException {
+
+    }
+
+    @FXML
+    public void toDatePickerAccessed(ActionEvent event) throws IOException {
 
     }
 

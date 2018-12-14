@@ -23,12 +23,23 @@
       </Pane>
       <Pane layoutX="34.0" layoutY="53.0" prefHeight="602.0" prefWidth="1196.0">
          <children>
-            <TableView layoutX="92.0" layoutY="131.0" prefHeight="468.0" prefWidth="1073.0">
+            <Label layoutX="476.0" layoutY="128.0" text="REZERWACJE">
+               <font>
+                  <Font size="47.0" />
+               </font>
+            </Label>
+            <TableView fx:id="reservationTabel" editable="true" layoutX="97.0" layoutY="210.0" prefHeight="371.0" prefWidth="1073.0">
               <columns>
-                <TableColumn prefWidth="75.0" text="C1" />
-                <TableColumn prefWidth="75.0" text="C2" />
+                <TableColumn fx:id="reservationNumberColumn" prefWidth="75.0" text="Numer rezerwacji" />
+                <TableColumn fx:id="roomNumberColumn" prefWidth="75.0" text="Nr pokoju" />
+                  <TableColumn fx:id="fromDateColumn" prefWidth="75.0" text="Data od" />
+                  <TableColumn fx:id="toDateColumn" prefWidth="75.0" text="Data do" />
               </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
             </TableView>
+            <Button fx:id="addButton" layoutX="200.0" layoutY="163.0" mnemonicParsing="false" onAction="#addButtonClicked" text="ADD" />
          </children>
       </Pane>
       <ButtonBar layoutX="8.0" layoutY="347.0" prefHeight="40.0" prefWidth="285.0" />
