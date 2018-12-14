@@ -1,6 +1,10 @@
 package fx.booking;
 
-import fx.booking.dao.*;
+import fx.booking.dao.InvalidCreditCardNumberException;
+import fx.booking.dao.InvalidEmailException;
+import fx.booking.dao.InvalidPeselException;
+import fx.booking.dao.InvalidPhoneNumberException;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,11 +19,13 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+
 import org.simplejavamail.email.Email;
 import org.simplejavamail.email.EmailBuilder;
 import org.simplejavamail.mailer.Mailer;
 import org.simplejavamail.mailer.MailerBuilder;
 import org.simplejavamail.mailer.config.TransportStrategy;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.PropertySource;
@@ -221,22 +227,22 @@ public class RegistrationController {
             );
             sendMail(emailTextField.getText());
         } catch (IllegalArgumentException e){
-            showAlert("Błąd!", "Konto nie zostało utworzone. Pola nie moga byc puste lub krotsze niz 3 znaki!");
+            showAlert("Błąd!", "Konto nie zostało utworzone. Pola nie moga byc puste lub krotsze niz 3 znaki!", Alert.AlertType.ERROR);
             isSigned = false;
         } catch (InvalidEmailException e){
-            showAlert("Błąd!", "Konto nie zostało utworzone. Błędny adres e-mail!");
+            showAlert("Błąd!", "Konto nie zostało utworzone. Błędny adres e-mail!", Alert.AlertType.ERROR);
             isSigned = false;
         } catch (InvalidPhoneNumberException e){
-            showAlert("Błąd!", "Konto nie zostało utworzone. Błędny numer telefonu!");
+            showAlert("Błąd!", "Konto nie zostało utworzone. Błędny numer telefonu!", Alert.AlertType.ERROR);
             isSigned = false;
         } catch (InvalidCreditCardNumberException e){
-            showAlert("Błąd!", "Konto nie zostało utworzone. Błędny numer karty kredytowej!");
+            showAlert("Błąd!", "Konto nie zostało utworzone. Błędny numer karty kredytowej!", Alert.AlertType.ERROR);
             isSigned = false;;
         } catch (InvalidPeselException e){
-            showAlert("Błąd!", "Konto nie zostało utworzone. Błędny numer pesel!");
+            showAlert("Błąd!", "Konto nie zostało utworzone. Błędny numer pesel!", Alert.AlertType.ERROR);
             isSigned = false;
         }  catch (DuplicateKeyException e){
-            showAlert("Błąd!", "Konto nie zostało utworzone. Login lub adres e-mail są już w użyciu!");
+            showAlert("Błąd!", "Konto nie zostało utworzone. Login lub adres e-mail są już w użyciu!", Alert.AlertType.ERROR);
             isSigned=false;
         }
 
@@ -254,6 +260,7 @@ public class RegistrationController {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            showAlert("Info", "Konto zostało utworzone. Sprawdź e-maila.", Alert.AlertType.INFORMATION);
         }
     }
 
@@ -274,8 +281,8 @@ public class RegistrationController {
             }
         }
 
-    private void showAlert(String title, String header){
-        Alert alert = new Alert(Alert.AlertType.ERROR);
+    private void showAlert(String title, String header, Alert.AlertType type){
+        Alert alert = new Alert(type);
         alert.setTitle(title);
         alert.setHeaderText(header);
         alert.showAndWait();
