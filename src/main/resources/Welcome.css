@@ -1,0 +1,103 @@
+#menuAnchorPane
+{
+    -fx-background-color: #ac7339;
+}
+
+#hotelLabel
+{
+    -fx-font-family: Georgia;
+    -fx-font-weight: bold;
+    -fx-font-style: italic;
+    -fx-font-size: 60px;
+}
+
+#fxLabel
+{
+    -fx-font-family: Georgia;
+    -fx-font-weight: bold;
+    -fx-font-style: italic;
+    -fx-font-size: 60px;
+}
+
+#descriptionLabel
+{
+    -fx-text-fill: #000000;
+    -fx-font-weight: bold;
+    -fx-font-size: 32px;
+    -fx-font-family: "Arial Black";
+}
+
+#loginLabel
+{
+    -fx-font-family: "Arial Black";
+    -fx-font-weight: bold;
+    -fx-text-fill: #000000;
+}
+
+#passLabel
+{
+    -fx-font-family: "Arial Black";
+    -fx-font-weight: bold;
+    -fx-text-fill: #000000;
+}
+
+#logButton
+{
+    -fx-font-family: "Arial Black";
+    -fx-background-color: #4D2600;
+    -fx-font-weight: bold;
+    -fx-font-size: 30px;
+}
+
+#logButton:hover
+{
+    -fx-background-color: #331A00;
+}
+
+#makeAccountButton
+{
+    -fx-font-family: "Arial Black";
+    -fx-background-color: #4D2600;
+    -fx-font-weight: bold;
+    -fx-font-size: 30px;
+    -fx-spacing: 10;
+}
+
+#makeAccountButton:hover
+{
+    -fx-background-color: #331A00;
+}
+
+#loginTextField
+{
+    -fx-font-family: "Arial Black";
+    -fx-font-weight: bold;
+    -fx-font-size: 26px;
+}
+
+#passTextField
+{
+    -fx-font-family: "Arial Black";
+    -fx-font-weight: bold;
+    -fx-font-size: 26px;
+}
+
+#authorsButton
+{
+    -fx-font-family: "Arial Black";
+    -fx-font-size: 26px;
+    -fx-background-color: #4D2600;
+}
+
+#authorsButton:hover
+{
+    -fx-background-color: #331A00;
+}
+
+#wrongDataLabel
+{
+    -fx-font-family: "Arial Black";
+    -fx-font-size: 26px;
+    -fx-border-color: #FF0000;
+}
+

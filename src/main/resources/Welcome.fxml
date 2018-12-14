@@ -4,66 +4,93 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="menuAnchorPane" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" style="-fx-background-color: #FFFFCC;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fx.booking.WelcomeController">
+<AnchorPane fx:id="menuAnchorPane" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: #ac7339;" stylesheets="@/Welcome.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fx.booking.WelcomeController">
    <children>
-      <Label fx:id="descriptionLabel" layoutX="77.0" layoutY="65.0" prefHeight="38.0" prefWidth="672.0" style="-fx-font-weight: bold;" text="Skorzystaj z naszej aplikacji i w wygodny sposób zarezerwuj sobie pokój. Zapraszamy!">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Label>
-      <Pane layoutX="-6.0" prefHeight="54.0" prefWidth="807.0" style="-fx-background-color: #3399FF;">
+      <Pane layoutX="-14.0" prefHeight="101.0" prefWidth="1381.0" style="-fx-background-color: #4D2600;">
          <children>
-            <Label fx:id="FXlabel" layoutX="125.0" layoutY="7.0" prefHeight="47.0" prefWidth="61.0" style="-fx-font-family: constantia; -fx-font-weight: bold;" text="FX" textFill="#d0ff00">
+            <Label fx:id="hotelLabel" layoutX="74.0" layoutY="-2.0" prefHeight="81.0" prefWidth="199.0" text="Hotel " textAlignment="JUSTIFY" textFill="WHITE">
+               <font>
+                  <Font size="72.0" />
+               </font>
+            </Label>
+            <Label fx:id="fxLabel" layoutX="256.0" layoutY="-18.0" prefHeight="113.0" prefWidth="125.0" style="-fx-font-family: constantia; -fx-font-weight: bold;" text="FX" textFill="WHITE">
                <font>
                   <Font size="30.0" />
                </font>
             </Label>
-            <Label fx:id="hotelLabel" layoutX="14.0" layoutY="-6.0" prefHeight="66.0" prefWidth="121.0" style="-fx-font-family: constantia; -fx-font-weight: bold;" text="Hotel " textAlignment="JUSTIFY" textFill="#ffffffde">
-               <font>
-                  <Font size="39.0" />
-               </font>
-            </Label>
-         </children>
-      </Pane>
-      <Pane fx:id="formPane" layoutX="254.0" layoutY="109.0" prefHeight="246.0" prefWidth="286.0" style="-fx-background-color: #FFFF; -fx-border-color: #FFBB33; -fx-border-width: 3;">
+            <ImageView fitHeight="24.0" fitWidth="37.0" layoutX="113.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@img/star.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="24.0" fitWidth="37.0" layoutX="150.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@img/star.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="24.0" fitWidth="37.0" layoutX="184.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@img/star.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="24.0" fitWidth="28.0" layoutX="220.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@img/star.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="24.0" fitWidth="37.0" layoutX="257.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@img/star.png" />
+               </image>
+            </ImageView>
+         </children></Pane>
+      <Label fx:id="descriptionLabel" alignment="CENTER" layoutX="35.0" layoutY="101.0" prefHeight="66.0" prefWidth="1296.0" text="Skorzystaj z naszej aplikacji i w wygodny sposób zarezerwuj sobie pokój!">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Pane fx:id="formPane" layoutX="289.0" layoutY="192.0" prefHeight="491.0" prefWidth="788.0" style="-fx-background-color: #B37700; -fx-border-insets: -8; -fx-border-color: #4D2600; -fx-border-width: 8; -fx-border-radius: 10;">
          <children>
-            <Button fx:id="logButton" layoutX="27.0" layoutY="160.0" mnemonicParsing="false" onAction="#loginButtonClicked" prefHeight="26.0" prefWidth="229.0" style="-fx-background-color: #3399FF; -fx-font-weight: bold;" text="ZALOGUJ" textFill="WHITE">
+            <Button fx:id="logButton" layoutX="255.0" layoutY="260.0" mnemonicParsing="false" onAction="#loginButtonClicked" prefHeight="66.0" prefWidth="292.0" text="ZALOGUJ" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font></Button>
-            <Button fx:id="makeAccountButton" layoutX="27.0" layoutY="206.0" mnemonicParsing="false" onAction="#makeAccountButtonClicked" prefHeight="26.0" prefWidth="229.0" style="-fx-background-color: #3399FF; -fx-font-weight: bold;" text="ZAŁÓŻ KONTO" textFill="WHITE">
+            <Button fx:id="makeAccountButton" layoutX="255.0" layoutY="340.0" mnemonicParsing="false" onAction="#makeAccountButtonClicked" prefHeight="66.0" prefWidth="292.0" text="ZAŁÓŻ KONTO" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font></Button>
-            <TextField fx:id="loginTextField" layoutX="25.0" layoutY="39.0" prefHeight="31.0" prefWidth="235.0" promptText="login">
+            <TextField fx:id="loginTextField" layoutX="180.0" layoutY="59.0" prefHeight="64.0" prefWidth="442.0" promptText="login">
                <font>
-                  <Font size="15.0" />
+                  <Font size="24.0" />
                </font>
             </TextField>
-            <Label fx:id="loginLabel" layoutX="25.0" layoutY="14.0" style="-fx-font-weight: bold;" text="Login">
+            <Label fx:id="loginLabel" layoutX="179.0" layoutY="8.0" text="Login:">
                <font>
-                  <Font size="17.0" />
+                  <Font size="34.0" />
                </font>
             </Label>
-            <Label fx:id="passLabel" layoutX="24.0" layoutY="77.0" style="-fx-font-weight: bold;" text="Hasło">
+            <Label fx:id="passLabel" layoutX="179.0" layoutY="130.0" text="Hasło:">
                <font>
-                  <Font size="17.0" />
+                  <Font size="35.0" />
                </font>
             </Label>
-            <PasswordField fx:id="passTextField" layoutX="27.0" layoutY="111.0" prefHeight="26.0" prefWidth="229.0" promptText="hasło">
+            <PasswordField fx:id="passTextField" layoutX="180.0" layoutY="176.0" prefHeight="64.0" prefWidth="442.0" promptText="hasło">
                <font>
-                  <Font size="15.0" />
+                  <Font size="26.0" />
                </font>
             </PasswordField>
          </children>
       </Pane>
-      <Button fx:id="authorsButton" layoutX="667.0" layoutY="355.0" mnemonicParsing="false" style="-fx-background-color: #2222FF; -fx-font-weight: bold;" text="O AUTORACH" textFill="WHITE">
+      <Button fx:id="authorsButton" layoutX="1039.0" layoutY="697.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="251.0" text="O AUTORACH" textFill="WHITE">
          <font>
             <Font size="15.0" />
-         </font></Button>
+         </font>
+      </Button>
    </children>
 </AnchorPane>

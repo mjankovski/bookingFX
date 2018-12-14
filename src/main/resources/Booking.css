@@ -1,33 +1,38 @@
+#menuAnchorPane
+{
+	-fx-background-color: #ac7339;
+}
+
 #bookButton
 {
-	-fx-font-size: 20px !important;
+	-fx-font-size: 20px
 }
 
 #bookButton:hover
 {
-	-fx-background-color: #4444CC !important;
-	-fx-font-size: 20px !important;
+	-fx-background-color: #4444CC;
+	-fx-font-size: 20px;
 }
 
 #planButton
 {
-	-fx-font-size: 15px !important;
+	-fx-font-size: 15px;
 }
 
 #planButton:hover
 {
-	-fx-font-size: 15px !important;
-	-fx-background-color: #1177DD !important;
+	-fx-font-size: 15px;
+	-fx-background-color: #1177DD;
 }
 
 #menuButton
 {
-	-fx-font-size: 15px !important;
+	-fx-font-size: 15px;
 }
 
 #menuButton:hover{
-	-fx-font-size: 15px !important;
-	-fx-background-color: #11742D !important;
+	-fx-font-size: 15px;
+	-fx-background-color: #11742D;
 }
 
 

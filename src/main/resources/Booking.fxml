@@ -4,19 +4,14 @@
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="informationAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" style="-fx-background-color: #FFFFCC;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fx.booking.BookingController">
+<AnchorPane fx:id="informationAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: #FFFFCC;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fx.booking.BookingController">
    <children>
-      <ScrollPane fx:id="bookingScrollPane" layoutX="94.0" layoutY="184.0" prefHeight="142.0" prefWidth="602.0" style="-fx-border-color: #FFBB33; -fx-background-radius: 20; -fx-border-width: 5; -fx-border-radius: 8;">
-         <content>
-            <TextArea prefHeight="142.0" prefWidth="620.0" />
-         </content>
-      </ScrollPane>
       <Pane layoutX="-3.0" layoutY="-2.0" prefHeight="54.0" prefWidth="807.0" style="-fx-background-color: #3399FF;">
          <children>
             <Label fx:id="titleLabel" layoutX="190.0" layoutY="-3.0" prefHeight="60.0" prefWidth="517.0" style="-fx-font-weight: bold; -fx-font-family: Constantia;" text="Informacje o pokoju nr " textFill="WHITE">
@@ -26,60 +21,74 @@
             </Label>
          </children>
       </Pane>
-      <Pane layoutX="88.0" layoutY="52.0" prefHeight="127.0" prefWidth="699.0">
+      <Pane layoutX="34.0" layoutY="53.0" prefHeight="602.0" prefWidth="1196.0">
          <children>
-            <Label fx:id="peopleLabel" layoutX="8.0" layoutY="27.0" style="-fx-font-weight: bold; -fx-font-family: Times New Roman;" text="Iluosobowy:">
+            <Label layoutX="476.0" layoutY="128.0" text="REZERWACJE">
                <font>
-                  <Font size="18.0" />
+                  <Font size="47.0" />
                </font>
             </Label>
-            <Label fx:id="costLabel" layoutX="7.0" layoutY="54.0" style="-fx-font-weight: bold; -fx-font-family: Times New Roman;" text="Cena za noc:">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label fx:id="bookDateLabel" layoutX="7.0" layoutY="85.0" style="-fx-font-weight: bold; -fx-font-family: Times New Roman;" text="Data rezerwacji:">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label layoutX="8.0" layoutY="1.0" style="-fx-font-weight: bold; -fx-font-family: Times New Roman;" text="Piętro:  ">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <DatePicker fx:id="fromDatePicker" layoutX="449.0" layoutY="86.0" />
-            <DatePicker fx:id="toDatePicker" layoutX="183.0" layoutY="86.0" />
-            <Label fx:id="fromLabel" layoutX="150.0" layoutY="85.0" style="-fx-font-weight: bold; -fx-font-family: Times New Roman;" text="od:">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label fx:id="toLabel" layoutX="412.0" layoutY="85.0" style="-fx-font-weight: bold; -fx-font-family: Times New Roman;" text="do:">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
+            <TableView fx:id="reservationTabel" editable="true" layoutX="97.0" layoutY="210.0" prefHeight="371.0" prefWidth="1073.0">
+              <columns>
+                <TableColumn fx:id="reservationNumberColumn" prefWidth="75.0" text="Numer rezerwacji" />
+                <TableColumn fx:id="roomNumberColumn" prefWidth="75.0" text="Nr pokoju" />
+                  <TableColumn fx:id="fromDateColumn" prefWidth="75.0" text="Data od" />
+                  <TableColumn fx:id="toDateColumn" prefWidth="75.0" text="Data do" />
+              </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+            <Button fx:id="addButton" layoutX="200.0" layoutY="163.0" mnemonicParsing="false" onAction="#addButtonClicked" text="ADD" />
          </children>
       </Pane>
-      <ButtonBar layoutX="8.0" layoutY="347.0" prefHeight="40.0" prefWidth="285.0">
-         <buttons>
-          <Button fx:id="menuButton" mnemonicParsing="false" onAction="#menuButtonClicked" prefHeight="31.0" prefWidth="121.0" style="-fx-background-color: #3399FF; -fx-font-weight: bold;" text="Menu główne" textFill="WHITE">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Button>
-            <Button fx:id="planButton" mnemonicParsing="false" onAction="#planButtonClicked" prefHeight="31.0" prefWidth="150.0" style="-fx-background-color: #3399FF; -fx-font-weight: bold;" stylesheets="@Booking.css" text="Plan" textFill="WHITE">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Button>
-         </buttons>
-      </ButtonBar>
-      <Button fx:id="bookButton" layoutX="568.0" layoutY="340.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="166.0" style="-fx-background-color: #2222FF; -fx-background-radius: 10; -fx-font-weight: bold; -fx-border-width: 5;" stylesheets="@Booking.css" text="REZERWUJ" textFill="WHITE">
+      <ButtonBar layoutX="8.0" layoutY="347.0" prefHeight="40.0" prefWidth="285.0" />
+      <Button fx:id="bookButton" layoutX="1106.0" layoutY="708.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="166.0" style="-fx-background-color: #2222FF; -fx-background-radius: 10; -fx-font-weight: bold; -fx-border-width: 5;" stylesheets="@Booking.css" text="REZERWUJ" textFill="WHITE">
          <font>
             <Font size="20.0" />
          </font>
       </Button>
+      <Button fx:id="planButton" layoutX="608.0" layoutY="715.0" mnemonicParsing="false" onAction="#planButtonClicked" prefHeight="31.0" prefWidth="150.0" style="-fx-background-color: #3399FF; -fx-font-weight: bold;" stylesheets="@Booking.css" text="Plan" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+    <Button fx:id="menuButton" layoutX="68.0" layoutY="715.0" mnemonicParsing="false" onAction="#menuButtonClicked" prefHeight="31.0" prefWidth="121.0" style="-fx-background-color: #3399FF; -fx-font-weight: bold;" text="Menu główne" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <Label fx:id="peopleLabel" layoutX="86.0" layoutY="87.0" style="-fx-font-weight: bold; -fx-font-family: Times New Roman;" text="Iluosobowy:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="costLabel" layoutX="85.0" layoutY="114.0" style="-fx-font-weight: bold; -fx-font-family: Times New Roman;" text="Cena za noc:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="bookDateLabel" layoutX="85.0" layoutY="145.0" style="-fx-font-weight: bold; -fx-font-family: Times New Roman;" text="Data rezerwacji:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="86.0" layoutY="61.0" style="-fx-font-weight: bold; -fx-font-family: Times New Roman;" text="Piętro:  ">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <DatePicker fx:id="fromDatePicker" layoutX="527.0" layoutY="146.0" />
+      <DatePicker fx:id="toDatePicker" layoutX="261.0" layoutY="146.0" />
+      <Label fx:id="fromLabel" layoutX="228.0" layoutY="145.0" style="-fx-font-weight: bold; -fx-font-family: Times New Roman;" text="od:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="toLabel" layoutX="490.0" layoutY="145.0" style="-fx-font-weight: bold; -fx-font-family: Times New Roman;" text="do:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
