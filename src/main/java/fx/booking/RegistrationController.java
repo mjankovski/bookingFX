@@ -205,6 +205,11 @@ public class RegistrationController {
     }
 
     @FXML
+    public void registerButtonPressed(ActionEvent event) {
+        
+    }
+
+    @FXML
     public void menuButtonClicked(ActionEvent event) throws IOException {
         /*to nie powinno byc tu*/
         boolean isSigned;

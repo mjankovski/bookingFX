@@ -37,7 +37,7 @@
          <font>
             <Font size="15.0" />
          </font></Button>
-      <Button fx:id="makeAccountButton" layoutX="595.0" layoutY="506.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="149.0" style="-fx-background-color: #2222FF; -fx-font-weight: bold;" text="ZAŁÓŻ KONTO" textFill="WHITE">
+      <Button fx:id="makeAccountButton" layoutX="595.0" layoutY="506.0" mnemonicParsing="false" onAction="#resgisterButtonPressed" prefHeight="51.0" prefWidth="149.0" style="-fx-background-color: #2222FF; -fx-font-weight: bold;" text="ZAŁÓŻ KONTO" textFill="WHITE">
          <font>
             <Font size="17.0" />
          </font></Button>
