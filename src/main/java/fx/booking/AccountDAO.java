@@ -13,6 +13,7 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.Map;
 
 
@@ -46,7 +47,7 @@ public class AccountDAO{
     @SneakyThrows
     public boolean createAccount(String login, String pw, String firstname, String lastname, String email, String creditCardNumber, String pesel, String phoneNumber, int permissions)
             throws InvalidCreditCardNumberException, InvalidPeselException, InvalidPhoneNumberException,
-            InvalidEmailException, DuplicateKeyException {
+            InvalidEmailException, DuplicateKeyException, NoSuchAlgorithmException {
 
         if(!creditCardNumber.matches("^[0-9]*$") || creditCardNumber.length()!=16) throw new InvalidCreditCardNumberException();
         if(!pesel.matches("^[0-9]*$") || pesel.length()!=11) throw new InvalidPeselException();

@@ -1,19 +1,21 @@
 package fx.booking.dao;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 public class Reservation {
     private int idReservation;
     private int invoiceNumber;
     private int roomNumber;
     private String login;
-    private Date reservationBeginningDate;
-    private Date reservationEndingDate;
+    private LocalDate reservationBeginningDate;
+    private LocalDate reservationEndingDate;
     private String currency;
     private int reservationCost;
+    private static int reservationNumber;
 
-    public Reservation(int idReservation, int invoiceNumber, int roomNumber, String login, Date reservationBeginningDate, Date reservationEndingDate, String currency, int reservationCost) {
-        this.idReservation = idReservation;
+    public Reservation(int invoiceNumber, int roomNumber, String login, LocalDate reservationBeginningDate, LocalDate reservationEndingDate, String currency, int reservationCost) {
+        this.idReservation = reservationNumber++;
         this.invoiceNumber = invoiceNumber;
         this.roomNumber = roomNumber;
         this.login = login;
@@ -55,19 +57,19 @@ public class Reservation {
         this.login = login;
     }
 
-    public Date getReservationBegginingDate() {
+    public LocalDate getReservationBeginningDate() {
         return reservationBeginningDate;
     }
 
-    public void setReservationBegginingDate(Date reservationBegginingDate) {
-        this.reservationBeginningDate = reservationBegginingDate;
+    public void setReservationBeginningDate(LocalDate reservationBeginningDate) {
+        this.reservationBeginningDate = reservationBeginningDate;
     }
 
-    public Date getReservationEndingDate() {
+    public LocalDate getReservationEndingDate() {
         return reservationEndingDate;
     }
 
-    public void setReservationEndingDate(Date reservationEndingDate) {
+    public void setReservationEndingDate(LocalDate reservationEndingDate) {
         this.reservationEndingDate = reservationEndingDate;
     }
 

@@ -28,7 +28,7 @@
                   <Font size="47.0" />
                </font>
             </Label>
-            <TableView fx:id="reservationTabel" editable="true" layoutX="97.0" layoutY="210.0" prefHeight="371.0" prefWidth="1073.0">
+            <TableView fx:id="reservationTable" editable="true" layoutX="97.0" layoutY="210.0" prefHeight="371.0" prefWidth="1073.0">
               <columns>
                 <TableColumn fx:id="reservationNumberColumn" prefWidth="75.0" text="Numer rezerwacji" />
                 <TableColumn fx:id="roomNumberColumn" prefWidth="75.0" text="Nr pokoju" />
@@ -40,6 +40,7 @@
                </columnResizePolicy>
             </TableView>
             <Button fx:id="addButton" layoutX="200.0" layoutY="163.0" mnemonicParsing="false" onAction="#addButtonClicked" text="ADD" />
+            <Button fx:id="deleteButton" layoutX="295.0" layoutY="163.0" mnemonicParsing="false" onAction="#deleteButtonPressed" text="Delete" />
          </children>
       </Pane>
       <ButtonBar layoutX="8.0" layoutY="347.0" prefHeight="40.0" prefWidth="285.0" />
@@ -78,8 +79,8 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <DatePicker fx:id="fromDatePicker" layoutX="527.0" layoutY="146.0" />
-      <DatePicker fx:id="toDatePicker" layoutX="261.0" layoutY="146.0" />
+      <DatePicker fx:id="toDatePicker" layoutX="527.0" layoutY="146.0" />
+      <DatePicker fx:id="fromDatePicker" layoutX="261.0" layoutY="146.0" />
       <Label fx:id="fromLabel" layoutX="228.0" layoutY="145.0" style="-fx-font-weight: bold; -fx-font-family: Times New Roman;" text="od:">
          <font>
             <Font size="18.0" />
