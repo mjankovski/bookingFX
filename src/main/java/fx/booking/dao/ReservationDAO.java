@@ -47,12 +47,11 @@ public class ReservationDAO {
         //if(fromDateFormatted.compareTo(toDateFormatted)>0) rzuc wyjatek;
         //jeszcze upewnic sie ze data_od jest po dzisiaj
 
-        long days = DAYS.between(fromDateFormatted,toDateFormatted);
-        BigDecimal cost = roomDAO.getRoomPrice(roomNumber).multiply(new BigDecimal(days));
-        System.out.println(accountDAO.getLogin());
-        int docId = documentDAO.createDocument(cost);
-
         if(checkIfRoomFree(roomNumber,fromDate,toDate)) {
+            long days = DAYS.between(fromDateFormatted,toDateFormatted);
+            BigDecimal cost = roomDAO.getRoomPrice(roomNumber).multiply(new BigDecimal(days));
+            int docId = documentDAO.createDocument(cost);
+
             jdbcTemplate.update(
                     "INSERT INTO Rezerwacje (NR_FAKTURA,NR_POKOJ,LOGIN,DATA_OD,DATA_DO,WALUTA, KWOTA_REZERWACJI) VALUES (?, ?, ?, ?, ?, ? ,? )",
                     docId, roomNumber, accountDAO.getLogin(), fromDate, toDate, "PLN", cost
