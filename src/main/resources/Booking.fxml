@@ -19,6 +19,11 @@
                   <Font size="34.0" />
                </font>
             </Label>
+            <Label fx:id="roomNumberLabel" layoutX="600.0" layoutY="4.0" prefHeight="46.0" prefWidth="66.0" text="***" textFill="WHITE">
+               <font>
+                  <Font size="31.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
       <Pane layoutX="34.0" layoutY="53.0" prefHeight="602.0" prefWidth="1196.0">
@@ -28,7 +33,7 @@
                   <Font size="47.0" />
                </font>
             </Label>
-            <TableView fx:id="reservationTabel" editable="true" layoutX="97.0" layoutY="210.0" prefHeight="371.0" prefWidth="1073.0">
+            <TableView fx:id="reservationTable" editable="true" layoutX="97.0" layoutY="210.0" prefHeight="371.0" prefWidth="1073.0">
               <columns>
                 <TableColumn fx:id="reservationNumberColumn" prefWidth="75.0" text="Numer rezerwacji" />
                 <TableColumn fx:id="roomNumberColumn" prefWidth="75.0" text="Nr pokoju" />
@@ -40,6 +45,20 @@
                </columnResizePolicy>
             </TableView>
             <Button fx:id="addButton" layoutX="200.0" layoutY="163.0" mnemonicParsing="false" onAction="#addButtonClicked" text="ADD" />
+            <Button fx:id="deleteButton" layoutX="289.0" layoutY="163.0" mnemonicParsing="false" onAction="#deleteButtonPressed" text="Delete" />
+            <Label fx:id="floorLabel" layoutX="183.0" layoutY="14.0" prefHeight="21.0" prefWidth="66.0" text="Label" />
+            <Label fx:id="peopleLabel" layoutX="183.0" layoutY="35.0" prefHeight="21.0" prefWidth="63.0" text="Label" />
+            <Label fx:id="costLabel" layoutX="183.0" layoutY="64.0" text="Label" />
+          <Button fx:id="menuButton" layoutX="1.0" layoutY="565.0" mnemonicParsing="false" onAction="#menuButtonClicked" prefHeight="31.0" prefWidth="121.0" style="-fx-background-color: #3399FF; -fx-font-weight: bold;" text="Menu główne" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+            <Button fx:id="planButton" layoutX="537.0" layoutY="570.0" mnemonicParsing="false" onAction="#planButtonClicked" prefHeight="31.0" prefWidth="150.0" style="-fx-background-color: #3399FF; -fx-font-weight: bold;" stylesheets="@Booking.css" text="Plan" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
          </children>
       </Pane>
       <ButtonBar layoutX="8.0" layoutY="347.0" prefHeight="40.0" prefWidth="285.0" />
@@ -48,22 +67,12 @@
             <Font size="20.0" />
          </font>
       </Button>
-      <Button fx:id="planButton" layoutX="608.0" layoutY="715.0" mnemonicParsing="false" onAction="#planButtonClicked" prefHeight="31.0" prefWidth="150.0" style="-fx-background-color: #3399FF; -fx-font-weight: bold;" stylesheets="@Booking.css" text="Plan" textFill="WHITE">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Button>
-    <Button fx:id="menuButton" layoutX="68.0" layoutY="715.0" mnemonicParsing="false" onAction="#menuButtonClicked" prefHeight="31.0" prefWidth="121.0" style="-fx-background-color: #3399FF; -fx-font-weight: bold;" text="Menu główne" textFill="WHITE">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Button>
-      <Label fx:id="peopleLabel" layoutX="86.0" layoutY="87.0" style="-fx-font-weight: bold; -fx-font-family: Times New Roman;" text="Iluosobowy:">
+      <Label layoutX="86.0" layoutY="87.0" style="-fx-font-weight: bold; -fx-font-family: Times New Roman;" text="Iluosobowy:">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="costLabel" layoutX="85.0" layoutY="114.0" style="-fx-font-weight: bold; -fx-font-family: Times New Roman;" text="Cena za noc:">
+      <Label layoutX="85.0" layoutY="114.0" style="-fx-font-weight: bold; -fx-font-family: Times New Roman;" text="Cena za noc:">
          <font>
             <Font size="18.0" />
          </font>

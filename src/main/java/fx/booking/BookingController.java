@@ -2,6 +2,7 @@ package fx.booking;
 
 import fx.booking.dao.Reservation;
 
+import fx.booking.dao.Room;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -11,14 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TableColumn;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -29,8 +23,8 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
-
 import java.sql.Date;
+import java.time.LocalDate;
 
 @Controller
 public class BookingController {
@@ -75,10 +69,14 @@ public class BookingController {
     private DatePicker toDatePicker;
 
     @FXML
+    private Label roomNumberLabel;
+
+    @FXML
     private Label fromLabel;
 
     @FXML
     private Label toLabel;
+
 
     @FXML
     private Button bookButton;
@@ -96,7 +94,13 @@ public class BookingController {
     private Button addButton;
 
     @FXML
-    private TableView<Reservation> reservationTabel;
+    private Button deleteButton;
+
+    @FXML
+    private Room selectedRoom;
+
+    @FXML
+    private TableView<Reservation> reservationTable;
 
     @FXML
     private TableColumn<Reservation, Integer> reservationNumberColumn;
@@ -105,34 +109,59 @@ public class BookingController {
     private TableColumn<Reservation, Integer> roomNumberColumn;
 
     @FXML
-    private TableColumn<Reservation, Date> fromDateColumn;
+    private TableColumn<Reservation, LocalDate> fromDateColumn;
 
     @FXML
-    private TableColumn<Reservation, Date> toDateColumn;
+    private TableColumn<Reservation, LocalDate> toDateColumn;
 
     @FXML
     public void initialize() {
-        reservationTabel.setItems(getReservation());
-        reservationNumberColumn.setCellValueFactory(new PropertyValueFactory<>("idReservation"));
+        reservationNumberColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         roomNumberColumn.setCellValueFactory(new PropertyValueFactory<>("roomNumber"));
-        fromDateColumn.setCellValueFactory(new PropertyValueFactory<>("reservationBeginningDate"));
-        toDateColumn.setCellValueFactory(new PropertyValueFactory<>("reservationEndingDate"));
+        fromDateColumn.setCellValueFactory(new PropertyValueFactory<>("beginningDate"));
+        toDateColumn.setCellValueFactory(new PropertyValueFactory<>("endingDate"));
+        reservationTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        reservationTable.setItems(getReservation());
+    }
+
+    @FXML
+    public void initRoom(Room room) {
+        roomNumberLabel.setText(Integer.toString(room.getNumber()));
+        floorLabel.setText(Integer.toString(room.getFloor()));
+        peopleLabel.setText(Integer.toString(room.getPeopleSize()));
+        costLabel.setText(Double.toString(room.getDailyCost()));
+
+    }
+
+    @FXML void initReservationTable(ObservableList<Reservation> list) {
+        reservationTable.getItems().clear();
+        for(int i = 0; i < list.size(); ++i) {
+            reservationTable.getItems().add(list.get(i));
+        }
     }
 
     @FXML
     public void addButtonClicked(ActionEvent event) {
-        Reservation r = new Reservation(1,1,1,"login",
-                new Date(2000,10,12), new Date(2000,10,12),
-                "złoty", 2000);
-        reservationTabel.getItems().add(r);
+        Reservation r = new Reservation(1,1,"login", fromDatePicker.getValue(),
+                toDatePicker.getValue(),"złoty", 2000);
+        reservationTable.getItems().add(r);
+    }
+
+    @FXML
+    public void deleteButtonPressed(ActionEvent event) {
+        ObservableList<Reservation> reservationSelected, allReservation;
+        allReservation = reservationTable.getItems();
+        reservationSelected = reservationTable.getSelectionModel().getSelectedItems();
+
+        reservationSelected.forEach(allReservation::remove);
     }
 
     @FXML
     public ObservableList<Reservation> getReservation() {
         ObservableList<Reservation> reservations = FXCollections.observableArrayList();
-        reservations.add(new Reservation(1,1,
-                1,"login", new Date(2000,10,12),
-                new Date(2000,10,18), "złoty", 1000));
+        reservations.add(new Reservation(1,
+                1,"login", LocalDate.of(2010, 10, 12),
+                LocalDate.of(2010, 10, 13), "złoty", 1000));
         return reservations;
     }
 

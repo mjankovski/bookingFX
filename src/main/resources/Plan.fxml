@@ -48,8 +48,8 @@
                         <Font size="19.0" />
                      </font>
                   </Label>
+                  <CheckBox fx:id="onePeopleCheckBox" mnemonicParsing="false" onAction="#onePeopleCheckBoxEntered" style="-fx-font-weight: bold;" text="Jednoosobowe" />
                   <CheckBox fx:id="twoPeopleCheckBox" mnemonicParsing="false" onAction="#twoPeopleCheckBoxEntered" style="-fx-font-weight: bold;" text="Dwuosobowe" />
-                  <CheckBox fx:id="threePeopleCheckBox" mnemonicParsing="false" onAction="#threePeopleCheckBoxEntered" style="-fx-font-weight: bold;" text="Trójosobowe" />
                   <CheckBox fx:id="fourPeopleCheckBox" mnemonicParsing="false" onAction="#fourPeopleCheckBoxEntered" style="-fx-font-weight: bold;" text="Czteroosobowe" />
                   <Label style="-fx-font-weight: bold;" text="Cena:">
                      <font>
