@@ -1,5 +1,6 @@
-package fx.booking.dao;
+package fx.booking.repository;
 
+import fx.booking.dao.RoomDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -7,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 

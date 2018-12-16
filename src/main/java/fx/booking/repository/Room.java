@@ -1,9 +1,7 @@
-package fx.booking.dao;
+package fx.booking.repository;
 
 import javafx.collections.ObservableList;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.math.BigDecimal;
 

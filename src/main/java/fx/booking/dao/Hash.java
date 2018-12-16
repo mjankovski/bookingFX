@@ -1,4 +1,4 @@
-package fx.booking;
+package fx.booking.dao;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

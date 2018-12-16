@@ -1,9 +1,8 @@
-package fx.booking;
+package fx.booking.controller;
 
-import fx.booking.dao.Reservation;
+import fx.booking.repository.Reservation;
 
-import fx.booking.dao.Room;
-import javafx.collections.FXCollections;
+import fx.booking.repository.Room;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

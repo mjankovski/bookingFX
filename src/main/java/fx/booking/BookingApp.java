@@ -4,7 +4,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import org.springframework.context.ConfigurableApplicationContext;
 import javafx.application.Application;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;

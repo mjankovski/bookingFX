@@ -1,9 +1,4 @@
-package fx.booking;
-
-import fx.booking.dao.InvalidCreditCardNumberException;
-import fx.booking.dao.InvalidEmailException;
-import fx.booking.dao.InvalidPeselException;
-import fx.booking.dao.InvalidPhoneNumberException;
+package fx.booking.dao;
 
 import lombok.Getter;
 import lombok.SneakyThrows;

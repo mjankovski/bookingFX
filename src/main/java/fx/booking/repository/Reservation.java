@@ -1,4 +1,4 @@
-package fx.booking.dao;
+package fx.booking.repository;
 
 import lombok.Data;
 
