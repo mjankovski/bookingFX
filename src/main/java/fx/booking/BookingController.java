@@ -2,6 +2,7 @@ package fx.booking;
 
 import fx.booking.dao.Reservation;
 
+import fx.booking.dao.Room;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -68,10 +69,14 @@ public class BookingController {
     private DatePicker toDatePicker;
 
     @FXML
+    private Label roomNumberLabel;
+
+    @FXML
     private Label fromLabel;
 
     @FXML
     private Label toLabel;
+
 
     @FXML
     private Button bookButton;
@@ -92,6 +97,9 @@ public class BookingController {
     private Button deleteButton;
 
     @FXML
+    private Room selectedRoom;
+
+    @FXML
     private TableView<Reservation> reservationTable;
 
     @FXML
@@ -108,12 +116,28 @@ public class BookingController {
 
     @FXML
     public void initialize() {
-        reservationNumberColumn.setCellValueFactory(new PropertyValueFactory<>("idReservation"));
+        reservationNumberColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         roomNumberColumn.setCellValueFactory(new PropertyValueFactory<>("roomNumber"));
-        fromDateColumn.setCellValueFactory(new PropertyValueFactory<>("reservationBeginningDate"));
-        toDateColumn.setCellValueFactory(new PropertyValueFactory<>("reservationEndingDate"));
+        fromDateColumn.setCellValueFactory(new PropertyValueFactory<>("beginningDate"));
+        toDateColumn.setCellValueFactory(new PropertyValueFactory<>("endingDate"));
         reservationTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         reservationTable.setItems(getReservation());
+    }
+
+    @FXML
+    public void initRoom(Room room) {
+        roomNumberLabel.setText(Integer.toString(room.getNumber()));
+        floorLabel.setText(Integer.toString(room.getFloor()));
+        peopleLabel.setText(Integer.toString(room.getPeopleSize()));
+        costLabel.setText(Double.toString(room.getDailyCost()));
+
+    }
+
+    @FXML void initReservationTable(ObservableList<Reservation> list) {
+        reservationTable.getItems().clear();
+        for(int i = 0; i < list.size(); ++i) {
+            reservationTable.getItems().add(list.get(i));
+        }
     }
 
     @FXML

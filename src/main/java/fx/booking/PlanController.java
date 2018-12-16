@@ -1,5 +1,11 @@
 package fx.booking;
 
+import fx.booking.dao.Reservation;
+import fx.booking.dao.Room;
+import fx.booking.dao.RoomKeeper;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +24,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 public class PlanController {
@@ -49,16 +56,13 @@ public class PlanController {
     private Label filtersLabel;
 
     @FXML
+    private CheckBox onePeopleCheckBox;
+
+    @FXML
     private CheckBox twoPeopleCheckBox;
 
     @FXML
-    private CheckBox threePeopleChechBox;
-
-    @FXML
     private CheckBox fourPeopleCheckBox;
-
-    @FXML
-    private CheckBox fivePeopleCheckBox;
 
     @FXML
     private Label pepoleNumberLabel;
@@ -201,52 +205,180 @@ public class PlanController {
     @FXML
     private Button room221Button;
 
+    @FXML
+    private ObservableList<Button> allRoomButtons;
+
+    @FXML
+    private ObservableList<Button> floor1ButtonsList;
+
+    @FXML
+    private ObservableList<Button> floor2ButtonsList;
+
+    @FXML
+    private ObservableList<Button> onePersonButtonsList;
+
+    @FXML
+    private ObservableList<Button> twoPersonButtonsList;
+
+    @FXML
+    private ObservableList<Button> fourPersonButtonsList;
+
+
+    @FXML
+    private ObservableMap<Button, Room> roomList;
+
+    @FXML
+    private Room selectedRoom;
+
 
     @FXML
     public void initialize() {
         floorComboBox.getItems().addAll(1,2);
         mapPane.setStyle("-fx-background-image: url(img/Floor1.png);");
-        room201Button.setVisible(false);
-        room202Button.setVisible(false);
-        room203Button.setVisible(false);
-        room204Button.setVisible(false);
-        room205Button.setVisible(false);
-        room206Button.setVisible(false);
-        room207Button.setVisible(false);
-        room208Button.setVisible(false);
-        room209Button.setVisible(false);
-        room210Button.setVisible(false);
-        room211Button.setVisible(false);
-        room212Button.setVisible(false);
-        room213Button.setVisible(false);
-        room214Button.setVisible(false);
-        room215Button.setVisible(false);
-        room216Button.setVisible(false);
-        room217Button.setVisible(false);
-        room218Button.setVisible(false);
-        room219Button.setVisible(false);
-        room220Button.setVisible(false);
-        room221Button.setVisible(false);
+
+        //lista wszystkich przyciskow
+        allRoomButtons = FXCollections.observableArrayList();
+        allRoomButtons.addAll(room101Button, room102Button, room103Button, room104Button,
+                room105Button, room106Button, room107Button, room108Button, room109Button,
+                room110Button, room111Button, room112Button, room113Button, room114Button, room115Button,
+                room116Button, room117Button, room118Button, room119Button, room120Button, room121Button,
+                room201Button, room202Button, room203Button, room204Button,
+                room205Button, room206Button, room207Button, room208Button, room209Button,
+                room210Button, room211Button, room212Button, room213Button, room214Button, room215Button,
+                room216Button, room217Button, room218Button, room219Button, room220Button, room221Button);
+
+        //lista przyciskow dla pokoi na pierwszym pietrze
+        floor1ButtonsList = FXCollections.observableArrayList();
+        floor1ButtonsList.addAll(room101Button, room102Button, room103Button, room104Button,
+                room105Button, room106Button, room107Button, room108Button, room109Button,
+                room110Button, room111Button, room112Button, room113Button, room114Button, room115Button,
+                room116Button, room117Button, room118Button, room119Button, room120Button, room121Button);
+
+        //lista przyciskow dla pokoi na drugim pietrze
+        floor2ButtonsList = FXCollections.observableArrayList();
+        floor2ButtonsList.addAll(room201Button, room202Button, room203Button, room204Button,
+                room205Button, room206Button, room207Button, room208Button, room209Button,
+                room210Button, room211Button, room212Button, room213Button, room214Button, room215Button,
+                room216Button, room217Button, room218Button, room219Button, room220Button, room221Button);
+
+        //lista przyciskow dla pokoi jednoosobowych
+        onePersonButtonsList = FXCollections.observableArrayList();
+        onePersonButtonsList.addAll(room112Button, room113Button, room114Button, room115Button,
+                room116Button, room117Button, room118Button, room119Button, room212Button, room213Button,
+                room214Button, room215Button, room216Button, room217Button, room218Button, room219Button);
+
+        //lista przyciskow dla pokoi dwuosobowych
+        twoPersonButtonsList = FXCollections.observableArrayList();
+        twoPersonButtonsList.addAll(room101Button, room102Button, room103Button, room104Button,
+                room105Button, room106Button, room107Button, room108Button, room109Button,
+                room110Button, room111Button, room201Button, room202Button, room203Button, room204Button,
+                room205Button, room206Button, room207Button, room208Button, room209Button,
+                room210Button, room211Button);
+
+        //lista przyciskow dla pokoi czteroosobowych
+        fourPersonButtonsList = FXCollections.observableArrayList();
+        fourPersonButtonsList.addAll(room120Button, room121Button, room220Button, room221Button);
+
+        //przypisanie przyciskow poszczegolnym pokojom
+        roomList = FXCollections.observableHashMap();
+        ObservableList<Room> rooms = RoomKeeper.getRoomList();
+        for(int i = 0; i < rooms.size(); ++i) {
+            Button button = allRoomButtons.get(i);
+            Room room = rooms.get(i);
+            roomList.put(button, room);
+        }
+
+        setFloor2ButtonsInvisible();
+    }
+
+    @FXML
+    public void setFloor1ButtonsVisible() {
+        for(Button button: floor1ButtonsList) {
+            button.setVisible(true);
+        }
+    }
+
+    @FXML
+    public void setFloor2ButtonsVisible() {
+        for(Button button: floor2ButtonsList) {
+            button.setVisible(true);
+        }
+    }
+
+    @FXML
+    public void setFloor1ButtonsInvisible() {
+        for(Button button: floor1ButtonsList) {
+            button.setVisible(false);
+        }
+    }
+
+    @FXML
+    public void setFloor2ButtonsInvisible() {
+        for(Button button: floor2ButtonsList) {
+            button.setVisible(false);
+        }
+    }
+
+    @FXML
+    public void setRedButtonCollor(ObservableList<Button> list) {
+        for(Button b: list) {
+            b.setStyle("-fx-background-color: red");
+        }
+    }
+
+
+    @FXML
+    public void setGreenButtonCollor(ObservableList<Button> list) {
+        for (Button b : list) {
+            b.setStyle("-fx-background-color: green");
+        }
+    }
+
+
+
+    @FXML
+    public void onePeopleCheckBoxEntered(ActionEvent event) throws IOException {
+        if(onePeopleCheckBox.isSelected()) {
+            setGreenButtonCollor(onePersonButtonsList);
+        }
+
+        else {
+            setRedButtonCollor(onePersonButtonsList);
+        }
     }
 
     @FXML
     public void twoPeopleCheckBoxEntered(ActionEvent event) throws IOException {
+        if(twoPeopleCheckBox.isSelected()) {
+            setGreenButtonCollor(twoPersonButtonsList);
+        }
 
+        else {
+            setRedButtonCollor(twoPersonButtonsList);
+        }
     }
 
-    @FXML
-    public void threePeopleCheckBoxEntered(ActionEvent event) throws IOException {
-
-    }
 
     @FXML
     public void fourPeopleCheckBoxEntered(ActionEvent event) throws IOException {
+        if(fourPeopleCheckBox.isSelected()) {
+            setGreenButtonCollor(fourPersonButtonsList);
+        }
 
+        else {
+            setRedButtonCollor(fourPersonButtonsList);
+        }
     }
 
     @FXML
     public void fromPriceTextFieldEntered(ActionEvent event) throws IOException {
+        if(fourPeopleCheckBox.isSelected()) {
+            setGreenButtonCollor(fourPersonButtonsList);
+        }
 
+        else {
+            setRedButtonCollor(fourPersonButtonsList);
+        }
     }
 
     @FXML
@@ -263,8 +395,6 @@ public class PlanController {
     public void toDatePickerAccessed(ActionEvent event) throws IOException {
 
     }
-
-
 
     @FXML
     public void menuButtonClicked(ActionEvent event) throws IOException {
@@ -293,6 +423,14 @@ public class PlanController {
             Parent tableViewParent = fxmlLoader.load();
             Scene tableViewScene = new Scene(tableViewParent);
 
+            //przekazywanie informacji o pokoju i jego rezerwacji
+            BookingController controller = fxmlLoader.getController();
+            Button button = (Button)event.getSource();
+            Room room = roomList.get(button);
+            ObservableList<Reservation> reservationList = room.getReservationsList();
+            controller.initRoom(room);
+            controller.initReservationTable(reservationList);
+
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
             window.setScene(tableViewScene);
             window.show();
@@ -308,93 +446,13 @@ public class PlanController {
         switch(floorComboBox.getValue()) {
             case 1:
                 mapPane.setStyle("-fx-background-image: url(img/Floor1.png);");
-                room101Button.setVisible(true);
-                room102Button.setVisible(true);
-                room103Button.setVisible(true);
-                room104Button.setVisible(true);
-                room105Button.setVisible(true);
-                room106Button.setVisible(true);
-                room107Button.setVisible(true);
-                room108Button.setVisible(true);
-                room109Button.setVisible(true);
-                room110Button.setVisible(true);
-                room111Button.setVisible(true);
-                room112Button.setVisible(true);
-                room113Button.setVisible(true);
-                room114Button.setVisible(true);
-                room115Button.setVisible(true);
-                room116Button.setVisible(true);
-                room117Button.setVisible(true);
-                room118Button.setVisible(true);
-                room119Button.setVisible(true);
-                room120Button.setVisible(true);
-                room121Button.setVisible(true);
-                room201Button.setVisible(false);
-                room202Button.setVisible(false);
-                room203Button.setVisible(false);
-                room204Button.setVisible(false);
-                room205Button.setVisible(false);
-                room206Button.setVisible(false);
-                room207Button.setVisible(false);
-                room208Button.setVisible(false);
-                room209Button.setVisible(false);
-                room210Button.setVisible(false);
-                room211Button.setVisible(false);
-                room212Button.setVisible(false);
-                room213Button.setVisible(false);
-                room214Button.setVisible(false);
-                room215Button.setVisible(false);
-                room216Button.setVisible(false);
-                room217Button.setVisible(false);
-                room218Button.setVisible(false);
-                room219Button.setVisible(false);
-                room220Button.setVisible(false);
-                room221Button.setVisible(false);
+                setFloor1ButtonsVisible();
+                setFloor2ButtonsInvisible();
                 break;
             case 2:
                 mapPane.setStyle("-fx-background-image: url(img/Floor2.png);");
-                room101Button.setVisible(false);
-                room102Button.setVisible(false);
-                room103Button.setVisible(false);
-                room104Button.setVisible(false);
-                room105Button.setVisible(false);
-                room106Button.setVisible(false);
-                room107Button.setVisible(false);
-                room108Button.setVisible(false);
-                room109Button.setVisible(false);
-                room110Button.setVisible(false);
-                room111Button.setVisible(false);
-                room112Button.setVisible(false);
-                room113Button.setVisible(false);
-                room114Button.setVisible(false);
-                room115Button.setVisible(false);
-                room116Button.setVisible(false);
-                room117Button.setVisible(false);
-                room118Button.setVisible(false);
-                room119Button.setVisible(false);
-                room120Button.setVisible(false);
-                room121Button.setVisible(false);
-                room201Button.setVisible(true);
-                room202Button.setVisible(true);
-                room203Button.setVisible(true);
-                room204Button.setVisible(true);
-                room205Button.setVisible(true);
-                room206Button.setVisible(true);
-                room207Button.setVisible(true);
-                room208Button.setVisible(true);
-                room209Button.setVisible(true);
-                room210Button.setVisible(true);
-                room211Button.setVisible(true);
-                room212Button.setVisible(true);
-                room213Button.setVisible(true);
-                room214Button.setVisible(true);
-                room215Button.setVisible(true);
-                room216Button.setVisible(true);
-                room217Button.setVisible(true);
-                room218Button.setVisible(true);
-                room219Button.setVisible(true);
-                room220Button.setVisible(true);
-                room221Button.setVisible(true);
+                setFloor1ButtonsInvisible();
+                setFloor2ButtonsVisible();
                 break;
         }
     }

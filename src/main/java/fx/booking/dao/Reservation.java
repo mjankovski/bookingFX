@@ -1,36 +1,38 @@
 package fx.booking.dao;
 
-import java.sql.Date;
 import java.time.LocalDate;
 
 public class Reservation {
-    private int idReservation;
+    private int id;
     private int invoiceNumber;
     private int roomNumber;
     private String login;
-    private LocalDate reservationBeginningDate;
-    private LocalDate reservationEndingDate;
+    private LocalDate beginningDate;
+    private LocalDate endingDate;
     private String currency;
-    private int reservationCost;
+    private double cost;
     private static int reservationNumber;
 
-    public Reservation(int invoiceNumber, int roomNumber, String login, LocalDate reservationBeginningDate, LocalDate reservationEndingDate, String currency, int reservationCost) {
-        this.idReservation = reservationNumber++;
+    public Reservation() {
+    }
+
+    public Reservation(int invoiceNumber, int roomNumber, String login, LocalDate beginningDate, LocalDate endingDate, String currency, double cost) {
+        this.id = reservationNumber++;
         this.invoiceNumber = invoiceNumber;
         this.roomNumber = roomNumber;
         this.login = login;
-        this.reservationBeginningDate = reservationBeginningDate;
-        this.reservationEndingDate = reservationEndingDate;
+        this.beginningDate = beginningDate;
+        this.endingDate = endingDate;
         this.currency = currency;
-        this.reservationCost = reservationCost;
+        this.cost = cost;
     }
 
-    public int getIdReservation() {
-        return idReservation;
+    public int getId() {
+        return id;
     }
 
-    public void setIdReservation(int idReservation) {
-        this.idReservation = idReservation;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getInvoiceNumber() {
@@ -57,20 +59,20 @@ public class Reservation {
         this.login = login;
     }
 
-    public LocalDate getReservationBeginningDate() {
-        return reservationBeginningDate;
+    public LocalDate getBeginningDate() {
+        return beginningDate;
     }
 
-    public void setReservationBeginningDate(LocalDate reservationBeginningDate) {
-        this.reservationBeginningDate = reservationBeginningDate;
+    public void setBeginningDate(LocalDate beginningDate) {
+        this.beginningDate = beginningDate;
     }
 
-    public LocalDate getReservationEndingDate() {
-        return reservationEndingDate;
+    public LocalDate getEndingDate() {
+        return endingDate;
     }
 
-    public void setReservationEndingDate(LocalDate reservationEndingDate) {
-        this.reservationEndingDate = reservationEndingDate;
+    public void setEndingDate(LocalDate endingDate) {
+        this.endingDate = endingDate;
     }
 
     public String getCurrency() {
@@ -81,11 +83,11 @@ public class Reservation {
         this.currency = currency;
     }
 
-    public int getReservationCost() {
-        return reservationCost;
+    public double getCost() {
+        return cost;
     }
 
-    public void setReservationCost(int reservationCost) {
-        this.reservationCost = reservationCost;
+    public void setCost(int cost) {
+        this.cost = cost;
     }
 }
