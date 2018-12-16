@@ -1,5 +1,6 @@
 package fx.booking.controller;
 
+import fx.booking.dao.ReservationDAO;
 import fx.booking.repository.Reservation;
 
 import fx.booking.repository.Room;
@@ -29,6 +30,9 @@ public class BookingController {
 
     @Autowired
     private ConfigurableApplicationContext springContext;
+
+    @Autowired
+    private ReservationDAO reservationDAO;
 
     @FXML
     private AnchorPane informationAnchorPane;
@@ -197,10 +201,5 @@ public class BookingController {
             e.printStackTrace();
         }
     }
-
-
-
-
-
 }
 

@@ -1,6 +1,7 @@
 package fx.booking.controller;
 
 
+import fx.booking.dao.DocumentDAO;
 import fx.booking.repository.ReservationKeeper;
 import fx.booking.repository.Room;
 import fx.booking.repository.RoomKeeper;
@@ -25,6 +26,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 
 @Controller
 public class PlanController {
