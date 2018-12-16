@@ -1,8 +1,6 @@
 package fx.booking;
 
-import fx.booking.dao.Reservation;
-import fx.booking.dao.Room;
-import fx.booking.dao.RoomKeeper;
+import fx.booking.dao.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
@@ -24,7 +22,6 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
-import java.util.List;
 
 @Controller
 public class PlanController {
@@ -34,6 +31,9 @@ public class PlanController {
 
     @Autowired
     private RoomKeeper roomKeeper;
+
+    @Autowired
+    private ReservationKeeper reservationKeeper;
 
     @FXML
     private AnchorPane planAnchorPane;
@@ -428,9 +428,9 @@ public class PlanController {
             BookingController controller = fxmlLoader.getController();
             Button button = (Button)event.getSource();
             Room room = roomList.get(button);
-            ObservableList<Reservation> reservationList = room.getReservationsList();
+
             controller.initRoom(room);
-            controller.initReservationTable(reservationList);
+            controller.initReservationTable(reservationKeeper.getReservationList(room.getNumber()));
 
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
             window.setScene(tableViewScene);

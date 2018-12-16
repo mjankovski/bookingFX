@@ -23,7 +23,6 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.time.LocalDate;
 
 @Controller
@@ -121,30 +120,28 @@ public class BookingController {
         fromDateColumn.setCellValueFactory(new PropertyValueFactory<>("beginningDate"));
         toDateColumn.setCellValueFactory(new PropertyValueFactory<>("endingDate"));
         reservationTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        reservationTable.setItems(getReservation());
     }
 
     @FXML
     public void initRoom(Room room) {
         roomNumberLabel.setText(Integer.toString(room.getNumber()));
-        floorLabel.setText(Integer.toString(room.getFloor()));
         peopleLabel.setText(Integer.toString(room.getPeopleSize()));
-        costLabel.setText(Double.toString(room.getDailyCost()));
+        costLabel.setText(room.getDailyCost().toString());
 
     }
 
     @FXML void initReservationTable(ObservableList<Reservation> list) {
         reservationTable.getItems().clear();
-        for(int i = 0; i < list.size(); ++i) {
-            reservationTable.getItems().add(list.get(i));
+        for (Reservation reservation : list) {
+            reservationTable.getItems().add(reservation);
         }
     }
 
     @FXML
     public void addButtonClicked(ActionEvent event) {
-        Reservation r = new Reservation(1,1,"login", fromDatePicker.getValue(),
-                toDatePicker.getValue(),"złoty", 2000);
-        reservationTable.getItems().add(r);
+//        Reservation r = new Reservation(1,1,"login", fromDatePicker.getValue(),
+//                toDatePicker.getValue(),"złoty", 2000);
+//        reservationTable.getItems().add(r);
     }
 
     @FXML
@@ -158,11 +155,12 @@ public class BookingController {
 
     @FXML
     public ObservableList<Reservation> getReservation() {
-        ObservableList<Reservation> reservations = FXCollections.observableArrayList();
-        reservations.add(new Reservation(1,
-                1,"login", LocalDate.of(2010, 10, 12),
-                LocalDate.of(2010, 10, 13), "złoty", 1000));
-        return reservations;
+//        ObservableList<Reservation> reservations = FXCollections.observableArrayList();
+//        reservations.add(new Reservation(1,
+//                1,"login", LocalDate.of(2010, 10, 12),
+//                LocalDate.of(2010, 10, 13), "złoty", 1000));
+//        return reservations;
+        return null;
     }
 
     @FXML

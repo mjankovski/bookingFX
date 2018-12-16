@@ -5,35 +5,22 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Data
 public class Room {
 
-    @Getter
-    @Setter
     private int number;
-
-    @Getter
-    @Setter
-    private int floor;
-
-    @Getter
-    @Setter
-    private double dailyCost;
-
+    private BigDecimal dailyCost;
     private int peopleSize;
-
-    @Getter
-    @Setter
     private ObservableList<Reservation> reservationsList;
 
     public Room() {
     }
 
-    public Room(int number, int floor, double dailyCost, int peopleSize, ObservableList<Reservation> reservationsList) {
+    public Room(int number, int peopleSize, BigDecimal dailyCost) {
         this.number = number;
-        this.floor = floor;
         this.dailyCost = dailyCost;
         this.peopleSize = peopleSize;
-        this.reservationsList = reservationsList;
     }
 }
