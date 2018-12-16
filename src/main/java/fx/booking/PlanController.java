@@ -29,10 +29,11 @@ import java.util.List;
 @Controller
 public class PlanController {
 
-
-
     @Autowired
     private ConfigurableApplicationContext springContext;
+
+    @Autowired
+    private RoomKeeper roomKeeper;
 
     @FXML
     private AnchorPane planAnchorPane;
@@ -281,7 +282,7 @@ public class PlanController {
 
         //przypisanie przyciskow poszczegolnym pokojom
         roomList = FXCollections.observableHashMap();
-        ObservableList<Room> rooms = RoomKeeper.getRoomList();
+        ObservableList<Room> rooms = roomKeeper.getRoomList();
         for(int i = 0; i < rooms.size(); ++i) {
             Button button = allRoomButtons.get(i);
             Room room = rooms.get(i);

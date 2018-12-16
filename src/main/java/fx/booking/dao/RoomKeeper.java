@@ -2,14 +2,15 @@ package fx.booking.dao;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.springframework.cglib.core.Local;
+
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 
+@Repository
 public class RoomKeeper {
-    private RoomKeeper() {};
 
-    public static ObservableList<Room> getRoomList() {
+    public ObservableList<Room> getRoomList() {
         //jak cos myslalem ze tu bedzie kontakt z baza danych i ona bedzie sciagala info o pokojach i ich cenach
         //na razie wpisuje dane o kilku pierwszych pokojach
         ObservableList<Reservation> reservationsList = FXCollections.observableArrayList();
