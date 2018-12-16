@@ -1,5 +1,6 @@
-package fx.booking;
+package fx.booking.controller;
 
+import fx.booking.dao.AccountDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

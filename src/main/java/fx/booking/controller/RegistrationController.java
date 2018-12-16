@@ -1,9 +1,6 @@
-package fx.booking;
+package fx.booking.controller;
 
-import fx.booking.dao.InvalidCreditCardNumberException;
-import fx.booking.dao.InvalidEmailException;
-import fx.booking.dao.InvalidPeselException;
-import fx.booking.dao.InvalidPhoneNumberException;
+import fx.booking.dao.*;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

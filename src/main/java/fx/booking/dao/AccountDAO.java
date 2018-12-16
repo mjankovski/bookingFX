@@ -1,9 +1,4 @@
-package fx.booking;
-
-import fx.booking.dao.InvalidCreditCardNumberException;
-import fx.booking.dao.InvalidEmailException;
-import fx.booking.dao.InvalidPeselException;
-import fx.booking.dao.InvalidPhoneNumberException;
+package fx.booking.dao;
 
 import lombok.Getter;
 import lombok.SneakyThrows;
@@ -49,14 +44,14 @@ public class AccountDAO{
             throws InvalidCreditCardNumberException, InvalidPeselException, InvalidPhoneNumberException,
             InvalidEmailException, DuplicateKeyException, NoSuchAlgorithmException {
 
-        if(!creditCardNumber.matches("^[0-9]*$") || creditCardNumber.length()!=16) throw new InvalidCreditCardNumberException();
-        if(!pesel.matches("^[0-9]*$") || pesel.length()!=11) throw new InvalidPeselException();
-        if(!phoneNumber.matches("^[0-9]*$") || phoneNumber.length()!=9) throw new InvalidPhoneNumberException();
+        if(!creditCardNumber.matches("^[0-9]*$")) throw new InvalidCreditCardNumberException();
+        if(!pesel.matches("^[0-9]*$")) throw new InvalidPeselException();
+        if(!phoneNumber.matches("^[0-9]*$")) throw new InvalidPhoneNumberException();
         if(!email.matches("[a-zA-Z0-9]{3,}@[a-zA-Z0-9]{2,}\\.[a-zA-Z]{2,3}")) throw new InvalidEmailException();
         if(!login.matches("[a-zA-Z0-9]{3,20}")) throw new IllegalArgumentException();
         if(!pw.matches("[a-zA-Z0-9]{3,20}")) throw new IllegalArgumentException();
-        if(!firstname.matches("[a-zA-Z0-9]{2,30}")) throw new IllegalArgumentException();
-        if(!lastname.matches("[a-zA-Z0-9]{2,30}")) throw new IllegalArgumentException();
+        if(!firstname.matches("[a-zA-Z0-9ąćęłńóśźż]{2,30}")) throw new IllegalArgumentException();
+        if(!lastname.matches("[a-zA-Z0-9ąćęłńóśźż]{2,30}")) throw new IllegalArgumentException();
         byte[] salt = Hash.getSalt();
         String pwH = Hash.getSHA256(pw, salt);
 
