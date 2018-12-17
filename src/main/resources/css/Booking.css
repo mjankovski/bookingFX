@@ -1,5 +1,6 @@
 #mainVBox
 {
+	-fx-background-color: #FFFFCC;
 	-fx-color: #3399FF;
 	-fx-font-weight: bold;
 	-fx-opacity: 0.9;
@@ -28,8 +29,8 @@
 {
 	-fx-background-color: #3399CC;
 	-fx-font-size: 150%;
-	-fx-border-radius: 15px;
-	-fx-background-radius: 15px;
+	-fx-border-radius: 10px;
+	-fx-background-radius: 10px;
 }
 
 .button:hover
@@ -40,11 +41,6 @@
 #bookButton
 {
 	-fx-font-size: 200%;
-}
-
-#bookingFXLabel
-{
-
 }
 
 #descriptionHBox
