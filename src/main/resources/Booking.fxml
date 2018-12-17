@@ -11,11 +11,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="mainVBox" stylesheets="css/Booking.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fx.booking.controller.BookingController">
+<VBox fx:id="mainVBox" style="-fx-background-color: #FFFFCC;" stylesheets="css/Booking.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fx.booking.controller.BookingController">
    <children>
-      <HBox fx:id="titleHBox" alignment="CENTER_LEFT" prefHeight="48.0" prefWidth="1196.0" style="-fx-background-color: #3399FF;" stylesheets="@css/Booking.css" VBox.vgrow="ALWAYS">
+      <HBox fx:id="titleHBox" alignment="CENTER_LEFT" prefHeight="48.0" prefWidth="1196.0" style="-fx-background-color: #3399FF;" VBox.vgrow="ALWAYS">
          <children>
-            <Label fx:id="bookingFXLabel" stylesheets="@css/Booking.css" text="BookingFX" textFill="WHITE">
+            <Label fx:id="bookingFXLabel" text="BookingFX" textFill="WHITE">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
@@ -68,7 +68,7 @@
             </VBox>
             <VBox alignment="BOTTOM_CENTER" prefHeight="235.0" prefWidth="365.0" HBox.hgrow="ALWAYS">
                <children>
-                  <Button fx:id="bookButton" alignment="CENTER" mnemonicParsing="false" prefHeight="91.0" prefWidth="369.0" stylesheets="@css/Booking.css" text="REZERWUJ" textFill="WHITE" VBox.vgrow="ALWAYS" />
+                  <Button fx:id="bookButton" alignment="CENTER" mnemonicParsing="false" prefHeight="91.0" prefWidth="369.0" text="REZERWUJ" textFill="WHITE" VBox.vgrow="ALWAYS" />
                </children>
             </VBox>
          </children>
@@ -104,7 +104,7 @@
       </HBox>
       <HBox fx:id="buttonHBox" alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="55.0" prefWidth="1196.0" style="-fx-spacing: 100;" VBox.vgrow="ALWAYS">
          <children>
-          <Button fx:id="menuButton" mnemonicParsing="false" onAction="#menuButtonClicked" prefHeight="33.0" prefWidth="170.0" text="WYLOGUJ" textFill="WHITE" HBox.hgrow="ALWAYS">
+          <Button fx:id="menuButton" mnemonicParsing="false" onAction="#menuButtonClicked" prefHeight="44.0" prefWidth="170.0" text="WYLOGUJ" textFill="WHITE" HBox.hgrow="ALWAYS">
                <font>
                   <Font size="15.0" />
                </font>
@@ -112,7 +112,7 @@
                   <Insets />
                </HBox.margin>
             </Button>
-            <Button fx:id="planButton" mnemonicParsing="false" onAction="#planButtonClicked" prefHeight="44.0" prefWidth="167.0" stylesheets="@css/Booking.css" text="PLAN" textFill="WHITE" HBox.hgrow="ALWAYS">
+            <Button fx:id="planButton" mnemonicParsing="false" onAction="#planButtonClicked" prefHeight="44.0" prefWidth="167.0" text="PLAN" textFill="WHITE" HBox.hgrow="ALWAYS">
                <font>
                   <Font size="15.0" />
                </font>
