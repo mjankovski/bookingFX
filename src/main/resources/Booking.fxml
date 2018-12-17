@@ -57,6 +57,8 @@
                   <Font size="15.0" />
                </font>
             </Button>
+            <DatePicker fx:id="toDatePicker" layoutX="504.0" layoutY="100.0" />
+            <DatePicker fx:id="fromDatePicker" layoutX="206.0" layoutY="100.0" />
          </children>
       </Pane>
       <ButtonBar layoutX="8.0" layoutY="347.0" prefHeight="40.0" prefWidth="285.0" />
@@ -85,8 +87,6 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <DatePicker fx:id="fromDatePicker" layoutX="527.0" layoutY="146.0" />
-      <DatePicker fx:id="toDatePicker" layoutX="261.0" layoutY="146.0" />
       <Label fx:id="fromLabel" layoutX="228.0" layoutY="145.0" style="-fx-font-weight: bold; -fx-font-family: Times New Roman;" text="od:">
          <font>
             <Font size="18.0" />
