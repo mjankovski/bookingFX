@@ -1,4 +1,31 @@
-#mapPane
+#mainVBox
 {
-    -fx-background-image: url("img/Floor1.png");
+    -fx-background-color: #FFFFCC;
+    -fx-color: #3399FF;
+    -fx-font-weight: bold;
+    -fx-opacity: 0.9;
+    -fx-font-family: "Arial Black";
+}
+
+#titleHBox
+{
+    -fx-font-size: 300%;
+    -fx-color: white;
+}
+
+#mapPane
+ {
+     -fx-background-image: url("../img/Floor1.png");
+ }
+
+.button
+{
+    -fx-font-size: 100%;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+}
+
+.button:hover
+{
+    -fx-background-color: #1177AA;
 }

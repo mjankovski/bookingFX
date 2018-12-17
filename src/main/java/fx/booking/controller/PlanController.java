@@ -366,8 +366,8 @@ public class PlanController {
 
             for (Button button : allRoomButtons) {
                 BigDecimal roomPrice = roomList.get(button).getDailyCost();
-                if (roomPrice.compareTo(minPrice) == 1 && roomPrice.compareTo(maxPrice) == -1 ||
-                        roomPrice.compareTo(minPrice) == 0 && roomPrice.compareTo(maxPrice) == 0) {
+                if ((roomPrice.compareTo(minPrice) == 1  || roomPrice.compareTo(minPrice) == 0) &&
+                        (roomPrice.compareTo(maxPrice) == -1 || roomPrice.compareTo(maxPrice) == 0)) {
                     button.setStyle("-fx-background-color: green");
                 } else {
                     button.setStyle("-fx-background-color: red");
