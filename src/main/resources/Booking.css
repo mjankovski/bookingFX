@@ -1,39 +1,53 @@
-#menuAnchorPane
+#mainVBox
 {
-	-fx-background-color: #ac7339;
+	-fx-color: #3399FF;
+	-fx-font-weight: bold;
+	-fx-opacity: 0.9;
+	-fx-font-family: "Arial Black";
+}
+
+#titleHBox
+{
+	-fx-font-size: 300%;
+	-fx-font-weight: bold;
+	-fx-color: white;
+}
+
+#roomInfoHBox
+{
+	-fx-color: #000000;
+	-fx-font-size: 250%;
+}
+
+#reservationTitleHBox
+{
+	-fx-font-size: 200%;
+}
+
+.button
+{
+	-fx-background-color: #3399CC;
+	-fx-font-size: 150%;
+	-fx-border-radius: 15px;
+	-fx-background-radius: 15px;
+}
+
+.button:hover
+{
+	-fx-background-color: #1177AA;
 }
 
 #bookButton
 {
-	-fx-font-size: 20px
+	-fx-font-size: 200%;
 }
 
-#bookButton:hover
+#bookingFXLabel
 {
-	-fx-background-color: #4444CC;
-	-fx-font-size: 20px;
+
 }
 
-#planButton
+#descriptionHBox
 {
-	-fx-font-size: 15px;
+	-fx-font-size: 180%;
 }
-
-#planButton:hover
-{
-	-fx-font-size: 15px;
-	-fx-background-color: #1177DD;
-}
-
-#menuButton
-{
-	-fx-font-size: 15px;
-}
-
-#menuButton:hover{
-	-fx-font-size: 15px;
-	-fx-background-color: #11742D;
-}
-
-
-

@@ -17,7 +17,7 @@ public class RoomDAO {
     }
 
     public List<Map<String,Object>> getRoomsInfo(){
-        return jdbcTemplate.queryForList("SELECT NR_POKOJ, LICZBA_OSOB, CENA FROM Pokoje");
+        return jdbcTemplate.queryForList("SELECT NR_POKOJ, LICZBA_OSOB, CENA FROM Pokoje ORDER BY 1");
     }
 
 }

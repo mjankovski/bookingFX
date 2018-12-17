@@ -24,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Controller;
 
+import javax.xml.soap.Text;
 import java.io.IOException;
 import java.math.BigDecimal;
 
@@ -231,6 +232,9 @@ public class PlanController {
         floorComboBox.getItems().addAll(1,2);
         mapPane.setStyle("-fx-background-image: url(img/Floor1.png);");
 
+        fromPriceTextField.setText("0");
+        toPriceTextField.setText("1000");
+
         //lista wszystkich przyciskow
         allRoomButtons = FXCollections.observableArrayList();
         allRoomButtons.addAll(room101Button, room102Button, room103Button, room104Button,
@@ -242,6 +246,9 @@ public class PlanController {
                 room210Button, room211Button, room212Button, room213Button, room214Button, room215Button,
                 room216Button, room217Button, room218Button, room219Button, room220Button, room221Button);
 
+        for (Button button: allRoomButtons) {
+            button.setStyle("-fx-background-color: green");
+        }
         //przypisanie przyciskow poszczegolnym pokojom
         roomList = FXCollections.observableHashMap();
         ObservableList<Room> rooms = roomKeeper.getRoomList();
@@ -251,6 +258,9 @@ public class PlanController {
             roomList.put(button, room);
         }
 
+        onePeopleCheckBox.setSelected(true);
+        twoPeopleCheckBox.setSelected(true);
+        fourPeopleCheckBox.setSelected(true);
         setFloor2ButtonsInvisible();
     }
 
@@ -350,19 +360,24 @@ public class PlanController {
 
     @FXML
     public void priceTextFieldEntered(ActionEvent event) throws IOException {
-        for(Button button: allRoomButtons) {
-            BigDecimal roomPrice = roomList.get(button).getDailyCost();
-            BigDecimal minPrice = new BigDecimal(fromPriceTextField.getText().replaceAll(",", ""));
-            BigDecimal maxPrice = new BigDecimal(toPriceTextField.getText().replaceAll(",", ""));
-            if(roomPrice.compareTo(minPrice) == 1 && roomPrice.compareTo(maxPrice) == - 1 ||
-                    roomPrice.compareTo(minPrice) == 0 && roomPrice.compareTo(maxPrice) == - 0) {
-                button.setStyle("-fx-background-color: green");
-            }
-            else {
-                button.setStyle("-fx-background-color: green");
+        try {
+            BigDecimal minPrice = new BigDecimal(fromPriceTextField.getText());
+            BigDecimal maxPrice = new BigDecimal(toPriceTextField.getText());
+
+            for (Button button : allRoomButtons) {
+                BigDecimal roomPrice = roomList.get(button).getDailyCost();
+                if (roomPrice.compareTo(minPrice) == 1 && roomPrice.compareTo(maxPrice) == -1 ||
+                        roomPrice.compareTo(minPrice) == 0 && roomPrice.compareTo(maxPrice) == 0) {
+                    button.setStyle("-fx-background-color: green");
+                } else {
+                    button.setStyle("-fx-background-color: red");
+                }
             }
         }
-
+        catch(NumberFormatException e) {
+            TextField textField = (TextField)(event.getSource());
+            textField.clear();
+        }
     }
 
     @FXML

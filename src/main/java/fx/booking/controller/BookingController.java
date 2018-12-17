@@ -115,7 +115,6 @@ public class BookingController {
     @FXML
     public void initialize() {
         reservationNumberColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        roomNumberColumn.setCellValueFactory(new PropertyValueFactory<>("roomNumber"));
         fromDateColumn.setCellValueFactory(new PropertyValueFactory<>("beginningDate"));
         toDateColumn.setCellValueFactory(new PropertyValueFactory<>("endingDate"));
         reservationTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
