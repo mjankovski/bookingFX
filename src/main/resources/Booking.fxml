@@ -44,8 +44,6 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <Button fx:id="addButton" layoutX="200.0" layoutY="163.0" mnemonicParsing="false" onAction="#addButtonClicked" text="ADD" />
-            <Button fx:id="deleteButton" layoutX="289.0" layoutY="163.0" mnemonicParsing="false" onAction="#deleteButtonPressed" text="Delete" />
             <Label fx:id="floorLabel" layoutX="183.0" layoutY="14.0" prefHeight="21.0" prefWidth="66.0" text="Label" />
             <Label fx:id="peopleLabel" layoutX="183.0" layoutY="35.0" prefHeight="21.0" prefWidth="63.0" text="Label" />
             <Label fx:id="costLabel" layoutX="183.0" layoutY="64.0" text="Label" />
