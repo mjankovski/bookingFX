@@ -54,12 +54,12 @@
                <children>
                   <Label fx:id="peopleLabel" text="Label" />
                   <Label fx:id="costLabel" text="Label" />
-                  <DatePicker fx:id="toDatePicker" prefHeight="23.0" prefWidth="375.0">
+                  <DatePicker fx:id="fromDatePicker" prefHeight="50.0" prefWidth="375.0">
                      <VBox.margin>
                         <Insets top="45.0" />
                      </VBox.margin>
                   </DatePicker>
-                  <DatePicker fx:id="fromDatePicker" prefHeight="50.0" prefWidth="375.0">
+                  <DatePicker fx:id="toDatePicker" prefHeight="23.0" prefWidth="375.0">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
@@ -68,7 +68,7 @@
             </VBox>
             <VBox alignment="BOTTOM_CENTER" prefHeight="235.0" prefWidth="365.0" HBox.hgrow="ALWAYS">
                <children>
-                  <Button fx:id="bookButton" alignment="CENTER" mnemonicParsing="false" prefHeight="91.0" prefWidth="369.0" text="REZERWUJ" textFill="WHITE" VBox.vgrow="ALWAYS" />
+                  <Button fx:id="bookButton" alignment="CENTER" mnemonicParsing="false" onAction="#reservationButtonClicked" prefHeight="91.0" prefWidth="369.0" text="REZERWUJ" textFill="WHITE" VBox.vgrow="ALWAYS" />
                </children>
             </VBox>
          </children>

@@ -3,6 +3,7 @@ package fx.booking.controller;
 import fx.booking.dao.ReservationDAO;
 import fx.booking.repository.Reservation;
 
+import fx.booking.repository.ReservationKeeper;
 import fx.booking.repository.Room;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -33,6 +34,9 @@ public class BookingController {
 
     @Autowired
     private ReservationDAO reservationDAO;
+
+    @Autowired
+    private ReservationKeeper reservationKeeper;
 
     @FXML
     private AnchorPane informationAnchorPane;
@@ -79,7 +83,6 @@ public class BookingController {
     @FXML
     private Label toLabel;
 
-
     @FXML
     private Button bookButton;
 
@@ -108,13 +111,13 @@ public class BookingController {
     private TableColumn<Reservation, Integer> reservationNumberColumn;
 
     @FXML
-    private TableColumn<Reservation, Integer> roomNumberColumn;
-
-    @FXML
     private TableColumn<Reservation, LocalDate> fromDateColumn;
 
     @FXML
     private TableColumn<Reservation, LocalDate> toDateColumn;
+
+    @FXML
+    private ObservableList<Reservation> reservationsList;
 
     @FXML
     public void initialize() {
@@ -126,6 +129,7 @@ public class BookingController {
 
     @FXML
     public void initRoom(Room room) {
+        selectedRoom = room;
         roomNumberLabel.setText(Integer.toString(room.getNumber()));
         peopleLabel.setText(Integer.toString(room.getPeopleSize()));
         costLabel.setText(room.getDailyCost().toString());
@@ -179,11 +183,12 @@ public class BookingController {
 
         if(reservationDAO.checkIfRoomFree(Integer.valueOf(roomNumberLabel.getText()), fromDatePicker.getValue().toString(), toDatePicker.getValue().toString())){
             reservationDAO.insertReservation(Integer.valueOf(roomNumberLabel.getText()), fromDatePicker.getValue().toString(), toDatePicker.getValue().toString());
-        }else{
+            reservationsList = reservationKeeper.getReservationList(selectedRoom.getNumber());
+            reservationTable.getItems().add(reservationsList.get(reservationsList.size() - 1));
+        }
+        else{
             showAlertInfo("Błąd!", "Nie dokonano rezerwacji, ponieważ w tych dniach pokój jest już zarezerwowany", Alert.AlertType.ERROR);
         }
-
-
     }
 
     private void showAlertInfo(String title, String header, Alert.AlertType type){
