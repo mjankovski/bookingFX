@@ -27,7 +27,7 @@
       </HBox>
       <HBox fx:id="roomInfoHBox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
          <children>
-            <Label fx:id="titleLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="512.0" text="Informacje o pokoju nr" HBox.hgrow="ALWAYS" />
+            <Label fx:id="titleLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="497.0" text="Informacje o pokoju nr" HBox.hgrow="ALWAYS" />
             <Label fx:id="roomNumberLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="82.0" text="***" HBox.hgrow="ALWAYS" />
          </children>
       </HBox>

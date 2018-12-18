@@ -1,96 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="menuAnchorPane" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: #ac7339;" stylesheets="css/Welcome.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fx.booking.controller.WelcomeController">
+<VBox fx:id="mainVBox" prefHeight="584.0" prefWidth="1382.0" stylesheets="css/Welcome.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fx.booking.controller.WelcomeController">
    <children>
-      <Pane layoutX="-14.0" prefHeight="101.0" prefWidth="1381.0" style="-fx-background-color: #4D2600;">
+      <HBox fx:id="titleHBox" prefHeight="26.0" prefWidth="955.0" style="-fx-background-color: #3399FF;">
          <children>
-            <Label fx:id="hotelLabel" layoutX="74.0" layoutY="-2.0" prefHeight="81.0" prefWidth="199.0" text="Hotel " textAlignment="JUSTIFY" textFill="WHITE">
-               <font>
-                  <Font size="72.0" />
-               </font>
-            </Label>
-            <Label fx:id="fxLabel" layoutX="256.0" layoutY="-18.0" prefHeight="113.0" prefWidth="125.0" style="-fx-font-family: constantia; -fx-font-weight: bold;" text="FX" textFill="WHITE">
-               <font>
-                  <Font size="30.0" />
-               </font>
-            </Label>
-            <ImageView fitHeight="24.0" fitWidth="37.0" layoutX="113.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@img/star.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="24.0" fitWidth="37.0" layoutX="150.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@img/star.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="24.0" fitWidth="37.0" layoutX="184.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@img/star.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="24.0" fitWidth="28.0" layoutX="220.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@img/star.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="24.0" fitWidth="37.0" layoutX="257.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@img/star.png" />
-               </image>
-            </ImageView>
-         </children></Pane>
-      <Label fx:id="descriptionLabel" alignment="CENTER" layoutX="35.0" layoutY="101.0" prefHeight="66.0" prefWidth="1296.0" text="Skorzystaj z naszej aplikacji i w wygodny sposób zarezerwuj sobie pokój!">
-         <font>
-            <Font size="17.0" />
-         </font>
-      </Label>
-      <Pane fx:id="formPane" layoutX="289.0" layoutY="192.0" prefHeight="491.0" prefWidth="788.0" style="-fx-background-color: #B37700; -fx-border-insets: -8; -fx-border-color: #4D2600; -fx-border-width: 8; -fx-border-radius: 10;">
-         <children>
-            <Button fx:id="logButton" layoutX="255.0" layoutY="260.0" mnemonicParsing="false" onAction="#loginButtonClicked" prefHeight="66.0" prefWidth="292.0" text="ZALOGUJ" textFill="WHITE">
-               <font>
-                  <Font size="15.0" />
-               </font></Button>
-            <Button fx:id="makeAccountButton" layoutX="255.0" layoutY="340.0" mnemonicParsing="false" onAction="#makeAccountButtonClicked" prefHeight="66.0" prefWidth="292.0" text="ZAŁÓŻ KONTO" textFill="WHITE">
-               <font>
-                  <Font size="15.0" />
-               </font></Button>
-            <TextField fx:id="loginTextField" layoutX="180.0" layoutY="59.0" prefHeight="64.0" prefWidth="442.0" promptText="login">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </TextField>
-            <Label fx:id="loginLabel" layoutX="179.0" layoutY="8.0" text="Login:">
-               <font>
-                  <Font size="34.0" />
-               </font>
-            </Label>
-            <Label fx:id="passLabel" layoutX="179.0" layoutY="130.0" text="Hasło:">
-               <font>
-                  <Font size="35.0" />
-               </font>
-            </Label>
-            <PasswordField fx:id="passTextField" layoutX="180.0" layoutY="176.0" prefHeight="64.0" prefWidth="442.0" promptText="hasło">
-               <font>
-                  <Font size="26.0" />
-               </font>
-            </PasswordField>
+            <Label fx:id="hotelLabel" prefHeight="81.0" prefWidth="280.0" text="BookingFX" textAlignment="JUSTIFY" textFill="WHITE">
+               <HBox.margin>
+                  <Insets left="50.0" />
+               </HBox.margin></Label>
          </children>
-      </Pane>
-      <Button fx:id="authorsButton" layoutX="1039.0" layoutY="697.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="251.0" text="O AUTORACH" textFill="WHITE">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Button>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </HBox>
+      <HBox fx:id="phraseHBox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="49.0" prefWidth="1353.0" text="Skorzystaj z naszej aplikacji i w wygodny sposób zarezerwuj sobie pokój. Zapraszamy!" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets left="20.0" right="20.0" />
+               </HBox.margin>
+            </Label>
+         </children>
+         <VBox.margin>
+            <Insets bottom="20.0" top="10.0" />
+         </VBox.margin>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="451.0" prefWidth="1283.0">
+         <children>
+            <VBox fx:id="loggingFormVBox" alignment="CENTER" prefHeight="454.0" prefWidth="463.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label fx:id="loginLabel" alignment="CENTER" prefHeight="51.0" prefWidth="109.0" text="Login:" VBox.vgrow="ALWAYS" />
+                  <TextField fx:id="loginTextField" alignment="CENTER" prefHeight="57.0" prefWidth="321.0" promptText="login" VBox.vgrow="ALWAYS">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </TextField>
+                  <Label fx:id="passLabel" alignment="CENTER" text="Hasło:" VBox.vgrow="ALWAYS" />
+                  <PasswordField fx:id="passTextField" alignment="CENTER" prefHeight="57.0" prefWidth="344.0" promptText="hasło" VBox.vgrow="ALWAYS">
+                     <font>
+                        <Font size="26.0" />
+                     </font>
+                  </PasswordField>
+                  <Button fx:id="logButton" alignment="CENTER" mnemonicParsing="false" onAction="#loginButtonClicked" prefHeight="66.0" prefWidth="292.0" text="ZALOGUJ" VBox.vgrow="ALWAYS">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="20.0" top="20.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="makeAccountButton" alignment="CENTER" mnemonicParsing="false" onAction="#makeAccountButtonClicked" prefHeight="66.0" prefWidth="292.0" text="ZAŁÓŻ KONTO" textFill="WHITE" VBox.vgrow="ALWAYS">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+               <HBox.margin>
+                  <Insets left="400.0" right="400.0" />
+               </HBox.margin>
+               <padding>
+                  <Insets left="40.0" right="40.0" />
+               </padding>
+            </VBox>
+         </children>
+      </HBox>
+      <HBox prefHeight="98.0" prefWidth="1382.0">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <VBox.margin>
+            <Insets top="20.0" />
+         </VBox.margin>
+      </HBox>
    </children>
-</AnchorPane>
+</VBox>

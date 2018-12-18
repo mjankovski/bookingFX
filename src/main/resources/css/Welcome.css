@@ -1,103 +1,43 @@
-#menuAnchorPane
+#mainVBox
 {
-    -fx-background-color: #ac7339;
-}
-
-#hotelLabel
-{
-    -fx-font-family: Georgia;
+    -fx-background-color: #FFFFCC;
+    -fx-color: #3399FF;
     -fx-font-weight: bold;
-    -fx-font-style: italic;
-    -fx-font-size: 60px;
-}
-
-#fxLabel
-{
-    -fx-font-family: Georgia;
-    -fx-font-weight: bold;
-    -fx-font-style: italic;
-    -fx-font-size: 60px;
-}
-
-#descriptionLabel
-{
-    -fx-text-fill: #000000;
-    -fx-font-weight: bold;
-    -fx-font-size: 32px;
+    -fx-opacity: 0.9;
     -fx-font-family: "Arial Black";
 }
 
-#loginLabel
+#titleHBox
 {
-    -fx-font-family: "Arial Black";
-    -fx-font-weight: bold;
-    -fx-text-fill: #000000;
+    -fx-font-size: 300%;
+    -fx-color: white;
 }
 
-#passLabel
+#phraseHBox
 {
-    -fx-font-family: "Arial Black";
-    -fx-font-weight: bold;
-    -fx-text-fill: #000000;
+    -fx-font-size: 180%;
 }
 
-#logButton
+#loggingFormVBox
 {
-    -fx-font-family: "Arial Black";
-    -fx-background-color: #4D2600;
-    -fx-font-weight: bold;
-    -fx-font-size: 30px;
+    -fx-border-color: #3399FF;
+    -fx-border-width: 3;
+    -fx-border-radius: 3;
+    -fx-font-size: 200%;
 }
 
-#logButton:hover
+.button
 {
-    -fx-background-color: #331A00;
+    -fx-background-color: #3399CC;
+    -fx-font-size: 100%;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-text-fill: white;
 }
 
-#makeAccountButton
+.button:hover
 {
-    -fx-font-family: "Arial Black";
-    -fx-background-color: #4D2600;
-    -fx-font-weight: bold;
-    -fx-font-size: 30px;
-    -fx-spacing: 10;
+    -fx-background-color: #1177AA;
 }
 
-#makeAccountButton:hover
-{
-    -fx-background-color: #331A00;
-}
-
-#loginTextField
-{
-    -fx-font-family: "Arial Black";
-    -fx-font-weight: bold;
-    -fx-font-size: 26px;
-}
-
-#passTextField
-{
-    -fx-font-family: "Arial Black";
-    -fx-font-weight: bold;
-    -fx-font-size: 26px;
-}
-
-#authorsButton
-{
-    -fx-font-family: "Arial Black";
-    -fx-font-size: 26px;
-    -fx-background-color: #4D2600;
-}
-
-#authorsButton:hover
-{
-    -fx-background-color: #331A00;
-}
-
-#wrongDataLabel
-{
-    -fx-font-family: "Arial Black";
-    -fx-font-size: 26px;
-    -fx-border-color: #FF0000;
-}
 
