@@ -35,7 +35,7 @@ public class ReservationDAO {
     }
 
     public Boolean checkIfRoomFree(int roomNumber, String fromDate, String toDate){
-        int count = jdbcTemplate.queryForObject("SELECT COUNT(ID_REZERWACJA) FROM Rezerwacje WHERE NR_POKOJ=? AND ((DATA_OD<? AND DATA_DO>?) OR (DATA_OD<? AND DATA_DO>?) OR (DATA_OD>? AND DATA_DO<?))", Integer.class, roomNumber, fromDate, fromDate, toDate, toDate, fromDate, toDate);
+        int count = jdbcTemplate.queryForObject("SELECT COUNT(ID_REZERWACJA) FROM Rezerwacje WHERE NR_POKOJ=? AND ((DATA_OD>=? AND DATA_OD<?) OR (DATA_OD<=? AND DATA_DO>=?))", Integer.class, roomNumber, fromDate, toDate, fromDate, toDate);
         if(count>0) return false;
         return true;
     }
