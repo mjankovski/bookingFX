@@ -20,7 +20,7 @@
                   <Insets />
                </HBox.margin>
                <padding>
-                  <Insets left="50.0" right="50.0" />
+                  <Insets left="50.0" />
                </padding>
             </Label>
          </children>
