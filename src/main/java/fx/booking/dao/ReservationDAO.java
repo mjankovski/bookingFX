@@ -31,7 +31,7 @@ public class ReservationDAO {
     }
 
     public List<Map<String,Object>> getRoomReservations(int roomNumber){
-        return jdbcTemplate.queryForList("SELECT ID_REZERWACJA, NR_FAKTURA, NR_POKOJ, LOGIN, DATA_OD, DATA_DO, WALUTA, KWOTA_REZERWACJI FROM Rezerwacje WHERE NR_POKOJ=?", roomNumber);
+        return jdbcTemplate.queryForList("SELECT ID_REZERWACJA, NR_FAKTURA, NR_POKOJ, LOGIN, DATA_OD, DATA_DO, WALUTA, KWOTA_REZERWACJI FROM Rezerwacje WHERE NR_POKOJ=? ORDER BY ID_REZERWACJA ASC", roomNumber);
     }
 
     public Boolean checkIfRoomFree(int roomNumber, String fromDate, String toDate){
