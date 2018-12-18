@@ -1,6 +1,7 @@
 package fx.booking.controller;
 
 
+import fx.booking.dao.DocumentDAO;
 import fx.booking.repository.ReservationKeeper;
 import fx.booking.repository.Room;
 import fx.booking.repository.RoomKeeper;
