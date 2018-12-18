@@ -119,7 +119,6 @@ public class BookingController {
     @FXML
     public void initialize() {
         reservationNumberColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        roomNumberColumn.setCellValueFactory(new PropertyValueFactory<>("roomNumber"));
         fromDateColumn.setCellValueFactory(new PropertyValueFactory<>("beginningDate"));
         toDateColumn.setCellValueFactory(new PropertyValueFactory<>("endingDate"));
         reservationTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -130,7 +129,6 @@ public class BookingController {
         roomNumberLabel.setText(Integer.toString(room.getNumber()));
         peopleLabel.setText(Integer.toString(room.getPeopleSize()));
         costLabel.setText(room.getDailyCost().toString());
-
     }
 
     @FXML void initReservationTable(ObservableList<Reservation> list) {
@@ -138,32 +136,6 @@ public class BookingController {
         for (Reservation reservation : list) {
             reservationTable.getItems().add(reservation);
         }
-    }
-
-    @FXML
-    public void addButtonClicked(ActionEvent event) {
-//        Reservation r = new Reservation(1,1,"login", fromDatePicker.getValue(),
-//                toDatePicker.getValue(),"złoty", 2000);
-//        reservationTable.getItems().add(r);
-    }
-
-    @FXML
-    public void deleteButtonPressed(ActionEvent event) {
-        ObservableList<Reservation> reservationSelected, allReservation;
-        allReservation = reservationTable.getItems();
-        reservationSelected = reservationTable.getSelectionModel().getSelectedItems();
-
-        reservationSelected.forEach(allReservation::remove);
-    }
-
-    @FXML
-    public ObservableList<Reservation> getReservation() {
-//        ObservableList<Reservation> reservations = FXCollections.observableArrayList();
-//        reservations.add(new Reservation(1,
-//                1,"login", LocalDate.of(2010, 10, 12),
-//                LocalDate.of(2010, 10, 13), "złoty", 1000));
-//        return reservations;
-        return null;
     }
 
     @FXML

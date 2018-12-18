@@ -25,6 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Controller;
 
+import javax.xml.soap.Text;
 import java.io.IOException;
 import java.math.BigDecimal;
 
@@ -75,6 +76,12 @@ public class PlanController {
 
     @FXML
     private Button menuButton;
+
+    @FXML
+    private TextField fromPriceTextField;
+
+    @FXML
+    private TextField toPriceTextField;
 
     @FXML
     private DatePicker fromDatePicker;
@@ -215,22 +222,6 @@ public class PlanController {
     private ObservableList<Button> allRoomButtons;
 
     @FXML
-    private ObservableList<Button> floor1ButtonsList;
-
-    @FXML
-    private ObservableList<Button> floor2ButtonsList;
-
-    @FXML
-    private ObservableList<Button> onePersonButtonsList;
-
-    @FXML
-    private ObservableList<Button> twoPersonButtonsList;
-
-    @FXML
-    private ObservableList<Button> fourPersonButtonsList;
-
-
-    @FXML
     private ObservableMap<Button, Room> roomList;
 
     @FXML
@@ -242,125 +233,109 @@ public class PlanController {
         floorComboBox.getItems().addAll(1,2);
         mapPane.setStyle("-fx-background-image: url(img/Floor1.png);");
 
+        fromPriceTextField.setText("0");
+        toPriceTextField.setText("1000");
+
         //lista wszystkich przyciskow
         allRoomButtons = FXCollections.observableArrayList();
         allRoomButtons.addAll(room101Button, room102Button, room103Button, room104Button,
                 room105Button, room106Button, room107Button, room108Button, room109Button,
-                room110Button, room111Button, room112Button, room113Button, room114Button, room115Button,
+               room110Button, room111Button, room112Button, room113Button, room114Button, room115Button,
                 room116Button, room117Button, room118Button, room119Button, room120Button, room121Button,
                 room201Button, room202Button, room203Button, room204Button,
                 room205Button, room206Button, room207Button, room208Button, room209Button,
                 room210Button, room211Button, room212Button, room213Button, room214Button, room215Button,
                 room216Button, room217Button, room218Button, room219Button, room220Button, room221Button);
 
-        //lista przyciskow dla pokoi na pierwszym pietrze
-        floor1ButtonsList = FXCollections.observableArrayList();
-        floor1ButtonsList.addAll(room101Button, room102Button, room103Button, room104Button,
-                room105Button, room106Button, room107Button, room108Button, room109Button,
-                room110Button, room111Button, room112Button, room113Button, room114Button, room115Button,
-                room116Button, room117Button, room118Button, room119Button, room120Button, room121Button);
-
-        //lista przyciskow dla pokoi na drugim pietrze
-        floor2ButtonsList = FXCollections.observableArrayList();
-        floor2ButtonsList.addAll(room201Button, room202Button, room203Button, room204Button,
-                room205Button, room206Button, room207Button, room208Button, room209Button,
-                room210Button, room211Button, room212Button, room213Button, room214Button, room215Button,
-                room216Button, room217Button, room218Button, room219Button, room220Button, room221Button);
-
-        //lista przyciskow dla pokoi jednoosobowych
-        onePersonButtonsList = FXCollections.observableArrayList();
-        onePersonButtonsList.addAll(room112Button, room113Button, room114Button, room115Button,
-                room116Button, room117Button, room118Button, room119Button, room212Button, room213Button,
-                room214Button, room215Button, room216Button, room217Button, room218Button, room219Button);
-
-        //lista przyciskow dla pokoi dwuosobowych
-        twoPersonButtonsList = FXCollections.observableArrayList();
-        twoPersonButtonsList.addAll(room101Button, room102Button, room103Button, room104Button,
-                room105Button, room106Button, room107Button, room108Button, room109Button,
-                room110Button, room111Button, room201Button, room202Button, room203Button, room204Button,
-                room205Button, room206Button, room207Button, room208Button, room209Button,
-                room210Button, room211Button);
-
-        //lista przyciskow dla pokoi czteroosobowych
-        fourPersonButtonsList = FXCollections.observableArrayList();
-        fourPersonButtonsList.addAll(room120Button, room121Button, room220Button, room221Button);
-
+        for (Button button: allRoomButtons) {
+            button.setStyle("-fx-background-color: green");
+        }
         //przypisanie przyciskow poszczegolnym pokojom
         roomList = FXCollections.observableHashMap();
         ObservableList<Room> rooms = roomKeeper.getRoomList();
-        for(int i = 0; i < rooms.size(); ++i) {
+        for(int i = 0; i < allRoomButtons.size(); ++i) {
             Button button = allRoomButtons.get(i);
             Room room = rooms.get(i);
             roomList.put(button, room);
         }
 
+        onePeopleCheckBox.setSelected(true);
+        twoPeopleCheckBox.setSelected(true);
+        fourPeopleCheckBox.setSelected(true);
         setFloor2ButtonsInvisible();
     }
 
     @FXML
     public void setFloor1ButtonsVisible() {
-        for(Button button: floor1ButtonsList) {
-            button.setVisible(true);
+        for(Button button: allRoomButtons) {
+            if((roomList.get(button)).getNumber() < 200) {
+                button.setVisible(true);
+            }
         }
     }
 
     @FXML
     public void setFloor2ButtonsVisible() {
-        for(Button button: floor2ButtonsList) {
-            button.setVisible(true);
+        for(Button button: allRoomButtons) {
+            if((roomList.get(button)).getNumber() >= 200) {
+                button.setVisible(true);
+            }
         }
     }
 
     @FXML
     public void setFloor1ButtonsInvisible() {
-        for(Button button: floor1ButtonsList) {
-            button.setVisible(false);
+        for(Button button: allRoomButtons) {
+            if((roomList.get(button)).getNumber() < 200) {
+                button.setVisible(false);
+            }
         }
     }
 
     @FXML
     public void setFloor2ButtonsInvisible() {
-        for(Button button: floor2ButtonsList) {
-            button.setVisible(false);
+        for(Button button: allRoomButtons) {
+            if((roomList.get(button)).getNumber() >= 200) {
+                button.setVisible(false);
+            }
         }
     }
-
-    @FXML
-    public void setRedButtonCollor(ObservableList<Button> list) {
-        for(Button b: list) {
-            b.setStyle("-fx-background-color: red");
-        }
-    }
-
-
-    @FXML
-    public void setGreenButtonCollor(ObservableList<Button> list) {
-        for (Button b : list) {
-            b.setStyle("-fx-background-color: green");
-        }
-    }
-
-
 
     @FXML
     public void onePeopleCheckBoxEntered(ActionEvent event) throws IOException {
         if(onePeopleCheckBox.isSelected()) {
-            setGreenButtonCollor(onePersonButtonsList);
+            for(Button button: allRoomButtons) {
+                if((roomList.get(button)).getPeopleSize() == 1) {
+                    button.setStyle("-fx-background-color: green");
+                }
+            }
         }
 
         else {
-            setRedButtonCollor(onePersonButtonsList);
+            for(Button button: allRoomButtons) {
+                if((roomList.get(button)).getPeopleSize() == 1) {
+                    button.setStyle("-fx-background-color: red");
+                }
+            }
         }
     }
 
     @FXML
     public void twoPeopleCheckBoxEntered(ActionEvent event) throws IOException {
         if(twoPeopleCheckBox.isSelected()) {
-            setGreenButtonCollor(twoPersonButtonsList);
+            for(Button button: allRoomButtons) {
+                if((roomList.get(button)).getPeopleSize() == 2) {
+                    button.setStyle("-fx-background-color: green");
+                }
+            }
         }
 
         else {
-            setRedButtonCollor(twoPersonButtonsList);
+            for(Button button: allRoomButtons) {
+                if((roomList.get(button)).getPeopleSize() == 2) {
+                    button.setStyle("-fx-background-color: red");
+                }
+            }
         }
     }
 
@@ -368,38 +343,42 @@ public class PlanController {
     @FXML
     public void fourPeopleCheckBoxEntered(ActionEvent event) throws IOException {
         if(fourPeopleCheckBox.isSelected()) {
-            setGreenButtonCollor(fourPersonButtonsList);
+            for(Button button: allRoomButtons) {
+                if((roomList.get(button)).getPeopleSize() == 4) {
+                    button.setStyle("-fx-background-color: green");
+                }
+            }
         }
 
         else {
-            setRedButtonCollor(fourPersonButtonsList);
+            for(Button button: allRoomButtons) {
+                if((roomList.get(button)).getPeopleSize() == 4) {
+                    button.setStyle("-fx-background-color: red");
+                }
+            }
         }
     }
 
     @FXML
-    public void fromPriceTextFieldEntered(ActionEvent event) throws IOException {
-        if(fourPeopleCheckBox.isSelected()) {
-            setGreenButtonCollor(fourPersonButtonsList);
+    public void priceTextFieldEntered(ActionEvent event) throws IOException {
+        try {
+            BigDecimal minPrice = new BigDecimal(fromPriceTextField.getText());
+            BigDecimal maxPrice = new BigDecimal(toPriceTextField.getText());
+
+            for (Button button : allRoomButtons) {
+                BigDecimal roomPrice = roomList.get(button).getDailyCost();
+                if ((roomPrice.compareTo(minPrice) == 1 || roomPrice.compareTo(minPrice) == 0) &&
+                (roomPrice.compareTo(maxPrice) == -1 || roomPrice.compareTo(maxPrice) == 0)) {
+                    button.setStyle("-fx-background-color: green");
+                } else {
+                    button.setStyle("-fx-background-color: red");
+                }
+            }
         }
-
-        else {
-            setRedButtonCollor(fourPersonButtonsList);
+        catch(NumberFormatException e) {
+            TextField textField = (TextField)(event.getSource());
+            textField.clear();
         }
-    }
-
-    @FXML
-    public void toPriceTextFieldEntered(ActionEvent event) throws IOException {
-
-    }
-
-    @FXML
-    public void fromDatePickerAccessed(ActionEvent event) throws IOException {
-
-    }
-
-    @FXML
-    public void toDatePickerAccessed(ActionEvent event) throws IOException {
-
     }
 
     @FXML

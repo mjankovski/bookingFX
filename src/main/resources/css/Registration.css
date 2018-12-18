@@ -1,0 +1,36 @@
+#mainVBox
+{
+    -fx-background-color: #FFFFCC;
+    -fx-color: #3399FF;
+    -fx-font-weight: bold;
+    -fx-opacity: 0.9;
+    -fx-font-family: "Arial Black";
+}
+
+#titleHBox
+{
+    -fx-font-size: 300%;
+    -fx-color: white;
+}
+
+#formVBox
+{
+    -fx-border-color: #3399FF;
+    -fx-border-width: 3;
+    -fx-border-radius: 3;
+    -fx-font-size: 200%;
+}
+
+.button
+{
+    -fx-background-color: #3399CC;
+    -fx-font-size: 200%;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-text-fill: white;
+}
+
+.button:hover
+{
+    -fx-background-color: #1177AA;
+}

@@ -28,7 +28,7 @@ public class BookingApp extends Application{
 
         @Override
         public void start(Stage primaryStage) throws Exception{
-            fxmlLoader.setLocation(getClass().getResource("/Plan.fxml"));
+            fxmlLoader.setLocation(getClass().getResource("/Welcome.fxml"));
             rootNode = fxmlLoader.load();
 
             primaryStage.setTitle("bookingFX");
