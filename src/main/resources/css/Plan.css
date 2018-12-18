@@ -13,19 +13,37 @@
     -fx-color: white;
 }
 
+#filtersLabel
+{
+    -fx-font-size: 250%;
+}
+
+#floorLabel, #pepoleNumberLabel, #priceLabel
+{
+    -fx-font-size: 150%;
+}
+
 #mapPane
  {
      -fx-background-image: url("../img/Floor1.png");
  }
 
-.button
+#mapPane > .button
 {
-    -fx-font-size: 100%;
     -fx-border-radius: 10px;
     -fx-background-radius: 10px;
 }
 
-.button:hover
+#logOutButton
+{
+    -fx-background-color: #3399CC;
+    -fx-font-size: 150%;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-text-fill: white;
+}
+
+#logOutButton:hover
 {
     -fx-background-color: #1177AA;
 }

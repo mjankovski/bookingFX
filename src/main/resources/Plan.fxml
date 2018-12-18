@@ -6,6 +6,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
@@ -14,12 +15,9 @@
 
 <VBox fx:id="mainVBox" prefHeight="850.0" prefWidth="1200.0" stylesheets="css/Plan.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fx.booking.controller.PlanController">
    <children>
-      <HBox fx:id="titleHBox" prefHeight="83.0" prefWidth="1200.0" style="-fx-background-color: #3399CC;">
+      <HBox fx:id="titleHBox" prefHeight="0.0" prefWidth="1200.0" style="-fx-background-color: #3399CC;">
          <children>
-            <Label fx:id="hotelLabel" prefHeight="81.0" prefWidth="237.0" text="BookingFX" textAlignment="JUSTIFY" textFill="WHITE" HBox.hgrow="ALWAYS">
-               <font>
-                  <Font size="46.0" />
-               </font>
+            <Label fx:id="bookingFXLabel" prefHeight="81.0" prefWidth="286.0" text="BookingFX" textAlignment="JUSTIFY" textFill="WHITE" HBox.hgrow="ALWAYS">
                <HBox.margin>
                   <Insets left="50.0" />
                </HBox.margin>
@@ -28,44 +26,79 @@
       </HBox>
       <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
          <children>
-            <VBox prefHeight="605.0" prefWidth="240.0">
+            <VBox prefHeight="642.0" prefWidth="298.0">
                <children>
-                  <Label fx:id="filtersLabel" prefHeight="44.0" prefWidth="134.0" style="-fx-font-weight: bold;" text="Filtry:">
+                  <Label fx:id="filtersLabel" prefHeight="44.0" prefWidth="134.0" style="-fx-font-weight: bold;" text="Filtry:" VBox.vgrow="ALWAYS">
                      <font>
                         <Font size="23.0" />
                      </font>
                      <padding>
                         <Insets right="1.0" />
                      </padding>
+                     <VBox.margin>
+                        <Insets bottom="15.0" />
+                     </VBox.margin>
                   </Label>
-                  <ComboBox fx:id="floorComboBox" onAction="#floorComboBoxUsed" prefHeight="55.0" prefWidth="150.0" promptText="Piętro" />
-                  <Label fx:id="pepoleNumberLabel" prefWidth="134.0" style="-fx-font-weight: bold;" text="Liczba osób:">
+                  <Label fx:id="floorLabel" prefHeight="34.0" prefWidth="101.0" text="Piętro">
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                  </Label>
+                  <ComboBox fx:id="floorComboBox" onAction="#floorComboBoxUsed" prefHeight="22.0" prefWidth="150.0" promptText="1">
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin></ComboBox>
+                  <Separator prefWidth="200.0" />
+                  <Label fx:id="pepoleNumberLabel" prefHeight="34.0" prefWidth="176.0" style="-fx-font-weight: bold;" text="Liczba osób:">
                      <font>
                         <Font size="19.0" />
                      </font>
+                     <VBox.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                     </VBox.margin>
                   </Label>
-                  <CheckBox fx:id="onePeopleCheckBox" mnemonicParsing="false" onAction="#onePeopleCheckBoxEntered" style="-fx-font-weight: bold;" text="Jednoosobowe" />
-                  <CheckBox fx:id="twoPeopleCheckBox" mnemonicParsing="false" onAction="#twoPeopleCheckBoxEntered" style="-fx-font-weight: bold;" text="Dwuosobowe" />
-                  <CheckBox fx:id="fourPeopleCheckBox" mnemonicParsing="false" onAction="#fourPeopleCheckBoxEntered" style="-fx-font-weight: bold;" text="Czteroosobowe" />
-                  <Label style="-fx-font-weight: bold;" text="Cena:">
+                  <CheckBox fx:id="onePeopleCheckBox" mnemonicParsing="false" onAction="#onePeopleCheckBoxEntered" style="-fx-font-weight: bold;" text="Jednoosobowe">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="20.0" />
+                     </VBox.margin></CheckBox>
+                  <CheckBox fx:id="twoPeopleCheckBox" mnemonicParsing="false" onAction="#twoPeopleCheckBoxEntered" style="-fx-font-weight: bold;" text="Dwuosobowe">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="20.0" />
+                     </VBox.margin></CheckBox>
+                  <CheckBox fx:id="fourPeopleCheckBox" mnemonicParsing="false" onAction="#fourPeopleCheckBoxEntered" style="-fx-font-weight: bold;" text="Czteroosobowe">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="20.0" />
+                     </VBox.margin></CheckBox>
+                  <Separator prefWidth="200.0">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Separator>
+                  <Label fx:id="priceLabel" prefHeight="34.0" prefWidth="114.0" style="-fx-font-weight: bold;" text="Cena:">
                      <font>
                         <Font size="20.0" />
                      </font>
+                     <VBox.margin>
+                        <Insets bottom="15.0" top="15.0" />
+                     </VBox.margin>
                   </Label>
-                  <TextField fx:id="fromPriceTextField" onAction="#priceTextFieldEntered" prefHeight="31.0" prefWidth="237.0" />
-                  <Label style="-fx-font-weight: bold;" text="od" />
-                  <TextField fx:id="toPriceTextField" onAction="#priceTextFieldEntered" prefHeight="31.0" prefWidth="253.0" />
+                  <Label style="-fx-font-weight: bold;" text="od">
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin></Label>
+                  <TextField fx:id="fromPriceTextField" onAction="#priceTextFieldEntered" prefHeight="33.0" prefWidth="105.0" VBox.vgrow="ALWAYS" />
                   <Label style="-fx-font-weight: bold;" text="do" />
+                  <TextField fx:id="toPriceTextField" onAction="#priceTextFieldEntered" prefHeight="33.0" prefWidth="100.0" VBox.vgrow="ALWAYS" />
                </children>
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>
             </VBox>
-            <VBox prefHeight="476.0" prefWidth="344.0" HBox.hgrow="ALWAYS">
+            <VBox alignment="CENTER_RIGHT" prefHeight="476.0" prefWidth="344.0" HBox.hgrow="ALWAYS">
                <children>
-                  <ScrollPane prefHeight="611.0" prefWidth="840.0" VBox.vgrow="ALWAYS">
+                  <ScrollPane maxHeight="592.0" maxWidth="1122.0" prefHeight="611.0" prefWidth="0.0" VBox.vgrow="ALWAYS">
                      <content>
-                        <Pane fx:id="mapPane" nodeOrientation="LEFT_TO_RIGHT" prefHeight="592.0" prefWidth="1122.0">
+                        <Pane fx:id="mapPane" maxHeight="592.0" maxWidth="1122.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="592.0" prefWidth="1122.0">
                            <children>
                               <Button fx:id="room101Button" layoutX="60.0" layoutY="175.0" mnemonicParsing="false" onMousePressed="#roomButtonPressed" prefHeight="31.0" prefWidth="59.0" text="101" />
                               <Button fx:id="room102Button" layoutX="154.0" layoutY="175.0" mnemonicParsing="false" onMousePressed="#roomButtonPressed" prefHeight="31.0" prefWidth="60.0" text="102" />
@@ -112,6 +145,9 @@
                            </children>
                         </Pane>
                      </content>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
                   </ScrollPane>
                </children>
                <HBox.margin>
@@ -120,20 +156,29 @@
             </VBox>
          </children>
          <VBox.margin>
-            <Insets left="50.0" right="50.0" />
+            <Insets left="50.0" right="50.0" top="30.0" />
          </VBox.margin>
       </HBox>
-      <HBox prefHeight="125.0" prefWidth="1200.0">
+      <HBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="1200.0">
          <children>
-            <Button fx:id="menuButton" mnemonicParsing="false" onAction="#menuButtonClicked" prefHeight="55.0" prefWidth="181.0" style="-fx-background-color: #3399FF; -fx-font-weight: bold;" text="WYLOGUJ" textFill="WHITE">
+            <Button fx:id="logOutButton" mnemonicParsing="false" onAction="#menuButtonClicked" prefHeight="55.0" prefWidth="181.0" text="WYLOGUJ" HBox.hgrow="ALWAYS">
                <font>
                   <Font size="15.0" />
                </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <HBox.margin>
+                  <Insets left="50.0" />
+               </HBox.margin>
             </Button>
          </children>
          <VBox.margin>
             <Insets top="30.0" />
          </VBox.margin>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
       </HBox>
    </children>
 </VBox>
