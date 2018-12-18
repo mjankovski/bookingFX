@@ -57,15 +57,15 @@
                         <Insets bottom="10.0" top="10.0" />
                      </VBox.margin>
                   </Label>
-                  <CheckBox fx:id="onePeopleCheckBox" mnemonicParsing="false" onAction="#onePeopleCheckBoxEntered" style="-fx-font-weight: bold;" text="Jednoosobowe">
+                  <CheckBox fx:id="onePeopleCheckBox" mnemonicParsing="false" onAction="#peopleCheckBoxEntered" style="-fx-font-weight: bold;" text="Jednoosobowe">
                      <VBox.margin>
                         <Insets bottom="5.0" left="20.0" />
                      </VBox.margin></CheckBox>
-                  <CheckBox fx:id="twoPeopleCheckBox" mnemonicParsing="false" onAction="#twoPeopleCheckBoxEntered" style="-fx-font-weight: bold;" text="Dwuosobowe">
+                  <CheckBox fx:id="twoPeopleCheckBox" mnemonicParsing="false" onAction="#peopleCheckBoxEntered" style="-fx-font-weight: bold;" text="Dwuosobowe">
                      <VBox.margin>
                         <Insets bottom="5.0" left="20.0" />
                      </VBox.margin></CheckBox>
-                  <CheckBox fx:id="fourPeopleCheckBox" mnemonicParsing="false" onAction="#fourPeopleCheckBoxEntered" style="-fx-font-weight: bold;" text="Czteroosobowe">
+                  <CheckBox fx:id="fourPeopleCheckBox" mnemonicParsing="false" onAction="#peopleCheckBoxEntered" style="-fx-font-weight: bold;" text="Czteroosobowe">
                      <VBox.margin>
                         <Insets bottom="5.0" left="20.0" />
                      </VBox.margin></CheckBox>

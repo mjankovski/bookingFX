@@ -305,7 +305,6 @@ public class PlanController {
     public void filter() {
 
         for(Button b: allRoomButtons) {
-            b.setStyle("-fx-color: red");
         }
 
         BigDecimal minPrice = new BigDecimal(fromPriceTextField.getText());
@@ -341,20 +340,9 @@ public class PlanController {
             }
         }
     }
-
+    
     @FXML
-    public void onePeopleCheckBoxEntered(ActionEvent event) throws IOException {
-        filter();
-    }
-
-    @FXML
-    public void twoPeopleCheckBoxEntered(ActionEvent event) throws IOException {
-        filter();
-    }
-
-
-    @FXML
-    public void fourPeopleCheckBoxEntered(ActionEvent event) throws IOException {
+    public void peopleCheckBoxEntered(ActionEvent event) throws IOException {
         filter();
     }
 
