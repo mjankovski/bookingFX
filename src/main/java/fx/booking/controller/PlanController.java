@@ -349,7 +349,13 @@ public class PlanController {
 
     @FXML
     public void priceTextFieldEntered(ActionEvent event) throws IOException {
-        filter();
+        try {
+            filter();
+        }
+        catch(IllegalArgumentException e) {
+            fromPriceTextField.setText("0");
+            toPriceTextField.setText("0");
+        }
     }
 
     @FXML
