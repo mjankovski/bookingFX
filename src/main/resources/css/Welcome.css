@@ -9,6 +9,7 @@
 
 #titleHBox
 {
+    -fx-background-color: #3399FF;
     -fx-font-size: 300%;
     -fx-color: white;
 }
