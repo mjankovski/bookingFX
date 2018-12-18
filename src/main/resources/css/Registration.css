@@ -28,6 +28,7 @@
     -fx-border-radius: 10px;
     -fx-background-radius: 10px;
     -fx-text-fill: white;
+    -fx-text-alignment: center;
 }
 
 .button:hover

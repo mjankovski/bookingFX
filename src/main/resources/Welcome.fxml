@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="mainVBox" prefHeight="584.0" prefWidth="1382.0" stylesheets="css/Welcome.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fx.booking.controller.WelcomeController">
+<VBox fx:id="mainVBox" prefHeight="800.0" prefWidth="1200.0" stylesheets="css/Welcome.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fx.booking.controller.WelcomeController">
    <children>
       <HBox fx:id="titleHBox" prefHeight="26.0" prefWidth="955.0" style="-fx-background-color: #3399FF;">
          <children>
@@ -27,7 +27,7 @@
       </HBox>
       <HBox fx:id="phraseHBox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Label alignment="CENTER" prefHeight="49.0" prefWidth="1353.0" text="Skorzystaj z naszej aplikacji i w wygodny sposób zarezerwuj sobie pokój. Zapraszamy!" HBox.hgrow="ALWAYS">
+            <Label alignment="CENTER" prefHeight="49.0" prefWidth="1353.0" text="Skorzystaj z naszej aplikacji i w wygodny sposób zarezerwuj sobie pokój!" HBox.hgrow="ALWAYS">
                <HBox.margin>
                   <Insets left="20.0" right="20.0" />
                </HBox.margin>
@@ -37,9 +37,9 @@
             <Insets bottom="20.0" top="10.0" />
          </VBox.margin>
       </HBox>
-      <HBox alignment="CENTER" prefHeight="451.0" prefWidth="1283.0">
+      <HBox alignment="CENTER" prefHeight="451.0" prefWidth="1283.0" VBox.vgrow="ALWAYS">
          <children>
-            <VBox fx:id="loggingFormVBox" alignment="CENTER" prefHeight="454.0" prefWidth="463.0" HBox.hgrow="ALWAYS">
+            <VBox fx:id="loggingFormVBox" alignment="CENTER" prefHeight="451.0" prefWidth="594.0" HBox.hgrow="ALWAYS">
                <children>
                   <Label fx:id="loginLabel" alignment="CENTER" prefHeight="51.0" prefWidth="109.0" text="Login:" VBox.vgrow="ALWAYS">
                      <VBox.margin>
@@ -51,7 +51,7 @@
                         <Font size="24.0" />
                      </font>
                      <VBox.margin>
-                        <Insets left="40.0" right="40.0" />
+                        <Insets left="100.0" right="100.0" />
                      </VBox.margin>
                   </TextField>
                   <Label fx:id="passLabel" alignment="CENTER" text="Hasło:" VBox.vgrow="ALWAYS" />
@@ -60,7 +60,7 @@
                         <Font size="26.0" />
                      </font>
                      <VBox.margin>
-                        <Insets left="40.0" right="40.0" />
+                        <Insets left="100.0" right="100.0" />
                      </VBox.margin>
                   </PasswordField>
                   <Button fx:id="logButton" alignment="CENTER" mnemonicParsing="false" onAction="#loginButtonClicked" prefHeight="66.0" prefWidth="292.0" text="ZALOGUJ" VBox.vgrow="ALWAYS">
@@ -81,10 +81,10 @@
                   </Button>
                </children>
                <HBox.margin>
-                  <Insets left="400.0" right="400.0" />
+                  <Insets left="200.0" right="200.0" />
                </HBox.margin>
                <padding>
-                  <Insets left="40.0" right="40.0" />
+                  <Insets left="80.0" right="80.0" />
                </padding>
             </VBox>
          </children>
