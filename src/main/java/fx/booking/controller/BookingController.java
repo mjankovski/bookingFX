@@ -173,5 +173,24 @@ public class BookingController {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    public void reservationButtonClicked(ActionEvent event) throws IOException {
+
+        if(reservationDAO.checkIfRoomFree(Integer.valueOf(roomNumberLabel.getText()), fromDatePicker.getValue().toString(), toDatePicker.getValue().toString())){
+            reservationDAO.insertReservation(Integer.valueOf(roomNumberLabel.getText()), fromDatePicker.getValue().toString(), toDatePicker.getValue().toString());
+        }else{
+            showAlertInfo("Błąd!", "Nie dokonano rezerwacji, ponieważ w tych dniach pokój jest już zarezerwowany", Alert.AlertType.ERROR);
+        }
+
+
+    }
+
+    private void showAlertInfo(String title, String header, Alert.AlertType type){
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.showAndWait();
+    }
 }
 

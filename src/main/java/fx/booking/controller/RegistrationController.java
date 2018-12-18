@@ -258,7 +258,7 @@ public class RegistrationController {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            showAlert("Info", "Konto zostało utworzone. Sprawdź e-maila.", Alert.AlertType.INFORMATION);
+            showAlert("Info", "Konto zostało utworzone. Sprawdź e-mail.", Alert.AlertType.INFORMATION);
         }
     }
 
