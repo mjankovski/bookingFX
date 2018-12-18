@@ -302,83 +302,65 @@ public class PlanController {
     }
 
     @FXML
-    public void onePeopleCheckBoxEntered(ActionEvent event) throws IOException {
+    public void filter() {
+
+        for(Button b: allRoomButtons) {
+            b.setStyle("-fx-color: red");
+        }
+
+        BigDecimal minPrice = new BigDecimal(fromPriceTextField.getText());
+        BigDecimal maxPrice = new BigDecimal(toPriceTextField.getText());
+
         if(onePeopleCheckBox.isSelected()) {
             for(Button button: allRoomButtons) {
-                if((roomList.get(button)).getPeopleSize() == 1) {
+                BigDecimal roomPrice = roomList.get(button).getDailyCost();
+                if((roomList.get(button)).getPeopleSize() == 1 && (roomPrice.compareTo(minPrice) == 1 || roomPrice.compareTo(minPrice) == 0) &&
+                        (roomPrice.compareTo(maxPrice) == -1 || roomPrice.compareTo(maxPrice) == 0)) {
                     button.setStyle("-fx-background-color: green");
                 }
             }
         }
 
-        else {
+        if(twoPeopleCheckBox.isSelected()) {
             for(Button button: allRoomButtons) {
-                if((roomList.get(button)).getPeopleSize() == 1) {
-                    button.setStyle("-fx-background-color: red");
+                BigDecimal roomPrice = roomList.get(button).getDailyCost();
+                if((roomList.get(button)).getPeopleSize() == 2 && (roomPrice.compareTo(minPrice) == 1 || roomPrice.compareTo(minPrice) == 0) &&
+                        (roomPrice.compareTo(maxPrice) == -1 || roomPrice.compareTo(maxPrice) == 0)) {
+                    button.setStyle("-fx-background-color: green");
+                }
+            }
+        }
+
+        if(fourPeopleCheckBox.isSelected()) {
+            for(Button button: allRoomButtons) {
+                BigDecimal roomPrice = roomList.get(button).getDailyCost();
+                if((roomList.get(button)).getPeopleSize() == 4 && (roomPrice.compareTo(minPrice) == 1 || roomPrice.compareTo(minPrice) == 0) &&
+                        (roomPrice.compareTo(maxPrice) == -1 || roomPrice.compareTo(maxPrice) == 0)) {
+                    button.setStyle("-fx-background-color: green");
                 }
             }
         }
     }
 
     @FXML
-    public void twoPeopleCheckBoxEntered(ActionEvent event) throws IOException {
-        if(twoPeopleCheckBox.isSelected()) {
-            for(Button button: allRoomButtons) {
-                if((roomList.get(button)).getPeopleSize() == 2) {
-                    button.setStyle("-fx-background-color: green");
-                }
-            }
-        }
+    public void onePeopleCheckBoxEntered(ActionEvent event) throws IOException {
+        filter();
+    }
 
-        else {
-            for(Button button: allRoomButtons) {
-                if((roomList.get(button)).getPeopleSize() == 2) {
-                    button.setStyle("-fx-background-color: red");
-                }
-            }
-        }
+    @FXML
+    public void twoPeopleCheckBoxEntered(ActionEvent event) throws IOException {
+        filter();
     }
 
 
     @FXML
     public void fourPeopleCheckBoxEntered(ActionEvent event) throws IOException {
-        if(fourPeopleCheckBox.isSelected()) {
-            for(Button button: allRoomButtons) {
-                if((roomList.get(button)).getPeopleSize() == 4) {
-                    button.setStyle("-fx-background-color: green");
-                }
-            }
-        }
-
-        else {
-            for(Button button: allRoomButtons) {
-                if((roomList.get(button)).getPeopleSize() == 4) {
-                    button.setStyle("-fx-background-color: red");
-                }
-            }
-        }
+        filter();
     }
 
     @FXML
     public void priceTextFieldEntered(ActionEvent event) throws IOException {
-        try {
-            BigDecimal minPrice = new BigDecimal(fromPriceTextField.getText());
-            BigDecimal maxPrice = new BigDecimal(toPriceTextField.getText());
-
-            for (Button button : allRoomButtons) {
-                BigDecimal roomPrice = roomList.get(button).getDailyCost();
-                if ((roomPrice.compareTo(minPrice) == 1 || roomPrice.compareTo(minPrice) == 0) &&
-                (roomPrice.compareTo(maxPrice) == -1 || roomPrice.compareTo(maxPrice) == 0)) {
-                    button.setStyle("-fx-background-color: green");
-                } else {
-                    button.setStyle("-fx-background-color: red");
-                }
-            }
-        }
-        catch(NumberFormatException e) {
-            TextField textField = (TextField)(event.getSource());
-            textField.clear();
-        }
+        filter();
     }
 
     @FXML
