@@ -30,6 +30,7 @@
 	-fx-font-size: 150%;
 	-fx-border-radius: 10px;
 	-fx-background-radius: 10px;
+	-fx-text-fill: white;
 }
 
 .button:hover

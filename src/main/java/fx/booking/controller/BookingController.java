@@ -15,6 +15,7 @@ import javafx.scene.Scene;
 
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -102,6 +103,9 @@ public class BookingController {
     private Button deleteButton;
 
     @FXML
+    private Button invoiceButton;
+
+    @FXML
     private Room selectedRoom;
 
     @FXML
@@ -124,7 +128,7 @@ public class BookingController {
         reservationNumberColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         fromDateColumn.setCellValueFactory(new PropertyValueFactory<>("beginningDate"));
         toDateColumn.setCellValueFactory(new PropertyValueFactory<>("endingDate"));
-        reservationTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        invoiceButton.setDisable(true);
     }
 
     @FXML
@@ -189,6 +193,16 @@ public class BookingController {
         else{
             showAlertInfo("Błąd!", "Nie dokonano rezerwacji, ponieważ w tych dniach pokój jest już zarezerwowany", Alert.AlertType.ERROR);
         }
+    }
+
+    @FXML
+    public void reservationSelected(MouseEvent event) throws IOException {
+        invoiceButton.setDisable(false);
+    }
+
+    @FXML
+    public void invoiceButtonClicked(ActionEvent event) throws IOException {
+        System.out.println(reservationTable.getSelectionModel().getSelectedItem().getId());
     }
 
     private void showAlertInfo(String title, String header, Alert.AlertType type){
