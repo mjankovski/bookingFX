@@ -5,6 +5,7 @@ import fx.booking.dao.DocumentDAO;
 import fx.booking.repository.ReservationKeeper;
 import fx.booking.repository.Room;
 import fx.booking.repository.RoomKeeper;
+import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
@@ -19,8 +20,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import javafx.util.Duration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -42,7 +45,7 @@ public class PlanController {
     private ReservationKeeper reservationKeeper;
 
     @FXML
-    private AnchorPane planAnchorPane;
+    private VBox mainVBox;
 
     @FXML
     private ScrollPane planScrollPane;
@@ -230,6 +233,9 @@ public class PlanController {
 
     @FXML
     public void initialize() {
+        mainVBox.setOpacity(0);
+        makeFadeIn();
+
         floorComboBox.getItems().addAll(1,2);
         mapPane.setStyle("-fx-background-image: url(img/Floor1.png);");
 
@@ -417,5 +423,14 @@ public class PlanController {
                 setFloor2ButtonsVisible();
                 break;
         }
+    }
+
+    private void makeFadeIn() {
+        FadeTransition fadeTransition = new FadeTransition();
+        fadeTransition.setDuration((Duration.seconds(1)));
+        fadeTransition.setNode(mainVBox);
+        fadeTransition.setFromValue(0);
+        fadeTransition.setToValue(1);
+        fadeTransition.play();
     }
 }

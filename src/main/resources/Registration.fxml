@@ -20,7 +20,7 @@
             </Label>
          </children>
       </HBox>
-      <HBox alignment="CENTER" prefHeight="716.0" prefWidth="1355.0">
+      <HBox alignment="CENTER" prefHeight="670.0" prefWidth="1200.0">
          <children>
             <VBox fx:id="formVBox" alignment="CENTER" prefHeight="337.0" prefWidth="540.0" HBox.hgrow="ALWAYS">
                <children>
@@ -179,7 +179,7 @@
                   </HBox>
                </children>
                <HBox.margin>
-                  <Insets bottom="50.0" left="100.0" right="100.0" top="50.0" />
+                  <Insets left="100.0" right="100.0" top="50.0" />
                </HBox.margin>
             </VBox>
          </children>

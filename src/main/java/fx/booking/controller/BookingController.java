@@ -5,6 +5,7 @@ import fx.booking.repository.Reservation;
 
 import fx.booking.repository.ReservationKeeper;
 import fx.booking.repository.Room;
+import javafx.animation.FadeTransition;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,8 +19,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import javafx.util.Duration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -40,7 +43,7 @@ public class BookingController {
     private ReservationKeeper reservationKeeper;
 
     @FXML
-    private AnchorPane informationAnchorPane;
+    private VBox mainVBox;
 
     @FXML
     private ScrollPane bookingScrollPane;
@@ -125,6 +128,9 @@ public class BookingController {
 
     @FXML
     public void initialize() {
+        mainVBox.setOpacity(0);
+        makeFadeIn();
+
         reservationNumberColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         fromDateColumn.setCellValueFactory(new PropertyValueFactory<>("beginningDate"));
         toDateColumn.setCellValueFactory(new PropertyValueFactory<>("endingDate"));
@@ -210,6 +216,15 @@ public class BookingController {
         alert.setTitle(title);
         alert.setHeaderText(header);
         alert.showAndWait();
+    }
+
+    private void makeFadeIn() {
+        FadeTransition fadeTransition = new FadeTransition();
+        fadeTransition.setDuration((Duration.seconds(1)));
+        fadeTransition.setNode(mainVBox);
+        fadeTransition.setFromValue(0);
+        fadeTransition.setToValue(1);
+        fadeTransition.play();
     }
 }
 

@@ -1,7 +1,9 @@
 package fx.booking.controller;
 
 import fx.booking.dao.AccountDAO;
+import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -10,7 +12,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -25,7 +29,7 @@ public class WelcomeController {
     private AccountDAO accountDAO;
 
     @FXML
-    private AnchorPane menuAnchorPane;
+    private VBox mainVBox;
 
     @FXML
     private Label descriptionLabel;
@@ -65,6 +69,8 @@ public class WelcomeController {
 
     @FXML
     public void initialize() {
+        mainVBox.setOpacity(0);
+        makeFadeIn();
     }
 
     @FXML
@@ -73,16 +79,19 @@ public class WelcomeController {
         try {
             if(login>0) {
                 accountDAO.getAccountInformation(loginTextField.getText());
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setControllerFactory(springContext::getBean);
-                fxmlLoader.setLocation(getClass().getResource("/Plan.fxml"));
-                Parent tableViewParent = fxmlLoader.load();
-                Scene tableViewScene = new Scene(tableViewParent);
+                try {
+                    FXMLLoader fxmlLoader = new FXMLLoader();
+                    fxmlLoader.setControllerFactory(springContext::getBean);
+                    fxmlLoader.setLocation(getClass().getResource("/Plan.fxml"));
+                    Parent tableViewParent = fxmlLoader.load();
+                    Scene tableViewScene = new Scene(tableViewParent);
 
-                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                window.setScene(tableViewScene);
-                window.centerOnScreen();
-                window.show();
+                    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    window.setScene(tableViewScene);
+                    window.show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
             else {
                 showAlertInfo("Błąd!", "Błędne dane logowania!", Alert.AlertType.ERROR);
@@ -105,10 +114,18 @@ public class WelcomeController {
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
             window.setScene(tableViewScene);
             window.show();
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void makeFadeIn() {
+        FadeTransition fadeTransition = new FadeTransition();
+        fadeTransition.setDuration((Duration.seconds(1)));
+        fadeTransition.setNode(mainVBox);
+        fadeTransition.setFromValue(0);
+        fadeTransition.setToValue(1);
+        fadeTransition.play();
     }
 
     private void showAlertInfo(String title, String header, Alert.AlertType type){
