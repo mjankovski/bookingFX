@@ -7,6 +7,10 @@
     -fx-font-family: "Arial Black";
 }
 
+.label {
+    -fx-color: grey;
+}
+
 #titleHBox
 {
     -fx-font-size: 300%;

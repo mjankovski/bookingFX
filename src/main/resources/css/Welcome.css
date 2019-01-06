@@ -14,6 +14,16 @@
     -fx-color: white;
 }
 
+.label
+{
+    -fx-text-fill: #595959;
+}
+
+#hotelLabel
+{
+    -fx-text-fill: white;
+}
+
 #phraseHBox
 {
     -fx-font-size: 180%;
@@ -25,6 +35,7 @@
     -fx-border-width: 3;
     -fx-border-radius: 3;
     -fx-font-size: 200%;
+    -fx-text-fill: #595959;
 }
 
 .button

@@ -29,4 +29,18 @@ public class ReservationKeeper {
 
         return reservationList;
     }
+
+    public ObservableList<Reservation> getReservationList(String login) {
+        ObservableList<Reservation> reservationList = FXCollections.observableArrayList();
+
+        List<Map<String,Object>> rooms = reservationDAO.getAccountReservations(login);
+
+        for (Map<String,Object> room: rooms) {
+            reservationList.add(new Reservation((int)room.get("ID_REZERWACJA"), (int)room.get("NR_FAKTURA"), (int)room.get("NR_POKOJ"),
+                    (String)room.get("LOGIN"), room.get("DATA_OD").toString(), room.get("DATA_DO").toString(),
+                    (String)room.get("WALUTA"), (BigDecimal)room.get("KWOTA_REZERWACJI")));
+        }
+
+        return reservationList;
+    }
 }

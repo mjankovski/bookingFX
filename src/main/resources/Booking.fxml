@@ -13,7 +13,7 @@
 
 <VBox fx:id="mainVBox" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: #FFFFCC;" stylesheets="css/Booking.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fx.booking.controller.BookingController">
    <children>
-      <HBox fx:id="titleHBox" alignment="CENTER_LEFT" prefHeight="48.0" prefWidth="1196.0" style="-fx-background-color: #3399FF;" VBox.vgrow="ALWAYS">
+      <HBox fx:id="titleHBox" alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="1200.0" style="-fx-background-color: #3399FF;" VBox.vgrow="ALWAYS">
          <children>
             <Label fx:id="bookingFXLabel" text="BookingFX" textFill="WHITE">
                <HBox.margin>
@@ -27,23 +27,23 @@
       </HBox>
       <HBox fx:id="roomInfoHBox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
          <children>
-            <Label fx:id="titleLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="497.0" text="Informacje o pokoju nr" HBox.hgrow="ALWAYS" />
-            <Label fx:id="roomNumberLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="82.0" text="***" HBox.hgrow="ALWAYS" />
+            <Label fx:id="titleLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="497.0" text="Informacje o pokoju nr" textFill="#595959" HBox.hgrow="ALWAYS" />
+            <Label fx:id="roomNumberLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="82.0" text="***" textFill="GREY" HBox.hgrow="ALWAYS" />
          </children>
       </HBox>
       <HBox fx:id="descriptionHBox" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
          <children>
             <VBox fx:id="testVBOX" prefHeight="235.0" prefWidth="251.0" HBox.hgrow="ALWAYS">
                <children>
-                  <Label text="iluosobowy:" />
-                  <Label text="cena za noc:" />
-                  <Label fx:id="bookDateLabel" text="data rezerwacji:" />
-                  <Label fx:id="fromLabel" text="od:">
+                  <Label text="iluosobowy:" textFill="#595959" />
+                  <Label text="cena za noc:" textFill="#595959" />
+                  <Label fx:id="bookDateLabel" text="data rezerwacji:" textFill="#595959" />
+                  <Label fx:id="fromLabel" text="od:" textFill="#595959">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
                   </Label>
-                  <Label fx:id="toLabel" text="do:">
+                  <Label fx:id="toLabel" text="do:" textFill="#595959">
                      <VBox.margin>
                         <Insets top="20.0" />
                      </VBox.margin>
@@ -52,8 +52,8 @@
             </VBox>
             <VBox prefHeight="235.0" prefWidth="455.0" HBox.hgrow="ALWAYS">
                <children>
-                  <Label fx:id="peopleLabel" text="Label" />
-                  <Label fx:id="costLabel" text="Label" />
+                  <Label fx:id="peopleLabel" text="Label" textFill="#595959" />
+                  <Label fx:id="costLabel" text="Label" textFill="#595959" />
                   <DatePicker fx:id="fromDatePicker" prefHeight="50.0" prefWidth="375.0">
                      <VBox.margin>
                         <Insets top="45.0" />
@@ -79,7 +79,7 @@
       <Separator fx:id="separator" prefHeight="16.0" prefWidth="1196.0" />
       <HBox fx:id="reservationTitleHBox" alignment="CENTER" prefHeight="36.0" prefWidth="1196.0" VBox.vgrow="ALWAYS">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" text="Spis rezerwacji" HBox.hgrow="ALWAYS" />
+            <Label alignment="CENTER" contentDisplay="CENTER" text="Spis rezerwacji" textFill="#595959" HBox.hgrow="ALWAYS" />
          </children>
       </HBox>
       <HBox prefHeight="304.0" prefWidth="1196.0">

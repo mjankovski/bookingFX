@@ -13,11 +13,16 @@
    <children>
       <HBox fx:id="titleHBox" prefHeight="37.0" prefWidth="740.0" style="-fx-background-color: #3399FF;">
          <children>
-            <Label fx:id="hotelLabel2" prefHeight="105.0" prefWidth="395.0" text="BookingFX" textAlignment="JUSTIFY" textFill="WHITE">
+            <Label fx:id="hotelLabel" prefHeight="105.0" prefWidth="395.0" text="BookingFX" textAlignment="JUSTIFY" textFill="WHITE">
                <HBox.margin>
                   <Insets left="50.0" />
                </HBox.margin>
             </Label>
+         </children>
+      </HBox>
+      <HBox fx:id="registrationLabelHBox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Label alignment="CENTER" text="Rejestracja" />
          </children>
       </HBox>
       <HBox alignment="CENTER" prefHeight="697.0" prefWidth="1200.0">
@@ -28,7 +33,7 @@
                      <children>
                         <VBox alignment="BOTTOM_LEFT" prefHeight="56.0" prefWidth="526.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Label fx:id="nameLabel" prefHeight="44.0" prefWidth="163.0" style="-fx-font-weight: bold;" text="Imię:">
+                              <Label fx:id="nameLabel" prefHeight="44.0" prefWidth="163.0" style="-fx-color: #595959;" text="Imię:">
                                  <VBox.margin>
                                     <Insets left="50.0" />
                                  </VBox.margin>
@@ -37,7 +42,7 @@
                         </VBox>
                         <VBox alignment="BOTTOM_LEFT" prefHeight="56.0" prefWidth="472.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Label fx:id="surnameLabel" prefHeight="44.0" prefWidth="423.0" style="-fx-font-weight: bold;" text="Nazwisko:">
+                              <Label fx:id="surnameLabel" prefHeight="44.0" prefWidth="423.0" text="Nazwisko:">
                                  <VBox.margin>
                                     <Insets />
                                  </VBox.margin>
@@ -64,7 +69,7 @@
                      <children>
                         <VBox alignment="BOTTOM_LEFT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Label fx:id="loginLabel" prefHeight="44.0" prefWidth="422.0" style="-fx-font-weight: bold;" text="Login:">
+                              <Label fx:id="loginLabel" prefHeight="44.0" prefWidth="422.0" style="-fx-color: #595959;" text="Login:">
                                  <VBox.margin>
                                     <Insets left="50.0" />
                                  </VBox.margin>
@@ -73,7 +78,7 @@
                         </VBox>
                         <VBox alignment="BOTTOM_LEFT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Label fx:id="passwordLabel" prefHeight="44.0" prefWidth="422.0" style="-fx-font-weight: bold;" text="Hasło:" />
+                              <Label fx:id="passwordLabel" prefHeight="44.0" prefWidth="422.0" style="-fx-color: #595959;" text="Hasło:" />
                            </children>
                            <HBox.margin>
                               <Insets left="50.0" />
@@ -99,7 +104,7 @@
                      <children>
                         <VBox alignment="BOTTOM_LEFT" prefHeight="59.0" prefWidth="154.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Label fx:id="peselLabel" prefHeight="44.0" prefWidth="423.0" style="-fx-font-weight: bold;" text="PESEL:">
+                              <Label fx:id="peselLabel" prefHeight="44.0" prefWidth="423.0" style="-fx-color: #595959;" text="PESEL:">
                                  <VBox.margin>
                                     <Insets left="50.0" right="50.0" />
                                  </VBox.margin>
@@ -108,7 +113,7 @@
                         </VBox>
                         <VBox alignment="BOTTOM_LEFT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Label fx:id="emailLabel" prefHeight="44.0" prefWidth="417.0" style="-fx-font-weight: bold;" text="E-mail:">
+                              <Label fx:id="emailLabel" prefHeight="44.0" prefWidth="417.0" style="-fx-color: white;" text="E-mail:">
                                  <VBox.margin>
                                     <Insets />
                                  </VBox.margin>
@@ -136,7 +141,7 @@
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Label fx:id="creditCardLabel" prefHeight="44.0" prefWidth="491.0" style="-fx-font-weight: bold;" text="Numer karty kredytowej:" HBox.hgrow="ALWAYS">
+                        <Label fx:id="creditCardLabel" prefHeight="44.0" prefWidth="491.0" style="-fx-color: #595959;" text="Numer karty kredytowej:" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets left="50.0" top="20.0" />
                            </HBox.margin>
@@ -169,7 +174,7 @@
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Label fx:id="phoneNumberLabel" style="-fx-font-weight: bold;" text="Numer telefonu:" HBox.hgrow="ALWAYS">
+                        <Label fx:id="phoneNumberLabel" style="-fx-color: #595959;" text="Numer telefonu:" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets left="50.0" />
                            </HBox.margin>
@@ -179,16 +184,11 @@
                         </Label>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" style="-fx-color: #595959;">
                      <children>
-                        <Label fx:id="plusLabel" prefHeight="21.0" prefWidth="38.0" text="+" HBox.hgrow="ALWAYS">
+                        <TextField fx:id="directionNumbertextField" alignment="CENTER" onKeyPressed="#directionNumberTextFieldEntered" onKeyReleased="#directionNumberTextFieldEntered" prefHeight="54.0" prefWidth="73.0" promptText="+48" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets bottom="20.0" left="50.0" right="20.0" />
-                           </HBox.margin>
-                        </Label>
-                        <TextField fx:id="directionNumbertextField" alignment="CENTER" onKeyPressed="#directionNumberTextFieldEntered" onKeyReleased="#directionNumberTextFieldEntered" prefHeight="54.0" prefWidth="73.0" promptText="48" HBox.hgrow="ALWAYS">
-                           <HBox.margin>
-                              <Insets bottom="20.0" right="20.0" />
                            </HBox.margin>
                         </TextField>
                         <TextField fx:id="phoneNumberTextField" alignment="CENTER" onKeyPressed="#numberTextFieldEntered" onKeyReleased="#numberTextFieldEntered" prefHeight="54.0" prefWidth="216.0" promptText="000000000" HBox.hgrow="ALWAYS">
@@ -205,7 +205,7 @@
                   </HBox>
                </children>
                <HBox.margin>
-                  <Insets left="100.0" right="100.0" top="20.0" />
+                  <Insets left="100.0" right="100.0" />
                </HBox.margin>
             </VBox>
          </children>
