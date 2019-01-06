@@ -34,6 +34,10 @@ public class ReservationDAO {
         return jdbcTemplate.queryForList("SELECT ID_REZERWACJA, NR_FAKTURA, NR_POKOJ, LOGIN, DATA_OD, DATA_DO, WALUTA, KWOTA_REZERWACJI FROM Rezerwacje WHERE NR_POKOJ=? ORDER BY ID_REZERWACJA ASC", roomNumber);
     }
 
+    public List<Map<String,Object>> getAccountReservations(String login){
+        return jdbcTemplate.queryForList("SELECT ID_REZERWACJA, NR_FAKTURA, NR_POKOJ, LOGIN, DATA_OD, DATA_DO, WALUTA, KWOTA_REZERWACJI FROM Rezerwacje WHERE LOGIN = ? ORDER BY ID_REZERWACJA ASC", login);
+    }
+
     public Boolean checkIfRoomFree(int roomNumber, String fromDate, String toDate){
         int count = jdbcTemplate.queryForObject("SELECT COUNT(ID_REZERWACJA) FROM Rezerwacje WHERE NR_POKOJ=? AND ((DATA_OD>=? AND DATA_OD<?) OR (DATA_OD<=? AND DATA_DO>=?))", Integer.class, roomNumber, fromDate, toDate, fromDate, toDate);
         if(count>0) return false;
@@ -43,7 +47,6 @@ public class ReservationDAO {
     public boolean insertReservation(int roomNumber, String fromDate, String toDate){
         final LocalDate fromDateFormatted = LocalDate.parse(fromDate);
         final LocalDate toDateFormatted = LocalDate.parse(toDate);
-
         //if(fromDateFormatted.compareTo(toDateFormatted)>0) rzuc wyjatek;
         //jeszcze upewnic sie ze data_od jest po dzisiaj
 
