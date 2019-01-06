@@ -233,9 +233,6 @@ public class PlanController {
 
     @FXML
     public void initialize() {
-        mainVBox.setOpacity(0);
-        makeFadeIn();
-
         floorComboBox.getItems().addAll(1,2);
         mapPane.setStyle("-fx-background-image: url(img/Floor1.png);");
 
@@ -269,6 +266,9 @@ public class PlanController {
         twoPeopleCheckBox.setSelected(true);
         fourPeopleCheckBox.setSelected(true);
         setFloor2ButtonsInvisible();
+
+        mainVBox.setOpacity(0);
+        makeFadeIn();
     }
 
     @FXML

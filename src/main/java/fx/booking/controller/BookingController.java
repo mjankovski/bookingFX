@@ -128,13 +128,12 @@ public class BookingController {
 
     @FXML
     public void initialize() {
-        mainVBox.setOpacity(0);
-        makeFadeIn();
-
         reservationNumberColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         fromDateColumn.setCellValueFactory(new PropertyValueFactory<>("beginningDate"));
         toDateColumn.setCellValueFactory(new PropertyValueFactory<>("endingDate"));
         invoiceButton.setDisable(true);
+        mainVBox.setOpacity(0);
+        makeFadeIn();
     }
 
     @FXML
