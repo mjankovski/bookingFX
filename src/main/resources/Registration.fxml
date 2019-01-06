@@ -26,82 +26,108 @@
                <children>
                   <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <Label fx:id="nameLabel" prefHeight="44.0" prefWidth="432.0" style="-fx-font-weight: bold;" text="Imię:">
-                           <HBox.margin>
-                              <Insets left="50.0" top="20.0" />
-                           </HBox.margin>
-                        </Label>
-                        <Label fx:id="surnameLabel" prefHeight="44.0" prefWidth="302.0" style="-fx-font-weight: bold;" text="Nazwisko:">
-                           <HBox.margin>
-                              <Insets top="20.0" />
-                           </HBox.margin>
-                        </Label>
+                        <VBox alignment="BOTTOM_LEFT" prefHeight="56.0" prefWidth="526.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label fx:id="nameLabel" prefHeight="44.0" prefWidth="163.0" style="-fx-font-weight: bold;" text="Imię:">
+                                 <VBox.margin>
+                                    <Insets left="50.0" />
+                                 </VBox.margin>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox alignment="BOTTOM_LEFT" prefHeight="56.0" prefWidth="472.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label fx:id="surnameLabel" prefHeight="44.0" prefWidth="423.0" style="-fx-font-weight: bold;" text="Nazwisko:">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Label>
+                           </children>
+                        </VBox>
                      </children>
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <TextField fx:id="surnameTextfield" prefHeight="54.0" prefWidth="381.0" promptText="Wpisz nazwisko">
+                        <TextField fx:id="nameTextfield" prefHeight="54.0" prefWidth="326.0" promptText="Wpisz imię" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets left="50.0" right="50.0" />
                            </HBox.margin>
                         </TextField>
-                        <TextField fx:id="nameTextField" prefHeight="54.0" prefWidth="375.0" promptText="Wpisz imię">
+                        <TextField fx:id="surnameTextField" prefHeight="54.0" prefWidth="324.0" promptText="Wpisz nazwisko" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets right="50.0" />
                            </HBox.margin>
                         </TextField>
                      </children>
                   </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+                  <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <Label fx:id="loginLabel" prefHeight="44.0" prefWidth="431.0" style="-fx-font-weight: bold;" text="Login:">
+                        <VBox alignment="BOTTOM_LEFT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label fx:id="loginLabel" prefHeight="44.0" prefWidth="422.0" style="-fx-font-weight: bold;" text="Login:">
+                                 <VBox.margin>
+                                    <Insets left="50.0" />
+                                 </VBox.margin>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox alignment="BOTTOM_LEFT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label fx:id="passwordLabel" prefHeight="44.0" prefWidth="422.0" style="-fx-font-weight: bold;" text="Hasło:" />
+                           </children>
                            <HBox.margin>
-                              <Insets left="50.0" top="20.0" />
+                              <Insets left="50.0" />
                            </HBox.margin>
-                        </Label>
-                        <Label fx:id="passwordLabel" style="-fx-font-weight: bold;" text="Hasło:">
-                           <HBox.margin>
-                              <Insets top="20.0" />
-                           </HBox.margin>
-                        </Label>
+                        </VBox>
                      </children>
                   </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+                  <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <TextField fx:id="loginTextField" prefHeight="54.0" prefWidth="379.0" promptText="Wpisz login">
+                        <TextField fx:id="loginTextField" prefHeight="54.0" prefWidth="383.0" promptText="Wpisz login" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets left="50.0" right="50.0" />
                            </HBox.margin>
                         </TextField>
-                        <PasswordField fx:id="passField" prefHeight="54.0" prefWidth="378.0" promptText="Wpisz hasło">
+                        <PasswordField fx:id="passField" prefHeight="54.0" prefWidth="378.0" promptText="Wpisz hasło" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets right="50.0" />
                            </HBox.margin>
                         </PasswordField>
                      </children>
                   </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+                  <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <Label fx:id="peselLabel" prefHeight="44.0" prefWidth="429.0" style="-fx-font-weight: bold;" text="PESEL:">
+                        <VBox alignment="BOTTOM_LEFT" prefHeight="59.0" prefWidth="154.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label fx:id="peselLabel" prefHeight="44.0" prefWidth="423.0" style="-fx-font-weight: bold;" text="PESEL:">
+                                 <VBox.margin>
+                                    <Insets left="50.0" right="50.0" />
+                                 </VBox.margin>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox alignment="BOTTOM_LEFT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label fx:id="emailLabel" prefHeight="44.0" prefWidth="417.0" style="-fx-font-weight: bold;" text="E-mail:">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Label>
+                           </children>
                            <HBox.margin>
-                              <Insets left="50.0" top="20.0" />
+                              <Insets />
                            </HBox.margin>
-                        </Label>
-                        <Label fx:id="emailLabel" prefHeight="44.0" prefWidth="247.0" style="-fx-font-weight: bold;" text="E-mail:">
-                           <HBox.margin>
-                              <Insets top="20.0" />
-                           </HBox.margin>
-                        </Label>
+                        </VBox>
                      </children>
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <TextField fx:id="peselTextField" onKeyPressed="#peselTextFieldEntered" onKeyReleased="#peselTextFieldEntered" prefHeight="54.0" prefWidth="378.0" promptText="00000000000">
+                        <TextField fx:id="peselTextField" alignment="CENTER" onKeyPressed="#peselTextFieldEntered" onKeyReleased="#peselTextFieldEntered" prefHeight="54.0" prefWidth="378.0" promptText="00000000000" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets left="50.0" right="50.0" />
                            </HBox.margin>
                         </TextField>
-                        <TextField fx:id="emailTextField" prefHeight="54.0" prefWidth="375.0" promptText="Wpisz swój e-mail">
+                        <TextField fx:id="emailTextField" prefHeight="54.0" prefWidth="375.0" promptText="Wpisz swój e-mail" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets right="50.0" />
                            </HBox.margin>
@@ -110,7 +136,7 @@
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Label fx:id="creditCardLabel" prefHeight="44.0" prefWidth="491.0" style="-fx-font-weight: bold;" text="Numer karty kredytowej:">
+                        <Label fx:id="creditCardLabel" prefHeight="44.0" prefWidth="491.0" style="-fx-font-weight: bold;" text="Numer karty kredytowej:" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets left="50.0" top="20.0" />
                            </HBox.margin>
@@ -119,22 +145,22 @@
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <TextField fx:id="partFourCardNumberTextField1" alignment="CENTER" onKeyPressed="#cardNumberTextField1Entered" onKeyReleased="#cardNumberTextField1Entered" prefHeight="54.0" prefWidth="119.0" promptText="XXXX">
+                        <TextField fx:id="partFourCardNumberTextField1" alignment="CENTER" onKeyPressed="#cardNumberTextField1Entered" onKeyReleased="#cardNumberTextField1Entered" prefHeight="54.0" prefWidth="119.0" promptText="XXXX" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets left="50.0" right="20.0" />
                            </HBox.margin>
                         </TextField>
-                        <TextField fx:id="partFourCardNumberTextField2" alignment="CENTER" onKeyPressed="#cardNumberTextField2Entered" onKeyReleased="#cardNumberTextField2Entered" prefHeight="54.0" prefWidth="115.0" promptText="XXXX">
+                        <TextField fx:id="partFourCardNumberTextField2" alignment="CENTER" onKeyPressed="#cardNumberTextField2Entered" onKeyReleased="#cardNumberTextField2Entered" prefHeight="54.0" prefWidth="115.0" promptText="XXXX" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets right="20.0" />
                            </HBox.margin>
                         </TextField>
-                        <TextField fx:id="partFourCardNumberTextField3" alignment="CENTER" onKeyPressed="#cardNumberTextField3Entered" onKeyReleased="#cardNumberTextField3Entered" prefHeight="54.0" prefWidth="118.0" promptText="XXXX">
+                        <TextField fx:id="partFourCardNumberTextField3" alignment="CENTER" onKeyPressed="#cardNumberTextField3Entered" onKeyReleased="#cardNumberTextField3Entered" prefHeight="54.0" prefWidth="118.0" promptText="XXXX" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets right="20.0" />
                            </HBox.margin>
                         </TextField>
-                        <TextField fx:id="partFourCardNumberTextField4" alignment="CENTER" onKeyPressed="#cardNumberTextField4Entered" onKeyReleased="#cardNumberTextField4Entered" prefHeight="54.0" prefWidth="114.0" promptText="XXXX">
+                        <TextField fx:id="partFourCardNumberTextField4" alignment="CENTER" onKeyPressed="#cardNumberTextField4Entered" onKeyReleased="#cardNumberTextField4Entered" prefHeight="54.0" prefWidth="114.0" promptText="XXXX" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets right="20.0" />
                            </HBox.margin>
@@ -143,7 +169,7 @@
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Label fx:id="phoneNumberLabel" style="-fx-font-weight: bold;" text="Numer telefonu:">
+                        <Label fx:id="phoneNumberLabel" style="-fx-font-weight: bold;" text="Numer telefonu:" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets left="50.0" />
                            </HBox.margin>
@@ -155,17 +181,17 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Label fx:id="plusLabel" prefHeight="21.0" prefWidth="38.0" text="+">
+                        <Label fx:id="plusLabel" prefHeight="21.0" prefWidth="38.0" text="+" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets bottom="20.0" left="50.0" right="20.0" />
                            </HBox.margin>
                         </Label>
-                        <TextField fx:id="directionNumbertextField" onKeyPressed="#directionNumberTextFieldEntered" onKeyReleased="#directionNumberTextFieldEntered" prefHeight="54.0" prefWidth="73.0" promptText="48">
+                        <TextField fx:id="directionNumbertextField" alignment="CENTER" onKeyPressed="#directionNumberTextFieldEntered" onKeyReleased="#directionNumberTextFieldEntered" prefHeight="54.0" prefWidth="73.0" promptText="48" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets bottom="20.0" right="20.0" />
                            </HBox.margin>
                         </TextField>
-                        <TextField fx:id="phoneNumberTextField" onKeyPressed="#numberTextFieldEntered" onKeyReleased="#numberTextFieldEntered" prefHeight="54.0" prefWidth="216.0" promptText="000000000">
+                        <TextField fx:id="phoneNumberTextField" alignment="CENTER" onKeyPressed="#numberTextFieldEntered" onKeyReleased="#numberTextFieldEntered" prefHeight="54.0" prefWidth="216.0" promptText="000000000" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets bottom="20.0" right="20.0" />
                            </HBox.margin>
