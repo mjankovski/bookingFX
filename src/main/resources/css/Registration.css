@@ -13,12 +13,27 @@
     -fx-color: white;
 }
 
+#registrationLabelHBox
+{
+    -fx-font-size: 250%;
+}
+
+#hotelLabel
+{
+    -fx-text-fill: white;
+}
+
+.label
+{
+    -fx-text-fill: #595959;
+}
+
 #formVBox
 {
     -fx-border-color: #3399FF;
     -fx-border-width: 3;
     -fx-border-radius: 3;
-    -fx-font-size: 200%;
+    -fx-text-fill: #595959;
 }
 
 .button

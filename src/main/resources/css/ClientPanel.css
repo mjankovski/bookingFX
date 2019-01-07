@@ -7,16 +7,15 @@
     -fx-font-family: "Arial Black";
 }
 
+.label {
+    -fx-text-fill: #595959;
+}
+
 #titleHBox
 {
     -fx-background-color: #3399FF;
     -fx-font-size: 300%;
-    -fx-color: white;
-}
-
-.label
-{
-    -fx-text-fill: #595959;
+    -fx-text-fill: white;
 }
 
 #hotelLabel
@@ -35,7 +34,12 @@
     -fx-border-width: 3;
     -fx-border-radius: 3;
     -fx-font-size: 200%;
-    -fx-text-fill: #595959;
+}
+
+#panelLabelHBox
+{
+    -fx-font-size: 250%;
+
 }
 
 .button
@@ -51,5 +55,7 @@
 {
     -fx-background-color: #1177AA;
 }
+
+
 
 
