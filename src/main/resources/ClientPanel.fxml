@@ -4,14 +4,17 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<VBox fx:id="mainVBox" prefHeight="799.0" prefWidth="1200.0" stylesheets="@/css/Registration.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fx.booking.controller.RegistrationController">
+<VBox fx:id="mainVBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" stylesheets="/css/ClientPanel.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fx.booking.controller.ClientPanelController">
    <children>
-      <HBox fx:id="titleHBox" prefHeight="37.0" prefWidth="740.0" style="-fx-background-color: #3399FF;">
+      <HBox fx:id="titleHBox" prefHeight="47.0" prefWidth="1200.0">
          <children>
             <Label fx:id="hotelLabel" prefHeight="105.0" prefWidth="395.0" text="BookingFX" textAlignment="JUSTIFY" textFill="WHITE">
                <HBox.margin>
@@ -20,18 +23,27 @@
             </Label>
          </children>
       </HBox>
-      <HBox fx:id="registrationLabelHBox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+      <HBox fx:id="panelLabelHBox" alignment="CENTER" prefHeight="60.0" prefWidth="1200.0">
          <children>
-            <Label alignment="CENTER" text="Rejestracja" />
+            <Label text="Panel klienta" textFill="#595959" />
          </children>
       </HBox>
-      <HBox alignment="CENTER" prefHeight="697.0" prefWidth="1200.0">
+      <HBox alignment="CENTER" prefHeight="78.0" prefWidth="1200.0">
          <children>
-            <VBox fx:id="formVBox" alignment="CENTER" prefHeight="571.0" prefWidth="1000.0" HBox.hgrow="ALWAYS">
+            <ImageView fitHeight="84.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@img/login-icon.png" />
+               </image>
+            </ImageView>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="292.0" prefWidth="1200.0">
+         <children>
+            <VBox fx:id="formVBox" alignment="CENTER" prefHeight="427.0" prefWidth="1000.0" HBox.hgrow="ALWAYS">
                <children>
-                  <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                  <HBox prefHeight="28.0" prefWidth="1000.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <VBox alignment="BOTTOM_LEFT" prefHeight="56.0" prefWidth="526.0" HBox.hgrow="ALWAYS">
+                        <VBox alignment="BOTTOM_LEFT" prefHeight="16.0" prefWidth="527.0" HBox.hgrow="ALWAYS">
                            <children>
                               <Label fx:id="nameLabel" prefHeight="44.0" prefWidth="163.0" style="-fx-color: #595959;" text="Imię:">
                                  <VBox.margin>
@@ -51,25 +63,25 @@
                         </VBox>
                      </children>
                   </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                  <HBox prefHeight="38.0" prefWidth="1000.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <TextField fx:id="nameTextfield" prefHeight="54.0" prefWidth="326.0" promptText="Wpisz imię" HBox.hgrow="ALWAYS">
+                        <TextField fx:id="nameTextfield" prefHeight="33.0" prefWidth="0.0" promptText="Wpisz imię" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets left="50.0" right="50.0" />
                            </HBox.margin>
                         </TextField>
-                        <TextField fx:id="surnameTextField" prefHeight="54.0" prefWidth="324.0" promptText="Wpisz nazwisko" HBox.hgrow="ALWAYS">
+                        <TextField fx:id="surnameTextField" prefHeight="33.0" prefWidth="0.0" promptText="Wpisz nazwisko" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets right="50.0" />
                            </HBox.margin>
                         </TextField>
                      </children>
                   </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                  <HBox prefHeight="29.0" prefWidth="1000.0" VBox.vgrow="ALWAYS">
                      <children>
                         <VBox alignment="BOTTOM_LEFT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Label fx:id="loginLabel" prefHeight="44.0" prefWidth="422.0" style="-fx-color: #595959;" text="Login:">
+                              <Label fx:id="loginLabel" prefHeight="7.0" prefWidth="422.0" style="-fx-color: #595959;" text="Login:">
                                  <VBox.margin>
                                     <Insets left="50.0" />
                                  </VBox.margin>
@@ -86,21 +98,21 @@
                         </VBox>
                      </children>
                   </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                  <HBox prefHeight="30.0" prefWidth="1000.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <TextField fx:id="loginTextField" prefHeight="54.0" prefWidth="383.0" promptText="Wpisz login" HBox.hgrow="ALWAYS">
+                        <TextField fx:id="loginTextField" prefHeight="19.0" prefWidth="427.0" promptText="Wpisz login" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets left="50.0" right="50.0" />
                            </HBox.margin>
                         </TextField>
-                        <PasswordField fx:id="passField" prefHeight="54.0" prefWidth="378.0" promptText="Wpisz hasło" HBox.hgrow="ALWAYS">
+                        <PasswordField fx:id="passField" prefHeight="33.0" prefWidth="428.0" promptText="Wpisz hasło" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets right="50.0" />
                            </HBox.margin>
                         </PasswordField>
                      </children>
                   </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                  <HBox prefHeight="19.0" prefWidth="1000.0" VBox.vgrow="ALWAYS">
                      <children>
                         <VBox alignment="BOTTOM_LEFT" prefHeight="59.0" prefWidth="154.0" HBox.hgrow="ALWAYS">
                            <children>
@@ -125,21 +137,21 @@
                         </VBox>
                      </children>
                   </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                  <HBox prefHeight="0.0" prefWidth="1000.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <TextField fx:id="peselTextField" alignment="CENTER" onKeyPressed="#peselTextFieldEntered" onKeyReleased="#peselTextFieldEntered" prefHeight="54.0" prefWidth="378.0" promptText="00000000000" HBox.hgrow="ALWAYS">
+                        <TextField fx:id="peselTextField" alignment="CENTER" prefHeight="19.0" prefWidth="426.0" promptText="00000000000" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets left="50.0" right="50.0" />
                            </HBox.margin>
                         </TextField>
-                        <TextField fx:id="emailTextField" prefHeight="54.0" prefWidth="375.0" promptText="Wpisz swój e-mail" HBox.hgrow="ALWAYS">
+                        <TextField fx:id="emailTextField" prefHeight="33.0" prefWidth="423.0" promptText="Wpisz swój e-mail" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets right="50.0" />
                            </HBox.margin>
                         </TextField>
                      </children>
                   </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+                  <HBox prefHeight="25.0" prefWidth="1000.0">
                      <children>
                         <Label fx:id="creditCardLabel" prefHeight="44.0" prefWidth="491.0" style="-fx-color: #595959;" text="Numer karty kredytowej:" HBox.hgrow="ALWAYS">
                            <HBox.margin>
@@ -148,55 +160,52 @@
                         </Label>
                      </children>
                   </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+                  <HBox prefHeight="18.0" prefWidth="1000.0">
                      <children>
-                        <TextField fx:id="partFourCardNumberTextField1" alignment="CENTER" onKeyPressed="#cardNumberTextField1Entered" onKeyReleased="#cardNumberTextField1Entered" prefHeight="54.0" prefWidth="119.0" promptText="XXXX" HBox.hgrow="ALWAYS">
+                        <TextField fx:id="partFourCardNumberTextField1" alignment="CENTER" prefHeight="54.0" prefWidth="119.0" promptText="XXXX" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets left="50.0" right="20.0" />
                            </HBox.margin>
                         </TextField>
-                        <TextField fx:id="partFourCardNumberTextField2" alignment="CENTER" onKeyPressed="#cardNumberTextField2Entered" onKeyReleased="#cardNumberTextField2Entered" prefHeight="54.0" prefWidth="115.0" promptText="XXXX" HBox.hgrow="ALWAYS">
+                        <TextField fx:id="partFourCardNumberTextField2" alignment="CENTER" prefHeight="54.0" prefWidth="115.0" promptText="XXXX" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets right="20.0" />
                            </HBox.margin>
                         </TextField>
-                        <TextField fx:id="partFourCardNumberTextField3" alignment="CENTER" onKeyPressed="#cardNumberTextField3Entered" onKeyReleased="#cardNumberTextField3Entered" prefHeight="54.0" prefWidth="118.0" promptText="XXXX" HBox.hgrow="ALWAYS">
+                        <TextField fx:id="partFourCardNumberTextField3" alignment="CENTER" prefHeight="54.0" prefWidth="118.0" promptText="XXXX" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets right="20.0" />
                            </HBox.margin>
                         </TextField>
-                        <TextField fx:id="partFourCardNumberTextField4" alignment="CENTER" onKeyPressed="#cardNumberTextField4Entered" onKeyReleased="#cardNumberTextField4Entered" prefHeight="54.0" prefWidth="114.0" promptText="XXXX" HBox.hgrow="ALWAYS">
+                        <TextField fx:id="partFourCardNumberTextField4" alignment="CENTER" prefHeight="54.0" prefWidth="114.0" promptText="XXXX" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets right="20.0" />
                            </HBox.margin>
                         </TextField>
                      </children>
                   </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+                  <HBox prefHeight="5.0" prefWidth="1000.0">
                      <children>
-                        <Label fx:id="phoneNumberLabel" style="-fx-color: #595959;" text="Numer telefonu:" HBox.hgrow="ALWAYS">
+                        <Label fx:id="phoneNumberLabel" prefHeight="19.0" prefWidth="132.0" style="-fx-color: #595959;" text="Numer telefonu:" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets left="50.0" />
                            </HBox.margin>
-                           <padding>
-                              <Insets top="20.0" />
-                           </padding>
                         </Label>
                      </children>
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" style="-fx-color: #595959;">
                      <children>
-                        <TextField fx:id="directionNumbertextField" alignment="CENTER" onKeyPressed="#directionNumberTextFieldEntered" onKeyReleased="#directionNumberTextFieldEntered" prefHeight="54.0" prefWidth="73.0" promptText="+48" HBox.hgrow="ALWAYS">
+                        <TextField fx:id="directionNumbertextField" alignment="CENTER" prefHeight="0.0" prefWidth="142.0" promptText="+48" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets bottom="20.0" left="50.0" right="20.0" />
                            </HBox.margin>
                         </TextField>
-                        <TextField fx:id="phoneNumberTextField" alignment="CENTER" onKeyPressed="#numberTextFieldEntered" onKeyReleased="#numberTextFieldEntered" prefHeight="54.0" prefWidth="216.0" promptText="000000000" HBox.hgrow="ALWAYS">
+                        <TextField fx:id="phoneNumberTextField" alignment="CENTER" prefHeight="0.0" prefWidth="250.0" promptText="000000000" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets bottom="20.0" right="20.0" />
                            </HBox.margin>
                         </TextField>
-                        <Button fx:id="makeAccountButton" alignment="CENTER" mnemonicParsing="false" onAction="#registerButtonPressed" prefHeight="54.0" prefWidth="283.0" text="ZAŁÓŻ KONTO" HBox.hgrow="ALWAYS">
+                        <Button fx:id="editButton" alignment="CENTER" mnemonicParsing="false" prefHeight="54.0" prefWidth="283.0" text="EDYTUJ" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets bottom="20.0" left="180.0" right="20.0" />
                            </HBox.margin>
@@ -210,20 +219,25 @@
             </VBox>
          </children>
       </HBox>
-      <HBox prefHeight="68.0" prefWidth="1069.0">
+      <HBox alignment="CENTER" prefHeight="186.0" prefWidth="1200.0">
          <children>
-            <Button fx:id="menuButton" mnemonicParsing="false" onAction="#menuButtonClicked" text="POWRÓT">
-               <font>
-                  <Font size="15.0" />
-               </font>
-               <HBox.margin>
-                  <Insets left="100.0" />
-               </HBox.margin>
-            </Button>
+            <TableView fx:id="reservationTable" editable="true" onMouseClicked="#reservationSelected" prefHeight="153.0" prefWidth="789.0">
+               <columns>
+                  <TableColumn fx:id="roomNumberColumn" prefWidth="75.0" text="Numer pokoju" />
+                  <TableColumn fx:id="fromDateColumn" prefWidth="75.0" text="Data od" />
+                  <TableColumn fx:id="toDateColumn" prefWidth="75.0" text="Data do" />
+               </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
          </children>
-         <VBox.margin>
-            <Insets bottom="20.0" top="20.0" />
-         </VBox.margin>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="0.0" prefWidth="1200.0" spacing="100.0" VBox.vgrow="ALWAYS">
+         <children>
+            <Button fx:id="planButton" mnemonicParsing="false" onAction="#planButtonClicked" prefHeight="33.0" prefWidth="106.0" text="PLAN" />
+            <Button fx:id="invoiceButton" mnemonicParsing="false" onAction="#invoiceButtonClicked" text="FAKTURA" />
+         </children>
       </HBox>
    </children>
 </VBox>

@@ -132,8 +132,6 @@ public class BookingController {
         fromDateColumn.setCellValueFactory(new PropertyValueFactory<>("beginningDate"));
         toDateColumn.setCellValueFactory(new PropertyValueFactory<>("endingDate"));
         invoiceButton.setDisable(true);
-        mainVBox.setOpacity(0);
-        makeFadeIn();
     }
 
     @FXML
@@ -149,6 +147,7 @@ public class BookingController {
         for (Reservation reservation : list) {
             reservationTable.getItems().add(reservation);
         }
+        makeFadeIn();
     }
 
     @FXML

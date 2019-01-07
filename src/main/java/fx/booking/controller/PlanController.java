@@ -1,6 +1,7 @@
 package fx.booking.controller;
 
 
+import fx.booking.dao.AccountDAO;
 import fx.booking.dao.DocumentDAO;
 import fx.booking.repository.ReservationKeeper;
 import fx.booking.repository.Room;
@@ -16,6 +17,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -43,6 +45,9 @@ public class PlanController {
 
     @Autowired
     private ReservationKeeper reservationKeeper;
+
+    @Autowired
+    private AccountDAO accountDAO;
 
     @FXML
     private VBox mainVBox;
@@ -229,6 +234,9 @@ public class PlanController {
 
     @FXML
     private Room selectedRoom;
+
+    @FXML
+    private ImageView avatar;
 
 
     @FXML
@@ -422,6 +430,37 @@ public class PlanController {
                 setFloor1ButtonsInvisible();
                 setFloor2ButtonsVisible();
                 break;
+        }
+    }
+
+    @FXML
+    public void avatarMouseEntered(MouseEvent event) {
+        avatar.setImage(new Image("img/hover-icon.png"));
+    }
+
+    @FXML
+    public void avatarMouseExited(MouseEvent event) {
+        avatar.setImage(new Image("img/login-icon.png"));
+    }
+
+    @FXML
+    public void avatarClicked(MouseEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setControllerFactory(springContext::getBean);
+            fxmlLoader.setLocation(getClass().getResource("/ClientPanel.fxml"));
+            Parent tableViewParent = fxmlLoader.load();
+            Scene tableViewScene = new Scene(tableViewParent);
+
+            ClientPanelController controller = fxmlLoader.getController();
+            controller.initReservationTable(reservationKeeper.getReservationList(accountDAO.getLogin()));
+
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(tableViewScene);
+            window.show();
+        }
+        catch(Exception e) {
+            e.printStackTrace();
         }
     }
 

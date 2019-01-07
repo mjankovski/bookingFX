@@ -190,12 +190,12 @@ public class RegistrationController {
 
     @FXML
     public void directionNumberTextFieldEntered(KeyEvent event) {
-        if(directionNumbertextField.getText().length() >= 2) {
+        if(directionNumbertextField.getText().length() >= 3) {
             if(event.getCode() == KeyCode.BACK_SPACE || event.getCode() == KeyCode.TAB) {
                 return;
             }
             phoneNumberTextField.requestFocus();
-            String text = directionNumbertextField.getText().substring(0,2);
+            String text = directionNumbertextField.getText().substring(1,3);
             directionNumbertextField.setText(text);
         }
     }
