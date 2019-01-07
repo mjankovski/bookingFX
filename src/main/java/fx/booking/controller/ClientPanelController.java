@@ -1,5 +1,6 @@
 package fx.booking.controller;
 
+import fx.booking.DocumentGenerator;
 import fx.booking.dao.AccountDAO;
 import fx.booking.repository.Reservation;
 import javafx.animation.FadeTransition;
@@ -54,8 +55,11 @@ public class ClientPanelController {
     @FXML
     private VBox mainVBox;
 
+    private DocumentGenerator documentGenerator;
+
     @FXML
     public void initialize() {
+        documentGenerator = new DocumentGenerator();
         roomNumberColumn.setCellValueFactory(new PropertyValueFactory<>("roomNumber"));
         fromDateColumn.setCellValueFactory(new PropertyValueFactory<>("beginningDate"));
         toDateColumn.setCellValueFactory(new PropertyValueFactory<>("endingDate"));
