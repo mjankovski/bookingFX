@@ -2,6 +2,7 @@ package fx.booking.controller;
 
 import fx.booking.dao.*;
 
+import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,8 +16,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import javafx.util.Duration;
 import org.simplejavamail.email.Email;
 import org.simplejavamail.email.EmailBuilder;
 import org.simplejavamail.mailer.Mailer;
@@ -47,7 +50,7 @@ public class RegistrationController {
     private ConfigurableApplicationContext springContext;
 
     @FXML
-    private AnchorPane accountAnchorPane;
+    private VBox mainVBox;
 
     @FXML
     private TextField nameTextField;
@@ -120,7 +123,8 @@ public class RegistrationController {
 
     @FXML
     public void initialize() {
-
+        mainVBox.setOpacity(0);
+        makeFadeIn();
     }
 
 
@@ -300,6 +304,15 @@ public class RegistrationController {
                 .buildMailer();
 
         mailer.sendMail(email);
+    }
+
+    private void makeFadeIn() {
+        FadeTransition fadeTransition = new FadeTransition();
+        fadeTransition.setDuration((Duration.seconds(1)));
+        fadeTransition.setNode(mainVBox);
+        fadeTransition.setFromValue(0);
+        fadeTransition.setToValue(1);
+        fadeTransition.play();
     }
 }
 

@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="mainVBox" prefHeight="800.0" prefWidth="1200.0" stylesheets="@/css/Registration.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fx.booking.controller.RegistrationController">
+<VBox fx:id="mainVBox" prefHeight="799.0" prefWidth="1200.0" stylesheets="@/css/Registration.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fx.booking.controller.RegistrationController">
    <children>
       <HBox fx:id="titleHBox" prefHeight="37.0" prefWidth="740.0" style="-fx-background-color: #3399FF;">
          <children>
@@ -20,9 +20,9 @@
             </Label>
          </children>
       </HBox>
-      <HBox alignment="CENTER" prefHeight="716.0" prefWidth="1355.0">
+      <HBox alignment="CENTER" prefHeight="697.0" prefWidth="1200.0">
          <children>
-            <VBox fx:id="formVBox" alignment="CENTER" prefHeight="337.0" prefWidth="540.0" HBox.hgrow="ALWAYS">
+            <VBox fx:id="formVBox" alignment="CENTER" prefHeight="571.0" prefWidth="1000.0" HBox.hgrow="ALWAYS">
                <children>
                   <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                      <children>
@@ -179,7 +179,7 @@
                   </HBox>
                </children>
                <HBox.margin>
-                  <Insets bottom="50.0" left="100.0" right="100.0" top="50.0" />
+                  <Insets left="100.0" right="100.0" top="20.0" />
                </HBox.margin>
             </VBox>
          </children>

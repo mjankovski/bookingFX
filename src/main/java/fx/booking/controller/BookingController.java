@@ -5,6 +5,7 @@ import fx.booking.repository.Reservation;
 
 import fx.booking.repository.ReservationKeeper;
 import fx.booking.repository.Room;
+import javafx.animation.FadeTransition;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,10 +16,13 @@ import javafx.scene.Scene;
 
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import javafx.util.Duration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -39,7 +43,7 @@ public class BookingController {
     private ReservationKeeper reservationKeeper;
 
     @FXML
-    private AnchorPane informationAnchorPane;
+    private VBox mainVBox;
 
     @FXML
     private ScrollPane bookingScrollPane;
@@ -102,6 +106,9 @@ public class BookingController {
     private Button deleteButton;
 
     @FXML
+    private Button invoiceButton;
+
+    @FXML
     private Room selectedRoom;
 
     @FXML
@@ -124,7 +131,9 @@ public class BookingController {
         reservationNumberColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         fromDateColumn.setCellValueFactory(new PropertyValueFactory<>("beginningDate"));
         toDateColumn.setCellValueFactory(new PropertyValueFactory<>("endingDate"));
-        reservationTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        invoiceButton.setDisable(true);
+        mainVBox.setOpacity(0);
+        makeFadeIn();
     }
 
     @FXML
@@ -191,11 +200,30 @@ public class BookingController {
         }
     }
 
+    @FXML
+    public void reservationSelected(MouseEvent event) throws IOException {
+        invoiceButton.setDisable(false);
+    }
+
+    @FXML
+    public void invoiceButtonClicked(ActionEvent event) throws IOException {
+        System.out.println(reservationTable.getSelectionModel().getSelectedItem().getId());
+    }
+
     private void showAlertInfo(String title, String header, Alert.AlertType type){
         Alert alert = new Alert(type);
         alert.setTitle(title);
         alert.setHeaderText(header);
         alert.showAndWait();
+    }
+
+    private void makeFadeIn() {
+        FadeTransition fadeTransition = new FadeTransition();
+        fadeTransition.setDuration((Duration.seconds(1)));
+        fadeTransition.setNode(mainVBox);
+        fadeTransition.setFromValue(0);
+        fadeTransition.setToValue(1);
+        fadeTransition.play();
     }
 }
 
