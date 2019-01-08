@@ -43,7 +43,7 @@
                <children>
                   <HBox prefHeight="28.0" prefWidth="1000.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <VBox alignment="BOTTOM_LEFT" prefHeight="16.0" prefWidth="527.0" HBox.hgrow="ALWAYS">
+                        <VBox alignment="BOTTOM_LEFT" prefHeight="23.0" prefWidth="501.0" HBox.hgrow="ALWAYS">
                            <children>
                               <Label fx:id="nameLabel" prefHeight="44.0" prefWidth="163.0" style="-fx-color: #595959;" text="Imię:">
                                  <VBox.margin>
@@ -65,14 +65,14 @@
                   </HBox>
                   <HBox prefHeight="38.0" prefWidth="1000.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <TextField fx:id="nameTextfield" prefHeight="33.0" prefWidth="0.0" promptText="Wpisz imię" HBox.hgrow="ALWAYS">
+                        <TextField fx:id="nameTextfield" prefHeight="33.0" prefWidth="36.0" promptText="Wpisz imię" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets left="50.0" right="50.0" />
                            </HBox.margin>
                         </TextField>
                         <TextField fx:id="surnameTextField" prefHeight="33.0" prefWidth="0.0" promptText="Wpisz nazwisko" HBox.hgrow="ALWAYS">
                            <HBox.margin>
-                              <Insets right="50.0" />
+                              <Insets right="90.0" />
                            </HBox.margin>
                         </TextField>
                      </children>
@@ -81,16 +81,16 @@
                      <children>
                         <VBox alignment="BOTTOM_LEFT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Label fx:id="loginLabel" prefHeight="7.0" prefWidth="422.0" style="-fx-color: #595959;" text="Login:">
+                              <Label fx:id="loginLabel" prefHeight="23.0" prefWidth="402.0" style="-fx-color: #595959;" text="Login:">
                                  <VBox.margin>
                                     <Insets left="50.0" />
                                  </VBox.margin>
                               </Label>
                            </children>
                         </VBox>
-                        <VBox alignment="BOTTOM_LEFT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                        <VBox alignment="BOTTOM_LEFT" prefHeight="23.0" prefWidth="123.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Label fx:id="passwordLabel" prefHeight="44.0" prefWidth="422.0" style="-fx-color: #595959;" text="Hasło:" />
+                              <Label fx:id="passwordLabel" prefHeight="23.0" prefWidth="441.0" style="-fx-color: #595959;" text="Hasło:" />
                            </children>
                            <HBox.margin>
                               <Insets left="50.0" />
@@ -100,14 +100,14 @@
                   </HBox>
                   <HBox prefHeight="30.0" prefWidth="1000.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <TextField fx:id="loginTextField" prefHeight="19.0" prefWidth="427.0" promptText="Wpisz login" HBox.hgrow="ALWAYS">
+                        <TextField fx:id="loginTextField" prefHeight="33.0" prefWidth="443.0" promptText="Wpisz login" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets left="50.0" right="50.0" />
                            </HBox.margin>
                         </TextField>
                         <PasswordField fx:id="passField" prefHeight="33.0" prefWidth="428.0" promptText="Wpisz hasło" HBox.hgrow="ALWAYS">
                            <HBox.margin>
-                              <Insets right="50.0" />
+                              <Insets right="90.0" />
                            </HBox.margin>
                         </PasswordField>
                      </children>
@@ -123,7 +123,7 @@
                               </Label>
                            </children>
                         </VBox>
-                        <VBox alignment="BOTTOM_LEFT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                        <VBox alignment="BOTTOM_LEFT" prefHeight="23.0" prefWidth="130.0" HBox.hgrow="ALWAYS">
                            <children>
                               <Label fx:id="emailLabel" prefHeight="44.0" prefWidth="417.0" style="-fx-color: white;" text="E-mail:">
                                  <VBox.margin>
@@ -139,14 +139,14 @@
                   </HBox>
                   <HBox prefHeight="0.0" prefWidth="1000.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <TextField fx:id="peselTextField" alignment="CENTER" prefHeight="19.0" prefWidth="426.0" promptText="00000000000" HBox.hgrow="ALWAYS">
+                        <TextField fx:id="peselTextField" alignment="CENTER" prefHeight="33.0" prefWidth="437.0" promptText="00000000000" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets left="50.0" right="50.0" />
                            </HBox.margin>
                         </TextField>
                         <TextField fx:id="emailTextField" prefHeight="33.0" prefWidth="423.0" promptText="Wpisz swój e-mail" HBox.hgrow="ALWAYS">
                            <HBox.margin>
-                              <Insets right="50.0" />
+                              <Insets right="90.0" />
                            </HBox.margin>
                         </TextField>
                      </children>
@@ -205,7 +205,7 @@
                               <Insets bottom="20.0" right="20.0" />
                            </HBox.margin>
                         </TextField>
-                        <Button fx:id="editButton" alignment="CENTER" mnemonicParsing="false" prefHeight="54.0" prefWidth="283.0" text="EDYTUJ" HBox.hgrow="ALWAYS">
+                        <Button fx:id="editButton" alignment="CENTER" mnemonicParsing="false" onAction="#editButtonClicked" prefHeight="54.0" prefWidth="120.0" text="EDYTUJ" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets bottom="20.0" left="180.0" right="20.0" />
                            </HBox.margin>
