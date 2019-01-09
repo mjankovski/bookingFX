@@ -1,6 +1,8 @@
 package fx.booking;
 
 import java.io.FileOutputStream;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,21 +27,8 @@ public class DocumentGenerator {
     private static Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12,
             Font.BOLD);
 
-    public void generateDocument() {
+    public void generateDocument(Map<String, Object> documentInfo) {
         try {
-            Map<String, String> documentInfo = new HashMap<>();
-            documentInfo.put("date","08.12.2018r.");
-            documentInfo.put("number","10");
-            documentInfo.put("buyerName","Adam Abacki");
-            documentInfo.put("buyerEmail","adam@abacki.pl");
-            documentInfo.put("buyerPhone","555666777");
-            documentInfo.put("resNumber","17");
-            documentInfo.put("resBrutto", "1200");
-            double netto = Double.valueOf(documentInfo.get("resBrutto"))*0.77;
-            double vat = Double.valueOf(documentInfo.get("resBrutto"))*0.23;
-            documentInfo.put("resNetto", Double.toString(netto));
-            documentInfo.put("resVat", Double.toString(vat));
-            documentInfo.put("currency", "PLN");
             Document document = new Document();
             PdfWriter.getInstance(document, new FileOutputStream(FILE));
             document.open();
@@ -57,23 +46,25 @@ public class DocumentGenerator {
         document.addCreator("BookingFX");
     }
 
-    private static void addTitlePage(Document document, Map<String, String> documentInfo)
+    private static void addTitlePage(Document document, Map<String, Object> documentInfo)
             throws DocumentException {
         Paragraph preface = new Paragraph();
-        // We add one empty line
+
         addEmptyLine(preface, 1);
-        // Lets write a big header
-        Paragraph date = new Paragraph(documentInfo.get("date"), redFont);
+
+        Paragraph date = new Paragraph(documentInfo.get("DATA_WYSTAWIENIA").toString(), redFont);
         date.setAlignment(Element.ALIGN_RIGHT);
         preface.add(date);
 
         addEmptyLine(preface, 4);
 
-        Paragraph title = new Paragraph("Faktura nr " + documentInfo.get("number"), smallBold);
+        Paragraph title = new Paragraph("Faktura nr " + documentInfo.get("NR_FAKTURA"), smallBold);
         title.setAlignment(Element.ALIGN_CENTER);
         preface.add(title);
 
         addEmptyLine(preface, 4);
+
+        String buyerName = documentInfo.get("IMIE").toString() + " " + documentInfo.get("NAZWISKO").toString();
 
         PdfPTable table = new PdfPTable(2);
         table.setWidthPercentage(100);
@@ -82,11 +73,11 @@ public class DocumentGenerator {
         table.addCell(getCell(" ", PdfPCell.ALIGN_LEFT));
         table.addCell(getCell(" ", PdfPCell.ALIGN_RIGHT));
         table.addCell(getCell("BookingFX", PdfPCell.ALIGN_LEFT));
-        table.addCell(getCell(documentInfo.get("buyerName"), PdfPCell.ALIGN_RIGHT));
+        table.addCell(getCell(buyerName, PdfPCell.ALIGN_RIGHT));
         table.addCell(getCell("admin@bookingfx.cba.pl", PdfPCell.ALIGN_LEFT));
-        table.addCell(getCell(documentInfo.get("buyerEmail"), PdfPCell.ALIGN_RIGHT));
+        table.addCell(getCell(documentInfo.get("EMAIL").toString(), PdfPCell.ALIGN_RIGHT));
         table.addCell(getCell("111222333", PdfPCell.ALIGN_LEFT));
-        table.addCell(getCell(documentInfo.get("buyerPhone"), PdfPCell.ALIGN_RIGHT));
+        table.addCell(getCell(documentInfo.get("NR_TEL").toString(), PdfPCell.ALIGN_RIGHT));
         preface.add(table);
 
         addEmptyLine(preface, 4);
@@ -94,11 +85,6 @@ public class DocumentGenerator {
         PdfPTable table2 = new PdfPTable(7);
         table2.setWidthPercentage(100);
         table2.setWidths(new float[] {1, 5, 3, 2, 3, 3, 3});
-
-        // t.setBorderColor(BaseColor.GRAY);
-        // t.setPadding(4);
-        // t.setSpacing(4);
-        // t.setBorderWidth(1);
 
         PdfPCell c1 = new PdfPCell(new Phrase("Lp"));
         c1.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -130,22 +116,24 @@ public class DocumentGenerator {
 
         table2.setHeaderRows(1);
 
+        DecimalFormat df = new DecimalFormat("###.00");
+
         table2.addCell(getCell2("1", PdfPCell.ALIGN_CENTER));
-        table2.addCell(getCell2("Rezerwacja nr " + documentInfo.get("resNumber"), PdfPCell.ALIGN_CENTER));
-        table2.addCell(getCell2(documentInfo.get("resNetto"), PdfPCell.ALIGN_CENTER));
+        table2.addCell(getCell2("Rezerwacja nr " + documentInfo.get("ID_REZERWACJA").toString(), PdfPCell.ALIGN_CENTER));
+        table2.addCell(getCell2(df.format((((BigDecimal) documentInfo.get("KWOTA_FAKTURY")).multiply(new BigDecimal("0.77")))).toString(), PdfPCell.ALIGN_CENTER));
         table2.addCell(getCell2("23%", PdfPCell.ALIGN_CENTER));
-        table2.addCell(getCell2(documentInfo.get("resNetto"), PdfPCell.ALIGN_CENTER));
-        table2.addCell(getCell2(documentInfo.get("resVat"), PdfPCell.ALIGN_CENTER));
-        table2.addCell(getCell2(documentInfo.get("resBrutto"), PdfPCell.ALIGN_CENTER));
+        table2.addCell(getCell2(df.format((((BigDecimal) documentInfo.get("KWOTA_FAKTURY")).multiply(new BigDecimal("0.77")))).toString(), PdfPCell.ALIGN_CENTER));
+        table2.addCell(getCell2(df.format((((BigDecimal) documentInfo.get("KWOTA_FAKTURY")).multiply(new BigDecimal("0.23")))).toString(), PdfPCell.ALIGN_CENTER));
+        table2.addCell(getCell2(df.format(documentInfo.get("KWOTA_FAKTURY")), PdfPCell.ALIGN_CENTER));
 
         preface.add(table2);
 
         addEmptyLine(preface, 4);
 
-        preface.add(getParagraph("Razem: " + documentInfo.get("resBrutto") + " " + documentInfo.get("currency") , Element.ALIGN_RIGHT));
+        preface.add(getParagraph("Razem: " + df.format(documentInfo.get("KWOTA_FAKTURY")) + " " + documentInfo.get("WALUTA") , Element.ALIGN_RIGHT));
 
         document.add(preface);
-        // Start a new page
+
         document.newPage();
     }
 
