@@ -10,9 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
@@ -55,10 +53,105 @@ public class ClientPanelController {
     private VBox mainVBox;
 
     @FXML
+    private Label nameLabel;
+
+    @FXML
+    private Label surnameLabel;
+
+    @FXML
+    private TextField nameTextfield;
+
+    @FXML
+    private TextField surnameTextField;
+
+    @FXML
+    private Label loginLabel;
+
+    @FXML
+    private Label passwordLabel;
+
+    @FXML
+    private TextField loginTextField;
+
+    @FXML
+    private PasswordField passField;
+
+    @FXML
+    private Label peselLabel;
+
+    @FXML
+    private Label emailLabel;
+
+    @FXML
+    private TextField peselTextField;
+
+    @FXML
+    private TextField emailTextField;
+
+    @FXML
+    private Label creditCardLabel;
+
+    @FXML
+    private TextField partFourCardNumberTextField1;
+
+    @FXML
+    private TextField partFourCardNumberTextField2;
+
+    @FXML
+    private TextField partFourCardNumberTextField3;
+
+    @FXML
+    private TextField partFourCardNumberTextField4;
+
+    @FXML
+    private Label phoneNumberLabel;
+
+    @FXML
+    private TextField directionNumbertextField;
+
+    @FXML
+    private TextField phoneNumberTextField;
+
+    @FXML
     public void initialize() {
         roomNumberColumn.setCellValueFactory(new PropertyValueFactory<>("roomNumber"));
         fromDateColumn.setCellValueFactory(new PropertyValueFactory<>("beginningDate"));
         toDateColumn.setCellValueFactory(new PropertyValueFactory<>("endingDate"));
+
+        nameTextfield.setText(accountDAO.getFirstname());
+        nameTextfield.setDisable(true);
+
+        surnameTextField.setText(accountDAO.getLastname());
+        surnameTextField.setDisable(true);
+
+        loginTextField.setText(accountDAO.getLogin());
+        loginTextField.setDisable(true);
+
+        passField.setText(accountDAO.getLogin());
+        passField.setDisable(true);
+
+        peselTextField.setText(accountDAO.getPesel());
+        peselTextField.setDisable(true);
+
+        emailTextField.setText(accountDAO.getEmail());
+        emailTextField.setDisable(true);
+
+        partFourCardNumberTextField1.setText(accountDAO.getCreditCardNumber().substring(0, 4));
+        partFourCardNumberTextField1.setDisable(true);
+
+        partFourCardNumberTextField2.setText(accountDAO.getCreditCardNumber().substring(4, 8));
+        partFourCardNumberTextField2.setDisable(true);
+
+        partFourCardNumberTextField3.setText(accountDAO.getCreditCardNumber().substring(8, 12));
+        partFourCardNumberTextField3.setDisable(true);
+
+        partFourCardNumberTextField4.setText(accountDAO.getCreditCardNumber().substring(12, 16));
+        partFourCardNumberTextField4.setDisable(true);
+
+        directionNumbertextField.setDisable(true);
+
+        phoneNumberTextField.setText(accountDAO.getPhoneNumber());
+        phoneNumberTextField.setDisable(true);
     }
 
     @FXML void initReservationTable(ObservableList<Reservation> list) {
@@ -94,6 +187,41 @@ public class ClientPanelController {
         }
         catch(Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void editButtonClicked(ActionEvent event) {
+        Button button = (Button)event.getSource();
+        if(button.getText().equals("EDYTUJ")) {
+            nameTextfield.setDisable(false);
+            surnameTextField.setDisable(false);
+            loginTextField.setDisable(false);
+            passField.setDisable(false);
+            peselTextField.setDisable(false);
+            emailTextField.setDisable(false);
+            partFourCardNumberTextField1.setDisable(false);
+            partFourCardNumberTextField2.setDisable(false);
+            partFourCardNumberTextField3.setDisable(false);
+            partFourCardNumberTextField4.setDisable(false);
+            directionNumbertextField.setDisable(false);
+            phoneNumberTextField.setDisable(false);
+            button.setText("ZAPISZ");
+        }
+        else if(button.getText().equals("ZAPISZ")) {
+            nameTextfield.setDisable(true);
+            surnameTextField.setDisable(true);
+            loginTextField.setDisable(true);
+            passField.setDisable(true);
+            peselTextField.setDisable(true);
+            emailTextField.setDisable(true);
+            partFourCardNumberTextField1.setDisable(true);
+            partFourCardNumberTextField2.setDisable(true);
+            partFourCardNumberTextField3.setDisable(true);
+            partFourCardNumberTextField4.setDisable(true);
+            directionNumbertextField.setDisable(true);
+            phoneNumberTextField.setDisable(true);
+            button.setText("EDYTUJ");
         }
     }
 

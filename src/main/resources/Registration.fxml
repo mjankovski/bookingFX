@@ -53,7 +53,7 @@
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <TextField fx:id="nameTextfield" prefHeight="54.0" prefWidth="326.0" promptText="Wpisz imię" HBox.hgrow="ALWAYS">
+                        <TextField fx:id="nameTextField" prefHeight="54.0" prefWidth="326.0" promptText="Wpisz imię" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets left="50.0" right="50.0" />
                            </HBox.margin>

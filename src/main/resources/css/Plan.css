@@ -22,6 +22,11 @@
     -fx-font-size: 250%;
 }
 
+#planLabelHbox
+{
+    -fx-font-size: 250%;
+}
+
 #floorLabel, #pepoleNumberLabel, #priceLabel
 {
     -fx-font-size: 150%;

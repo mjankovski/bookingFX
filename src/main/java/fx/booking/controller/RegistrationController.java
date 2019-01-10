@@ -56,7 +56,7 @@ public class RegistrationController {
     private TextField nameTextField;
 
     @FXML
-    private TextField surnameTextfield;
+    private TextField surnameTextField;
 
     @FXML
     private Label nameLabel;
@@ -220,7 +220,7 @@ public class RegistrationController {
                     loginTextField.getText(),
                     passField.getText(),
                     nameTextField.getText(),
-                    surnameTextfield.getText(),
+                    surnameTextField.getText(),
                     emailTextField.getText(),
                     partFourCardNumberTextField1.getText() + partFourCardNumberTextField2.getText() + partFourCardNumberTextField3.getText() + partFourCardNumberTextField4.getText(),
                     peselTextField.getText(),
