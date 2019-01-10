@@ -186,7 +186,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" style="-fx-color: #595959;">
                      <children>
-                        <TextField fx:id="directionNumbertextField" alignment="CENTER" onKeyPressed="#directionNumberTextFieldEntered" onKeyReleased="#directionNumberTextFieldEntered" prefHeight="54.0" prefWidth="73.0" promptText="+48" HBox.hgrow="ALWAYS">
+                        <TextField fx:id="directionNumberTextField" alignment="CENTER" onKeyPressed="#directionNumberTextFieldEntered" onKeyReleased="#directionNumberTextFieldEntered" prefHeight="54.0" prefWidth="73.0" promptText="48" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets bottom="20.0" left="50.0" right="20.0" />
                            </HBox.margin>
