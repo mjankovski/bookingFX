@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.math.BigDecimal;
 import java.sql.*;
 import java.util.Calendar;
+import java.util.Map;
 
 @Repository
 public class DocumentDAO {
@@ -35,6 +36,10 @@ public class DocumentDAO {
                 }
             }, key);
         return (int)key.getKey().longValue();
+    }
+
+    public Map<String, Object> getDocumentsInformation(int docNumber){
+        return jdbcTemplate.queryForMap("SELECT U.IMIE, U.NAZWISKO, U.EMAIL, U.NR_TEL, R.ID_REZERWACJA, R.WALUTA, F.NR_FAKTURA, F.KWOTA_FAKTURY, F.DATA_WYSTAWIENIA FROM Faktury F INNER JOIN Rezerwacje R ON F.NR_FAKTURA=R.NR_FAKTURA INNER JOIN Uzytkownicy U ON R.LOGIN=U.LOGIN WHERE R.ID_REZERWACJA=?", docNumber);
     }
 
 }

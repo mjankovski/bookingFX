@@ -1,6 +1,8 @@
 package fx.booking.controller;
 
+import fx.booking.DocumentGenerator;
 import fx.booking.dao.AccountDAO;
+import fx.booking.dao.DocumentDAO;
 import fx.booking.repository.Reservation;
 import javafx.animation.FadeTransition;
 import javafx.collections.ObservableList;
@@ -29,7 +31,7 @@ public class ClientPanelController {
     private ConfigurableApplicationContext springContext;
 
     @Autowired
-    private AccountDAO accountDAO;
+    private DocumentDAO documentDAO;
 
     @FXML
     private TableView<Reservation> reservationTable;
@@ -51,6 +53,8 @@ public class ClientPanelController {
 
     @FXML
     private VBox mainVBox;
+
+    private DocumentGenerator documentGenerator;
 
     @FXML
     private Label nameLabel;
@@ -114,6 +118,7 @@ public class ClientPanelController {
 
     @FXML
     public void initialize() {
+        documentGenerator = new DocumentGenerator();
         roomNumberColumn.setCellValueFactory(new PropertyValueFactory<>("roomNumber"));
         fromDateColumn.setCellValueFactory(new PropertyValueFactory<>("beginningDate"));
         toDateColumn.setCellValueFactory(new PropertyValueFactory<>("endingDate"));
@@ -170,6 +175,7 @@ public class ClientPanelController {
     @FXML
     public void invoiceButtonClicked(ActionEvent event) throws IOException {
         System.out.println(reservationTable.getSelectionModel().getSelectedItem().getId());
+        documentGenerator.generateDocument(documentDAO.getDocumentsInformation(reservationTable.getSelectionModel().getSelectedItem().getId()));
     }
 
     @FXML
