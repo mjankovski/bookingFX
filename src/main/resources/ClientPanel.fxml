@@ -205,7 +205,7 @@
                               <Insets bottom="20.0" right="20.0" />
                            </HBox.margin>
                         </TextField>
-                        <Button fx:id="editButton" alignment="CENTER" mnemonicParsing="false" prefHeight="54.0" prefWidth="283.0" text="EDYTUJ" HBox.hgrow="ALWAYS">
+                        <Button fx:id="editButton" alignment="CENTER" mnemonicParsing="false" onAction="#editButtonClicked" prefHeight="54.0" prefWidth="164.0" text="EDYTUJ" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets bottom="20.0" left="180.0" right="20.0" />
                            </HBox.margin>
@@ -221,7 +221,7 @@
       </HBox>
       <HBox alignment="CENTER" prefHeight="186.0" prefWidth="1200.0">
          <children>
-            <TableView fx:id="reservationTable" editable="true" onMouseClicked="#reservationSelected" prefHeight="153.0" prefWidth="789.0">
+            <TableView fx:id="reservationTable" editable="true" onMouseClicked="#reservationSelected" prefHeight="153.0" prefWidth="789.0" HBox.hgrow="ALWAYS">
                <columns>
                   <TableColumn fx:id="roomNumberColumn" prefWidth="75.0" text="Numer pokoju" />
                   <TableColumn fx:id="fromDateColumn" prefWidth="75.0" text="Data od" />
@@ -232,6 +232,9 @@
                </columnResizePolicy>
             </TableView>
          </children>
+         <padding>
+            <Insets left="150.0" right="150.0" />
+         </padding>
       </HBox>
       <HBox alignment="CENTER" prefHeight="0.0" prefWidth="1200.0" spacing="100.0" VBox.vgrow="ALWAYS">
          <children>
