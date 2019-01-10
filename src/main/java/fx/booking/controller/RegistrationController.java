@@ -80,7 +80,7 @@ public class RegistrationController {
     private TextField phoneNumberTextField;
 
     @FXML
-    private TextField directionNumbertextField;
+    private TextField directionNumberTextField;
 
     @FXML
     private Label plusLabel;
@@ -182,7 +182,7 @@ public class RegistrationController {
             if(event.getCode() == KeyCode.BACK_SPACE || event.getCode() == KeyCode.TAB) {
                 return;
             }
-            directionNumbertextField.requestFocus();
+            directionNumberTextField.requestFocus();
             String text = partFourCardNumberTextField4.getText().substring(0,4);
             partFourCardNumberTextField4.setText(text);
         }
@@ -190,13 +190,13 @@ public class RegistrationController {
 
     @FXML
     public void directionNumberTextFieldEntered(KeyEvent event) {
-        if(directionNumbertextField.getText().length() >= 3) {
+        if(directionNumberTextField.getText().length() >= 3) {
             if(event.getCode() == KeyCode.BACK_SPACE || event.getCode() == KeyCode.TAB) {
                 return;
             }
             phoneNumberTextField.requestFocus();
-            String text = directionNumbertextField.getText().substring(1,3);
-            directionNumbertextField.setText(text);
+            String text = directionNumberTextField.getText().substring(1,3);
+            directionNumberTextField.setText(text);
         }
     }
 
@@ -224,7 +224,7 @@ public class RegistrationController {
                     emailTextField.getText(),
                     partFourCardNumberTextField1.getText() + partFourCardNumberTextField2.getText() + partFourCardNumberTextField3.getText() + partFourCardNumberTextField4.getText(),
                     peselTextField.getText(),
-                    phoneNumberTextField.getText(),
+                    directionNumberTextField.getText() + phoneNumberTextField.getText(),
                     1
             );
             sendMail(emailTextField.getText());
