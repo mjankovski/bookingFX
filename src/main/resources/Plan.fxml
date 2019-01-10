@@ -26,14 +26,9 @@
             </Label>
          </children>
       </HBox>
-      <HBox fx:id="planLabelHbox" alignment="CENTER" prefHeight="61.0" prefWidth="1200.0">
+      <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="57.0" prefWidth="1008.0" text="Plan hotelu" textFill="#595959">
-               <HBox.margin>
-                  <Insets left="200.0" right="20.0" />
-               </HBox.margin>
-            </Label>
-            <ImageView fx:id="avatar" fitHeight="100.0" fitWidth="500.0" onMouseClicked="#avatarClicked" onMouseEntered="#avatarMouseEntered" onMouseExited="#avatarMouseExited" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+            <ImageView fx:id="avatar" fitHeight="100.0" fitWidth="500.0" onMouseClicked="#avatarClicked" onMouseEntered="#avatarMouseEntered" onMouseExited="#avatarMouseExited" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@img/login-icon.png" />
                </image>
@@ -46,7 +41,7 @@
             <Insets />
          </opaqueInsets>
       </HBox>
-      <HBox prefHeight="515.0" prefWidth="1100.0" VBox.vgrow="ALWAYS">
+      <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
          <children>
             <VBox prefHeight="642.0" prefWidth="298.0">
                <children>
@@ -184,7 +179,7 @@
             </VBox>
          </children>
          <VBox.margin>
-            <Insets left="50.0" right="50.0" />
+            <Insets left="50.0" right="50.0" top="30.0" />
          </VBox.margin>
       </HBox>
       <HBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="1200.0">
