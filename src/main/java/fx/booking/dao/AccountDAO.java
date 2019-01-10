@@ -44,9 +44,9 @@ public class AccountDAO{
             throws InvalidCreditCardNumberException, InvalidPeselException, InvalidPhoneNumberException,
             InvalidEmailException, DuplicateKeyException, NoSuchAlgorithmException {
 
-        if(!creditCardNumber.matches("^[0-9]*$")) throw new InvalidCreditCardNumberException();
-        if(!pesel.matches("^[0-9]*$")) throw new InvalidPeselException();
-        if(!phoneNumber.matches("^[0-9]*$")) throw new InvalidPhoneNumberException();
+        if(!creditCardNumber.matches("^[0-9]{16}")) throw new InvalidCreditCardNumberException();
+        if(!pesel.matches("^[0-9]{11}")) throw new InvalidPeselException();
+        if(!phoneNumber.matches("^[0-9]{9}")) throw new InvalidPhoneNumberException();
         if(!email.matches("[a-zA-Z0-9]{3,}@[a-zA-Z0-9]{2,}\\.[a-zA-Z]{2,3}")) throw new InvalidEmailException();
         if(!login.matches("[a-zA-Z0-9]{3,20}")) throw new IllegalArgumentException();
         if(!pw.matches("[a-zA-Z0-9]{3,20}")) throw new IllegalArgumentException();
