@@ -33,6 +33,9 @@ public class ClientPanelController {
     @Autowired
     private DocumentDAO documentDAO;
 
+    @Autowired
+    private AccountDAO accountDAO;
+
     @FXML
     private TableView<Reservation> reservationTable;
 
