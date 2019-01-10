@@ -2,8 +2,8 @@ package fx.booking;
 
 import java.io.FileOutputStream;
 import java.math.BigDecimal;
+import java.rmi.server.ExportException;
 import java.text.DecimalFormat;
-import java.util.HashMap;
 import java.util.Map;
 
 import com.itextpdf.text.Document;
@@ -15,27 +15,26 @@ import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import javafx.stage.FileChooser;
 
 public class DocumentGenerator {
-    private static String FILE = "Testowy.pdf";
-    private static Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
-            Font.BOLD);
     private static Font redFont = new Font(Font.FontFamily.TIMES_ROMAN, 12,
             Font.NORMAL);
-    private static Font subFont = new Font(Font.FontFamily.TIMES_ROMAN, 16,
-            Font.BOLD);
     private static Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12,
             Font.BOLD);
 
     public void generateDocument(Map<String, Object> documentInfo) {
-        try {
+        try{
             Document document = new Document();
-            PdfWriter.getInstance(document, new FileOutputStream(FILE));
+            String fileToSavePath = new FileChooser().showSaveDialog(null).toString() + ".pdf";
+            PdfWriter.getInstance(document, new FileOutputStream(fileToSavePath));
             document.open();
             addMetaData(document);
             addTitlePage(document, documentInfo);
             document.close();
-        } catch (Exception e) {
+        } catch(NullPointerException e){
+
+        } catch(Exception e){
             e.printStackTrace();
         }
     }
