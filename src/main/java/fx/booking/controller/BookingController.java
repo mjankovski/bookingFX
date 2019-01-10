@@ -17,7 +17,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -190,12 +189,16 @@ public class BookingController {
     public void reservationButtonClicked(ActionEvent event) throws IOException {
 
         if(reservationDAO.checkIfRoomFree(Integer.valueOf(roomNumberLabel.getText()), fromDatePicker.getValue().toString(), toDatePicker.getValue().toString())){
-            reservationDAO.insertReservation(Integer.valueOf(roomNumberLabel.getText()), fromDatePicker.getValue().toString(), toDatePicker.getValue().toString());
-            reservationsList = reservationKeeper.getReservationList(selectedRoom.getNumber());
-            reservationTable.getItems().add(reservationsList.get(reservationsList.size() - 1));
+            try {
+                reservationDAO.insertReservation(Integer.valueOf(roomNumberLabel.getText()), fromDatePicker.getValue().toString(), toDatePicker.getValue().toString());
+                reservationsList = reservationKeeper.getReservationList(selectedRoom.getNumber());
+                reservationTable.getItems().add(reservationsList.get(reservationsList.size() - 1));
+            }catch(IllegalArgumentException e){
+                showAlertInfo("Błąd!", "Nie dokonano rezerwacji, ponieważ podano błędną datę!", Alert.AlertType.ERROR);
+            }
         }
         else{
-            showAlertInfo("Błąd!", "Nie dokonano rezerwacji, ponieważ w tych dniach pokój jest już zarezerwowany", Alert.AlertType.ERROR);
+            showAlertInfo("Błąd!", "Nie dokonano rezerwacji, ponieważ w tych dniach pokój jest już zarezerwowany!", Alert.AlertType.ERROR);
         }
     }
 

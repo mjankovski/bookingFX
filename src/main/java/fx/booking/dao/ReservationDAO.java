@@ -39,7 +39,7 @@ public class ReservationDAO {
     }
 
     public Boolean checkIfRoomFree(int roomNumber, String fromDate, String toDate){
-        int count = jdbcTemplate.queryForObject("SELECT COUNT(ID_REZERWACJA) FROM Rezerwacje WHERE NR_POKOJ=? AND ((DATA_OD>=? AND DATA_OD<?) OR (DATA_OD<=? AND DATA_DO>=?))", Integer.class, roomNumber, fromDate, toDate, fromDate, toDate);
+        int count = jdbcTemplate.queryForObject("SELECT COUNT(ID_REZERWACJA) FROM Rezerwacje WHERE NR_POKOJ=? AND ((DATA_OD>=? AND DATA_OD<?) OR (DATA_OD<=? AND DATA_DO>?) OR (DATA_OD>=? AND DATA_DO<=?) OR (DATA_OD<=? AND DATA_DO>?))", Integer.class, roomNumber, fromDate, toDate, fromDate, fromDate, toDate, toDate, fromDate, toDate);
         if(count>0) return false;
         return true;
     }
@@ -47,8 +47,8 @@ public class ReservationDAO {
     public boolean insertReservation(int roomNumber, String fromDate, String toDate){
         final LocalDate fromDateFormatted = LocalDate.parse(fromDate);
         final LocalDate toDateFormatted = LocalDate.parse(toDate);
-        //if(fromDateFormatted.compareTo(toDateFormatted)>0) rzuc wyjatek;
-        //jeszcze upewnic sie ze data_od jest po dzisiaj
+
+        if(fromDateFormatted.compareTo(toDateFormatted)>=0) throw new IllegalArgumentException();
 
         if(checkIfRoomFree(roomNumber,fromDate,toDate)) {
             long days = DAYS.between(fromDateFormatted,toDateFormatted);
