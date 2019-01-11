@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 import java.util.Map;
 
 
@@ -80,5 +81,9 @@ public class AccountDAO{
         this.pesel=results.get("PESEL").toString();
         this.phoneNumber=results.get("NR_TEL").toString();
         this.permissions=(int)results.get("UPRAWNIENIA");
+    }
+
+    public List<Map<String,Object>> getUsersInfo() {
+        return jdbcTemplate.queryForList("SELECT * FROM Uzytkownicy ORDER BY NAZWISKO,IMIE");
     }
 }

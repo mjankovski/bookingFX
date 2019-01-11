@@ -82,7 +82,7 @@ public class WelcomeController {
                 try {
                     FXMLLoader fxmlLoader = new FXMLLoader();
                     fxmlLoader.setControllerFactory(springContext::getBean);
-                    fxmlLoader.setLocation(getClass().getResource("/Plan.fxml"));
+                    fxmlLoader.setLocation(getClass().getResource("/AdminPanel.fxml"));
                     Parent tableViewParent = fxmlLoader.load();
                     Scene tableViewScene = new Scene(tableViewParent);
 
