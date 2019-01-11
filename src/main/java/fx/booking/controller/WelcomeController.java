@@ -78,7 +78,7 @@ public class WelcomeController {
         int login = accountDAO.login(loginTextField.getText(),passTextField.getText());
         try {
             if(login>0) {
-                //TODO jak cos masz formatke panelu admina AdminPanel.fxml wiec tu zrob obsluge czy loguje sie klient czy admin i przenos wtedy do odpowiedniej sceny
+                //TODO jak cos masz formatke panelu admina AdminPanel.fxml wiec tu zrob obsluge czy loguje sie klient czy admin i przenos wtedy do odpowiedniej sceny jak uzytkownik to Plan.fxml a jak admin to AdminPanel.fxml
                 accountDAO.getAccountInformation(loginTextField.getText());
                 try {
                     FXMLLoader fxmlLoader = new FXMLLoader();

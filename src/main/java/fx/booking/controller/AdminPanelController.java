@@ -1,5 +1,6 @@
 package fx.booking.controller;
 
+import fx.booking.repository.Room;
 import fx.booking.repository.RoomKeeper;
 import fx.booking.repository.User;
 import fx.booking.repository.UserKeeper;
@@ -42,6 +43,9 @@ public class AdminPanelController {
     private VBox mainVBox;
 
     @FXML
+    private Button detailButton;
+
+    @FXML
     private HBox titleHBox;
 
     @FXML
@@ -79,8 +83,8 @@ public class AdminPanelController {
 
     @FXML
     public void initialize() {
-        userTable.setEditable(true);
-        userTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        //userTable.setEditable(true);
+        //userTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
         surnameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
 
@@ -96,8 +100,10 @@ public class AdminPanelController {
 
         phoneNumberColumn.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
 
+        deleteButton.setDisable(true);
+        detailButton.setDisable(true);
+
         initUserTable();
-        makeFadeIn();
     }
 
     @FXML void initUserTable() {
@@ -129,20 +135,44 @@ public class AdminPanelController {
     }
 
     @FXML
-    public void reservationSelected(MouseEvent event) {
-
+    public void userSelected(MouseEvent event) {
+        deleteButton.setDisable(false);
+        detailButton.setDisable(false);
     }
 
     @FXML
     public void deleteButtonPressed(ActionEvent event) {
-        ObservableList<User> selectedUsers, allUsers;
+        ObservableList<User> allUsers;
+        User selectedUser;
         allUsers = userTable.getItems();
 
-        selectedUsers = userTable.getSelectionModel().getSelectedItems();
+        selectedUser = userTable.getSelectionModel().getSelectedItem();
 
-        for(User user: selectedUsers) {
-            //TODO Obsłużyć usuwanie zaznaczonych klientów
-            allUsers.remove(user);
+        //TODO tu sprawdzasz czy mozna usunac usera
+        allUsers.remove(selectedUser);
+    }
+
+    @FXML
+    public void detailButtonClicked(ActionEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setControllerFactory(springContext::getBean);
+            fxmlLoader.setLocation(getClass().getResource("/ClientDetails.fxml"));
+            Parent tableViewParent = fxmlLoader.load();
+            Scene tableViewScene = new Scene(tableViewParent);
+
+            //przekazywanie informacji o kliencie
+            ClientDetailsController controller = fxmlLoader.getController();
+            User selectedUser = userTable.getSelectionModel().getSelectedItem();
+            String login = selectedUser.getLogin();
+            controller.initReservationTable(login);
+
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(tableViewScene);
+            window.show();
+        }
+        catch(Exception e) {
+            e.printStackTrace();
         }
     }
 
