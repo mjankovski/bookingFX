@@ -141,7 +141,7 @@ public class AdminPanelController {
         selectedUsers = userTable.getSelectionModel().getSelectedItems();
 
         for(User user: selectedUsers) {
-            //jesli mozna usunac to
+            //TODO Obsłużyć usuwanie zaznaczonych klientów
             allUsers.remove(user);
         }
     }

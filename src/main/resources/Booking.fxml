@@ -28,7 +28,7 @@
       <HBox fx:id="roomInfoHBox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
          <children>
             <Label fx:id="titleLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="497.0" text="Informacje o pokoju nr" textFill="#595959" HBox.hgrow="ALWAYS" />
-            <Label fx:id="roomNumberLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="82.0" text="***" textFill="GREY" HBox.hgrow="ALWAYS" />
+            <Label fx:id="roomNumberLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="82.0" text="***" textFill="#595959" HBox.hgrow="ALWAYS" />
          </children>
       </HBox>
       <HBox fx:id="descriptionHBox" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
@@ -53,7 +53,12 @@
             <VBox prefHeight="235.0" prefWidth="455.0" HBox.hgrow="ALWAYS">
                <children>
                   <Label fx:id="peopleLabel" text="Label" textFill="#595959" />
-                  <Label fx:id="costLabel" text="Label" textFill="#595959" />
+                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                     <children>
+                        <Label fx:id="costLabel" text="Label" textFill="#595959" />
+                        <Label fx:id="currencyLabel" text="Label" textFill="#595959" />
+                     </children>
+                  </HBox>
                   <DatePicker fx:id="fromDatePicker" prefHeight="50.0" prefWidth="375.0">
                      <VBox.margin>
                         <Insets top="45.0" />

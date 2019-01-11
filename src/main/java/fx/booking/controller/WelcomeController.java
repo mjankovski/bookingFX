@@ -78,11 +78,12 @@ public class WelcomeController {
         int login = accountDAO.login(loginTextField.getText(),passTextField.getText());
         try {
             if(login>0) {
+                //TODO jak cos masz formatke panelu admina AdminPanel.fxml wiec tu zrob obsluge czy loguje sie klient czy admin i przenos wtedy do odpowiedniej sceny
                 accountDAO.getAccountInformation(loginTextField.getText());
                 try {
                     FXMLLoader fxmlLoader = new FXMLLoader();
                     fxmlLoader.setControllerFactory(springContext::getBean);
-                    fxmlLoader.setLocation(getClass().getResource("/AdminPanel.fxml"));
+                    fxmlLoader.setLocation(getClass().getResource("/Plan.fxml"));
                     Parent tableViewParent = fxmlLoader.load();
                     Scene tableViewScene = new Scene(tableViewParent);
 

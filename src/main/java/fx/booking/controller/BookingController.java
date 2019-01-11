@@ -51,6 +51,9 @@ public class BookingController {
     private TextArea outputTextArea;
 
     @FXML
+    private Label currencyLabel;
+
+    @FXML
     private Pane outputPane;
 
     @FXML
@@ -134,11 +137,12 @@ public class BookingController {
     }
 
     @FXML
-    public void initRoom(Room room) {
+    public void initRoom(Room room, String currency) {
         selectedRoom = room;
         roomNumberLabel.setText(Integer.toString(room.getNumber()));
         peopleLabel.setText(Integer.toString(room.getPeopleSize()));
         costLabel.setText(room.getDailyCost().toString());
+        currencyLabel.setText(currency);
     }
 
     @FXML void initReservationTable(ObservableList<Reservation> list) {

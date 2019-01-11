@@ -27,7 +27,7 @@
     -fx-font-size: 250%;
 }
 
-#floorLabel, #pepoleNumberLabel, #priceLabel
+#floorLabel, #pepoleNumberLabel, #priceLabel, #currencyLabel
 {
     -fx-font-size: 150%;
 }
