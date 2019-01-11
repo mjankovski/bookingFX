@@ -99,7 +99,7 @@
       </HBox>
       <HBox prefHeight="304.0" prefWidth="1196.0">
          <children>
-            <TableView fx:id="reservationTable" editable="true" onMouseClicked="#reservationSelected" prefHeight="287.0" prefWidth="1096.0" HBox.hgrow="ALWAYS">
+            <TableView fx:id="reservationTable" editable="true" prefHeight="287.0" prefWidth="1096.0" HBox.hgrow="ALWAYS">
               <columns>
                 <TableColumn fx:id="reservationNumberColumn" prefWidth="75.0" text="Numer rezerwacji" />
                   <TableColumn fx:id="fromDateColumn" prefWidth="75.0" text="Data od" />
@@ -135,7 +135,6 @@
                   <Insets />
                </HBox.margin>
             </Button>
-            <Button fx:id="invoiceButton" mnemonicParsing="false" onAction="#invoiceButtonClicked" text="FAKTURA" textFill="WHITE" />
          </children>
          <VBox.margin>
             <Insets bottom="20.0" />

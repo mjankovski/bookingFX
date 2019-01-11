@@ -109,9 +109,6 @@ public class BookingController {
     private Button deleteButton;
 
     @FXML
-    private Button invoiceButton;
-
-    @FXML
     private Room selectedRoom;
 
     @FXML
@@ -142,7 +139,6 @@ public class BookingController {
         reservationNumberColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         fromDateColumn.setCellValueFactory(new PropertyValueFactory<>("beginningDate"));
         toDateColumn.setCellValueFactory(new PropertyValueFactory<>("endingDate"));
-        invoiceButton.setDisable(true);
 
         toggleGroup = new ToggleGroup();
 
@@ -225,23 +221,6 @@ public class BookingController {
     }
 
     @FXML
-    public void reservationSelected(MouseEvent event) throws IOException {
-        invoiceButton.setDisable(false);
-    }
-
-    @FXML
-    public void invoiceButtonClicked(ActionEvent event) throws IOException {
-        System.out.println(reservationTable.getSelectionModel().getSelectedItem().getId());
-    }
-
-    private void showAlertInfo(String title, String header, Alert.AlertType type){
-        Alert alert = new Alert(type);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
-        alert.showAndWait();
-    }
-
-    @FXML
     void eurRadioButtonSelected(ActionEvent event) {
         BigDecimal newValue =  selectedRoom.getDailyCost().multiply(currencyConverter);
         costLabel.setText(newValue.toString());
@@ -255,6 +234,13 @@ public class BookingController {
         costLabel.setText(newValue.toString());
         currencyLabel.setText("PLN");
         //TODO zaznaczam TODO bo tu jest wybor PLN jako waluty : p
+    }
+
+    private void showAlertInfo(String title, String header, Alert.AlertType type){
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.showAndWait();
     }
 
     private void makeFadeIn() {
