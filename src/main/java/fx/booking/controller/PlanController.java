@@ -98,13 +98,6 @@ public class PlanController {
     private DatePicker toDatePicker;
 
     @FXML
-    private RadioButton plnRadioButton;
-    @FXML
-    private RadioButton eurRadioButton;
-    private ToggleGroup toggleGroup;
-    private String currency;
-
-    @FXML
     private Pane mapPane;
 
     @FXML
@@ -282,15 +275,6 @@ public class PlanController {
         fourPeopleCheckBox.setSelected(true);
         setFloor2ButtonsInvisible();
 
-        toggleGroup = new ToggleGroup();
-
-        plnRadioButton.setToggleGroup(toggleGroup);
-        eurRadioButton.setToggleGroup(toggleGroup);
-
-        plnRadioButton.setSelected(true);
-        currency = "PLN";
-
-
         mainVBox.setOpacity(0);
         makeFadeIn();
     }
@@ -420,7 +404,7 @@ public class PlanController {
             Button button = (Button)event.getSource();
             Room room = roomList.get(button);
 
-            controller.initRoom(room, currency);
+            controller.initRoom(room);
             controller.initReservationTable(reservationKeeper.getReservationList(room.getNumber()));
 
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -447,18 +431,6 @@ public class PlanController {
                 setFloor2ButtonsVisible();
                 break;
         }
-    }
-
-    @FXML
-    void eurRadioButtonSelected(ActionEvent event) {
-        currency = "EUR";
-        //TODO zaznaczam TODO bo tu jest wybor EURO jako waluty : p
-    }
-
-    @FXML
-    void plnRadioButtonSelected(ActionEvent event) {
-        currency = "PLN";
-        //TODO zaznaczam TODO bo tu jest wybor PLN jako waluty : p
     }
 
     @FXML

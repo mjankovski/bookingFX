@@ -27,6 +27,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Controller
@@ -129,20 +130,37 @@ public class BookingController {
     private ObservableList<Reservation> reservationsList;
 
     @FXML
+    private RadioButton plnRadioButton;
+    @FXML
+    private RadioButton eurRadioButton;
+    private ToggleGroup toggleGroup;
+
+    private BigDecimal currencyConverter;
+
+    @FXML
     public void initialize() {
         reservationNumberColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         fromDateColumn.setCellValueFactory(new PropertyValueFactory<>("beginningDate"));
         toDateColumn.setCellValueFactory(new PropertyValueFactory<>("endingDate"));
         invoiceButton.setDisable(true);
+
+        toggleGroup = new ToggleGroup();
+
+        plnRadioButton.setToggleGroup(toggleGroup);
+        eurRadioButton.setToggleGroup(toggleGroup);
+
+        plnRadioButton.setSelected(true);
+
+        currencyConverter = new BigDecimal(1); //TODO gdzies inicjalizowac przelicznik na razie przy wchodzeniu do tej formatki
     }
 
     @FXML
-    public void initRoom(Room room, String currency) {
+    public void initRoom(Room room) {
         selectedRoom = room;
         roomNumberLabel.setText(Integer.toString(room.getNumber()));
         peopleLabel.setText(Integer.toString(room.getPeopleSize()));
         costLabel.setText(room.getDailyCost().toString());
-        currencyLabel.setText(currency);
+        currencyLabel.setText("PLN");
     }
 
     @FXML void initReservationTable(ObservableList<Reservation> list) {
@@ -221,6 +239,22 @@ public class BookingController {
         alert.setTitle(title);
         alert.setHeaderText(header);
         alert.showAndWait();
+    }
+
+    @FXML
+    void eurRadioButtonSelected(ActionEvent event) {
+        BigDecimal newValue =  selectedRoom.getDailyCost().multiply(currencyConverter);
+        costLabel.setText(newValue.toString());
+        currencyLabel.setText("EUR");
+        //TODO zaznaczam TODO bo tu jest wybor EURO jako waluty : p
+    }
+
+    @FXML
+    void plnRadioButtonSelected(ActionEvent event) {
+        BigDecimal newValue =  selectedRoom.getDailyCost().divide(currencyConverter);
+        costLabel.setText(newValue.toString());
+        currencyLabel.setText("PLN");
+        //TODO zaznaczam TODO bo tu jest wybor PLN jako waluty : p
     }
 
     private void makeFadeIn() {
