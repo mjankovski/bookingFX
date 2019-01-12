@@ -132,11 +132,15 @@ public class BookingController {
 
     @FXML
     private RadioButton plnRadioButton;
+
     @FXML
     private RadioButton eurRadioButton;
+
     private ToggleGroup toggleGroup;
 
     private BigDecimal currencyConverter;
+
+    private String actualCurrency;
 
     @FXML
     public void initialize() {
@@ -150,6 +154,7 @@ public class BookingController {
         eurRadioButton.setToggleGroup(toggleGroup);
 
         plnRadioButton.setSelected(true);
+        actualCurrency = "PLN";
 
         currencyConverter = nbpApi.getPlnToEuroCurrency();
     }
@@ -212,7 +217,7 @@ public class BookingController {
 
         if(reservationDAO.checkIfRoomFree(Integer.valueOf(roomNumberLabel.getText()), fromDatePicker.getValue().toString(), toDatePicker.getValue().toString())){
             try {
-                reservationDAO.insertReservation(Integer.valueOf(roomNumberLabel.getText()), fromDatePicker.getValue().toString(), toDatePicker.getValue().toString());
+                reservationDAO.insertReservation(Integer.valueOf(roomNumberLabel.getText()), fromDatePicker.getValue().toString(), toDatePicker.getValue().toString(), new BigDecimal(costLabel.getText()),actualCurrency);
                 reservationsList = reservationKeeper.getReservationList(selectedRoom.getNumber());
                 reservationTable.getItems().add(reservationsList.get(reservationsList.size() - 1));
             }catch(IllegalArgumentException e){
@@ -226,6 +231,7 @@ public class BookingController {
 
     @FXML
     void eurRadioButtonSelected(ActionEvent event) {
+        actualCurrency = "EUR";
         BigDecimal newValue =  selectedRoom.getDailyCost().divide(currencyConverter, 0);
         costLabel.setText(newValue.toString());
         currencyLabel.setText("EUR");
@@ -233,6 +239,7 @@ public class BookingController {
 
     @FXML
     void plnRadioButtonSelected(ActionEvent event) {
+        actualCurrency = "PLN";
         BigDecimal newValue =  selectedRoom.getDailyCost();
         costLabel.setText(newValue.toString());
         currencyLabel.setText("PLN");
