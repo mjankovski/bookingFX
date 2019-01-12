@@ -116,6 +116,18 @@ public class BookingController {
     private Room selectedRoom;
 
     @FXML
+    private Label dateTextLabel;
+
+    @FXML
+    private Label dateValueLabel;
+
+    @FXML
+    private Label currencyTextLabel;
+
+    @FXML
+    private Label currencyValueLabel;
+
+    @FXML
     private TableView<Reservation> reservationTable;
 
     @FXML
@@ -157,6 +169,9 @@ public class BookingController {
         actualCurrency = "PLN";
 
         currencyConverter = nbpApi.getPlnToEuroCurrency();
+
+        dateValueLabel.setText(java.time.LocalDate.now().toString());
+        currencyValueLabel.setText(currencyConverter.setScale(2, BigDecimal.ROUND_UP).toString() + " EUR");
     }
 
     @FXML
