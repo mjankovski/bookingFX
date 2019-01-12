@@ -1,5 +1,6 @@
 package fx.booking.controller;
 
+import fx.booking.api.NbpApi;
 import fx.booking.dao.ReservationDAO;
 import fx.booking.repository.Reservation;
 
@@ -41,6 +42,9 @@ public class BookingController {
 
     @Autowired
     private ReservationKeeper reservationKeeper;
+
+    @Autowired
+    private NbpApi nbpApi;
 
     @FXML
     private VBox mainVBox;
@@ -147,7 +151,7 @@ public class BookingController {
 
         plnRadioButton.setSelected(true);
 
-        currencyConverter = new BigDecimal(1); //TODO gdzies inicjalizowac przelicznik na razie przy wchodzeniu do tej formatki
+        currencyConverter = nbpApi.getPlnToEuroCurrency();
     }
 
     @FXML
@@ -222,18 +226,16 @@ public class BookingController {
 
     @FXML
     void eurRadioButtonSelected(ActionEvent event) {
-        BigDecimal newValue =  selectedRoom.getDailyCost().multiply(currencyConverter);
+        BigDecimal newValue =  selectedRoom.getDailyCost().divide(currencyConverter, 0);
         costLabel.setText(newValue.toString());
         currencyLabel.setText("EUR");
-        //TODO zaznaczam TODO bo tu jest wybor EURO jako waluty : p
     }
 
     @FXML
     void plnRadioButtonSelected(ActionEvent event) {
-        BigDecimal newValue =  selectedRoom.getDailyCost().divide(currencyConverter);
+        BigDecimal newValue =  selectedRoom.getDailyCost();
         costLabel.setText(newValue.toString());
         currencyLabel.setText("PLN");
-        //TODO zaznaczam TODO bo tu jest wybor PLN jako waluty : p
     }
 
     private void showAlertInfo(String title, String header, Alert.AlertType type){
