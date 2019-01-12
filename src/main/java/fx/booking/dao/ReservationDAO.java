@@ -44,7 +44,7 @@ public class ReservationDAO {
         return true;
     }
 
-    public boolean insertReservation(int roomNumber, String fromDate, String toDate){
+    public boolean insertReservation(int roomNumber, String fromDate, String toDate, BigDecimal dailyCost, String currency){
         final LocalDate fromDateFormatted = LocalDate.parse(fromDate);
         final LocalDate toDateFormatted = LocalDate.parse(toDate);
 
@@ -52,12 +52,12 @@ public class ReservationDAO {
 
         if(checkIfRoomFree(roomNumber,fromDate,toDate)) {
             long days = DAYS.between(fromDateFormatted,toDateFormatted);
-            BigDecimal cost = roomDAO.getRoomPrice(roomNumber).multiply(new BigDecimal(days));
+            BigDecimal cost = dailyCost.multiply(new BigDecimal(days));
             int docId = documentDAO.createDocument(cost);
 
             jdbcTemplate.update(
                     "INSERT INTO Rezerwacje (NR_FAKTURA,NR_POKOJ,LOGIN,DATA_OD,DATA_DO,WALUTA, KWOTA_REZERWACJI) VALUES (?, ?, ?, ?, ?, ? ,? )",
-                    docId, roomNumber, accountDAO.getLogin(), fromDate, toDate, "PLN", cost
+                    docId, roomNumber, accountDAO.getLogin(), fromDate, toDate, currency, cost
             );
             return true;
         }

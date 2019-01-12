@@ -1,5 +1,6 @@
 package fx.booking.controller;
 
+import fx.booking.api.NbpApi;
 import fx.booking.dao.ReservationDAO;
 import fx.booking.repository.Reservation;
 
@@ -41,6 +42,9 @@ public class BookingController {
 
     @Autowired
     private ReservationKeeper reservationKeeper;
+
+    @Autowired
+    private NbpApi nbpApi;
 
     @FXML
     private VBox mainVBox;
@@ -112,6 +116,18 @@ public class BookingController {
     private Room selectedRoom;
 
     @FXML
+    private Label dateTextLabel;
+
+    @FXML
+    private Label dateValueLabel;
+
+    @FXML
+    private Label currencyTextLabel;
+
+    @FXML
+    private Label currencyValueLabel;
+
+    @FXML
     private TableView<Reservation> reservationTable;
 
     @FXML
@@ -128,11 +144,15 @@ public class BookingController {
 
     @FXML
     private RadioButton plnRadioButton;
+
     @FXML
     private RadioButton eurRadioButton;
+
     private ToggleGroup toggleGroup;
 
     private BigDecimal currencyConverter;
+
+    private String actualCurrency;
 
     @FXML
     public void initialize() {
@@ -146,8 +166,12 @@ public class BookingController {
         eurRadioButton.setToggleGroup(toggleGroup);
 
         plnRadioButton.setSelected(true);
+        actualCurrency = "PLN";
 
-        currencyConverter = new BigDecimal(1); //TODO gdzies inicjalizowac przelicznik na razie przy wchodzeniu do tej formatki
+        currencyConverter = nbpApi.getPlnToEuroCurrency();
+
+        dateValueLabel.setText(java.time.LocalDate.now().toString());
+        currencyValueLabel.setText(currencyConverter.setScale(2, BigDecimal.ROUND_UP).toString() + " EUR");
     }
 
     @FXML
@@ -208,7 +232,7 @@ public class BookingController {
 
         if(reservationDAO.checkIfRoomFree(Integer.valueOf(roomNumberLabel.getText()), fromDatePicker.getValue().toString(), toDatePicker.getValue().toString())){
             try {
-                reservationDAO.insertReservation(Integer.valueOf(roomNumberLabel.getText()), fromDatePicker.getValue().toString(), toDatePicker.getValue().toString());
+                reservationDAO.insertReservation(Integer.valueOf(roomNumberLabel.getText()), fromDatePicker.getValue().toString(), toDatePicker.getValue().toString(), new BigDecimal(costLabel.getText()),actualCurrency);
                 reservationsList = reservationKeeper.getReservationList(selectedRoom.getNumber());
                 reservationTable.getItems().add(reservationsList.get(reservationsList.size() - 1));
             }catch(IllegalArgumentException e){
@@ -222,18 +246,18 @@ public class BookingController {
 
     @FXML
     void eurRadioButtonSelected(ActionEvent event) {
-        BigDecimal newValue =  selectedRoom.getDailyCost().multiply(currencyConverter);
+        actualCurrency = "EUR";
+        BigDecimal newValue =  selectedRoom.getDailyCost().divide(currencyConverter, 0);
         costLabel.setText(newValue.toString());
         currencyLabel.setText("EUR");
-        //TODO zaznaczam TODO bo tu jest wybor EURO jako waluty : p
     }
 
     @FXML
     void plnRadioButtonSelected(ActionEvent event) {
-        BigDecimal newValue =  selectedRoom.getDailyCost().divide(currencyConverter);
+        actualCurrency = "PLN";
+        BigDecimal newValue =  selectedRoom.getDailyCost();
         costLabel.setText(newValue.toString());
         currencyLabel.setText("PLN");
-        //TODO zaznaczam TODO bo tu jest wybor PLN jako waluty : p
     }
 
     private void showAlertInfo(String title, String header, Alert.AlertType type){
