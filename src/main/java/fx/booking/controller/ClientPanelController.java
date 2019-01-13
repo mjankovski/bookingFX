@@ -6,6 +6,7 @@ import fx.booking.dao.DocumentDAO;
 import fx.booking.repository.Reservation;
 import javafx.animation.FadeTransition;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -55,7 +57,28 @@ public class ClientPanelController {
     private Button invoiceButton;
 
     @FXML
+    private Button planButton;
+
+    @FXML
     private VBox mainVBox;
+
+    @FXML
+    private HBox titleHBox;
+
+    @FXML
+    private HBox panelLabelHBox;
+
+    @FXML
+    private HBox avatarHBox;
+
+    @FXML
+    private HBox tableHBox;
+
+    @FXML
+    private HBox dataHBox;
+
+    @FXML
+    private ProgressIndicator progressIndicator;
 
     private DocumentGenerator documentGenerator;
 
@@ -120,6 +143,12 @@ public class ClientPanelController {
     private TextField phoneNumberTextField;
 
     @FXML
+    private Plan plan;
+
+    @FXML
+    private Edit edit;
+
+    @FXML
     public void initialize() {
         documentGenerator = new DocumentGenerator();
         roomNumberColumn.setCellValueFactory(new PropertyValueFactory<>("roomNumber"));
@@ -160,6 +189,9 @@ public class ClientPanelController {
 
         phoneNumberTextField.setText(accountDAO.getPhoneNumber());
         phoneNumberTextField.setDisable(true);
+
+        progressIndicator.setProgress(ProgressBar.INDETERMINATE_PROGRESS);
+        progressIndicator.setVisible(false);
     }
 
     @FXML void initReservationTable(ObservableList<Reservation> list) {
@@ -183,54 +215,124 @@ public class ClientPanelController {
 
     @FXML
     public void planButtonClicked(ActionEvent event) throws IOException {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setControllerFactory(springContext::getBean);
-            fxmlLoader.setLocation(getClass().getResource("/Plan.fxml"));
-            Parent tableViewParent = fxmlLoader.load();
-            Scene tableViewScene = new Scene(tableViewParent);
+        disableWhileProgressing();
+        plan = new Plan();
+        progressIndicator.visibleProperty().bind(plan.runningProperty());
+        plan.setOnSucceeded(e -> {
+            enableWhileProgressing();
+            Parent parent = plan.getValue();
+            enableWhileProgressing();
+            Scene scene = new Scene(parent);
 
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            window.setScene(tableViewScene);
+            window.setScene(scene);
             window.show();
-        }
-        catch(Exception e) {
-            e.printStackTrace();
-        }
+        });
+
+        plan.setOnFailed(e -> {
+            plan.getException().printStackTrace();
+        });
+
+        Thread thread = new Thread(plan);
+        thread.start();
     }
 
     @FXML
     public void editButtonClicked(ActionEvent event) {
-        Button button = (Button)event.getSource();
-        if(button.getText().equals("EDYTUJ")) {
-            nameTextfield.setDisable(false);
-            surnameTextField.setDisable(false);
-            loginTextField.setDisable(false);
-            passField.setDisable(false);
-            peselTextField.setDisable(false);
-            emailTextField.setDisable(false);
-            partFourCardNumberTextField1.setDisable(false);
-            partFourCardNumberTextField2.setDisable(false);
-            partFourCardNumberTextField3.setDisable(false);
-            partFourCardNumberTextField4.setDisable(false);
-            directionNumbertextField.setDisable(false);
-            phoneNumberTextField.setDisable(false);
-            button.setText("ZAPISZ");
+        disableWhileProgressing();
+        edit = new Edit(event);
+        progressIndicator.visibleProperty().bind(edit.runningProperty());
+        edit.setOnSucceeded(e -> {
+            enableWhileProgressing();
+            Button button = (Button)event.getSource();
+            if(edit.getValue() == 1) {
+                button.setText("ZAPISZ");
+            }
+            else if(edit.getValue() == 2) {
+                button.setText("EDYTUJ");
+            }
+        });
+
+        edit.setOnFailed(e -> {
+            edit.getException().printStackTrace();
+        });
+
+        Thread thread = new Thread(edit);
+        thread.start();
+    }
+
+    private void disableWhileProgressing() {
+        titleHBox.setDisable(true);
+        panelLabelHBox.setDisable(true);
+        avatarHBox.setDisable(true);
+        dataHBox.setDisable(true);
+        tableHBox.setDisable(true);
+        planButton.setDisable(true);
+        invoiceButton.setDisable(true);
+    }
+
+    private void enableWhileProgressing() {
+        titleHBox.setDisable(false);
+        panelLabelHBox.setDisable(false);
+        avatarHBox.setDisable(false);
+        dataHBox.setDisable(false);
+        tableHBox.setDisable(false);
+        planButton.setDisable(false);
+        invoiceButton.setDisable(false);
+    }
+
+    class Plan extends Task<Parent> {
+        @Override
+        protected Parent call() throws Exception {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setControllerFactory(springContext::getBean);
+            fxmlLoader.setLocation(getClass().getResource("/Plan.fxml"));
+            Parent tableViewParent = fxmlLoader.load();
+            return tableViewParent;
         }
-        else if(button.getText().equals("ZAPISZ")) {
-            nameTextfield.setDisable(true);
-            surnameTextField.setDisable(true);
-            loginTextField.setDisable(true);
-            passField.setDisable(true);
-            peselTextField.setDisable(true);
-            emailTextField.setDisable(true);
-            partFourCardNumberTextField1.setDisable(true);
-            partFourCardNumberTextField2.setDisable(true);
-            partFourCardNumberTextField3.setDisable(true);
-            partFourCardNumberTextField4.setDisable(true);
-            directionNumbertextField.setDisable(true);
-            phoneNumberTextField.setDisable(true);
-            button.setText("EDYTUJ");
+    }
+
+    class Edit extends Task<Integer> {
+        private ActionEvent event;
+
+        Edit(ActionEvent event) {
+            this.event = event;
+        }
+
+        @Override
+        protected Integer call() throws Exception {
+            Button button = (Button)event.getSource();
+            if(button.getText().equals("EDYTUJ")) {
+                nameTextfield.setDisable(false);
+                surnameTextField.setDisable(false);
+                loginTextField.setDisable(false);
+                passField.setDisable(false);
+                peselTextField.setDisable(false);
+                emailTextField.setDisable(false);
+                partFourCardNumberTextField1.setDisable(false);
+                partFourCardNumberTextField2.setDisable(false);
+                partFourCardNumberTextField3.setDisable(false);
+                partFourCardNumberTextField4.setDisable(false);
+                directionNumbertextField.setDisable(false);
+                phoneNumberTextField.setDisable(false);
+                return 1;
+            }
+            else if(button.getText().equals("ZAPISZ")) {
+                nameTextfield.setDisable(true);
+                surnameTextField.setDisable(true);
+                loginTextField.setDisable(true);
+                passField.setDisable(true);
+                peselTextField.setDisable(true);
+                emailTextField.setDisable(true);
+                partFourCardNumberTextField1.setDisable(true);
+                partFourCardNumberTextField2.setDisable(true);
+                partFourCardNumberTextField3.setDisable(true);
+                partFourCardNumberTextField4.setDisable(true);
+                directionNumbertextField.setDisable(true);
+                phoneNumberTextField.setDisable(true);
+                return 2;
+            }
+            return 0;
         }
     }
 
