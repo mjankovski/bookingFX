@@ -1,8 +1,7 @@
 package fx.booking.controller;
 
 import fx.booking.DocumentGenerator;
-import fx.booking.dao.AccountDAO;
-import fx.booking.dao.DocumentDAO;
+import fx.booking.dao.*;
 import fx.booking.repository.Reservation;
 import javafx.animation.FadeTransition;
 import javafx.collections.ObservableList;
@@ -135,7 +134,7 @@ public class ClientPanelController {
         loginTextField.setText(accountDAO.getLogin());
         loginTextField.setDisable(true);
 
-        passField.setText(accountDAO.getLogin());
+        passField.setText("");
         passField.setDisable(true);
 
         peselTextField.setText(accountDAO.getPesel());
@@ -156,9 +155,10 @@ public class ClientPanelController {
         partFourCardNumberTextField4.setText(accountDAO.getCreditCardNumber().substring(12, 16));
         partFourCardNumberTextField4.setDisable(true);
 
+        directionNumbertextField.setText(accountDAO.getPhoneNumber().substring(0,2));
         directionNumbertextField.setDisable(true);
 
-        phoneNumberTextField.setText(accountDAO.getPhoneNumber());
+        phoneNumberTextField.setText(accountDAO.getPhoneNumber().substring(2,11));
         phoneNumberTextField.setDisable(true);
     }
 
@@ -201,37 +201,71 @@ public class ClientPanelController {
 
     @FXML
     public void editButtonClicked(ActionEvent event) {
-        Button button = (Button)event.getSource();
-        if(button.getText().equals("EDYTUJ")) {
-            nameTextfield.setDisable(false);
-            surnameTextField.setDisable(false);
-            loginTextField.setDisable(false);
-            passField.setDisable(false);
-            peselTextField.setDisable(false);
-            emailTextField.setDisable(false);
-            partFourCardNumberTextField1.setDisable(false);
-            partFourCardNumberTextField2.setDisable(false);
-            partFourCardNumberTextField3.setDisable(false);
-            partFourCardNumberTextField4.setDisable(false);
-            directionNumbertextField.setDisable(false);
-            phoneNumberTextField.setDisable(false);
+        Button button = (Button) event.getSource();
+        if (button.getText().equals("EDYTUJ")) {
+            setFields(false);
             button.setText("ZAPISZ");
+        } else if (button.getText().equals("ZAPISZ")) {
+            checkIfPossibleToChangeData(button);
         }
-        else if(button.getText().equals("ZAPISZ")) {
-            nameTextfield.setDisable(true);
-            surnameTextField.setDisable(true);
-            loginTextField.setDisable(true);
-            passField.setDisable(true);
-            peselTextField.setDisable(true);
-            emailTextField.setDisable(true);
-            partFourCardNumberTextField1.setDisable(true);
-            partFourCardNumberTextField2.setDisable(true);
-            partFourCardNumberTextField3.setDisable(true);
-            partFourCardNumberTextField4.setDisable(true);
-            directionNumbertextField.setDisable(true);
-            phoneNumberTextField.setDisable(true);
-            button.setText("EDYTUJ");
+    }
+
+    private void updateInformations(String login, String pw, String firstname, String lastname, String email,
+                                    String creditCardNumber, String phoneNumber){
+        accountDAO.updateInformation(login, pw, firstname, lastname, email, creditCardNumber, phoneNumber);
+
+    }
+
+    private void setFields(boolean isDisabled){
+        nameTextfield.setDisable(isDisabled);
+        surnameTextField.setDisable(isDisabled);
+        loginTextField.setDisable(isDisabled);
+        passField.setDisable(isDisabled);
+        peselTextField.setDisable(isDisabled);
+        emailTextField.setDisable(isDisabled);
+        partFourCardNumberTextField1.setDisable(isDisabled);
+        partFourCardNumberTextField2.setDisable(isDisabled);
+        partFourCardNumberTextField3.setDisable(isDisabled);
+        partFourCardNumberTextField4.setDisable(isDisabled);
+        directionNumbertextField.setDisable(isDisabled);
+        phoneNumberTextField.setDisable(isDisabled);
+    }
+
+    private void checkIfPossibleToChangeData(Button button){
+            try {
+                accountDAO.checkDataFormat(
+                        passField.getText(),
+                        nameTextfield.getText(),
+                        surnameTextField.getText(),
+                        emailTextField.getText(),
+                        partFourCardNumberTextField1.getText() + partFourCardNumberTextField2.getText() + partFourCardNumberTextField3.getText() + partFourCardNumberTextField4.getText(),
+                        directionNumbertextField.getText() + phoneNumberTextField.getText()
+                );
+                setFields(true);
+                updateInformations(accountDAO.getLogin(),passField.getText(),
+                        nameTextfield.getText(),
+                        surnameTextField.getText(),
+                        emailTextField.getText(),
+                        partFourCardNumberTextField1.getText() + partFourCardNumberTextField2.getText() + partFourCardNumberTextField3.getText() + partFourCardNumberTextField4.getText(),
+                        directionNumbertextField.getText() + phoneNumberTextField.getText());
+
+                button.setText("EDYTUJ");
+            } catch (IllegalArgumentException e){
+                showAlert("Błąd!", "Pola nie moga byc puste lub krotsze niz 3 znaki!", Alert.AlertType.ERROR);
+            } catch (InvalidEmailException e){
+                showAlert("Błąd!", "Błędny adres e-mail!", Alert.AlertType.ERROR);
+            } catch (InvalidPhoneNumberException e){
+                showAlert("Błąd!", "Błędny numer telefonu!", Alert.AlertType.ERROR);
+            } catch (InvalidCreditCardNumberException e){
+                showAlert("Błąd!", "Błędny numer karty kredytowej!", Alert.AlertType.ERROR);
+            }
         }
+
+    private void showAlert(String title, String header, Alert.AlertType type){
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.showAndWait();
     }
 
     private void makeFadeIn() {

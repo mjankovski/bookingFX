@@ -1,5 +1,6 @@
 package fx.booking.controller;
 
+import fx.booking.api.NbpApi;
 import fx.booking.dao.ReservationDAO;
 import fx.booking.repository.Reservation;
 
@@ -27,6 +28,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Controller
@@ -41,6 +43,9 @@ public class BookingController {
     @Autowired
     private ReservationKeeper reservationKeeper;
 
+    @Autowired
+    private NbpApi nbpApi;
+
     @FXML
     private VBox mainVBox;
 
@@ -49,6 +54,9 @@ public class BookingController {
 
     @FXML
     private TextArea outputTextArea;
+
+    @FXML
+    private Label currencyLabel;
 
     @FXML
     private Pane outputPane;
@@ -105,10 +113,19 @@ public class BookingController {
     private Button deleteButton;
 
     @FXML
-    private Button invoiceButton;
+    private Room selectedRoom;
 
     @FXML
-    private Room selectedRoom;
+    private Label dateTextLabel;
+
+    @FXML
+    private Label dateValueLabel;
+
+    @FXML
+    private Label currencyTextLabel;
+
+    @FXML
+    private Label currencyValueLabel;
 
     @FXML
     private TableView<Reservation> reservationTable;
@@ -126,11 +143,35 @@ public class BookingController {
     private ObservableList<Reservation> reservationsList;
 
     @FXML
+    private RadioButton plnRadioButton;
+
+    @FXML
+    private RadioButton eurRadioButton;
+
+    private ToggleGroup toggleGroup;
+
+    private BigDecimal currencyConverter;
+
+    private String actualCurrency;
+
+    @FXML
     public void initialize() {
         reservationNumberColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         fromDateColumn.setCellValueFactory(new PropertyValueFactory<>("beginningDate"));
         toDateColumn.setCellValueFactory(new PropertyValueFactory<>("endingDate"));
-        invoiceButton.setDisable(true);
+
+        toggleGroup = new ToggleGroup();
+
+        plnRadioButton.setToggleGroup(toggleGroup);
+        eurRadioButton.setToggleGroup(toggleGroup);
+
+        plnRadioButton.setSelected(true);
+        actualCurrency = "PLN";
+
+        currencyConverter = nbpApi.getPlnToEuroCurrency();
+
+        dateValueLabel.setText(java.time.LocalDate.now().toString());
+        currencyValueLabel.setText(currencyConverter.setScale(2, BigDecimal.ROUND_UP).toString() + " EUR");
     }
 
     @FXML
@@ -139,6 +180,7 @@ public class BookingController {
         roomNumberLabel.setText(Integer.toString(room.getNumber()));
         peopleLabel.setText(Integer.toString(room.getPeopleSize()));
         costLabel.setText(room.getDailyCost().toString());
+        currencyLabel.setText("PLN");
     }
 
     @FXML void initReservationTable(ObservableList<Reservation> list) {
@@ -190,7 +232,7 @@ public class BookingController {
 
         if(reservationDAO.checkIfRoomFree(Integer.valueOf(roomNumberLabel.getText()), fromDatePicker.getValue().toString(), toDatePicker.getValue().toString())){
             try {
-                reservationDAO.insertReservation(Integer.valueOf(roomNumberLabel.getText()), fromDatePicker.getValue().toString(), toDatePicker.getValue().toString());
+                reservationDAO.insertReservation(Integer.valueOf(roomNumberLabel.getText()), fromDatePicker.getValue().toString(), toDatePicker.getValue().toString(), new BigDecimal(costLabel.getText()),actualCurrency);
                 reservationsList = reservationKeeper.getReservationList(selectedRoom.getNumber());
                 reservationTable.getItems().add(reservationsList.get(reservationsList.size() - 1));
             }catch(IllegalArgumentException e){
@@ -203,13 +245,19 @@ public class BookingController {
     }
 
     @FXML
-    public void reservationSelected(MouseEvent event) throws IOException {
-        invoiceButton.setDisable(false);
+    void eurRadioButtonSelected(ActionEvent event) {
+        actualCurrency = "EUR";
+        BigDecimal newValue =  selectedRoom.getDailyCost().divide(currencyConverter, 0);
+        costLabel.setText(newValue.toString());
+        currencyLabel.setText("EUR");
     }
 
     @FXML
-    public void invoiceButtonClicked(ActionEvent event) throws IOException {
-        System.out.println(reservationTable.getSelectionModel().getSelectedItem().getId());
+    void plnRadioButtonSelected(ActionEvent event) {
+        actualCurrency = "PLN";
+        BigDecimal newValue =  selectedRoom.getDailyCost();
+        costLabel.setText(newValue.toString());
+        currencyLabel.setText("PLN");
     }
 
     private void showAlertInfo(String title, String header, Alert.AlertType type){

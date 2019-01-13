@@ -1,0 +1,61 @@
+#mainVBox
+{
+    -fx-background-color: #FFFFCC;
+    -fx-color: #3399FF;
+    -fx-font-weight: bold;
+    -fx-opacity: 0.9;
+    -fx-font-family: "Arial Black";
+}
+
+.label {
+    -fx-text-fill: #595959;
+}
+
+#titleHBox
+{
+    -fx-background-color: #3399FF;
+    -fx-font-size: 300%;
+    -fx-text-fill: white;
+}
+
+#hotelLabel
+{
+    -fx-text-fill: white;
+}
+
+#phraseHBox
+{
+    -fx-font-size: 180%;
+}
+
+#loggingFormVBox
+{
+    -fx-border-color: #3399FF;
+    -fx-border-width: 3;
+    -fx-border-radius: 3;
+    -fx-font-size: 200%;
+}
+
+#panelLabelHBox
+{
+    -fx-font-size: 250%;
+
+}
+
+.button
+{
+    -fx-background-color: #3399CC;
+    -fx-font-size: 100%;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-text-fill: white;
+}
+
+.button:hover
+{
+    -fx-background-color: #1177AA;
+}
+
+
+
+

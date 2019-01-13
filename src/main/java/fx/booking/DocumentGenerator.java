@@ -51,7 +51,9 @@ public class DocumentGenerator {
 
         addEmptyLine(preface, 1);
 
-        Paragraph date = new Paragraph(documentInfo.get("DATA_WYSTAWIENIA").toString(), redFont);
+        String documentDate = documentInfo.get("DATA_WYSTAWIENIA").toString().split("\\s+")[0];
+
+        Paragraph date = new Paragraph(documentDate, redFont);
         date.setAlignment(Element.ALIGN_RIGHT);
         preface.add(date);
 
