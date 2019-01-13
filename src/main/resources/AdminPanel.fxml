@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.HBox?>
@@ -24,7 +25,7 @@
             <Label text=" Panel administratora" textFill="#595959" />
          </children>
       </HBox>
-      <HBox alignment="CENTER" prefHeight="566.0" prefWidth="1200.0">
+      <HBox fx:id="tabelHBox" alignment="CENTER" prefHeight="566.0" prefWidth="1200.0">
          <children>
             <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                <children>
@@ -49,10 +50,10 @@
             <Insets left="150.0" right="150.0" top="100.0" />
          </padding>
          <VBox.margin>
-            <Insets bottom="50.0" />
+            <Insets />
          </VBox.margin>
       </HBox>
-      <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="50.0" VBox.vgrow="ALWAYS">
+      <HBox fx:id="buttonsHBox" alignment="BOTTOM_RIGHT" prefHeight="60.0" prefWidth="1200.0" spacing="50.0" VBox.vgrow="ALWAYS">
          <children>
             <Button fx:id="detailButton" mnemonicParsing="false" onAction="#detailButtonClicked" text="SZCZEGÓŁY" />
             <Button fx:id="deleteButton" alignment="CENTER" mnemonicParsing="false" onAction="#deleteButtonPressed" prefHeight="33.0" prefWidth="126.0" text="USUŃ" HBox.hgrow="ALWAYS">
@@ -65,9 +66,17 @@
             <Insets />
          </opaqueInsets>
       </HBox>
-      <HBox alignment="CENTER" prefHeight="68.0" prefWidth="1200.0">
+      <HBox alignment="CENTER" prefHeight="97.0" prefWidth="1200.0" VBox.vgrow="ALWAYS">
          <children>
-            <Button fx:id="logOutButton" mnemonicParsing="false" onAction="#logOutButtonClicked" prefHeight="58.0" prefWidth="105.0" text="WYLOGUJ" />
+            <Button fx:id="logOutButton" mnemonicParsing="false" onAction="#logOutButtonClicked" prefHeight="49.0" prefWidth="112.0" text="WYLOGUJ" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets left="50.0" />
+               </HBox.margin></Button>
+            <ProgressIndicator fx:id="progressIndicator" prefHeight="81.0" prefWidth="882.0" progress="0.0" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets right="100.0" />
+               </HBox.margin>
+            </ProgressIndicator>
          </children>
          <VBox.margin>
             <Insets />
@@ -75,9 +84,6 @@
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
-         <padding>
-            <Insets bottom="10.0" top="10.0" />
-         </padding>
       </HBox>
    </children>
 </VBox>
