@@ -76,13 +76,16 @@ public class WelcomeController {
     private PasswordField passTextField;
 
     @FXML
-    private Logging logging;
-
-    @FXML
     private Button authorsButton;
 
     @FXML
     private Label wrongDataLabel;
+
+    @FXML
+    private Logging logging;
+
+    @FXML
+    private MakeAccount makeAccount;
 
     @FXML
     private ProgressIndicator progressIndicator;
@@ -90,8 +93,7 @@ public class WelcomeController {
     @FXML
     public void initialize() {
         progressIndicator.setProgress(ProgressBar.INDETERMINATE_PROGRESS);
-        logging = new Logging();
-        progressIndicator.visibleProperty().bind(logging.runningProperty());
+        progressIndicator.setVisible(false);
         mainVBox.setOpacity(0);
         makeFadeIn();
     }
@@ -102,8 +104,8 @@ public class WelcomeController {
         logging = new Logging();
         progressIndicator.visibleProperty().bind(logging.runningProperty());
         logging.setOnSucceeded(e -> {
-            Parent parent = logging.getValue();
             enableWhileProgressing();
+            Parent parent = logging.getValue();
             if(parent == null) {
                 showAlertInfo("Błąd!", "Błędne dane logowania!", Alert.AlertType.ERROR);
                 return;
@@ -124,19 +126,25 @@ public class WelcomeController {
 
     @FXML
     public void makeAccountButtonClicked(ActionEvent event) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setControllerFactory(springContext::getBean);
-            fxmlLoader.setLocation(getClass().getResource("/Registration.fxml"));
-            Parent tableViewParent = fxmlLoader.load();
-            Scene tableViewScene = new Scene(tableViewParent);
+        disableWhileProgressing();
+        makeAccount = new MakeAccount();
+        progressIndicator.visibleProperty().bind(makeAccount.runningProperty());
+        makeAccount.setOnSucceeded(e -> {
+            enableWhileProgressing();
+            Parent parent = makeAccount.getValue();
 
+            Scene scene = new Scene(parent);
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            window.setScene(tableViewScene);
+            window.setScene(scene);
             window.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        });
+
+        logging.setOnFailed(e -> {
+            makeAccount.getException().printStackTrace();
+        });
+
+        Thread thread = new Thread(makeAccount);
+        thread.start();
     }
 
     private void makeFadeIn() {
@@ -196,6 +204,15 @@ public class WelcomeController {
         }
     }
 
-
+    class MakeAccount extends Task<Parent> {
+        @Override
+        protected Parent call() throws Exception {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setControllerFactory(springContext::getBean);
+            fxmlLoader.setLocation(getClass().getResource("/Registration.fxml"));
+            Parent tableViewParent = fxmlLoader.load();
+            return tableViewParent;
+        }
+    }
 }
 

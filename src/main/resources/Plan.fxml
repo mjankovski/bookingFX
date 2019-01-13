@@ -5,6 +5,7 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
@@ -26,7 +27,7 @@
             </Label>
          </children>
       </HBox>
-      <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+      <HBox fx:id="planHBox" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
          <children>
             <VBox prefHeight="642.0" prefWidth="298.0">
                <children>
@@ -172,9 +173,9 @@
             <Insets left="50.0" right="50.0" />
          </VBox.margin>
       </HBox>
-      <HBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="1200.0">
+      <HBox alignment="CENTER" prefHeight="1.0" prefWidth="1200.0" VBox.vgrow="ALWAYS">
          <children>
-            <Button fx:id="logOutButton" mnemonicParsing="false" onAction="#menuButtonClicked" prefHeight="55.0" prefWidth="181.0" text="WYLOGUJ" HBox.hgrow="ALWAYS">
+            <Button fx:id="logOutButton" mnemonicParsing="false" onAction="#menuButtonClicked" prefHeight="55.0" prefWidth="243.0" text="WYLOGUJ" HBox.hgrow="ALWAYS">
                <font>
                   <Font size="15.0" />
                </font>
@@ -185,9 +186,14 @@
                   <Insets left="50.0" />
                </HBox.margin>
             </Button>
+            <ProgressIndicator fx:id="progressIndicator" prefWidth="925.0" progress="0.0" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets right="150.0" />
+               </HBox.margin>
+            </ProgressIndicator>
          </children>
          <VBox.margin>
-            <Insets top="30.0" />
+            <Insets top="50.0" />
          </VBox.margin>
          <opaqueInsets>
             <Insets />

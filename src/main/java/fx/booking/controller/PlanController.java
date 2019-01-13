@@ -2,7 +2,6 @@ package fx.booking.controller;
 
 
 import fx.booking.dao.AccountDAO;
-import fx.booking.dao.DocumentDAO;
 import fx.booking.repository.ReservationKeeper;
 import fx.booking.repository.Room;
 import fx.booking.repository.RoomKeeper;
@@ -10,6 +9,7 @@ import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,6 +21,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -30,7 +31,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Controller;
 
-import javax.xml.soap.Text;
 import java.io.IOException;
 import java.math.BigDecimal;
 
@@ -51,6 +51,12 @@ public class PlanController {
 
     @FXML
     private VBox mainVBox;
+
+    @FXML
+    private HBox titleHBox;
+
+    @FXML
+    private HBox planHBox;
 
     @FXML
     private ScrollPane planScrollPane;
@@ -227,6 +233,9 @@ public class PlanController {
     private Button room221Button;
 
     @FXML
+    private Button logOutButton;
+
+    @FXML
     private ObservableList<Button> allRoomButtons;
 
     @FXML
@@ -237,6 +246,18 @@ public class PlanController {
 
     @FXML
     private ImageView avatar;
+
+    @FXML
+    private ProgressIndicator progressIndicator;
+
+    @FXML
+    private RoomDetail roomDetail;
+
+    @FXML
+    private LogOut logOut;
+
+    @FXML
+    private ClientPanel clientPanel;
 
 
     @FXML
@@ -274,6 +295,9 @@ public class PlanController {
         twoPeopleCheckBox.setSelected(true);
         fourPeopleCheckBox.setSelected(true);
         setFloor2ButtonsInvisible();
+
+        progressIndicator.setProgress(ProgressBar.INDETERMINATE_PROGRESS);
+        progressIndicator.setVisible(false);
 
         mainVBox.setOpacity(0);
         makeFadeIn();
@@ -374,46 +398,50 @@ public class PlanController {
 
     @FXML
     public void menuButtonClicked(ActionEvent event) throws IOException {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setControllerFactory(springContext::getBean);
-            fxmlLoader.setLocation(getClass().getResource("/Welcome.fxml"));
-            Parent tableViewParent = fxmlLoader.load();
-            Scene tableViewScene = new Scene(tableViewParent);
+        disableWhileProgressing();
+        logOut = new LogOut();
+        progressIndicator.visibleProperty().bind(logOut.runningProperty());
+        logOut.setOnSucceeded(e -> {
+            enableWhileProgressing();
+            Parent parent = logOut.getValue();
+            enableWhileProgressing();
+            Scene scene = new Scene(parent);
 
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            window.setScene(tableViewScene);
+            window.setScene(scene);
             window.show();
-        }
-        catch(Exception e) {
-            e.printStackTrace();
-        }
+        });
+
+        logOut.setOnFailed(e -> {
+            logOut.getException().printStackTrace();
+        });
+
+        Thread thread = new Thread(logOut);
+        thread.start();
     }
 
     @FXML
     public void roomButtonPressed(MouseEvent event) throws IOException {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setControllerFactory(springContext::getBean);
-            fxmlLoader.setLocation(getClass().getResource("/Booking.fxml"));
-            Parent tableViewParent = fxmlLoader.load();
-            Scene tableViewScene = new Scene(tableViewParent);
-
-            //przekazywanie informacji o pokoju i jego rezerwacji
-            BookingController controller = fxmlLoader.getController();
-            Button button = (Button)event.getSource();
-            Room room = roomList.get(button);
-
-            controller.initRoom(room);
-            controller.initReservationTable(reservationKeeper.getReservationList(room.getNumber()));
+        disableWhileProgressing();
+        roomDetail = new RoomDetail(event);
+        progressIndicator.visibleProperty().bind(roomDetail.runningProperty());
+        roomDetail.setOnSucceeded(e -> {
+            enableWhileProgressing();
+            Parent parent = roomDetail.getValue();
+            enableWhileProgressing();
+            Scene scene = new Scene(parent);
 
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            window.setScene(tableViewScene);
+            window.setScene(scene);
             window.show();
-        }
-        catch(Exception e) {
-            e.printStackTrace();
-        }
+        });
+
+        roomDetail.setOnFailed(e -> {
+            roomDetail.getException().printStackTrace();
+        });
+
+        Thread thread = new Thread(roomDetail);
+        thread.start();
     }
 
     @FXML
@@ -445,22 +473,93 @@ public class PlanController {
 
     @FXML
     public void avatarClicked(MouseEvent event) {
-        try {
+        disableWhileProgressing();
+        clientPanel = new ClientPanel(event);
+        progressIndicator.visibleProperty().bind(clientPanel.runningProperty());
+        clientPanel.setOnSucceeded(e -> {
+            enableWhileProgressing();
+            Parent parent = clientPanel.getValue();
+            enableWhileProgressing();
+            Scene scene = new Scene(parent);
+
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(scene);
+            window.show();
+        });
+
+        clientPanel.setOnFailed(e -> {
+            clientPanel.getException().printStackTrace();
+        });
+
+        Thread thread = new Thread(clientPanel);
+        thread.start();
+    }
+
+    private void disableWhileProgressing() {
+        titleHBox.setDisable(true);
+        planHBox.setDisable(true);
+        logOutButton.setDisable(true);
+    }
+
+    private void enableWhileProgressing() {
+        titleHBox.setDisable(false);
+        planHBox.setDisable(false);
+        logOutButton.setDisable(false);
+    }
+
+    class RoomDetail extends Task<Parent> {
+        private MouseEvent event;
+
+        RoomDetail(MouseEvent event) {
+            this.event = event;
+        }
+
+        @Override
+        protected Parent call() throws Exception {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setControllerFactory(springContext::getBean);
+            fxmlLoader.setLocation(getClass().getResource("/Booking.fxml"));
+            Parent tableViewParent = fxmlLoader.load();
+
+            BookingController controller = fxmlLoader.getController();
+            Button button = (Button)event.getSource();
+            Room room = roomList.get(button);
+
+            controller.initRoom(room);
+            controller.initReservationTable(reservationKeeper.getReservationList(room.getNumber()));
+            return tableViewParent;
+        }
+    }
+
+    class LogOut extends Task<Parent> {
+        @Override
+        protected Parent call() throws Exception {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setControllerFactory(springContext::getBean);
+            fxmlLoader.setLocation(getClass().getResource("/Welcome.fxml"));
+            Parent tableViewParent = fxmlLoader.load();
+            return tableViewParent;
+        }
+    }
+
+    class ClientPanel extends Task<Parent> {
+        private MouseEvent event;
+
+        ClientPanel(MouseEvent event) {
+            this.event = event;
+        }
+
+        @Override
+        protected Parent call() throws Exception {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setControllerFactory(springContext::getBean);
             fxmlLoader.setLocation(getClass().getResource("/ClientPanel.fxml"));
             Parent tableViewParent = fxmlLoader.load();
-            Scene tableViewScene = new Scene(tableViewParent);
 
             ClientPanelController controller = fxmlLoader.getController();
             controller.initReservationTable(reservationKeeper.getReservationList(accountDAO.getLogin()));
 
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            window.setScene(tableViewScene);
-            window.show();
-        }
-        catch(Exception e) {
-            e.printStackTrace();
+            return tableViewParent;
         }
     }
 
