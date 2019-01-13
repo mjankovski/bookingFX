@@ -86,4 +86,10 @@ public class AccountDAO{
     public List<Map<String,Object>> getUsersInfo() {
         return jdbcTemplate.queryForList("SELECT * FROM Uzytkownicy ORDER BY NAZWISKO,IMIE");
     }
+
+    public void deleteUser(String login){
+        jdbcTemplate.update("DELETE FROM Faktury WHERE NR_FAKTURA in (select NR_FAKTURA from Rezerwacje where LOGIN=?) ", login);
+        jdbcTemplate.update("DELETE FROM Uzytkownicy WHERE LOGIN = ?", login);
+        jdbcTemplate.update("DELETE FROM Rezerwacje WHERE LOGIN = ?", login);
+    }
 }

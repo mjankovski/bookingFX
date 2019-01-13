@@ -1,5 +1,7 @@
 package fx.booking.controller;
 
+import fx.booking.dao.AccountDAO;
+import fx.booking.dao.ReservationDAO;
 import fx.booking.repository.Reservation;
 import fx.booking.repository.ReservationKeeper;
 import fx.booking.repository.User;
@@ -35,6 +37,9 @@ public class ClientDetailsController {
 
     @Autowired
     private ReservationKeeper reservationKeeper;
+
+    @Autowired
+    private ReservationDAO reservationDAO;
 
     @FXML
     private VBox mainVBox;
@@ -140,7 +145,7 @@ public class ClientDetailsController {
 
         selectedReservation = reservationTable.getSelectionModel().getSelectedItem();
 
-        //TODO tu sprawdzasz czy mozna usunac rezerwacje
+        reservationDAO.deleteReservation(selectedReservation.getId());
         allReservations.remove(selectedReservation);
     }
 

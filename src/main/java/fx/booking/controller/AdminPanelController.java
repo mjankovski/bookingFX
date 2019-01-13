@@ -1,5 +1,6 @@
 package fx.booking.controller;
 
+import fx.booking.dao.AccountDAO;
 import fx.booking.repository.Room;
 import fx.booking.repository.RoomKeeper;
 import fx.booking.repository.User;
@@ -32,6 +33,9 @@ public class AdminPanelController {
 
     @Autowired
     private ConfigurableApplicationContext springContext;
+
+    @Autowired
+    private AccountDAO accountDAO;
 
     @Autowired
     private UserKeeper userKeeper;
@@ -148,8 +152,10 @@ public class AdminPanelController {
 
         selectedUser = userTable.getSelectionModel().getSelectedItem();
 
-        //TODO tu sprawdzasz czy mozna usunac usera
-        allUsers.remove(selectedUser);
+        if(selectedUser.getPermissions()!=2) {
+            accountDAO.deleteUser(selectedUser.getLogin());
+            allUsers.remove(selectedUser);
+        }
     }
 
     @FXML

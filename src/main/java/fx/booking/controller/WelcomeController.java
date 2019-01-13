@@ -77,7 +77,7 @@ public class WelcomeController {
     public void loginButtonClicked(ActionEvent event) {
         int login = accountDAO.login(loginTextField.getText(),passTextField.getText());
         try {
-            if(login>0) {
+            if(login==1) {
                 //TODO jak cos masz formatke panelu admina AdminPanel.fxml wiec tu zrob obsluge czy loguje sie klient czy admin i przenos wtedy do odpowiedniej sceny jak uzytkownik to Plan.fxml a jak admin to AdminPanel.fxml
                 accountDAO.getAccountInformation(loginTextField.getText());
                 try {
@@ -93,8 +93,21 @@ public class WelcomeController {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            }
-            else {
+            }else if(login==2){
+                try {
+                    FXMLLoader fxmlLoader = new FXMLLoader();
+                    fxmlLoader.setControllerFactory(springContext::getBean);
+                    fxmlLoader.setLocation(getClass().getResource("/AdminPanel.fxml"));
+                    Parent tableViewParent = fxmlLoader.load();
+                    Scene tableViewScene = new Scene(tableViewParent);
+
+                    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    window.setScene(tableViewScene);
+                    window.show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }else {
                 showAlertInfo("Błąd!", "Błędne dane logowania!", Alert.AlertType.ERROR);
             }
         }

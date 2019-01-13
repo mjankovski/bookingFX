@@ -63,4 +63,9 @@ public class ReservationDAO {
         }
         return false;
     }
+
+    public void deleteReservation(int reservationId){
+        jdbcTemplate.update("DELETE FROM Faktury WHERE NR_FAKTURA IN (SELECT NR_FAKTURA FROM Rezerwacje WHERE ID_REZERWACJA = ?)", reservationId);
+        jdbcTemplate.update("DELETE FROM Rezerwacje WHERE ID_REZERWACJA = ?", reservationId);
+    }
 }
