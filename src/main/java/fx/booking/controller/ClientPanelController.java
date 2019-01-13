@@ -384,6 +384,12 @@ public class ClientPanelController {
             }
             return -1;
         }
+
+    private void showAlert(String title, String header, Alert.AlertType type){
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.showAndWait();
     }
 
     private void showAlert(String title, String header, Alert.AlertType type){
