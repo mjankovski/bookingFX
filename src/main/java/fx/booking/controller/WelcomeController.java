@@ -2,6 +2,7 @@ package fx.booking.controller;
 
 import fx.booking.dao.AccountDAO;
 import javafx.animation.FadeTransition;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -11,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -30,6 +32,18 @@ public class WelcomeController {
 
     @FXML
     private VBox mainVBox;
+
+    @FXML
+    private HBox phraseHBox;
+
+    @FXML
+    private HBox formHBox;
+
+    @FXML
+    private HBox footerHBox;
+
+    @FXML
+    private HBox titleHBox;
 
     @FXML
     private Label descriptionLabel;
@@ -62,58 +76,50 @@ public class WelcomeController {
     private PasswordField passTextField;
 
     @FXML
+    private Logging logging;
+
+    @FXML
     private Button authorsButton;
 
     @FXML
     private Label wrongDataLabel;
 
     @FXML
+    private ProgressIndicator progressIndicator;
+
+    @FXML
     public void initialize() {
+        progressIndicator.setProgress(ProgressBar.INDETERMINATE_PROGRESS);
+        logging = new Logging();
+        progressIndicator.visibleProperty().bind(logging.runningProperty());
         mainVBox.setOpacity(0);
         makeFadeIn();
     }
 
     @FXML
     public void loginButtonClicked(ActionEvent event) {
-        int login = accountDAO.login(loginTextField.getText(),passTextField.getText());
-        try {
-            if(login==1) {
-                //TODO jak cos masz formatke panelu admina AdminPanel.fxml wiec tu zrob obsluge czy loguje sie klient czy admin i przenos wtedy do odpowiedniej sceny jak uzytkownik to Plan.fxml a jak admin to AdminPanel.fxml
-                accountDAO.getAccountInformation(loginTextField.getText());
-                try {
-                    FXMLLoader fxmlLoader = new FXMLLoader();
-                    fxmlLoader.setControllerFactory(springContext::getBean);
-                    fxmlLoader.setLocation(getClass().getResource("/Plan.fxml"));
-                    Parent tableViewParent = fxmlLoader.load();
-                    Scene tableViewScene = new Scene(tableViewParent);
-
-                    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                    window.setScene(tableViewScene);
-                    window.show();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }else if(login==2){
-                try {
-                    FXMLLoader fxmlLoader = new FXMLLoader();
-                    fxmlLoader.setControllerFactory(springContext::getBean);
-                    fxmlLoader.setLocation(getClass().getResource("/AdminPanel.fxml"));
-                    Parent tableViewParent = fxmlLoader.load();
-                    Scene tableViewScene = new Scene(tableViewParent);
-
-                    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                    window.setScene(tableViewScene);
-                    window.show();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }else {
+        disableWhileProgressing();
+        logging = new Logging();
+        progressIndicator.visibleProperty().bind(logging.runningProperty());
+        logging.setOnSucceeded(e -> {
+            Parent parent = logging.getValue();
+            enableWhileProgressing();
+            if(parent == null) {
                 showAlertInfo("Błąd!", "Błędne dane logowania!", Alert.AlertType.ERROR);
+                return;
             }
-        }
-        catch(Exception e) {
-            e.printStackTrace();
-        }
+            Scene scene = new Scene(parent);
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(scene);
+            window.show();
+        });
+
+        logging.setOnFailed(e -> {
+            logging.getException().printStackTrace();
+        });
+
+        Thread thread = new Thread(logging);
+        thread.start();
     }
 
     @FXML
@@ -142,11 +148,54 @@ public class WelcomeController {
         fadeTransition.play();
     }
 
+
+
     private void showAlertInfo(String title, String header, Alert.AlertType type){
         Alert alert = new Alert(type);
         alert.setTitle(title);
         alert.setHeaderText(header);
         alert.showAndWait();
     }
+
+    private void disableWhileProgressing() {
+        titleHBox.setDisable(true);
+        phraseHBox.setDisable(true);
+        formHBox.setDisable(true);
+    }
+
+    private void enableWhileProgressing() {
+        titleHBox.setDisable(false);
+        phraseHBox.setDisable(false);
+        formHBox.setDisable(false);
+    }
+
+    class Logging extends Task<Parent> {
+        @Override
+        protected Parent call() throws Exception {
+            Parent tableViewParent = null;
+            int login = accountDAO.login(loginTextField.getText(),passTextField.getText());
+            if(login==1) {
+                accountDAO.getAccountInformation(loginTextField.getText());
+
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setControllerFactory(springContext::getBean);
+                fxmlLoader.setLocation(getClass().getResource("/Plan.fxml"));
+                tableViewParent = fxmlLoader.load();
+                return tableViewParent;
+            }
+            else if(login==2){
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setControllerFactory(springContext::getBean);
+                fxmlLoader.setLocation(getClass().getResource("/AdminPanel.fxml"));
+                tableViewParent = fxmlLoader.load();
+                return tableViewParent;
+            }
+            else {
+                return tableViewParent;
+            }
+        }
+    }
+
+
 }
 
