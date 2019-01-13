@@ -318,7 +318,8 @@ public class ClientPanelController {
         Edit(ActionEvent event) {
             this.event = event;
         }
-        private void setFields(boolean isDisabled){
+
+        private void setFields(boolean isDisabled) {
             nameTextfield.setDisable(isDisabled);
             surnameTextField.setDisable(isDisabled);
             loginTextField.setDisable(isDisabled);
@@ -334,12 +335,12 @@ public class ClientPanelController {
         }
 
         private void updateInformations(String login, String pw, String firstname, String lastname, String email,
-                                        String creditCardNumber, String phoneNumber){
+                                        String creditCardNumber, String phoneNumber) {
             accountDAO.updateInformation(login, pw, firstname, lastname, email, creditCardNumber, phoneNumber);
 
         }
 
-        private int checkIfPossibleToChangeData(Button button){
+        private int checkIfPossibleToChangeData(Button button) {
             try {
                 accountDAO.checkDataFormat(
                         passField.getText(),
@@ -349,49 +350,41 @@ public class ClientPanelController {
                         partFourCardNumberTextField1.getText() + partFourCardNumberTextField2.getText() + partFourCardNumberTextField3.getText() + partFourCardNumberTextField4.getText(),
                         directionNumbertextField.getText() + phoneNumberTextField.getText()
                 );
-                updateInformations(accountDAO.getLogin(),passField.getText(),
+                updateInformations(accountDAO.getLogin(), passField.getText(),
                         nameTextfield.getText(),
                         surnameTextField.getText(),
                         emailTextField.getText(),
                         partFourCardNumberTextField1.getText() + partFourCardNumberTextField2.getText() + partFourCardNumberTextField3.getText() + partFourCardNumberTextField4.getText(),
                         directionNumbertextField.getText() + phoneNumberTextField.getText());
-            } catch (IllegalArgumentException e){
+            } catch (IllegalArgumentException e) {
                 return 2;
                 //showAlert("Błąd!", "Pola nie moga byc puste lub krotsze niz 3 znaki!", Alert.AlertType.ERROR);
-            } catch (InvalidEmailException e){
+            } catch (InvalidEmailException e) {
                 return 3;
-               // showAlert("Błąd!", "Błędny adres e-mail!", Alert.AlertType.ERROR);
-            } catch (InvalidPhoneNumberException e){
+                // showAlert("Błąd!", "Błędny adres e-mail!", Alert.AlertType.ERROR);
+            } catch (InvalidPhoneNumberException e) {
                 return 4;
-               // showAlert("Błąd!", "Błędny adres e-mail!", Alert.AlertType.ERROR);
-            } catch (InvalidCreditCardNumberException e){
+                // showAlert("Błąd!", "Błędny adres e-mail!", Alert.AlertType.ERROR);
+            } catch (InvalidCreditCardNumberException e) {
                 return 5;
-               // showAlert("Błąd!", "Błędny numer karty kredytowej!", Alert.AlertType.ERROR);
+                // showAlert("Błąd!", "Błędny numer karty kredytowej!", Alert.AlertType.ERROR);
             }
             return 1;
         }
 
         @Override
         protected Integer call() throws Exception {
-            Button button = (Button)event.getSource();
-            if(button.getText().equals("EDYTUJ")) {
-               setFields(false);
+            Button button = (Button) event.getSource();
+            if (button.getText().equals("EDYTUJ")) {
+                setFields(false);
                 return 0;
-            }
-            else if(button.getText().equals("ZAPISZ")) {
+            } else if (button.getText().equals("ZAPISZ")) {
                 setFields(true);
                 return checkIfPossibleToChangeData(button);
             }
             return -1;
         }
-
-    private void showAlert(String title, String header, Alert.AlertType type){
-        Alert alert = new Alert(type);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
-        alert.showAndWait();
     }
-
     private void showAlert(String title, String header, Alert.AlertType type){
         Alert alert = new Alert(type);
         alert.setTitle(title);
