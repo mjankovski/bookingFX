@@ -139,7 +139,7 @@ public class WelcomeController {
             window.show();
         });
 
-        logging.setOnFailed(e -> {
+        makeAccount.setOnFailed(e -> {
             makeAccount.getException().printStackTrace();
         });
 

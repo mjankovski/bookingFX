@@ -7,6 +7,7 @@ import fx.booking.repository.User;
 import fx.booking.repository.UserKeeper;
 import javafx.animation.FadeTransition;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -59,6 +60,12 @@ public class AdminPanelController {
     private HBox panelLabelHBox;
 
     @FXML
+    private HBox tabelHBox;
+
+    @FXML
+    private HBox buttonsHBox;
+
+    @FXML
     private TableView<User> userTable;
 
     @FXML
@@ -86,6 +93,18 @@ public class AdminPanelController {
     private Button logOutButton;
 
     @FXML
+    private ProgressIndicator progressIndicator;
+
+    @FXML
+    private ClientDetail clientDetail;
+
+    @FXML
+    private LogOut logOut;
+
+    @FXML
+    private DeleteUser deleteUser;
+
+    @FXML
     public void initialize() {
         //userTable.setEditable(true);
         //userTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -107,6 +126,9 @@ public class AdminPanelController {
         deleteButton.setDisable(true);
         detailButton.setDisable(true);
 
+        progressIndicator.setProgress(ProgressBar.INDETERMINATE_PROGRESS);
+        progressIndicator.setVisible(false);
+
         initUserTable();
     }
 
@@ -122,20 +144,26 @@ public class AdminPanelController {
 
     @FXML
     public void logOutButtonClicked(ActionEvent event) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setControllerFactory(springContext::getBean);
-            fxmlLoader.setLocation(getClass().getResource("/Welcome.fxml"));
-            Parent tableViewParent = fxmlLoader.load();
-            Scene tableViewScene = new Scene(tableViewParent);
+        disableWhileProgressing();
+        logOut = new LogOut();
+        progressIndicator.visibleProperty().bind(logOut.runningProperty());
+        logOut.setOnSucceeded(e -> {
+            enableWhileProgressing();
+            Parent parent = logOut.getValue();
+            enableWhileProgressing();
+            Scene scene = new Scene(parent);
 
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            window.setScene(tableViewScene);
+            window.setScene(scene);
             window.show();
-        }
-        catch(Exception e) {
-            e.printStackTrace();
-        }
+        });
+
+        logOut.setOnFailed(e -> {
+            logOut.getException().printStackTrace();
+        });
+
+        Thread thread = new Thread(logOut);
+        thread.start();
     }
 
     @FXML
@@ -146,26 +174,52 @@ public class AdminPanelController {
 
     @FXML
     public void deleteButtonPressed(ActionEvent event) {
-        ObservableList<User> allUsers;
-        User selectedUser;
-        allUsers = userTable.getItems();
+        disableWhileProgressing();
+        deleteUser = new DeleteUser();
+        progressIndicator.visibleProperty().bind(deleteUser.runningProperty());
+        deleteUser.setOnSucceeded(e -> {
+            enableWhileProgressing();
+        });
 
-        selectedUser = userTable.getSelectionModel().getSelectedItem();
+        deleteUser.setOnFailed(e -> {
+            deleteUser.getException().printStackTrace();
+        });
 
-        if(selectedUser.getPermissions()!=2) {
-            accountDAO.deleteUser(selectedUser.getLogin());
-            allUsers.remove(selectedUser);
-        }
+        Thread thread = new Thread(deleteUser);
+        thread.start();
     }
 
     @FXML
     public void detailButtonClicked(ActionEvent event) {
-        try {
+        disableWhileProgressing();
+        clientDetail = new ClientDetail();
+        progressIndicator.visibleProperty().bind(clientDetail.runningProperty());
+        clientDetail.setOnSucceeded(e -> {
+            enableWhileProgressing();
+            Parent parent = clientDetail.getValue();
+            enableWhileProgressing();
+            Scene scene = new Scene(parent);
+
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(scene);
+            window.show();
+        });
+
+        clientDetail.setOnFailed(e -> {
+            clientDetail.getException().printStackTrace();
+        });
+
+        Thread thread = new Thread(clientDetail);
+        thread.start();
+    }
+
+    class ClientDetail extends Task<Parent> {
+        @Override
+        protected Parent call() throws Exception {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setControllerFactory(springContext::getBean);
             fxmlLoader.setLocation(getClass().getResource("/ClientDetails.fxml"));
             Parent tableViewParent = fxmlLoader.load();
-            Scene tableViewScene = new Scene(tableViewParent);
 
             //przekazywanie informacji o kliencie
             ClientDetailsController controller = fxmlLoader.getController();
@@ -173,13 +227,53 @@ public class AdminPanelController {
             String login = selectedUser.getLogin();
             controller.initReservationTable(login);
 
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            window.setScene(tableViewScene);
-            window.show();
+            return tableViewParent;
         }
-        catch(Exception e) {
-            e.printStackTrace();
+    }
+
+    class LogOut extends Task<Parent> {
+        @Override
+        protected Parent call() throws Exception {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setControllerFactory(springContext::getBean);
+            fxmlLoader.setLocation(getClass().getResource("/Welcome.fxml"));
+            Parent tableViewParent = fxmlLoader.load();
+            return tableViewParent;
         }
+    }
+
+    class DeleteUser extends Task<Void> {
+        @Override
+        protected Void call() throws Exception {
+            ObservableList<User> allUsers;
+            User selectedUser;
+            allUsers = userTable.getItems();
+
+            selectedUser = userTable.getSelectionModel().getSelectedItem();
+
+            if(selectedUser.getPermissions()!=2) {
+                accountDAO.deleteUser(selectedUser.getLogin());
+                allUsers.remove(selectedUser);
+            }
+
+            return null;
+        }
+    }
+
+    private void disableWhileProgressing() {
+        titleHBox.setDisable(true);
+        panelLabelHBox.setDisable(true);
+        tabelHBox.setDisable(true);
+        buttonsHBox.setDisable(true);
+        logOutButton.setDisable(true);
+    }
+
+    private void enableWhileProgressing() {
+            titleHBox.setDisable(false);
+            panelLabelHBox.setDisable(false);
+            tabelHBox.setDisable(false);
+            buttonsHBox.setDisable(false);
+            logOutButton.setDisable(false);
     }
 
     private void makeFadeIn() {
