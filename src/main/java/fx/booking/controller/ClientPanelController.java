@@ -1,8 +1,7 @@
 package fx.booking.controller;
 
 import fx.booking.DocumentGenerator;
-import fx.booking.dao.AccountDAO;
-import fx.booking.dao.DocumentDAO;
+import fx.booking.dao.*;
 import fx.booking.repository.Reservation;
 import javafx.animation.FadeTransition;
 import javafx.collections.ObservableList;
@@ -164,7 +163,7 @@ public class ClientPanelController {
         loginTextField.setText(accountDAO.getLogin());
         loginTextField.setDisable(true);
 
-        passField.setText(accountDAO.getLogin());
+        passField.setText("");
         passField.setDisable(true);
 
         peselTextField.setText(accountDAO.getPesel());
@@ -185,9 +184,10 @@ public class ClientPanelController {
         partFourCardNumberTextField4.setText(accountDAO.getCreditCardNumber().substring(12, 16));
         partFourCardNumberTextField4.setDisable(true);
 
+        directionNumbertextField.setText(accountDAO.getPhoneNumber().substring(0,2));
         directionNumbertextField.setDisable(true);
 
-        phoneNumberTextField.setText(accountDAO.getPhoneNumber());
+        phoneNumberTextField.setText(accountDAO.getPhoneNumber().substring(2,11));
         phoneNumberTextField.setDisable(true);
 
         progressIndicator.setProgress(ProgressBar.INDETERMINATE_PROGRESS);
@@ -245,10 +245,30 @@ public class ClientPanelController {
         edit.setOnSucceeded(e -> {
             enableWhileProgressing();
             Button button = (Button)event.getSource();
-            if(edit.getValue() == 1) {
+            if(edit.getValue() == 0) {
                 button.setText("ZAPISZ");
             }
+            else if(edit.getValue() == 1) {
+                button.setText("EDYTUJ");
+            }
             else if(edit.getValue() == 2) {
+                showAlert("Błąd!", "Pola nie moga byc puste lub krotsze niz 3 znaki!", Alert.AlertType.ERROR);
+                initTextFields();
+                button.setText("EDYTUJ");
+            }
+            else if(edit.getValue() == 3) {
+                showAlert("Błąd!", "Błędny adres e-mail!", Alert.AlertType.ERROR);
+                initTextFields();
+                button.setText("EDYTUJ");
+            }
+            else if(edit.getValue() == 4) {
+                showAlert("Błąd!", "Błędny adres e-mail!", Alert.AlertType.ERROR);
+                initTextFields();
+                button.setText("EDYTUJ");
+            }
+            else if(edit.getValue() == 5) {
+                showAlert("Błąd!", "Błędny numer karty kredytowej!", Alert.AlertType.ERROR);
+                initTextFields();
                 button.setText("EDYTUJ");
             }
         });
@@ -298,42 +318,79 @@ public class ClientPanelController {
         Edit(ActionEvent event) {
             this.event = event;
         }
+        private void setFields(boolean isDisabled){
+            nameTextfield.setDisable(isDisabled);
+            surnameTextField.setDisable(isDisabled);
+            loginTextField.setDisable(isDisabled);
+            passField.setDisable(isDisabled);
+            peselTextField.setDisable(isDisabled);
+            emailTextField.setDisable(isDisabled);
+            partFourCardNumberTextField1.setDisable(isDisabled);
+            partFourCardNumberTextField2.setDisable(isDisabled);
+            partFourCardNumberTextField3.setDisable(isDisabled);
+            partFourCardNumberTextField4.setDisable(isDisabled);
+            directionNumbertextField.setDisable(isDisabled);
+            phoneNumberTextField.setDisable(isDisabled);
+        }
+
+        private void updateInformations(String login, String pw, String firstname, String lastname, String email,
+                                        String creditCardNumber, String phoneNumber){
+            accountDAO.updateInformation(login, pw, firstname, lastname, email, creditCardNumber, phoneNumber);
+
+        }
+
+        private int checkIfPossibleToChangeData(Button button){
+            try {
+                accountDAO.checkDataFormat(
+                        passField.getText(),
+                        nameTextfield.getText(),
+                        surnameTextField.getText(),
+                        emailTextField.getText(),
+                        partFourCardNumberTextField1.getText() + partFourCardNumberTextField2.getText() + partFourCardNumberTextField3.getText() + partFourCardNumberTextField4.getText(),
+                        directionNumbertextField.getText() + phoneNumberTextField.getText()
+                );
+                updateInformations(accountDAO.getLogin(),passField.getText(),
+                        nameTextfield.getText(),
+                        surnameTextField.getText(),
+                        emailTextField.getText(),
+                        partFourCardNumberTextField1.getText() + partFourCardNumberTextField2.getText() + partFourCardNumberTextField3.getText() + partFourCardNumberTextField4.getText(),
+                        directionNumbertextField.getText() + phoneNumberTextField.getText());
+            } catch (IllegalArgumentException e){
+                return 2;
+                //showAlert("Błąd!", "Pola nie moga byc puste lub krotsze niz 3 znaki!", Alert.AlertType.ERROR);
+            } catch (InvalidEmailException e){
+                return 3;
+               // showAlert("Błąd!", "Błędny adres e-mail!", Alert.AlertType.ERROR);
+            } catch (InvalidPhoneNumberException e){
+                return 4;
+               // showAlert("Błąd!", "Błędny adres e-mail!", Alert.AlertType.ERROR);
+            } catch (InvalidCreditCardNumberException e){
+                return 5;
+               // showAlert("Błąd!", "Błędny numer karty kredytowej!", Alert.AlertType.ERROR);
+            }
+            return 1;
+        }
 
         @Override
         protected Integer call() throws Exception {
             Button button = (Button)event.getSource();
             if(button.getText().equals("EDYTUJ")) {
-                nameTextfield.setDisable(false);
-                surnameTextField.setDisable(false);
-                loginTextField.setDisable(false);
-                passField.setDisable(false);
-                peselTextField.setDisable(false);
-                emailTextField.setDisable(false);
-                partFourCardNumberTextField1.setDisable(false);
-                partFourCardNumberTextField2.setDisable(false);
-                partFourCardNumberTextField3.setDisable(false);
-                partFourCardNumberTextField4.setDisable(false);
-                directionNumbertextField.setDisable(false);
-                phoneNumberTextField.setDisable(false);
-                return 1;
+               setFields(false);
+                return 0;
             }
             else if(button.getText().equals("ZAPISZ")) {
-                nameTextfield.setDisable(true);
-                surnameTextField.setDisable(true);
-                loginTextField.setDisable(true);
-                passField.setDisable(true);
-                peselTextField.setDisable(true);
-                emailTextField.setDisable(true);
-                partFourCardNumberTextField1.setDisable(true);
-                partFourCardNumberTextField2.setDisable(true);
-                partFourCardNumberTextField3.setDisable(true);
-                partFourCardNumberTextField4.setDisable(true);
-                directionNumbertextField.setDisable(true);
-                phoneNumberTextField.setDisable(true);
-                return 2;
+                setFields(true);
+                return checkIfPossibleToChangeData(button);
             }
-            return 0;
+            return -1;
         }
+    }
+
+    private void showAlert(String title, String header, Alert.AlertType type){
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.showAndWait();
     }
 
     private void makeFadeIn() {
@@ -343,5 +400,43 @@ public class ClientPanelController {
         fadeTransition.setFromValue(0);
         fadeTransition.setToValue(1);
         fadeTransition.play();
+    }
+
+    private void initTextFields() {
+        nameTextfield.setText(accountDAO.getFirstname());
+        nameTextfield.setDisable(true);
+
+        surnameTextField.setText(accountDAO.getLastname());
+        surnameTextField.setDisable(true);
+
+        loginTextField.setText(accountDAO.getLogin());
+        loginTextField.setDisable(true);
+
+        passField.setText("");
+        passField.setDisable(true);
+
+        peselTextField.setText(accountDAO.getPesel());
+        peselTextField.setDisable(true);
+
+        emailTextField.setText(accountDAO.getEmail());
+        emailTextField.setDisable(true);
+
+        partFourCardNumberTextField1.setText(accountDAO.getCreditCardNumber().substring(0, 4));
+        partFourCardNumberTextField1.setDisable(true);
+
+        partFourCardNumberTextField2.setText(accountDAO.getCreditCardNumber().substring(4, 8));
+        partFourCardNumberTextField2.setDisable(true);
+
+        partFourCardNumberTextField3.setText(accountDAO.getCreditCardNumber().substring(8, 12));
+        partFourCardNumberTextField3.setDisable(true);
+
+        partFourCardNumberTextField4.setText(accountDAO.getCreditCardNumber().substring(12, 16));
+        partFourCardNumberTextField4.setDisable(true);
+
+        directionNumbertextField.setText(accountDAO.getPhoneNumber().substring(0,2));
+        directionNumbertextField.setDisable(true);
+
+        phoneNumberTextField.setText(accountDAO.getPhoneNumber().substring(2,11));
+        phoneNumberTextField.setDisable(true);
     }
 }
