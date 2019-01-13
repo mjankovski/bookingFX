@@ -1,11 +1,14 @@
 package fx.booking.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -47,8 +50,9 @@ public class ReservationDAO {
     public boolean insertReservation(int roomNumber, String fromDate, String toDate){
         final LocalDate fromDateFormatted = LocalDate.parse(fromDate);
         final LocalDate toDateFormatted = LocalDate.parse(toDate);
+        LocalDate today = LocalDate.now();
 
-        if(fromDateFormatted.compareTo(toDateFormatted)>=0) throw new IllegalArgumentException();
+        if(fromDateFormatted.compareTo(toDateFormatted)>=0 || fromDateFormatted.compareTo(today)<0) throw new IllegalArgumentException();
 
         if(checkIfRoomFree(roomNumber,fromDate,toDate)) {
             long days = DAYS.between(fromDateFormatted,toDateFormatted);
