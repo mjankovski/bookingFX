@@ -3,19 +3,18 @@ package fx.booking.controller;
 import fx.booking.dao.*;
 
 import javafx.animation.FadeTransition;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -51,6 +50,15 @@ public class RegistrationController {
 
     @FXML
     private VBox mainVBox;
+
+    @FXML
+    private HBox titleHBox;
+
+    @FXML
+    private HBox registrationLabelHBox;
+
+    @FXML
+    private HBox dataHBox;
 
     @FXML
     private TextField nameTextField;
@@ -122,7 +130,19 @@ public class RegistrationController {
     private TextField partFourCardNumberTextField2;
 
     @FXML
+    private ProgressIndicator progressIndicator;
+
+    @FXML
+    private Back back;
+
+    @FXML
+    private MakeAccount makeAccount;
+
+    @FXML
     public void initialize() {
+        progressIndicator.setProgress(ProgressBar.INDETERMINATE_PROGRESS);
+        progressIndicator.setVisible(false);
+
         mainVBox.setOpacity(0);
         makeFadeIn();
     }
@@ -214,73 +234,81 @@ public class RegistrationController {
 
     @FXML
     public void registerButtonPressed(ActionEvent event) throws NoSuchAlgorithmException {
-        boolean isSigned;
-        try {
-            isSigned = accountDAO.createAccount(
-                    loginTextField.getText(),
-                    passField.getText(),
-                    nameTextField.getText(),
-                    surnameTextField.getText(),
-                    emailTextField.getText(),
-                    partFourCardNumberTextField1.getText() + partFourCardNumberTextField2.getText() + partFourCardNumberTextField3.getText() + partFourCardNumberTextField4.getText(),
-                    peselTextField.getText(),
-                    directionNumberTextField.getText() + phoneNumberTextField.getText(),
-                    1
-            );
-            sendMail(emailTextField.getText());
-        } catch (IllegalArgumentException e){
-            showAlert("Błąd!", "Konto nie zostało utworzone. Pola nie moga byc puste lub krotsze niz 3 znaki!", Alert.AlertType.ERROR);
-            isSigned = false;
-        } catch (InvalidEmailException e){
-            showAlert("Błąd!", "Konto nie zostało utworzone. Błędny adres e-mail!", Alert.AlertType.ERROR);
-            isSigned = false;
-        } catch (InvalidPhoneNumberException e){
-            showAlert("Błąd!", "Konto nie zostało utworzone. Błędny numer telefonu!", Alert.AlertType.ERROR);
-            isSigned = false;
-        } catch (InvalidCreditCardNumberException e){
-            showAlert("Błąd!", "Konto nie zostało utworzone. Błędny numer karty kredytowej!", Alert.AlertType.ERROR);
-            isSigned = false;;
-        } catch (InvalidPeselException e){
-            showAlert("Błąd!", "Konto nie zostało utworzone. Błędny numer pesel!", Alert.AlertType.ERROR);
-            isSigned = false;
-        }  catch (DuplicateKeyException e){
-            showAlert("Błąd!", "Konto nie zostało utworzone. Login lub adres e-mail są już w użyciu!", Alert.AlertType.ERROR);
-            isSigned=false;
-        }
+        disableWhileProgressing();
+        makeAccount = new MakeAccount();
+        progressIndicator.visibleProperty().bind(makeAccount.runningProperty());
+        makeAccount.setOnSucceeded(e -> {
+            enableWhileProgressing();
+            switch(makeAccount.getValue()) {
+                case 0: {
+                    showAlert("Info", "Konto zostało utworzone. Sprawdź e-mail.", Alert.AlertType.INFORMATION);
+                    FXMLLoader fxmlLoader = new FXMLLoader();
+                    fxmlLoader.setControllerFactory(springContext::getBean);
+                    fxmlLoader.setLocation(getClass().getResource("/Welcome.fxml"));
+                    Parent tableViewParent = null;
+                    try {
+                        tableViewParent = fxmlLoader.load();
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
+                    Scene scene = new Scene(tableViewParent);
 
-        if(isSigned) {
-            try {
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setControllerFactory(springContext::getBean);
-                fxmlLoader.setLocation(getClass().getResource("/Welcome.fxml"));
-                Parent tableViewParent = fxmlLoader.load();
-                Scene tableViewScene = new Scene(tableViewParent);
-
-                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                window.setScene(tableViewScene);
-                window.show();
-            } catch (Exception e) {
-                e.printStackTrace();
+                    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    window.setScene(scene);
+                    window.show();
+                    break;
+                }
+                case 1:
+                    showAlert("Błąd!", "Konto nie zostało utworzone. Pola nie moga byc puste lub krotsze niz 3 znaki!", Alert.AlertType.ERROR);
+                    break;
+                case 2:
+                    showAlert("Błąd!", "Konto nie zostało utworzone. Błędny adres e-mail!", Alert.AlertType.ERROR);
+                    break;
+                case 3:
+                    showAlert("Błąd!", "Konto nie zostało utworzone. Błędny numer telefonu!", Alert.AlertType.ERROR);
+                    break;
+                case 4:
+                    showAlert("Błąd!", "Konto nie zostało utworzone. Błędny numer karty kredytowej!", Alert.AlertType.ERROR);
+                    break;
+                case 5:
+                    showAlert("Błąd!", "Konto nie zostało utworzone. Błędny numer pesel!", Alert.AlertType.ERROR);
+                    break;
+                case 6:
+                    showAlert("Błąd!", "Konto nie zostało utworzone. Login lub adres e-mail są już w użyciu!", Alert.AlertType.ERROR);
+                    break;
             }
-            showAlert("Info", "Konto zostało utworzone. Sprawdź e-mail.", Alert.AlertType.INFORMATION);
-        }
+        });
+
+        makeAccount.setOnFailed(e -> {
+            makeAccount.getException().printStackTrace();
+        });
+
+        Thread thread = new Thread(makeAccount);
+        thread.start();
     }
 
     @FXML
     public void menuButtonClicked(ActionEvent event) throws IOException {
-            try {
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setControllerFactory(springContext::getBean);
-                fxmlLoader.setLocation(getClass().getResource("/Welcome.fxml"));
-                Parent tableViewParent = fxmlLoader.load();
-                Scene tableViewScene = new Scene(tableViewParent);
+        disableWhileProgressing();
+        back = new Back();
+        progressIndicator.visibleProperty().bind(back.runningProperty());
+        back.setOnSucceeded(e -> {
+            enableWhileProgressing();
+            Parent parent = back.getValue();
+            enableWhileProgressing();
+            Scene scene = new Scene(parent);
 
-                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                window.setScene(tableViewScene);
-                window.show();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(scene);
+            window.show();
+        });
+
+        back.setOnFailed(e -> {
+            back.getException().printStackTrace();
+        });
+
+        Thread thread = new Thread(back);
+        thread.start();
         }
 
     private void showAlert(String title, String header, Alert.AlertType type){
@@ -304,6 +332,72 @@ public class RegistrationController {
                 .buildMailer();
 
         mailer.sendMail(email);
+    }
+
+    private void disableWhileProgressing() {
+        titleHBox.setDisable(true);
+        registrationLabelHBox.setDisable(true);
+        dataHBox.setDisable(true);
+        menuButton.setDisable(true);
+    }
+
+    private void enableWhileProgressing() {
+        titleHBox.setDisable(false);
+        registrationLabelHBox.setDisable(false);
+        dataHBox.setDisable(false);
+        menuButton.setDisable(false);
+    }
+
+    class Back extends Task<Parent> {
+        @Override
+        protected Parent call() throws Exception {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setControllerFactory(springContext::getBean);
+            fxmlLoader.setLocation(getClass().getResource("/Welcome.fxml"));
+            Parent tableViewParent = fxmlLoader.load();
+            return tableViewParent;
+        }
+    }
+
+    class MakeAccount extends Task<Integer> {
+        @Override
+        protected Integer call() throws Exception {
+            boolean isSigned;
+            try {
+                isSigned = accountDAO.createAccount(
+                        loginTextField.getText(),
+                        passField.getText(),
+                        nameTextField.getText(),
+                        surnameTextField.getText(),
+                        emailTextField.getText(),
+                        partFourCardNumberTextField1.getText() + partFourCardNumberTextField2.getText() + partFourCardNumberTextField3.getText() + partFourCardNumberTextField4.getText(),
+                        peselTextField.getText(),
+                        directionNumberTextField.getText() + phoneNumberTextField.getText(),
+                        1
+                );
+                sendMail(emailTextField.getText());
+            } catch (IllegalArgumentException e){
+                //showAlert("Błąd!", "Konto nie zostało utworzone. Pola nie moga byc puste lub krotsze niz 3 znaki!", Alert.AlertType.ERROR);
+                return 1;
+            } catch (InvalidEmailException e){
+               // showAlert("Błąd!", "Konto nie zostało utworzone. Błędny adres e-mail!", Alert.AlertType.ERROR);
+                return 2;
+            } catch (InvalidPhoneNumberException e){
+               // showAlert("Błąd!", "Konto nie zostało utworzone. Błędny numer telefonu!", Alert.AlertType.ERROR);
+                return 3;
+            } catch (InvalidCreditCardNumberException e){
+               // showAlert("Błąd!", "Konto nie zostało utworzone. Błędny numer karty kredytowej!", Alert.AlertType.ERROR);
+                return 4;
+            } catch (InvalidPeselException e){
+               // showAlert("Błąd!", "Konto nie zostało utworzone. Błędny numer pesel!", Alert.AlertType.ERROR);
+                return 5;
+            }  catch (DuplicateKeyException e){
+               // showAlert("Błąd!", "Konto nie zostało utworzone. Login lub adres e-mail są już w użyciu!", Alert.AlertType.ERROR);
+                return 6;
+            }
+
+            return 0;
+        }
     }
 
     private void makeFadeIn() {
