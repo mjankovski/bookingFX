@@ -118,9 +118,7 @@ public class WelcomeController extends SuperController{
             changeScene(event, parent);
         });
 
-        logging.setOnFailed(e -> {
-            logging.getException().printStackTrace();
-        });
+        logging.setOnFailed(e -> logging.getException().printStackTrace());
 
         Thread thread = new Thread(logging);
         thread.start();

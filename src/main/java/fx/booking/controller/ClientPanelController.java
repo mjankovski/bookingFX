@@ -165,9 +165,7 @@ public class ClientPanelController extends SuperController {
             }
         });
 
-        edit.setOnFailed(e -> {
-            edit.getException().printStackTrace();
-        });
+        edit.setOnFailed(e -> edit.getException().printStackTrace());
 
         Thread thread = new Thread(edit);
         thread.start();

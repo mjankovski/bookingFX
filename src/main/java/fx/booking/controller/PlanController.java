@@ -392,7 +392,6 @@ public class PlanController extends SuperController {
 
             ClientPanelController controller = fxmlLoader.getController();
             controller.initReservationTable(reservationRepository.getReservationList(accountRepository.getLogin()));
-//TODO accRep
             return tableViewParent;
         }
     }

@@ -53,7 +53,6 @@ public class ReservationDAO {
             long days = DAYS.between(fromDateFormatted,toDateFormatted);
             BigDecimal cost = dailyCost.multiply(new BigDecimal(days));
             int docId = documentDAO.createDocument(cost);
-            //TODO accRep
             jdbcTemplate.update(
                     "INSERT INTO Rezerwacje (NR_FAKTURA,NR_POKOJ,LOGIN,DATA_OD,DATA_DO,WALUTA, KWOTA_REZERWACJI) VALUES (?, ?, ?, ?, ?, ? ,? )",
                     docId, roomNumber, accountRepository.getLogin(), fromDate, toDate, currency, cost

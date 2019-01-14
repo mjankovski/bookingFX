@@ -138,9 +138,7 @@ abstract class SuperController {
             changeScene(event, parent);
         });
 
-        task.setOnFailed(e -> {
-            task.getException().printStackTrace();
-        });
+        task.setOnFailed(e -> task.getException().printStackTrace());
 
         Thread thread = new Thread(task);
         thread.start();
@@ -148,13 +146,10 @@ abstract class SuperController {
 
     void startThreadWithEndingAction(Task<Void> task){
         progressIndicator.visibleProperty().bind(task.runningProperty());
-        task.setOnSucceeded(e -> {
-            disableWhileProgressing(false);
-        });
+        task.setOnSucceeded(e -> disableWhileProgressing(false));
 
-        task.setOnFailed(e -> {
-            task.getException().printStackTrace();
-        });
+
+        task.setOnFailed(e -> task.getException().printStackTrace());
 
         Thread thread = new Thread(task);
         thread.start();

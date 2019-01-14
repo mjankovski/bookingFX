@@ -145,9 +145,7 @@ public class BookingController extends SuperController {
             }
         });
 
-        makeReservation.setOnFailed(e -> {
-            makeReservation.getException().printStackTrace();
-        });
+        makeReservation.setOnFailed(e -> makeReservation.getException().printStackTrace());
 
         Thread thread = new Thread(makeReservation);
         thread.start();
