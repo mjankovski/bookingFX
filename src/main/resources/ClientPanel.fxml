@@ -66,7 +66,7 @@
                   </HBox>
                   <HBox prefHeight="38.0" prefWidth="1000.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <TextField fx:id="nameTextfield" prefHeight="33.0" prefWidth="0.0" promptText="Wpisz imię" HBox.hgrow="ALWAYS">
+                        <TextField fx:id="nameTextfield" prefHeight="33.0" prefWidth="24.0" promptText="Wpisz imię" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets left="50.0" right="50.0" />
                            </HBox.margin>
@@ -82,16 +82,30 @@
                      <children>
                         <VBox alignment="BOTTOM_LEFT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Label fx:id="loginLabel" prefHeight="7.0" prefWidth="422.0" style="-fx-color: #595959;" text="Login:">
+                              <Label prefHeight="7.0" prefWidth="422.0" style="-fx-color: #595959;" text="Login:">
                                  <VBox.margin>
-                                    <Insets left="50.0" />
+                                    <Insets left="50.0" top="10.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label fx:id="loginLabel" text="Label">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="50.0" top="10.0" />
                                  </VBox.margin>
                               </Label>
                            </children>
                         </VBox>
                         <VBox alignment="BOTTOM_LEFT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Label fx:id="passwordLabel" prefHeight="44.0" prefWidth="422.0" style="-fx-color: #595959;" text="Hasło:" />
+                              <Label prefHeight="44.0" prefWidth="423.0" style="-fx-color: #595959;" text="PESEL:">
+                                 <VBox.margin>
+                                    <Insets top="10.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label fx:id="peselLabel" text="Label">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" top="10.0" />
+                                 </VBox.margin>
+                              </Label>
                            </children>
                            <HBox.margin>
                               <Insets left="50.0" />
@@ -99,29 +113,14 @@
                         </VBox>
                      </children>
                   </HBox>
-                  <HBox prefHeight="30.0" prefWidth="1000.0" VBox.vgrow="ALWAYS">
-                     <children>
-                        <TextField fx:id="loginTextField" prefHeight="19.0" prefWidth="427.0" promptText="Wpisz login" HBox.hgrow="ALWAYS">
-                           <HBox.margin>
-                              <Insets left="50.0" right="50.0" />
-                           </HBox.margin>
-                        </TextField>
-                        <PasswordField fx:id="passField" prefHeight="33.0" prefWidth="428.0" promptText="Wpisz hasło" HBox.hgrow="ALWAYS">
-                           <HBox.margin>
-                              <Insets right="50.0" />
-                           </HBox.margin>
-                        </PasswordField>
-                     </children>
-                  </HBox>
                   <HBox prefHeight="19.0" prefWidth="1000.0" VBox.vgrow="ALWAYS">
                      <children>
                         <VBox alignment="BOTTOM_LEFT" prefHeight="59.0" prefWidth="154.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Label fx:id="peselLabel" prefHeight="44.0" prefWidth="423.0" style="-fx-color: #595959;" text="PESEL:">
+                              <Label fx:id="passwordLabel" prefHeight="44.0" prefWidth="422.0" style="-fx-color: #595959;" text="Hasło:">
                                  <VBox.margin>
-                                    <Insets left="50.0" right="50.0" />
-                                 </VBox.margin>
-                              </Label>
+                                    <Insets left="50.0" />
+                                 </VBox.margin></Label>
                            </children>
                         </VBox>
                         <VBox alignment="BOTTOM_LEFT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
@@ -140,11 +139,11 @@
                   </HBox>
                   <HBox prefHeight="0.0" prefWidth="1000.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <TextField fx:id="peselTextField" alignment="CENTER" prefHeight="19.0" prefWidth="426.0" promptText="00000000000" HBox.hgrow="ALWAYS">
+                        <PasswordField fx:id="passField" prefHeight="33.0" prefWidth="427.0" promptText="Wpisz hasło" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets left="50.0" right="50.0" />
                            </HBox.margin>
-                        </TextField>
+                        </PasswordField>
                         <TextField fx:id="emailTextField" prefHeight="33.0" prefWidth="423.0" promptText="Wpisz swój e-mail" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets right="50.0" />
@@ -206,9 +205,14 @@
                               <Insets bottom="20.0" right="20.0" />
                            </HBox.margin>
                         </TextField>
-                        <Button fx:id="editButton" alignment="CENTER" mnemonicParsing="false" onAction="#editButtonClicked" prefHeight="54.0" prefWidth="164.0" text="EDYTUJ" HBox.hgrow="ALWAYS">
+                        <Button fx:id="resetButton" mnemonicParsing="false" onAction="#resetButtonClicked" prefHeight="33.0" prefWidth="156.0" text="RESETUJ" HBox.hgrow="ALWAYS">
                            <HBox.margin>
-                              <Insets bottom="20.0" left="180.0" right="20.0" />
+                              <Insets bottom="20.0" left="50.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="editButton" alignment="CENTER" mnemonicParsing="false" onAction="#editButtonClicked" prefHeight="33.0" prefWidth="161.0" text="EDYTUJ" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets bottom="20.0" left="50.0" right="20.0" />
                            </HBox.margin>
                         </Button>
                      </children>
@@ -240,10 +244,10 @@
             <Insets left="150.0" right="150.0" />
          </padding>
       </HBox>
-      <HBox alignment="CENTER" prefHeight="0.0" prefWidth="1200.0" spacing="100.0" VBox.vgrow="ALWAYS">
+      <HBox alignment="CENTER" prefHeight="107.0" prefWidth="1200.0" spacing="100.0" VBox.vgrow="ALWAYS">
          <children>
             <Button fx:id="planButton" mnemonicParsing="false" onAction="#planButtonClicked" prefHeight="33.0" prefWidth="106.0" text="PLAN" />
-            <ProgressIndicator fx:id="progressIndicator" prefHeight="82.0" prefWidth="88.0" progress="0.0" />
+            <ProgressIndicator fx:id="progressIndicator" prefHeight="68.0" prefWidth="93.0" progress="0.0" />
             <Button fx:id="invoiceButton" mnemonicParsing="false" onAction="#invoiceButtonClicked" text="FAKTURA" />
          </children>
       </HBox>
