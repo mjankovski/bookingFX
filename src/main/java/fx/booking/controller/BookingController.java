@@ -204,6 +204,8 @@ public class BookingController {
 
         progressIndicator.setProgress(ProgressBar.INDETERMINATE_PROGRESS);
         progressIndicator.setVisible(false);
+
+        makeFadeIn();
     }
 
     @FXML
@@ -220,7 +222,6 @@ public class BookingController {
         for (Reservation reservation : list) {
             reservationTable.getItems().add(reservation);
         }
-        makeFadeIn();
     }
 
     @FXML
@@ -373,6 +374,7 @@ public class BookingController {
                 }
             }
             else{
+                initReservationTable(reservationKeeper.getReservationList(selectedRoom.getNumber()));
                 return 3;
             }
         }
