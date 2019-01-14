@@ -80,6 +80,15 @@ public class WelcomeController extends SuperController{
         }
     }
 
+    @FXML
+    public void passTextFieldPressed(KeyEvent event) {
+        if(event.getCode() == KeyCode.ENTER) {
+            disableWhileProgressing(true);
+            logging = new Logging();
+            startThreadWithCondition(event);
+        }
+    }
+
     class Logging extends Task<Parent> {
         @Override
         protected Parent call() throws Exception {

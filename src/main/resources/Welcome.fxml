@@ -56,7 +56,7 @@
                      </VBox.margin>
                   </TextField>
                   <Label fx:id="passLabel" alignment="CENTER" text="Hasło:" VBox.vgrow="ALWAYS" />
-                  <PasswordField fx:id="passTextField" alignment="CENTER" prefHeight="57.0" prefWidth="344.0" promptText="hasło" VBox.vgrow="ALWAYS">
+                  <PasswordField fx:id="passTextField" alignment="CENTER" onKeyPressed="#passTextFieldPressed" prefHeight="57.0" prefWidth="344.0" promptText="hasło" VBox.vgrow="ALWAYS">
                      <font>
                         <Font size="26.0" />
                      </font>
