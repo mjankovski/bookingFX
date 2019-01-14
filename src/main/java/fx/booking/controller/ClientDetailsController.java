@@ -2,18 +2,15 @@ package fx.booking.controller;
 
 import fx.booking.dao.ReservationDAO;
 import fx.booking.repository.Reservation;
-import fx.booking.repository.ReservationKeeper;
+import fx.booking.repository.ReservationRepository;
+
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -22,9 +19,8 @@ import java.util.List;
 @Controller
 public class ClientDetailsController extends SuperController {
 
-
     @Autowired
-    private ReservationKeeper reservationKeeper;
+    private ReservationRepository reservationRepository;
 
     @Autowired
     private ReservationDAO reservationDAO;
@@ -66,9 +62,6 @@ public class ClientDetailsController extends SuperController {
     private ProgressIndicator progressIndicator;
 
     @FXML
-    private DeleteReservation deleteReservation;
-
-    @FXML
     public void initialize() {
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
 
@@ -93,7 +86,7 @@ public class ClientDetailsController extends SuperController {
     @FXML
     void initReservationTable(String login) {
         reservationTable.getItems().clear();
-        List<Reservation> list = reservationKeeper.getReservationList(login);
+        List<Reservation> list = reservationRepository.getReservationList(login);
         for (Reservation reservation : list) {
             reservationTable.getItems().add(reservation);
         }
@@ -104,7 +97,7 @@ public class ClientDetailsController extends SuperController {
     @FXML
     void deleteButtonPressed() {
         disableWhileProgressing(true);
-        deleteReservation = new DeleteReservation();
+        DeleteReservation deleteReservation = new DeleteReservation();
         startThreadWithEndingAction(deleteReservation);
     }
 

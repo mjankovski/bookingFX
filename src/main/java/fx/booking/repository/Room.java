@@ -1,6 +1,7 @@
 package fx.booking.repository;
 
 import javafx.collections.ObservableList;
+
 import lombok.Data;
 
 import java.math.BigDecimal;

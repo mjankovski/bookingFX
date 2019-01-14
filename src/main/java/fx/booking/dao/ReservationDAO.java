@@ -1,5 +1,7 @@
 package fx.booking.dao;
 
+import fx.booking.repository.AccountRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -15,10 +17,10 @@ import static java.time.temporal.ChronoUnit.DAYS;
 public class ReservationDAO {
 
     @Autowired
-    private DocumentDAO documentDAO;
+    private AccountRepository accountRepository;
 
     @Autowired
-    private AccountDAO accountDAO;
+    private DocumentDAO documentDAO;
 
     private JdbcTemplate jdbcTemplate;
 
@@ -54,7 +56,7 @@ public class ReservationDAO {
             //TODO accRep
             jdbcTemplate.update(
                     "INSERT INTO Rezerwacje (NR_FAKTURA,NR_POKOJ,LOGIN,DATA_OD,DATA_DO,WALUTA, KWOTA_REZERWACJI) VALUES (?, ?, ?, ?, ?, ? ,? )",
-                    docId, roomNumber, accountDAO.getLogin(), fromDate, toDate, currency, cost
+                    docId, roomNumber, accountRepository.getLogin(), fromDate, toDate, currency, cost
             );
         }
     }

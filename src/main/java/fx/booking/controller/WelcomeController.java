@@ -1,19 +1,20 @@
 package fx.booking.controller;
 
 import fx.booking.dao.AccountDAO;
+import fx.booking.repository.AccountRepository;
 
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
-import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.ProgressIndicator;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Controller;
 
 @Controller
@@ -21,6 +22,9 @@ public class WelcomeController extends SuperController{
 
     @Autowired
     private AccountDAO accountDAO;
+
+    @Autowired
+    private AccountRepository accountRepository;
 
     @FXML
     private VBox mainVBox;
@@ -65,7 +69,7 @@ public class WelcomeController extends SuperController{
             int login = accountDAO.login(loginTextField.getText(),passTextField.getText());
 
             if(login==1) {
-                accountDAO.getAccountInformation(loginTextField.getText());
+                accountRepository.setAccountInformation(loginTextField.getText());
                 return loadScene("/Plan.fxml");
             }
             else if(login==2){
@@ -85,11 +89,11 @@ public class WelcomeController extends SuperController{
     }
 
     private void startThreadWithCondition(Task<Parent> task, Event event){
-        progressIndicator.visibleProperty().bind(logging.runningProperty());
+        progressIndicator.visibleProperty().bind(task.runningProperty());
 
-        logging.setOnSucceeded(e -> {
+        task.setOnSucceeded(e -> {
             disableWhileProgressing(false);
-            Parent parent = logging.getValue();
+            Parent parent = task.getValue();
             if(parent == null) {
                 showAlertInfo("Błędne dane logowania!");
                 return;
@@ -97,11 +101,11 @@ public class WelcomeController extends SuperController{
             changeScene(event, parent);
         });
 
-        logging.setOnFailed(e -> {
-            logging.getException().printStackTrace();
+        task.setOnFailed(e -> {
+            task.getException().printStackTrace();
         });
 
-        Thread thread = new Thread(logging);
+        Thread thread = new Thread(task);
         thread.start();
     }
 }

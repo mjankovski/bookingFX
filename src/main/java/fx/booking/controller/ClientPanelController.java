@@ -1,8 +1,10 @@
 package fx.booking.controller;
 
-import fx.booking.DocumentGenerator;
+import fx.booking.helpers.DocumentGenerator;
 import fx.booking.dao.*;
+import fx.booking.repository.AccountRepository;
 import fx.booking.repository.Reservation;
+
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -10,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -18,7 +21,8 @@ import java.time.LocalDate;
 @Controller
 public class ClientPanelController extends SuperController {
 
-    //TODO tutaj trzeba bedzie wstawic AccountRepository
+    @Autowired
+    private AccountRepository accountRepository;
 
     @Autowired
     private DocumentDAO documentDAO;
@@ -192,7 +196,7 @@ public class ClientPanelController extends SuperController {
                         partFourCardNumberTextField1.getText() + partFourCardNumberTextField2.getText() + partFourCardNumberTextField3.getText() + partFourCardNumberTextField4.getText(),
                         directionNumbertextField.getText() + phoneNumberTextField.getText()
                 );
-                updateInformations(accountDAO.getLogin(), passField.getText(),
+                updateInformations(accountRepository.getLogin(), passField.getText(),
                         nameTextfield.getText(),
                         surnameTextField.getText(),
                         emailTextField.getText(),
@@ -246,17 +250,17 @@ public class ClientPanelController extends SuperController {
     }
 
     private void setClientInfo() {
-        nameTextfield.setText(accountDAO.getFirstname());
-        surnameTextField.setText(accountDAO.getLastname());
-        loginLabel.setText(accountDAO.getLogin());
+        nameTextfield.setText(accountRepository.getFirstname());
+        surnameTextField.setText(accountRepository.getLastname());
+        loginLabel.setText(accountRepository.getLogin());
         passField.setText("");
-        peselLabel.setText(accountDAO.getPesel());
-        emailTextField.setText(accountDAO.getEmail());
-        partFourCardNumberTextField1.setText(accountDAO.getCreditCardNumber().substring(0, 4));
-        partFourCardNumberTextField2.setText(accountDAO.getCreditCardNumber().substring(4, 8));
-        partFourCardNumberTextField3.setText(accountDAO.getCreditCardNumber().substring(8, 12));
-        partFourCardNumberTextField4.setText(accountDAO.getCreditCardNumber().substring(12, 16));
-        directionNumbertextField.setText(accountDAO.getPhoneNumber().substring(0, 2));
-        phoneNumberTextField.setText(accountDAO.getPhoneNumber().substring(2, 11));
+        peselLabel.setText(accountRepository.getPesel());
+        emailTextField.setText(accountRepository.getEmail());
+        partFourCardNumberTextField1.setText(accountRepository.getCreditCardNumber().substring(0, 4));
+        partFourCardNumberTextField2.setText(accountRepository.getCreditCardNumber().substring(4, 8));
+        partFourCardNumberTextField3.setText(accountRepository.getCreditCardNumber().substring(8, 12));
+        partFourCardNumberTextField4.setText(accountRepository.getCreditCardNumber().substring(12, 16));
+        directionNumbertextField.setText(accountRepository.getPhoneNumber().substring(0, 2));
+        phoneNumberTextField.setText(accountRepository.getPhoneNumber().substring(2, 11));
     }
 }

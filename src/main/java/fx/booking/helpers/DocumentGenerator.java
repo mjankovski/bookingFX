@@ -1,8 +1,7 @@
-package fx.booking;
+package fx.booking.helpers;
 
 import java.io.FileOutputStream;
 import java.math.BigDecimal;
-import java.rmi.server.ExportException;
 import java.text.DecimalFormat;
 import java.util.Map;
 
@@ -32,8 +31,6 @@ public class DocumentGenerator {
             addMetaData(document);
             addTitlePage(document, documentInfo);
             document.close();
-        } catch(NullPointerException e){
-
         } catch(Exception e){
             e.printStackTrace();
         }
@@ -119,28 +116,28 @@ public class DocumentGenerator {
 
         DecimalFormat df = new DecimalFormat("###.00");
 
-        table2.addCell(getCell2("1", PdfPCell.ALIGN_CENTER));
-        table2.addCell(getCell2("Rezerwacja nr " + documentInfo.get("ID_REZERWACJA").toString(), PdfPCell.ALIGN_CENTER));
-        table2.addCell(getCell2(df.format((((BigDecimal) documentInfo.get("KWOTA_FAKTURY")).multiply(new BigDecimal("0.77")))).toString(), PdfPCell.ALIGN_CENTER));
-        table2.addCell(getCell2("23%", PdfPCell.ALIGN_CENTER));
-        table2.addCell(getCell2(df.format((((BigDecimal) documentInfo.get("KWOTA_FAKTURY")).multiply(new BigDecimal("0.77")))).toString(), PdfPCell.ALIGN_CENTER));
-        table2.addCell(getCell2(df.format((((BigDecimal) documentInfo.get("KWOTA_FAKTURY")).multiply(new BigDecimal("0.23")))).toString(), PdfPCell.ALIGN_CENTER));
-        table2.addCell(getCell2(df.format(documentInfo.get("KWOTA_FAKTURY")), PdfPCell.ALIGN_CENTER));
+        table2.addCell(getCell2("1"));
+        table2.addCell(getCell2("Rezerwacja nr " + documentInfo.get("ID_REZERWACJA").toString()));
+        table2.addCell(getCell2(df.format((((BigDecimal) documentInfo.get("KWOTA_FAKTURY")).multiply(new BigDecimal("0.77"))))));
+        table2.addCell(getCell2("23%"));
+        table2.addCell(getCell2(df.format((((BigDecimal) documentInfo.get("KWOTA_FAKTURY")).multiply(new BigDecimal("0.77"))))));
+        table2.addCell(getCell2(df.format((((BigDecimal) documentInfo.get("KWOTA_FAKTURY")).multiply(new BigDecimal("0.23"))))));
+        table2.addCell(getCell2(df.format(documentInfo.get("KWOTA_FAKTURY"))));
 
         preface.add(table2);
 
         addEmptyLine(preface, 4);
 
-        preface.add(getParagraph("Razem: " + df.format(documentInfo.get("KWOTA_FAKTURY")) + " " + documentInfo.get("WALUTA") , Element.ALIGN_RIGHT));
+        preface.add(getParagraph("Razem: " + df.format(documentInfo.get("KWOTA_FAKTURY")) + " " + documentInfo.get("WALUTA")));
 
         document.add(preface);
 
         document.newPage();
     }
 
-    private static Paragraph getParagraph(String text, int align){
+    private static Paragraph getParagraph(String text){
         Paragraph paragraph = new Paragraph(text);
-        paragraph.setAlignment(align);
+        paragraph.setAlignment(Element.ALIGN_RIGHT);
         return paragraph;
     }
 
@@ -152,11 +149,11 @@ public class DocumentGenerator {
         return cell;
     }
 
-    private static PdfPCell getCell2(String text, int alignment) {
+    private static PdfPCell getCell2(String text) {
         PdfPCell cell = new PdfPCell(new Phrase(text));
         cell.setPaddingTop(2);
         cell.setPaddingBottom(5);
-        cell.setHorizontalAlignment(alignment);
+        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
         return cell;
     }
 

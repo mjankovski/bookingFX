@@ -1,4 +1,4 @@
-package fx.booking;
+package fx.booking.configuration;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
 
@@ -13,7 +13,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import javax.sql.DataSource;
 
 @Configuration
-@ComponentScan
+@ComponentScan("fx.booking")
 @PropertySource("classpath:dbconfig.properties")
 public class SpringJDBCConfiguration {
 
