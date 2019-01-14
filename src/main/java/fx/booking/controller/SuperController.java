@@ -89,7 +89,6 @@ abstract class SuperController {
         ObservableList<Node> footerChildren = footerHBox.getChildren();
         for(Node child: footerChildren) {
             if(!child.getId().equals("progressIndicator")) {
-                System.out.println(child.getId());
                 child.setDisable(isDisabled);
             }
 

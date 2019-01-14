@@ -75,9 +75,6 @@ public class BookingController extends SuperController {
     private TableColumn<Reservation, LocalDate> toDateColumn;
 
     @FXML
-    private ObservableList<Reservation> reservationsList;
-
-    @FXML
     private RadioButton plnRadioButton;
 
     @FXML
@@ -136,7 +133,7 @@ public class BookingController extends SuperController {
     }
 
     @FXML
-    public void reservationButtonClicked(ActionEvent event) {
+    public void reservationButtonClicked() {
         disableWhileProgressing(true);
         makeReservation = new MakeReservation();
         progressIndicator.visibleProperty().bind(makeReservation.runningProperty());
@@ -178,6 +175,7 @@ public class BookingController extends SuperController {
         protected Integer call() {
             if (reservationDAO.checkIfRoomFree(Integer.valueOf(roomNumberLabel.getText()), fromDatePicker.getValue().toString(), toDatePicker.getValue().toString())) {
                 try {
+                    ObservableList<Reservation> reservationsList;
                     reservationDAO.insertReservation(Integer.valueOf(roomNumberLabel.getText()), fromDatePicker.getValue().toString(), toDatePicker.getValue().toString(), new BigDecimal(costLabel.getText()), actualCurrency);
                     reservationsList = reservationKeeper.getReservationList(selectedRoom.getNumber());
                     reservationTable.getItems().add(reservationsList.get(reservationsList.size() - 1));

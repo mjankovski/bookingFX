@@ -17,12 +17,7 @@
     -fx-color: white;
 }
 
-#filtersLabel
-{
-    -fx-font-size: 250%;
-}
-
-#planLabelHbox
+#filtersLabel, #planLabelHbox
 {
     -fx-font-size: 250%;
 }
@@ -41,9 +36,15 @@
 {
     -fx-border-radius: 10px;
     -fx-background-radius: 10px;
+    -fx-font-size: 100%;
 }
 
-#logOutButton
+#mapPane > .button:hover
+{
+    -fx-text-fill: yellow;
+}
+
+.button
 {
     -fx-background-color: #3399CC;
     -fx-font-size: 150%;
@@ -52,7 +53,7 @@
     -fx-text-fill: white;
 }
 
-#logOutButton:hover
+.button:hover
 {
     -fx-background-color: #1177AA;
 }
