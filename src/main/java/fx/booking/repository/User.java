@@ -23,7 +23,7 @@ public class User {
 
     private int permissions;
 
-    public User(String login, String firstName, String lastName, String email, BigDecimal creditCardNumber, BigDecimal pesel, BigDecimal phoneNumber, int permissions) {
+    User(String login, String firstName, String lastName, String email, BigDecimal creditCardNumber, BigDecimal pesel, BigDecimal phoneNumber, int permissions) {
         this.login = login;
         this.firstName = firstName;
         this.lastName = lastName;

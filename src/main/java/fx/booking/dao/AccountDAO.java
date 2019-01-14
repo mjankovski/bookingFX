@@ -41,7 +41,7 @@ public class AccountDAO{
     }
 
     @SneakyThrows
-    public boolean createAccount(String login, String pw, String firstname, String lastname, String email, String creditCardNumber, String pesel, String phoneNumber, int permissions)
+    public void createAccount(String login, String pw, String firstname, String lastname, String email, String creditCardNumber, String pesel, String phoneNumber, int permissions)
             throws InvalidCreditCardNumberException, InvalidPeselException, InvalidPhoneNumberException,
             InvalidEmailException, DuplicateKeyException, NoSuchAlgorithmException {
 
@@ -53,7 +53,6 @@ public class AccountDAO{
                 "INSERT INTO mjankovski.Uzytkownicy (LOGIN, HASLO, IMIE, NAZWISKO, EMAIL, NR_KARTY_KRED, PESEL, NR_TEL, TOKEN, UPRAWNIENIA) VALUES (?, ?, ?, ?, ?, ? ,? ,?, ?, ?)",
                 login, pwH, firstname, lastname, email, creditCardNumber, pesel, phoneNumber, salt, permissions
         );
-        return true;
     }
 
     private byte[] getSalt(String login){

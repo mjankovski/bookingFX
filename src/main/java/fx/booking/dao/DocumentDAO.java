@@ -21,7 +21,7 @@ public class DocumentDAO {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public int createDocument(BigDecimal cost){
+    int createDocument(BigDecimal cost){
         KeyHolder key = new GeneratedKeyHolder();
 
         jdbcTemplate.update(connection -> {

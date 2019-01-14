@@ -21,11 +21,7 @@ public class ReservationKeeper {
 
         List<Map<String,Object>> rooms = reservationDAO.getRoomReservations(roomNumber);
 
-        for (Map<String,Object> room: rooms) {
-            reservationList.add(new Reservation((int)room.get("ID_REZERWACJA"), (int)room.get("NR_FAKTURA"), (int)room.get("NR_POKOJ"),
-                    (String)room.get("LOGIN"), room.get("DATA_OD").toString(), room.get("DATA_DO").toString(),
-                    (String)room.get("WALUTA"), (BigDecimal)room.get("KWOTA_REZERWACJI")));
-        }
+        addReservationsToList(rooms, reservationList);
 
         return reservationList;
     }
@@ -35,12 +31,16 @@ public class ReservationKeeper {
 
         List<Map<String,Object>> rooms = reservationDAO.getAccountReservations(login);
 
+        addReservationsToList(rooms, reservationList);
+
+        return reservationList;
+    }
+
+    private void addReservationsToList(List<Map<String,Object>> rooms, ObservableList<Reservation> reservations){
         for (Map<String,Object> room: rooms) {
-            reservationList.add(new Reservation((int)room.get("ID_REZERWACJA"), (int)room.get("NR_FAKTURA"), (int)room.get("NR_POKOJ"),
+            reservations.add(new Reservation((int)room.get("ID_REZERWACJA"), (int)room.get("NR_FAKTURA"), (int)room.get("NR_POKOJ"),
                     (String)room.get("LOGIN"), room.get("DATA_OD").toString(), room.get("DATA_DO").toString(),
                     (String)room.get("WALUTA"), (BigDecimal)room.get("KWOTA_REZERWACJI")));
         }
-
-        return reservationList;
     }
 }

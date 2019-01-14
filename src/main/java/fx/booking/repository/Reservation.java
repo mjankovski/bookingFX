@@ -16,7 +16,7 @@ public class Reservation {
     private String currency;
     private BigDecimal cost;
 
-    public Reservation(int id, int invoiceNumber, int roomNumber, String login, String beginningDate, String endingDate, String currency, BigDecimal cost) {
+    Reservation(int id, int invoiceNumber, int roomNumber, String login, String beginningDate, String endingDate, String currency, BigDecimal cost) {
         this.id = id;
         this.invoiceNumber = invoiceNumber;
         this.roomNumber = roomNumber;

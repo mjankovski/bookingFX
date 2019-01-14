@@ -282,23 +282,19 @@ public class PlanController extends SuperController {
 
     @FXML
     private void filter() {
-
         BigDecimal minPrice = new BigDecimal(fromPriceTextField.getText());
         BigDecimal maxPrice = new BigDecimal(toPriceTextField.getText());
 
-        //TODO
         for (Button button : allRoomButtons) {
             BigDecimal roomPrice = roomList.get(button).getDailyCost();
-            if ((onePeopleCheckBox.isSelected()) && (roomList.get(button)).getPeopleSize() == 1 && (roomPrice.compareTo(minPrice) > 0 || roomPrice.compareTo(minPrice) == 0) &&
-                    (roomPrice.compareTo(maxPrice) < 0 || roomPrice.compareTo(maxPrice) == 0)) {
+            final boolean priceCondition = (roomPrice.compareTo(minPrice) > 0 || roomPrice.compareTo(minPrice) == 0) && (roomPrice.compareTo(maxPrice) < 0 || roomPrice.compareTo(maxPrice) == 0);
+            if ((onePeopleCheckBox.isSelected()) && (roomList.get(button)).getPeopleSize() == 1 && priceCondition) {
                 button.setStyle("-fx-background-color: green");
             }
-            else if ((twoPeopleCheckBox.isSelected()) && (roomList.get(button)).getPeopleSize() == 2 && (roomPrice.compareTo(minPrice) > 0 || roomPrice.compareTo(minPrice) == 0) &&
-                    (roomPrice.compareTo(maxPrice) < 0 || roomPrice.compareTo(maxPrice) == 0)) {
+            else if ((twoPeopleCheckBox.isSelected()) && (roomList.get(button)).getPeopleSize() == 2 && priceCondition) {
                 button.setStyle("-fx-background-color: green");
             }
-            else if ((fourPeopleCheckBox.isSelected()) && (roomList.get(button)).getPeopleSize() == 4 && (roomPrice.compareTo(minPrice) > 0 || roomPrice.compareTo(minPrice) == 0) &&
-                    (roomPrice.compareTo(maxPrice) < 0 || roomPrice.compareTo(maxPrice) == 0)) {
+            else if ((fourPeopleCheckBox.isSelected()) && (roomList.get(button)).getPeopleSize() == 4 && priceCondition) {
                 button.setStyle("-fx-background-color: green");
             } else {
                 button.setStyle("-fx-background-color: red");

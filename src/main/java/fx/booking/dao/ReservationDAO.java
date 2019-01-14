@@ -41,7 +41,7 @@ public class ReservationDAO {
         return true;
     }
 
-    public boolean insertReservation(int roomNumber, String fromDate, String toDate, BigDecimal dailyCost, String currency){
+    public void insertReservation(int roomNumber, String fromDate, String toDate, BigDecimal dailyCost, String currency){
         final LocalDate fromDateFormatted = LocalDate.parse(fromDate);
         final LocalDate toDateFormatted = LocalDate.parse(toDate);
         LocalDate today = LocalDate.now();
@@ -57,9 +57,7 @@ public class ReservationDAO {
                     "INSERT INTO Rezerwacje (NR_FAKTURA,NR_POKOJ,LOGIN,DATA_OD,DATA_DO,WALUTA, KWOTA_REZERWACJI) VALUES (?, ?, ?, ?, ?, ? ,? )",
                     docId, roomNumber, accountDAO.getLogin(), fromDate, toDate, currency, cost
             );
-            return true;
         }
-        return false;
     }
 
     public void deleteReservation(int reservationId){

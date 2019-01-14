@@ -13,10 +13,7 @@ public class Room {
     private int peopleSize;
     private ObservableList<Reservation> reservationsList;
 
-    public Room() {
-    }
-
-    public Room(int number, int peopleSize, BigDecimal dailyCost) {
+    Room(int number, int peopleSize, BigDecimal dailyCost) {
         this.number = number;
         this.dailyCost = dailyCost;
         this.peopleSize = peopleSize;
