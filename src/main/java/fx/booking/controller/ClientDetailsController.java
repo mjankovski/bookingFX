@@ -1,11 +1,9 @@
 package fx.booking.controller;
 
-import com.sun.javaws.progress.Progress;
-import fx.booking.dao.AccountDAO;
 import fx.booking.dao.ReservationDAO;
 import fx.booking.repository.Reservation;
 import fx.booking.repository.ReservationKeeper;
-import fx.booking.repository.User;
+
 import javafx.animation.FadeTransition;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -22,15 +20,15 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Controller;
-import sun.rmi.runtime.Log;
 
 import java.util.List;
 
 @Controller
-public class ClientDetailsController {
+public class ClientDetailsController extends SuperController{
 
     @Autowired
     private ConfigurableApplicationContext springContext;
@@ -137,7 +135,7 @@ public class ClientDetailsController {
             reservationTable.getItems().add(reservation);
         }
         loginLabel.setText(login);
-        makeFadeIn();
+        makeFadeIn(mainVBox);
     }
 
     @FXML
@@ -235,11 +233,7 @@ public class ClientDetailsController {
     class Back extends Task<Parent> {
         @Override
         protected Parent call() throws Exception {
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setControllerFactory(springContext::getBean);
-            fxmlLoader.setLocation(getClass().getResource("/AdminPanel.fxml"));
-            Parent tableViewParent = fxmlLoader.load();
-            return tableViewParent;
+            return loadScene("/AdminPanel.fxml");
         }
     }
 
@@ -265,14 +259,4 @@ public class ClientDetailsController {
     void userSelected(MouseEvent event) {
         deleteButton.setDisable(false);
     }
-
-    private void makeFadeIn() {
-        FadeTransition fadeTransition = new FadeTransition();
-        fadeTransition.setDuration((Duration.seconds(1)));
-        fadeTransition.setNode(mainVBox);
-        fadeTransition.setFromValue(0);
-        fadeTransition.setToValue(1);
-        fadeTransition.play();
-    }
-
 }

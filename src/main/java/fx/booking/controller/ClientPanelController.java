@@ -3,22 +3,17 @@ package fx.booking.controller;
 import fx.booking.DocumentGenerator;
 import fx.booking.dao.*;
 import fx.booking.repository.Reservation;
-import javafx.animation.FadeTransition;
+
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-import javafx.util.Duration;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -27,7 +22,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 
 @Controller
-public class ClientPanelController {
+public class ClientPanelController extends SuperController{
     @Autowired
     private ConfigurableApplicationContext springContext;
 
@@ -162,21 +157,21 @@ public class ClientPanelController {
         for (Reservation reservation : list) {
             reservationTable.getItems().add(reservation);
         }
-        makeFadeIn();
+        makeFadeIn(mainVBox);
     }
 
     @FXML
-    public void reservationSelected(MouseEvent event) throws IOException {
+    public void reservationSelected() {
         invoiceButton.setDisable(false);
     }
 
     @FXML
-    public void invoiceButtonClicked(ActionEvent event) throws IOException {
+    public void invoiceButtonClicked() {
         System.out.println(reservationTable.getSelectionModel().getSelectedItem().getId());
         documentGenerator.generateDocument(documentDAO.getDocumentsInformation(reservationTable.getSelectionModel().getSelectedItem().getId()));
     }
     @FXML
-    public void resetButtonClicked(ActionEvent event) {
+    public void resetButtonClicked() {
         initTextFields();
     }
 
@@ -189,11 +184,8 @@ public class ClientPanelController {
             enableWhileProgressing();
             Parent parent = plan.getValue();
             enableWhileProgressing();
-            Scene scene = new Scene(parent);
 
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            window.setScene(scene);
-            window.show();
+            changeScene(event, parent);
         });
 
         plan.setOnFailed(e -> {
@@ -219,22 +211,22 @@ public class ClientPanelController {
                 button.setText("EDYTUJ");
             }
             else if(edit.getValue() == 2) {
-                showAlert("Błąd!", "Pola nie moga byc puste lub krotsze niz 3 znaki!", Alert.AlertType.ERROR);
+                showAlertInfo("Pola nie moga byc puste lub krotsze niz 3 znaki!");
                 initTextFields();
                 button.setText("EDYTUJ");
             }
             else if(edit.getValue() == 3) {
-                showAlert("Błąd!", "Błędny adres e-mail!", Alert.AlertType.ERROR);
+                showAlertInfo("Błędny adres e-mail!");
                 initTextFields();
                 button.setText("EDYTUJ");
             }
             else if(edit.getValue() == 4) {
-                showAlert("Błąd!", "Błędny adres e-mail!", Alert.AlertType.ERROR);
+                showAlertInfo("Błędny adres e-mail!");
                 initTextFields();
                 button.setText("EDYTUJ");
             }
             else if(edit.getValue() == 5) {
-                showAlert("Błąd!", "Błędny numer karty kredytowej!", Alert.AlertType.ERROR);
+                showAlertInfo("Błędny numer karty kredytowej!");
                 initTextFields();
                 button.setText("EDYTUJ");
             }
@@ -248,6 +240,7 @@ public class ClientPanelController {
         thread.start();
     }
 
+    //TODO te 2 metody nizej polacz i zrob 1 z argumentem boolean
     private void disableWhileProgressing() {
         titleHBox.setDisable(true);
         panelLabelHBox.setDisable(true);
@@ -271,11 +264,7 @@ public class ClientPanelController {
     class Plan extends Task<Parent> {
         @Override
         protected Parent call() throws Exception {
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setControllerFactory(springContext::getBean);
-            fxmlLoader.setLocation(getClass().getResource("/Plan.fxml"));
-            Parent tableViewParent = fxmlLoader.load();
-            return tableViewParent;
+            return loadScene("/Plan.fxml");
         }
     }
 
@@ -286,6 +275,7 @@ public class ClientPanelController {
             this.event = event;
         }
 
+        //TODO to nizej tez trzeba ujednolicic
         private void setFields(boolean isDisabled) {
             nameTextfield.setDisable(isDisabled);
             surnameTextField.setDisable(isDisabled);
@@ -324,16 +314,12 @@ public class ClientPanelController {
                         directionNumbertextField.getText() + phoneNumberTextField.getText());
             } catch (IllegalArgumentException e) {
                 return 2;
-                //showAlert("Błąd!", "Pola nie moga byc puste lub krotsze niz 3 znaki!", Alert.AlertType.ERROR);
             } catch (InvalidEmailException e) {
                 return 3;
-                // showAlert("Błąd!", "Błędny adres e-mail!", Alert.AlertType.ERROR);
             } catch (InvalidPhoneNumberException e) {
                 return 4;
-                // showAlert("Błąd!", "Błędny adres e-mail!", Alert.AlertType.ERROR);
             } catch (InvalidCreditCardNumberException e) {
                 return 5;
-                // showAlert("Błąd!", "Błędny numer karty kredytowej!", Alert.AlertType.ERROR);
             }
             return 1;
         }
@@ -351,22 +337,8 @@ public class ClientPanelController {
             return -1;
         }
     }
-    private void showAlert(String title, String header, Alert.AlertType type){
-        Alert alert = new Alert(type);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
-        alert.showAndWait();
-    }
 
-    private void makeFadeIn() {
-        FadeTransition fadeTransition = new FadeTransition();
-        fadeTransition.setDuration((Duration.seconds(1)));
-        fadeTransition.setNode(mainVBox);
-        fadeTransition.setFromValue(0);
-        fadeTransition.setToValue(1);
-        fadeTransition.play();
-    }
-
+    //TODO tu  te wszystkie setDisable dla kazdego z fieldow zastapic wywolaniem 1 metody ktora ustawia wszystko
     private void initTextFields() {
         resetButton.setDisable(true);
         invoiceButton.setDisable(true);
