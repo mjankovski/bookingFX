@@ -8,16 +8,12 @@ import fx.booking.dao.CurrencyDAO;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 
 @Service
 public class NbpApi {
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
-
     @Autowired
     private CurrencyDAO currencyDAO;
 
