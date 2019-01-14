@@ -92,7 +92,6 @@ public class AccountDAO{
     public void updateInformation(String login, String pw, String firstname, String lastname, String email,
                                   String creditCardNumber, String phoneNumber){
         byte[] salt = jdbcTemplate.queryForObject("SELECT token FROM Uzytkownicy WHERE LOGIN = ?", byte[].class, login);
-        System.out.println(salt);
 
         if(!pw.equals("")) {
             jdbcTemplate.update("UPDATE Uzytkownicy " +

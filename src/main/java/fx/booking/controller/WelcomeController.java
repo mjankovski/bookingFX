@@ -108,9 +108,9 @@ public class WelcomeController extends SuperController{
     private void startThreadWithCondition(Event event){
         progressIndicator.visibleProperty().bind(logging.runningProperty());
 
-        task.setOnSucceeded(e -> {
+        logging.setOnSucceeded(e -> {
             disableWhileProgressing(false);
-            Parent parent = task.getValue();
+            Parent parent = logging.getValue();
             if(parent == null) {
                 showAlertInfo("Błędne dane logowania!");
                 return;
@@ -118,11 +118,11 @@ public class WelcomeController extends SuperController{
             changeScene(event, parent);
         });
 
-        task.setOnFailed(e -> {
-            task.getException().printStackTrace();
+        logging.setOnFailed(e -> {
+            logging.getException().printStackTrace();
         });
 
-        Thread thread = new Thread(task);
+        Thread thread = new Thread(logging);
         thread.start();
     }
 }
