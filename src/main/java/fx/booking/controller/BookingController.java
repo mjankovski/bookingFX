@@ -3,7 +3,6 @@ package fx.booking.controller;
 import fx.booking.api.NbpApi;
 import fx.booking.dao.ReservationDAO;
 import fx.booking.repository.Reservation;
-
 import fx.booking.repository.ReservationKeeper;
 import fx.booking.repository.Room;
 import javafx.collections.ObservableList;
@@ -11,15 +10,10 @@ import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
-
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
@@ -27,10 +21,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Controller
-public class BookingController extends SuperController{
-
-    @Autowired
-    private ConfigurableApplicationContext springContext;
+public class BookingController extends SuperController {
 
     @Autowired
     private ReservationDAO reservationDAO;
@@ -45,49 +36,13 @@ public class BookingController extends SuperController{
     private VBox mainVBox;
 
     @FXML
-    private HBox titleHBox;
-
-    @FXML
-    private HBox roomInfoHBox;
-
-    @FXML
-    private HBox descriptionHBox;
-
-    @FXML
-    private HBox reservationTitleHBox;
-
-    @FXML
-    private HBox tableHBox;
-
-    @FXML
-    private ScrollPane bookingScrollPane;
-
-    @FXML
-    private TextArea outputTextArea;
-
-    @FXML
     private Label currencyLabel;
-
-    @FXML
-    private Pane outputPane;
-
-    @FXML
-    private Label titleLabel;
-
-    @FXML
-    private Pane infoPane;
 
     @FXML
     private Label peopleLabel;
 
     @FXML
     private Label costLabel;
-
-    @FXML
-    private Label bookDateLabel;
-
-    @FXML
-    private Label floorLabel;
 
     @FXML
     private DatePicker fromDatePicker;
@@ -99,40 +54,10 @@ public class BookingController extends SuperController{
     private Label roomNumberLabel;
 
     @FXML
-    private Label fromLabel;
-
-    @FXML
-    private Label toLabel;
-
-    @FXML
-    private Button bookButton;
-
-    @FXML
-    private ButtonBar buttonBar;
-
-    @FXML
-    private Button menuButton;
-
-    @FXML
-    private Button planButton;
-
-    @FXML
-    private Button addButton;
-
-    @FXML
-    private Button deleteButton;
-
-    @FXML
     private Room selectedRoom;
 
     @FXML
-    private Label dateTextLabel;
-
-    @FXML
     private Label dateValueLabel;
-
-    @FXML
-    private Label currencyTextLabel;
 
     @FXML
     private Label currencyValueLabel;
@@ -150,9 +75,6 @@ public class BookingController extends SuperController{
     private TableColumn<Reservation, LocalDate> toDateColumn;
 
     @FXML
-    private ObservableList<Reservation> reservationsList;
-
-    @FXML
     private RadioButton plnRadioButton;
 
     @FXML
@@ -160,12 +82,6 @@ public class BookingController extends SuperController{
 
     @FXML
     private ProgressIndicator progressIndicator;
-
-    @FXML
-    private LogOut logOut;
-
-    @FXML
-    private Plan plan;
 
     @FXML
     private MakeReservation makeReservation;
@@ -208,7 +124,8 @@ public class BookingController extends SuperController{
         currencyLabel.setText("PLN");
     }
 
-    @FXML void initReservationTable(ObservableList<Reservation> list) {
+    @FXML
+    void initReservationTable(ObservableList<Reservation> list) {
         reservationTable.getItems().clear();
         for (Reservation reservation : list) {
             reservationTable.getItems().add(reservation);
@@ -216,16 +133,15 @@ public class BookingController extends SuperController{
     }
 
     @FXML
-    public void reservationButtonClicked(ActionEvent event) throws IOException {
+    public void reservationButtonClicked() {
         disableWhileProgressing(true);
         makeReservation = new MakeReservation();
         progressIndicator.visibleProperty().bind(makeReservation.runningProperty());
         makeReservation.setOnSucceeded(e -> {
             disableWhileProgressing(false);
-            if(makeReservation.getValue() == 2) {
+            if (makeReservation.getValue() == 2) {
                 showAlertInfo("Nie dokonano rezerwacji, ponieważ podano błędną datę!");
-            }
-            else if(makeReservation.getValue() == 3) {
+            } else if (makeReservation.getValue() == 3) {
                 showAlertInfo("Nie dokonano rezerwacji, ponieważ w tych dniach pokój jest już zarezerwowany!");
             }
         });
@@ -241,7 +157,7 @@ public class BookingController extends SuperController{
     @FXML
     void eurRadioButtonSelected() {
         actualCurrency = "EUR";
-        BigDecimal newValue =  selectedRoom.getDailyCost().divide(currencyConverter, 0);
+        BigDecimal newValue = selectedRoom.getDailyCost().divide(currencyConverter, 0);
         costLabel.setText(newValue.toString());
         currencyLabel.setText("EUR");
     }
@@ -249,32 +165,25 @@ public class BookingController extends SuperController{
     @FXML
     void plnRadioButtonSelected() {
         actualCurrency = "PLN";
-        BigDecimal newValue =  selectedRoom.getDailyCost();
+        BigDecimal newValue = selectedRoom.getDailyCost();
         costLabel.setText(newValue.toString());
         currencyLabel.setText("PLN");
     }
 
-    class LogOut extends Task<Parent> {
-        @Override
-        protected Parent call() throws Exception {
-            return loadScene("/Welcome.fxml");
-        }
-    }
-
     class MakeReservation extends Task<Integer> {
         @Override
-        protected Integer call() throws Exception {
-            if(reservationDAO.checkIfRoomFree(Integer.valueOf(roomNumberLabel.getText()), fromDatePicker.getValue().toString(), toDatePicker.getValue().toString())){
+        protected Integer call() {
+            if (reservationDAO.checkIfRoomFree(Integer.valueOf(roomNumberLabel.getText()), fromDatePicker.getValue().toString(), toDatePicker.getValue().toString())) {
                 try {
-                    reservationDAO.insertReservation(Integer.valueOf(roomNumberLabel.getText()), fromDatePicker.getValue().toString(), toDatePicker.getValue().toString(), new BigDecimal(costLabel.getText()),actualCurrency);
+                    ObservableList<Reservation> reservationsList;
+                    reservationDAO.insertReservation(Integer.valueOf(roomNumberLabel.getText()), fromDatePicker.getValue().toString(), toDatePicker.getValue().toString(), new BigDecimal(costLabel.getText()), actualCurrency);
                     reservationsList = reservationKeeper.getReservationList(selectedRoom.getNumber());
                     reservationTable.getItems().add(reservationsList.get(reservationsList.size() - 1));
                     return 1;
-                }catch(IllegalArgumentException e){
+                } catch (IllegalArgumentException e) {
                     return 2;
                 }
-            }
-            else{
+            } else {
                 initReservationTable(reservationKeeper.getReservationList(selectedRoom.getNumber()));
                 return 3;
             }

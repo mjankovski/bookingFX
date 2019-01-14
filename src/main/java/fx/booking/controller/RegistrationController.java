@@ -122,20 +122,23 @@ public class RegistrationController extends SuperController{
             if(event.getCode() == KeyCode.BACK_SPACE || event.getCode() == KeyCode.TAB) {
                 return;
             }
-            if(textField.getId().equals("partFourCardNumberTextField1")) {
-                partFourCardNumberTextField2.requestFocus();
+
+            switch(textField.getId()) {
+                case "partFourCardNumberTextField1":
+                    partFourCardNumberTextField2.requestFocus();
+                    break;
+                case "partFourCardNumberTextField2":
+                    partFourCardNumberTextField3.requestFocus();
+                    break;
+                case "partFourCardNumberTextField3":
+                    partFourCardNumberTextField4.requestFocus();
+                    break;
+                case "partFourCardNumberTextField4":
+                    directionNumberTextField.requestFocus();
+                    break;
             }
-            else if(textField.getId().equals("partFourCardNumberTextField2")) {
-                partFourCardNumberTextField3.requestFocus();
-            }
-            else if(textField.getId().equals("partFourCardNumberTextField3")) {
-                partFourCardNumberTextField4.requestFocus();
-            }
-            else if(textField.getId().equals("partFourCardNumberTextField4")) {
-                directionNumberTextField.requestFocus();
-            }
-            String text = textField.getText().substring(0,4);
-            textField.setText(text);
+                String text = textField.getText().substring(0,4);
+                textField.setText(text);
         }
     }
 

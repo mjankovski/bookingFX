@@ -5,34 +5,27 @@ import fx.booking.dao.AccountDAO;
 import fx.booking.repository.ReservationKeeper;
 import fx.booking.repository.Room;
 import fx.booking.repository.RoomKeeper;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.concurrent.Task;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Controller;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 
 @Controller
-public class PlanController extends SuperController{
+public class PlanController extends SuperController {
 
     @Autowired
     private ConfigurableApplicationContext springContext;
@@ -50,28 +43,7 @@ public class PlanController extends SuperController{
     private VBox mainVBox;
 
     @FXML
-    private HBox titleHBox;
-
-    @FXML
-    private HBox planHBox;
-
-    @FXML
-    private ScrollPane planScrollPane;
-
-    @FXML
-    private AnchorPane imageAnchorPane;
-
-    @FXML
-    private ImageView planImageView;
-
-    @FXML
-    private Label titleLabel;
-
-    @FXML
     private ComboBox<Integer> floorComboBox;
-
-    @FXML
-    private Label filtersLabel;
 
     @FXML
     private CheckBox onePeopleCheckBox;
@@ -83,22 +55,10 @@ public class PlanController extends SuperController{
     private CheckBox fourPeopleCheckBox;
 
     @FXML
-    private Label pepoleNumberLabel;
-
-    @FXML
-    private Button menuButton;
-
-    @FXML
     private TextField fromPriceTextField;
 
     @FXML
     private TextField toPriceTextField;
-
-    @FXML
-    private DatePicker fromDatePicker;
-
-    @FXML
-    private DatePicker toDatePicker;
 
     @FXML
     private Pane mapPane;
@@ -245,21 +205,17 @@ public class PlanController extends SuperController{
     private RoomDetail roomDetail;
 
     @FXML
-    private LogOut logOut;
-
-    @FXML
     private ClientPanel clientPanel;
 
 
     @FXML
     public void initialize() {
-        floorComboBox.getItems().addAll(1,2);
+        floorComboBox.getItems().addAll(1, 2);
         mapPane.setStyle("-fx-background-image: url(img/Floor1.png);");
 
         fromPriceTextField.setText("0");
         toPriceTextField.setText("1000");
 
-        //lista wszystkich przyciskow
         allRoomButtons = FXCollections.observableArrayList();
         allRoomButtons.addAll(room101Button, room102Button, room103Button, room104Button,
                 room105Button, room106Button, room107Button, room108Button, room109Button,
@@ -270,13 +226,13 @@ public class PlanController extends SuperController{
                 room210Button, room211Button, room212Button, room213Button, room214Button, room215Button,
                 room216Button, room217Button, room218Button, room219Button, room220Button, room221Button);
 
-        for (Button button: allRoomButtons) {
+        for (Button button : allRoomButtons) {
             button.setStyle("-fx-background-color: green");
         }
         //przypisanie przyciskow poszczegolnym pokojom
         roomList = FXCollections.observableHashMap();
         ObservableList<Room> rooms = roomKeeper.getRoomList();
-        for(int i = 0; i < allRoomButtons.size(); ++i) {
+        for (int i = 0; i < allRoomButtons.size(); ++i) {
             Button button = allRoomButtons.get(i);
             Room room = rooms.get(i);
             roomList.put(button, room);
@@ -296,8 +252,8 @@ public class PlanController extends SuperController{
 
     @FXML
     private void setFloor1ButtonsVisible() {
-        for(Button button: allRoomButtons) {
-            if((roomList.get(button)).getNumber() < 200) {
+        for (Button button : allRoomButtons) {
+            if ((roomList.get(button)).getNumber() < 200) {
                 button.setVisible(true);
             }
         }
@@ -305,8 +261,8 @@ public class PlanController extends SuperController{
 
     @FXML
     private void setFloor2ButtonsVisible() {
-        for(Button button: allRoomButtons) {
-            if((roomList.get(button)).getNumber() >= 200) {
+        for (Button button : allRoomButtons) {
+            if ((roomList.get(button)).getNumber() >= 200) {
                 button.setVisible(true);
             }
         }
@@ -314,8 +270,8 @@ public class PlanController extends SuperController{
 
     @FXML
     private void setFloor1ButtonsInvisible() {
-        for(Button button: allRoomButtons) {
-            if((roomList.get(button)).getNumber() < 200) {
+        for (Button button : allRoomButtons) {
+            if ((roomList.get(button)).getNumber() < 200) {
                 button.setVisible(false);
             }
         }
@@ -323,8 +279,8 @@ public class PlanController extends SuperController{
 
     @FXML
     private void setFloor2ButtonsInvisible() {
-        for(Button button: allRoomButtons) {
-            if((roomList.get(button)).getNumber() >= 200) {
+        for (Button button : allRoomButtons) {
+            if ((roomList.get(button)).getNumber() >= 200) {
                 button.setVisible(false);
             }
         }
@@ -333,62 +289,45 @@ public class PlanController extends SuperController{
     @FXML
     private void filter() {
 
-        for(Button b: allRoomButtons) {
-            b.setStyle("-fx-color: red");
-        }
-
         BigDecimal minPrice = new BigDecimal(fromPriceTextField.getText());
         BigDecimal maxPrice = new BigDecimal(toPriceTextField.getText());
 
-        if(onePeopleCheckBox.isSelected()) {
-            for(Button button: allRoomButtons) {
-                BigDecimal roomPrice = roomList.get(button).getDailyCost();
-                if((roomList.get(button)).getPeopleSize() == 1 && (roomPrice.compareTo(minPrice) == 1 || roomPrice.compareTo(minPrice) == 0) &&
-                        (roomPrice.compareTo(maxPrice) == -1 || roomPrice.compareTo(maxPrice) == 0)) {
-                    button.setStyle("-fx-background-color: green");
-                }
+        for (Button button : allRoomButtons) {
+            BigDecimal roomPrice = roomList.get(button).getDailyCost();
+            if ((onePeopleCheckBox.isSelected()) && (roomList.get(button)).getPeopleSize() == 1 && (roomPrice.compareTo(minPrice) > 0 || roomPrice.compareTo(minPrice) == 0) &&
+                    (roomPrice.compareTo(maxPrice) < 0 || roomPrice.compareTo(maxPrice) == 0)) {
+                button.setStyle("-fx-background-color: green");
             }
-        }
-
-        if(twoPeopleCheckBox.isSelected()) {
-            for(Button button: allRoomButtons) {
-                BigDecimal roomPrice = roomList.get(button).getDailyCost();
-                if((roomList.get(button)).getPeopleSize() == 2 && (roomPrice.compareTo(minPrice) == 1 || roomPrice.compareTo(minPrice) == 0) &&
-                        (roomPrice.compareTo(maxPrice) == -1 || roomPrice.compareTo(maxPrice) == 0)) {
-                    button.setStyle("-fx-background-color: green");
-                }
+            else if ((twoPeopleCheckBox.isSelected()) && (roomList.get(button)).getPeopleSize() == 2 && (roomPrice.compareTo(minPrice) > 0 || roomPrice.compareTo(minPrice) == 0) &&
+                    (roomPrice.compareTo(maxPrice) < 0 || roomPrice.compareTo(maxPrice) == 0)) {
+                button.setStyle("-fx-background-color: green");
             }
-        }
-
-        if(fourPeopleCheckBox.isSelected()) {
-            for(Button button: allRoomButtons) {
-                BigDecimal roomPrice = roomList.get(button).getDailyCost();
-                if((roomList.get(button)).getPeopleSize() == 4 && (roomPrice.compareTo(minPrice) == 1 || roomPrice.compareTo(minPrice) == 0) &&
-                        (roomPrice.compareTo(maxPrice) == -1 || roomPrice.compareTo(maxPrice) == 0)) {
-                    button.setStyle("-fx-background-color: green");
-                }
+            else if ((fourPeopleCheckBox.isSelected()) && (roomList.get(button)).getPeopleSize() == 4 && (roomPrice.compareTo(minPrice) > 0 || roomPrice.compareTo(minPrice) == 0) &&
+                    (roomPrice.compareTo(maxPrice) < 0 || roomPrice.compareTo(maxPrice) == 0)) {
+                button.setStyle("-fx-background-color: green");
+            } else {
+                button.setStyle("-fx-background-color: red");
             }
         }
     }
 
     @FXML
-    public void peopleCheckBoxEntered(){
+    public void peopleCheckBoxEntered() {
         filter();
     }
 
     @FXML
-    public void priceTextFieldEntered(){
+    public void priceTextFieldEntered() {
         try {
             filter();
-        }
-        catch(IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             fromPriceTextField.setText("0");
             toPriceTextField.setText("0");
         }
     }
 
     @FXML
-    public void roomButtonPressed(MouseEvent event) throws IOException {
+    public void roomButtonPressed(MouseEvent event) {
         disableWhileProgressing(true);
         roomDetail = new RoomDetail(event);
         progressIndicator.visibleProperty().bind(roomDetail.runningProperty());
@@ -407,9 +346,9 @@ public class PlanController extends SuperController{
     }
 
     @FXML
-    public void floorComboBoxUsed(ActionEvent e) {
+    public void floorComboBoxUsed() {
 
-        switch(floorComboBox.getValue()) {
+        switch (floorComboBox.getValue()) {
             case 1:
                 mapPane.setStyle("-fx-background-image: url(img/Floor1.png);");
                 setFloor1ButtonsVisible();
@@ -424,19 +363,19 @@ public class PlanController extends SuperController{
     }
 
     @FXML
-    public void avatarMouseEntered(MouseEvent event) {
+    public void avatarMouseEntered() {
         avatar.setImage(new Image("img/hover-icon.png"));
     }
 
     @FXML
-    public void avatarMouseExited(MouseEvent event) {
+    public void avatarMouseExited() {
         avatar.setImage(new Image("img/login-icon.png"));
     }
 
     @FXML
     public void avatarClicked(MouseEvent event) {
         disableWhileProgressing(true);
-        clientPanel = new ClientPanel(event);
+        clientPanel = new ClientPanel();
         progressIndicator.visibleProperty().bind(clientPanel.runningProperty());
         clientPanel.setOnSucceeded(e -> {
             disableWhileProgressing(false);
@@ -465,7 +404,7 @@ public class PlanController extends SuperController{
             Parent tableViewParent = fxmlLoader.load();
 
             BookingController controller = fxmlLoader.getController();
-            Button button = (Button)event.getSource();
+            Button button = (Button) event.getSource();
             Room room = roomList.get(button);
 
             controller.initRoom(room);
@@ -475,12 +414,6 @@ public class PlanController extends SuperController{
     }
 
     class ClientPanel extends Task<Parent> {
-        private MouseEvent event;
-
-        ClientPanel(MouseEvent event) {
-            this.event = event;
-        }
-
         @Override
         protected Parent call() throws Exception {
             FXMLLoader fxmlLoader = new FXMLLoader();

@@ -3,38 +3,26 @@ package fx.booking.controller;
 import fx.booking.DocumentGenerator;
 import fx.booking.dao.*;
 import fx.booking.repository.Reservation;
-
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Controller;
 
-import java.io.IOException;
 import java.time.LocalDate;
 
 @Controller
-public class ClientPanelController extends SuperController{
-    @Autowired
-    private ConfigurableApplicationContext springContext;
+public class ClientPanelController extends SuperController {
 
     @Autowired
     private DocumentDAO documentDAO;
 
     @Autowired
     private AccountDAO accountDAO;
-
-    @FXML
-    private VBox formVBox;
 
     @FXML
     private TableView<Reservation> reservationTable;
@@ -58,9 +46,6 @@ public class ClientPanelController extends SuperController{
     private VBox mainVBox;
 
     @FXML
-    private HBox dataHBox;
-
-    @FXML
     private ProgressIndicator progressIndicator;
 
     @FXML
@@ -82,13 +67,7 @@ public class ClientPanelController extends SuperController{
     private Label peselLabel;
 
     @FXML
-    private Label emailLabel;
-
-    @FXML
     private TextField emailTextField;
-
-    @FXML
-    private Label creditCardLabel;
 
     @FXML
     private TextField partFourCardNumberTextField1;
@@ -112,9 +91,6 @@ public class ClientPanelController extends SuperController{
     private TextField phoneNumberTextField;
 
     @FXML
-    private Plan plan;
-
-    @FXML
     private Edit edit;
 
     @FXML
@@ -131,7 +107,8 @@ public class ClientPanelController extends SuperController{
         disableData(true);
     }
 
-    @FXML void initReservationTable(ObservableList<Reservation> list) {
+    @FXML
+    void initReservationTable(ObservableList<Reservation> list) {
         reservationTable.getItems().clear();
         for (Reservation reservation : list) {
             reservationTable.getItems().add(reservation);
@@ -149,9 +126,9 @@ public class ClientPanelController extends SuperController{
         System.out.println(reservationTable.getSelectionModel().getSelectedItem().getId());
         documentGenerator.generateDocument(documentDAO.getDocumentsInformation(reservationTable.getSelectionModel().getSelectedItem().getId()));
     }
+
     @FXML
-    public void resetButtonClicked()
-    {
+    public void resetButtonClicked() {
         defaultDataTableState();
     }
 
@@ -162,26 +139,21 @@ public class ClientPanelController extends SuperController{
         progressIndicator.visibleProperty().bind(edit.runningProperty());
         edit.setOnSucceeded(e -> {
             disableWhileProgressing(false);
-            Button button = (Button)event.getSource();
-            if(edit.getValue() == 0) {
+            Button button = (Button) event.getSource();
+            if (edit.getValue() == 0) {
                 button.setText("ZAPISZ");
-            }
-            else if(edit.getValue() == 1) {
+            } else if (edit.getValue() == 1) {
                 button.setText("EDYTUJ");
-            }
-            else if(edit.getValue() == 2) {
+            } else if (edit.getValue() == 2) {
                 showAlertInfo("Pola nie moga byc puste lub krotsze niz 3 znaki!");
                 defaultDataTableState();
-            }
-            else if(edit.getValue() == 3) {
+            } else if (edit.getValue() == 3) {
                 showAlertInfo("Błędny adres e-mail!");
                 defaultDataTableState();
-            }
-            else if(edit.getValue() == 4) {
+            } else if (edit.getValue() == 4) {
                 showAlertInfo("Błędny adres e-mail!");
                 defaultDataTableState();
-            }
-            else if(edit.getValue() == 5) {
+            } else if (edit.getValue() == 5) {
                 showAlertInfo("Błędny numer karty kredytowej!");
                 defaultDataTableState();
             }
@@ -208,7 +180,7 @@ public class ClientPanelController extends SuperController{
 
         }
 
-        private int checkIfPossibleToChangeData(Button button) {
+        private int checkIfPossibleToChangeData() {
             try {
                 accountDAO.checkDataFormat(
                         passField.getText(),
@@ -237,14 +209,14 @@ public class ClientPanelController extends SuperController{
         }
 
         @Override
-        protected Integer call() throws Exception {
+        protected Integer call() {
             Button button = (Button) event.getSource();
             if (button.getText().equals("EDYTUJ")) {
                 disableData(false);
                 return 0;
             } else if (button.getText().equals("ZAPISZ")) {
                 disableData(true);
-                return checkIfPossibleToChangeData(button);
+                return checkIfPossibleToChangeData();
             }
             return -1;
         }
@@ -282,7 +254,7 @@ public class ClientPanelController extends SuperController{
         partFourCardNumberTextField2.setText(accountDAO.getCreditCardNumber().substring(4, 8));
         partFourCardNumberTextField3.setText(accountDAO.getCreditCardNumber().substring(8, 12));
         partFourCardNumberTextField4.setText(accountDAO.getCreditCardNumber().substring(12, 16));
-        directionNumbertextField.setText(accountDAO.getPhoneNumber().substring(0,2));
-        phoneNumberTextField.setText(accountDAO.getPhoneNumber().substring(2,11));
+        directionNumbertextField.setText(accountDAO.getPhoneNumber().substring(0, 2));
+        phoneNumberTextField.setText(accountDAO.getPhoneNumber().substring(2, 11));
     }
 }

@@ -71,7 +71,7 @@ abstract class SuperController {
         return fxmlLoader.load();
     }
 
-    FXMLLoader setFxmlLoader(String path) throws Exception{
+    FXMLLoader setFxmlLoader(String path) {
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setControllerFactory(springContext::getBean);
         fxmlLoader.setLocation(getClass().getResource(path));
@@ -89,7 +89,6 @@ abstract class SuperController {
         ObservableList<Node> footerChildren = footerHBox.getChildren();
         for(Node child: footerChildren) {
             if(!child.getId().equals("progressIndicator")) {
-                System.out.println(child.getId());
                 child.setDisable(isDisabled);
             }
 
@@ -97,7 +96,7 @@ abstract class SuperController {
     }
 
     @FXML
-    public void planButtonClicked(ActionEvent event) throws IOException {
+    public void planButtonClicked(ActionEvent event) {
         disableWhileProgressing(true);
         plan = new Plan();
         progressIndicator.visibleProperty().bind(plan.runningProperty());

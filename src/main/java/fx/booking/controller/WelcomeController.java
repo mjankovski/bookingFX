@@ -19,61 +19,16 @@ import org.springframework.stereotype.Controller;
 public class WelcomeController extends SuperController{
 
     @Autowired
-    private ConfigurableApplicationContext springContext;
-
-    @Autowired
     private AccountDAO accountDAO;
 
     @FXML
     private VBox mainVBox;
 
     @FXML
-    private HBox phraseHBox;
-
-    @FXML
-    private HBox formHBox;
-
-    @FXML
-    private HBox footerHBox;
-
-    @FXML
-    private HBox titleHBox;
-
-    @FXML
-    private Label descriptionLabel;
-
-    @FXML
-    private Label fxLabel;
-
-    @FXML
-    private Label hotelLabel;
-
-    @FXML
-    private Pane formPane;
-
-    @FXML
-    private Button logButton;
-
-    @FXML
-    private Button makeAccountButton;
-
-    @FXML
     private TextField loginTextField;
 
     @FXML
-    private Label loginLabel;
-
-    @FXML
-    private Label passLabel;
-
-    @FXML
     private PasswordField passTextField;
-
-    @FXML
-    private Button authorsButton;
-
-    @FXML
-    private Label wrongDataLabel;
 
     @FXML
     private Logging logging;
