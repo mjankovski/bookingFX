@@ -244,7 +244,7 @@
             <Insets left="150.0" right="150.0" />
          </padding>
       </HBox>
-      <HBox alignment="CENTER" prefHeight="107.0" prefWidth="1200.0" spacing="100.0" VBox.vgrow="ALWAYS">
+      <HBox fx:id="footerHBox" alignment="CENTER" prefHeight="107.0" prefWidth="1200.0" spacing="100.0" VBox.vgrow="ALWAYS">
          <children>
             <Button fx:id="planButton" mnemonicParsing="false" onAction="#planButtonClicked" prefHeight="33.0" prefWidth="106.0" text="PLAN" />
             <ProgressIndicator fx:id="progressIndicator" prefHeight="68.0" prefWidth="93.0" progress="0.0" />

@@ -151,22 +151,22 @@
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <TextField fx:id="partFourCardNumberTextField1" alignment="CENTER" onKeyPressed="#cardNumberTextField1Entered" onKeyReleased="#cardNumberTextField1Entered" prefHeight="54.0" prefWidth="119.0" promptText="XXXX" HBox.hgrow="ALWAYS">
+                        <TextField fx:id="partFourCardNumberTextField1" alignment="CENTER" onKeyPressed="#cardNumberTextFieldEntered" onKeyReleased="#cardNumberTextFieldEntered" prefHeight="54.0" prefWidth="119.0" promptText="XXXX" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets left="50.0" right="20.0" />
                            </HBox.margin>
                         </TextField>
-                        <TextField fx:id="partFourCardNumberTextField2" alignment="CENTER" onKeyPressed="#cardNumberTextField2Entered" onKeyReleased="#cardNumberTextField2Entered" prefHeight="54.0" prefWidth="115.0" promptText="XXXX" HBox.hgrow="ALWAYS">
+                        <TextField fx:id="partFourCardNumberTextField2" alignment="CENTER" onKeyPressed="#cardNumberTextFieldEntered" onKeyReleased="#cardNumberTextFieldEntered" prefHeight="54.0" prefWidth="115.0" promptText="XXXX" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets right="20.0" />
                            </HBox.margin>
                         </TextField>
-                        <TextField fx:id="partFourCardNumberTextField3" alignment="CENTER" onKeyPressed="#cardNumberTextField3Entered" onKeyReleased="#cardNumberTextField3Entered" prefHeight="54.0" prefWidth="118.0" promptText="XXXX" HBox.hgrow="ALWAYS">
+                        <TextField fx:id="partFourCardNumberTextField3" alignment="CENTER" onKeyPressed="#cardNumberTextFieldEntered" onKeyReleased="#cardNumberTextFieldEntered" prefHeight="54.0" prefWidth="118.0" promptText="XXXX" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets right="20.0" />
                            </HBox.margin>
                         </TextField>
-                        <TextField fx:id="partFourCardNumberTextField4" alignment="CENTER" onKeyPressed="#cardNumberTextField4Entered" onKeyReleased="#cardNumberTextField4Entered" prefHeight="54.0" prefWidth="114.0" promptText="XXXX" HBox.hgrow="ALWAYS">
+                        <TextField fx:id="partFourCardNumberTextField4" alignment="CENTER" onKeyPressed="#cardNumberTextFieldEntered" onKeyReleased="#cardNumberTextFieldEntered" prefHeight="54.0" prefWidth="114.0" promptText="XXXX" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets right="20.0" />
                            </HBox.margin>
@@ -211,7 +211,7 @@
             </VBox>
          </children>
       </HBox>
-      <HBox alignment="CENTER" prefHeight="98.0" prefWidth="1200.0">
+      <HBox fx:id="footerHBox" alignment="CENTER" prefHeight="98.0" prefWidth="1200.0">
          <children>
             <Button fx:id="menuButton" mnemonicParsing="false" onAction="#menuButtonClicked" text="POWRÓT">
                <font>

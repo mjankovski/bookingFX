@@ -140,13 +140,12 @@ public class ClientDetailsController extends SuperController{
 
     @FXML
     void backButtonClicked(ActionEvent event) {
-        disableWhileProgressing();
+        disableWhileProgressing(true);
         back = new Back();
         progressIndicator.visibleProperty().bind(back.runningProperty());
         back.setOnSucceeded(e -> {
-            enableWhileProgressing();
+            disableWhileProgressing(false);
             Parent parent = back.getValue();
-            enableWhileProgressing();
             Scene scene = new Scene(parent);
 
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -164,11 +163,11 @@ public class ClientDetailsController extends SuperController{
 
     @FXML
     void deleteButtonPressed(ActionEvent event) {
-        disableWhileProgressing();
+        disableWhileProgressing(true);
         deleteReservation = new DeleteReservation();
         progressIndicator.visibleProperty().bind(deleteReservation.runningProperty());
         deleteReservation.setOnSucceeded(e -> {
-            enableWhileProgressing();
+            disableWhileProgressing(false);
         });
 
         deleteReservation.setOnFailed(e -> {
@@ -176,30 +175,6 @@ public class ClientDetailsController extends SuperController{
         });
 
         Thread thread = new Thread(deleteReservation);
-        thread.start();
-    }
-
-    @FXML
-    void logOutButtonClicked(ActionEvent event) {
-        disableWhileProgressing();
-        logOut = new LogOut();
-        progressIndicator.visibleProperty().bind(logOut.runningProperty());
-        logOut.setOnSucceeded(e -> {
-            enableWhileProgressing();
-            Parent parent = logOut.getValue();
-            enableWhileProgressing();
-            Scene scene = new Scene(parent);
-
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            window.setScene(scene);
-            window.show();
-        });
-
-        logOut.setOnFailed(e -> {
-            logOut.getException().printStackTrace();
-        });
-
-        Thread thread = new Thread(logOut);
         thread.start();
     }
 
@@ -235,24 +210,6 @@ public class ClientDetailsController extends SuperController{
         protected Parent call() throws Exception {
             return loadScene("/AdminPanel.fxml");
         }
-    }
-
-    private void disableWhileProgressing() {
-        titleHBox.setDisable(true);
-        panelLabelHBox.setDisable(true);
-        tabelHBox.setDisable(true);
-        deleteButtonHBox.setDisable(true);
-        logOutButton.setDisable(true);
-        backButton.setDisable(true);
-    }
-
-    private void enableWhileProgressing() {
-        titleHBox.setDisable(false);
-        panelLabelHBox.setDisable(false);
-        tabelHBox.setDisable(false);
-        deleteButtonHBox.setDisable(false);
-        logOutButton.setDisable(false);
-        backButton.setDisable(false);
     }
 
     @FXML

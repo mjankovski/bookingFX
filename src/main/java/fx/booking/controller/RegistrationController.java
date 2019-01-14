@@ -46,34 +46,13 @@ public class RegistrationController extends SuperController{
     private VBox mainVBox;
 
     @FXML
-    private HBox titleHBox;
-
-    @FXML
-    private HBox registrationLabelHBox;
-
-    @FXML
-    private HBox dataHBox;
-
-    @FXML
     private TextField nameTextField;
 
     @FXML
     private TextField surnameTextField;
 
     @FXML
-    private Label nameLabel;
-
-    @FXML
-    private Label surnameLabel;
-
-    @FXML
-    private Label creditCardLabel;
-
-    @FXML
     private TextField partFourCardNumberTextField1;
-
-    @FXML
-    private Label peselLabel;
 
     @FXML
     private TextField peselTextField;
@@ -85,15 +64,6 @@ public class RegistrationController extends SuperController{
     private TextField directionNumberTextField;
 
     @FXML
-    private Label plusLabel;
-
-    @FXML
-    private Label loginLabel;
-
-    @FXML
-    private Label passwordLabel;
-
-    @FXML
     private TextField loginTextField;
 
     @FXML
@@ -103,16 +73,7 @@ public class RegistrationController extends SuperController{
     private TextField emailTextField;
 
     @FXML
-    private Label emailLabel;
-
-    @FXML
     private Button menuButton;
-
-    @FXML
-    private Button makeAccountButton;
-
-    @FXML
-    private Label titleLabel;
 
     @FXML
     private TextField partFourCardNumberTextField4;
@@ -155,61 +116,37 @@ public class RegistrationController extends SuperController{
     }
 
     @FXML
-    public void cardNumberTextField1Entered (KeyEvent event) {
-        if(partFourCardNumberTextField1.getText().length() >= 4) {
+    public void cardNumberTextFieldEntered (KeyEvent event) {
+        TextField textField = (TextField)event.getSource();
+        if(textField.getText().length() >= 4) {
             if(event.getCode() == KeyCode.BACK_SPACE || event.getCode() == KeyCode.TAB) {
                 return;
             }
-            partFourCardNumberTextField2.requestFocus();
-            String text = partFourCardNumberTextField1.getText().substring(0,4);
-            partFourCardNumberTextField1.setText(text);
-        }
-    }
-
-    @FXML
-    public void cardNumberTextField2Entered(KeyEvent event) {
-        if(partFourCardNumberTextField2.getText().length() >= 4) {
-            if(event.getCode() == KeyCode.BACK_SPACE || event.getCode() == KeyCode.TAB) {
-                return;
+            if(textField.getId().equals("partFourCardNumberTextField1")) {
+                partFourCardNumberTextField2.requestFocus();
             }
-            partFourCardNumberTextField3.requestFocus();
-            String text = partFourCardNumberTextField2.getText().substring(0,4);
-            partFourCardNumberTextField2.setText(text);
-        }
-    }
-
-    @FXML
-    public void cardNumberTextField3Entered(KeyEvent event) {
-        if(partFourCardNumberTextField3.getText().length() >= 4) {
-            if(event.getCode() == KeyCode.BACK_SPACE || event.getCode() == KeyCode.TAB) {
-                return;
+            else if(textField.getId().equals("partFourCardNumberTextField2")) {
+                partFourCardNumberTextField3.requestFocus();
             }
-            partFourCardNumberTextField4.requestFocus();
-            String text = partFourCardNumberTextField3.getText().substring(0,4);
-            partFourCardNumberTextField3.setText(text);
-        }
-    }
-
-    @FXML
-    public void cardNumberTextField4Entered(KeyEvent event) {
-        if(partFourCardNumberTextField4.getText().length() >= 4) {
-            if(event.getCode() == KeyCode.BACK_SPACE || event.getCode() == KeyCode.TAB) {
-                return;
+            else if(textField.getId().equals("partFourCardNumberTextField3")) {
+                partFourCardNumberTextField4.requestFocus();
             }
-            directionNumberTextField.requestFocus();
-            String text = partFourCardNumberTextField4.getText().substring(0,4);
-            partFourCardNumberTextField4.setText(text);
+            else if(textField.getId().equals("partFourCardNumberTextField4")) {
+                directionNumberTextField.requestFocus();
+            }
+            String text = textField.getText().substring(0,4);
+            textField.setText(text);
         }
     }
 
     @FXML
     public void directionNumberTextFieldEntered(KeyEvent event) {
-        if(directionNumberTextField.getText().length() >= 3) {
+        if(directionNumberTextField.getText().length() >= 2) {
             if(event.getCode() == KeyCode.BACK_SPACE || event.getCode() == KeyCode.TAB) {
                 return;
             }
             phoneNumberTextField.requestFocus();
-            String text = directionNumberTextField.getText().substring(1,3);
+            String text = directionNumberTextField.getText().substring(0,2);
             directionNumberTextField.setText(text);
         }
     }
@@ -220,19 +157,19 @@ public class RegistrationController extends SuperController{
             if(event.getCode() == KeyCode.BACK_SPACE || event.getCode() == KeyCode.TAB) {
                 return;
             }
-            phoneNumberTextField.requestFocus();
             String text = phoneNumberTextField.getText().substring(0,9);
+            phoneNumberTextField.setText(text);
             menuButton.requestFocus();
         }
     }
 
     @FXML
     public void registerButtonPressed(ActionEvent event){
-        disableWhileProgressing();
+        disableWhileProgressing(true);
         makeAccount = new MakeAccount();
         progressIndicator.visibleProperty().bind(makeAccount.runningProperty());
         makeAccount.setOnSucceeded(e -> {
-            enableWhileProgressing();
+            disableWhileProgressing(false);
             switch(makeAccount.getValue()) {
                 case 0: {
                     showAlert("Info", "Konto zostało utworzone. Sprawdź e-mail.", Alert.AlertType.INFORMATION);
@@ -279,13 +216,12 @@ public class RegistrationController extends SuperController{
 
     @FXML
     public void menuButtonClicked(ActionEvent event) throws IOException {
-        disableWhileProgressing();
+        disableWhileProgressing(true);
         back = new Back();
         progressIndicator.visibleProperty().bind(back.runningProperty());
         back.setOnSucceeded(e -> {
-            enableWhileProgressing();
+            disableWhileProgressing(false);
             Parent parent = back.getValue();
-            enableWhileProgressing();
             changeScene(event, parent);
         });
 
@@ -320,20 +256,6 @@ public class RegistrationController extends SuperController{
         mailer.sendMail(email);
     }
 
-    private void disableWhileProgressing() {
-        titleHBox.setDisable(true);
-        registrationLabelHBox.setDisable(true);
-        dataHBox.setDisable(true);
-        menuButton.setDisable(true);
-    }
-
-    private void enableWhileProgressing() {
-        titleHBox.setDisable(false);
-        registrationLabelHBox.setDisable(false);
-        dataHBox.setDisable(false);
-        menuButton.setDisable(false);
-    }
-
     class Back extends Task<Parent> {
         @Override
         protected Parent call() throws Exception {
@@ -358,25 +280,18 @@ public class RegistrationController extends SuperController{
                 );
                 sendMail(emailTextField.getText());
             } catch (IllegalArgumentException e){
-                //showAlert("Błąd!", "Konto nie zostało utworzone. Pola nie moga byc puste lub krotsze niz 3 znaki!", Alert.AlertType.ERROR);
                 return 1;
             } catch (InvalidEmailException e){
-                // showAlert("Błąd!", "Konto nie zostało utworzone. Błędny adres e-mail!", Alert.AlertType.ERROR);
                 return 2;
             } catch (InvalidPhoneNumberException e){
-                // showAlert("Błąd!", "Konto nie zostało utworzone. Błędny numer telefonu!", Alert.AlertType.ERROR);
                 return 3;
             } catch (InvalidCreditCardNumberException e){
-                // showAlert("Błąd!", "Konto nie zostało utworzone. Błędny numer karty kredytowej!", Alert.AlertType.ERROR);
                 return 4;
             } catch (InvalidPeselException e){
-                // showAlert("Błąd!", "Konto nie zostało utworzone. Błędny numer pesel!", Alert.AlertType.ERROR);
                 return 5;
             }  catch (DuplicateKeyException e){
-                // showAlert("Błąd!", "Konto nie zostało utworzone. Login lub adres e-mail są już w użyciu!", Alert.AlertType.ERROR);
                 return 6;
             }
-
             return 0;
         }
     }

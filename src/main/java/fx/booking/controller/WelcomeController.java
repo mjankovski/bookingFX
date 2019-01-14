@@ -94,11 +94,11 @@ public class WelcomeController extends SuperController{
 
     @FXML
     public void loginButtonClicked(ActionEvent event) {
-        disableWhileProgressing();
+        disableWhileProgressing(true);
         logging = new Logging();
         progressIndicator.visibleProperty().bind(logging.runningProperty());
         logging.setOnSucceeded(e -> {
-            enableWhileProgressing();
+            disableWhileProgressing(false);
             Parent parent = logging.getValue();
             if(parent == null) {
                 showAlertInfo("Błędne dane logowania!");
@@ -117,11 +117,11 @@ public class WelcomeController extends SuperController{
 
     @FXML
     public void makeAccountButtonClicked(ActionEvent event) {
-        disableWhileProgressing();
+        disableWhileProgressing(true);
         makeAccount = new MakeAccount();
         progressIndicator.visibleProperty().bind(makeAccount.runningProperty());
         makeAccount.setOnSucceeded(e -> {
-            enableWhileProgressing();
+            disableWhileProgressing(false);
             Parent parent = makeAccount.getValue();
             changeScene(event, parent);
         });
@@ -134,22 +134,9 @@ public class WelcomeController extends SuperController{
         thread.start();
     }
 
-    private void disableWhileProgressing() {
-        titleHBox.setDisable(true);
-        phraseHBox.setDisable(true);
-        formHBox.setDisable(true);
-    }
-
-    private void enableWhileProgressing() {
-        titleHBox.setDisable(false);
-        phraseHBox.setDisable(false);
-        formHBox.setDisable(false);
-    }
-
     class Logging extends Task<Parent> {
         @Override
         protected Parent call() throws Exception {
-            Parent tableViewParent = null;
             int login = accountDAO.login(loginTextField.getText(),passTextField.getText());
             if(login==1) {
                 accountDAO.getAccountInformation(loginTextField.getText());

@@ -13,6 +13,7 @@ import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -229,16 +230,10 @@ public class PlanController extends SuperController{
     private Button room221Button;
 
     @FXML
-    private Button logOutButton;
-
-    @FXML
     private ObservableList<Button> allRoomButtons;
 
     @FXML
     private ObservableMap<Button, Room> roomList;
-
-    @FXML
-    private Room selectedRoom;
 
     @FXML
     private ImageView avatar;
@@ -393,36 +388,13 @@ public class PlanController extends SuperController{
     }
 
     @FXML
-    public void menuButtonClicked(ActionEvent event){
-        disableWhileProgressing();
-        logOut = new LogOut();
-        progressIndicator.visibleProperty().bind(logOut.runningProperty());
-        logOut.setOnSucceeded(e -> {
-            enableWhileProgressing();
-            Parent parent = logOut.getValue();
-            enableWhileProgressing();
-
-            changeScene(event, parent);
-        });
-
-        logOut.setOnFailed(e -> {
-            logOut.getException().printStackTrace();
-        });
-
-        Thread thread = new Thread(logOut);
-        thread.start();
-    }
-
-    @FXML
     public void roomButtonPressed(MouseEvent event) throws IOException {
-        disableWhileProgressing();
+        disableWhileProgressing(true);
         roomDetail = new RoomDetail(event);
         progressIndicator.visibleProperty().bind(roomDetail.runningProperty());
         roomDetail.setOnSucceeded(e -> {
-            enableWhileProgressing();
+            disableWhileProgressing(false);
             Parent parent = roomDetail.getValue();
-            enableWhileProgressing();
-
             changeScene(event, parent);
         });
 
@@ -463,14 +435,12 @@ public class PlanController extends SuperController{
 
     @FXML
     public void avatarClicked(MouseEvent event) {
-        disableWhileProgressing();
+        disableWhileProgressing(true);
         clientPanel = new ClientPanel(event);
         progressIndicator.visibleProperty().bind(clientPanel.runningProperty());
         clientPanel.setOnSucceeded(e -> {
-            enableWhileProgressing();
+            disableWhileProgressing(false);
             Parent parent = clientPanel.getValue();
-            enableWhileProgressing();
-
             changeScene(event, parent);
         });
 
@@ -480,18 +450,6 @@ public class PlanController extends SuperController{
 
         Thread thread = new Thread(clientPanel);
         thread.start();
-    }
-
-    private void disableWhileProgressing() {
-        titleHBox.setDisable(true);
-        planHBox.setDisable(true);
-        logOutButton.setDisable(true);
-    }
-
-    private void enableWhileProgressing() {
-        titleHBox.setDisable(false);
-        planHBox.setDisable(false);
-        logOutButton.setDisable(false);
     }
 
     class RoomDetail extends Task<Parent> {
@@ -513,13 +471,6 @@ public class PlanController extends SuperController{
             controller.initRoom(room);
             controller.initReservationTable(reservationKeeper.getReservationList(room.getNumber()));
             return tableViewParent;
-        }
-    }
-
-    class LogOut extends Task<Parent> {
-        @Override
-        protected Parent call() throws Exception {
-            return loadScene("/Welcome.fxml");
         }
     }
 
