@@ -1,36 +1,29 @@
 package fx.booking.controller;
 
 import fx.booking.dao.AccountDAO;
-import fx.booking.repository.Room;
-import fx.booking.repository.RoomKeeper;
 import fx.booking.repository.User;
 import fx.booking.repository.UserKeeper;
-import javafx.animation.FadeTransition;
+
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-import javafx.util.Duration;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Controller;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @Controller
-public class AdminPanelController {
+public class AdminPanelController extends SuperController{
 
     @Autowired
     private ConfigurableApplicationContext springContext;
@@ -106,9 +99,6 @@ public class AdminPanelController {
 
     @FXML
     public void initialize() {
-        //userTable.setEditable(true);
-        //userTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-
         surnameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
 
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
@@ -132,13 +122,14 @@ public class AdminPanelController {
         initUserTable();
     }
 
-    @FXML void initUserTable() {
+    @FXML
+    private void initUserTable() {
         userTable.getItems().clear();
         List<User> list = userKeeper.getUserList();
         for (User user : list) {
             userTable.getItems().add(user);
         }
-        makeFadeIn();
+        makeFadeIn(mainVBox);
     }
 
 
@@ -151,11 +142,8 @@ public class AdminPanelController {
             enableWhileProgressing();
             Parent parent = logOut.getValue();
             enableWhileProgressing();
-            Scene scene = new Scene(parent);
 
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            window.setScene(scene);
-            window.show();
+            changeScene(event, parent);
         });
 
         logOut.setOnFailed(e -> {
@@ -198,11 +186,8 @@ public class AdminPanelController {
             enableWhileProgressing();
             Parent parent = clientDetail.getValue();
             enableWhileProgressing();
-            Scene scene = new Scene(parent);
 
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            window.setScene(scene);
-            window.show();
+            changeScene(event, parent);
         });
 
         clientDetail.setOnFailed(e -> {
@@ -234,28 +219,20 @@ public class AdminPanelController {
     class LogOut extends Task<Parent> {
         @Override
         protected Parent call() throws Exception {
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setControllerFactory(springContext::getBean);
-            fxmlLoader.setLocation(getClass().getResource("/Welcome.fxml"));
-            Parent tableViewParent = fxmlLoader.load();
-            return tableViewParent;
+            return loadScene("/Welcome.fxml");
         }
     }
 
     class DeleteUser extends Task<Void> {
         @Override
-        protected Void call() throws Exception {
-            ObservableList<User> allUsers;
-            User selectedUser;
-            allUsers = userTable.getItems();
-
-            selectedUser = userTable.getSelectionModel().getSelectedItem();
+        protected Void call() {
+            ObservableList<User> allUsers = userTable.getItems();
+            User selectedUser = userTable.getSelectionModel().getSelectedItem();
 
             if(selectedUser.getPermissions()!=2) {
                 accountDAO.deleteUser(selectedUser.getLogin());
                 allUsers.remove(selectedUser);
             }
-
             return null;
         }
     }
@@ -275,15 +252,5 @@ public class AdminPanelController {
             buttonsHBox.setDisable(false);
             logOutButton.setDisable(false);
     }
-
-    private void makeFadeIn() {
-        FadeTransition fadeTransition = new FadeTransition();
-        fadeTransition.setDuration((Duration.seconds(1)));
-        fadeTransition.setNode(mainVBox);
-        fadeTransition.setFromValue(0);
-        fadeTransition.setToValue(1);
-        fadeTransition.play();
-    }
-
 }
 

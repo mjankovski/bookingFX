@@ -6,25 +6,18 @@ import fx.booking.repository.Reservation;
 
 import fx.booking.repository.ReservationKeeper;
 import fx.booking.repository.Room;
-import javafx.animation.FadeTransition;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
-import javafx.util.Duration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -34,7 +27,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Controller
-public class BookingController {
+public class BookingController extends SuperController{
 
     @Autowired
     private ConfigurableApplicationContext springContext;
@@ -177,8 +170,6 @@ public class BookingController {
     @FXML
     private MakeReservation makeReservation;
 
-    private ToggleGroup toggleGroup;
-
     private BigDecimal currencyConverter;
 
     private String actualCurrency;
@@ -189,7 +180,7 @@ public class BookingController {
         fromDateColumn.setCellValueFactory(new PropertyValueFactory<>("beginningDate"));
         toDateColumn.setCellValueFactory(new PropertyValueFactory<>("endingDate"));
 
-        toggleGroup = new ToggleGroup();
+        ToggleGroup toggleGroup = new ToggleGroup();
 
         plnRadioButton.setToggleGroup(toggleGroup);
         eurRadioButton.setToggleGroup(toggleGroup);
@@ -205,11 +196,11 @@ public class BookingController {
         progressIndicator.setProgress(ProgressBar.INDETERMINATE_PROGRESS);
         progressIndicator.setVisible(false);
 
-        makeFadeIn();
+        makeFadeIn(mainVBox);
     }
 
     @FXML
-    public void initRoom(Room room) {
+    void initRoom(Room room) {
         selectedRoom = room;
         roomNumberLabel.setText(Integer.toString(room.getNumber()));
         peopleLabel.setText(Integer.toString(room.getPeopleSize()));
@@ -233,11 +224,8 @@ public class BookingController {
             enableWhileProgressing();
             Parent parent = logOut.getValue();
             enableWhileProgressing();
-            Scene scene = new Scene(parent);
 
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            window.setScene(scene);
-            window.show();
+            changeScene(event, parent);
         });
 
         logOut.setOnFailed(e -> {
@@ -257,11 +245,8 @@ public class BookingController {
             enableWhileProgressing();
             Parent parent = plan.getValue();
             enableWhileProgressing();
-            Scene scene = new Scene(parent);
 
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            window.setScene(scene);
-            window.show();
+            changeScene(event, parent);
         });
 
         plan.setOnFailed(e -> {
@@ -280,10 +265,10 @@ public class BookingController {
         makeReservation.setOnSucceeded(e -> {
             enableWhileProgressing();
             if(makeReservation.getValue() == 2) {
-                showAlertInfo("Błąd!", "Nie dokonano rezerwacji, ponieważ podano błędną datę!", Alert.AlertType.ERROR);
+                showAlertInfo("Nie dokonano rezerwacji, ponieważ podano błędną datę!");
             }
             else if(makeReservation.getValue() == 3) {
-                showAlertInfo("Błąd!", "Nie dokonano rezerwacji, ponieważ w tych dniach pokój jest już zarezerwowany!", Alert.AlertType.ERROR);
+                showAlertInfo("Nie dokonano rezerwacji, ponieważ w tych dniach pokój jest już zarezerwowany!");
             }
         });
 
@@ -296,7 +281,7 @@ public class BookingController {
     }
 
     @FXML
-    void eurRadioButtonSelected(ActionEvent event) {
+    void eurRadioButtonSelected() {
         actualCurrency = "EUR";
         BigDecimal newValue =  selectedRoom.getDailyCost().divide(currencyConverter, 0);
         costLabel.setText(newValue.toString());
@@ -304,18 +289,11 @@ public class BookingController {
     }
 
     @FXML
-    void plnRadioButtonSelected(ActionEvent event) {
+    void plnRadioButtonSelected() {
         actualCurrency = "PLN";
         BigDecimal newValue =  selectedRoom.getDailyCost();
         costLabel.setText(newValue.toString());
         currencyLabel.setText("PLN");
-    }
-
-    private void showAlertInfo(String title, String header, Alert.AlertType type){
-        Alert alert = new Alert(type);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
-        alert.showAndWait();
     }
 
     private void disableWhileProgressing() {
@@ -341,22 +319,14 @@ public class BookingController {
     class LogOut extends Task<Parent> {
         @Override
         protected Parent call() throws Exception {
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setControllerFactory(springContext::getBean);
-            fxmlLoader.setLocation(getClass().getResource("/Welcome.fxml"));
-            Parent tableViewParent = fxmlLoader.load();
-            return tableViewParent;
+            return loadScene("/Welcome.fxml");
         }
     }
 
     class Plan extends Task<Parent> {
         @Override
         protected Parent call() throws Exception {
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setControllerFactory(springContext::getBean);
-            fxmlLoader.setLocation(getClass().getResource("/Plan.fxml"));
-            Parent tableViewParent = fxmlLoader.load();
-            return tableViewParent;
+            return loadScene("/Plan.fxml");
         }
     }
 
@@ -378,15 +348,6 @@ public class BookingController {
                 return 3;
             }
         }
-    }
-
-    private void makeFadeIn() {
-        FadeTransition fadeTransition = new FadeTransition();
-        fadeTransition.setDuration((Duration.seconds(1)));
-        fadeTransition.setNode(mainVBox);
-        fadeTransition.setFromValue(0);
-        fadeTransition.setToValue(1);
-        fadeTransition.play();
     }
 }
 

@@ -2,23 +2,17 @@ package fx.booking.controller;
 
 import fx.booking.dao.*;
 
-import javafx.animation.FadeTransition;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
-import javafx.util.Duration;
 import org.simplejavamail.email.Email;
 import org.simplejavamail.email.EmailBuilder;
 import org.simplejavamail.mailer.Mailer;
@@ -33,11 +27,11 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
+import java.util.Objects;
 
 @Controller
 @PropertySource("classpath:mail.properties")
-public class RegistrationController {
+public class RegistrationController extends SuperController{
 
     @Autowired
     private Environment env;
@@ -144,7 +138,7 @@ public class RegistrationController {
         progressIndicator.setVisible(false);
 
         mainVBox.setOpacity(0);
-        makeFadeIn();
+        makeFadeIn(mainVBox);
     }
 
 
@@ -233,7 +227,7 @@ public class RegistrationController {
     }
 
     @FXML
-    public void registerButtonPressed(ActionEvent event) throws NoSuchAlgorithmException {
+    public void registerButtonPressed(ActionEvent event){
         disableWhileProgressing();
         makeAccount = new MakeAccount();
         progressIndicator.visibleProperty().bind(makeAccount.runningProperty());
@@ -251,11 +245,7 @@ public class RegistrationController {
                     } catch (IOException e1) {
                         e1.printStackTrace();
                     }
-                    Scene scene = new Scene(tableViewParent);
-
-                    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                    window.setScene(scene);
-                    window.show();
+                    changeScene(event, tableViewParent);
                     break;
                 }
                 case 1:
@@ -296,11 +286,7 @@ public class RegistrationController {
             enableWhileProgressing();
             Parent parent = back.getValue();
             enableWhileProgressing();
-            Scene scene = new Scene(parent);
-
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            window.setScene(scene);
-            window.show();
+            changeScene(event, parent);
         });
 
         back.setOnFailed(e -> {
@@ -309,7 +295,7 @@ public class RegistrationController {
 
         Thread thread = new Thread(back);
         thread.start();
-        }
+    }
 
     private void showAlert(String title, String header, Alert.AlertType type){
         Alert alert = new Alert(type);
@@ -320,7 +306,7 @@ public class RegistrationController {
 
     private void sendMail(String clientEmail){
         Email email = EmailBuilder.startingBlank()
-                .from("BookingFX", env.getProperty("mail.from"))
+                .from("BookingFX", Objects.requireNonNull(env.getProperty("mail.from")))
                 .to("Klient", clientEmail)
                 .withSubject(env.getProperty("mail.subject"))
                 .withPlainText(env.getProperty("mail.text"))
@@ -351,20 +337,15 @@ public class RegistrationController {
     class Back extends Task<Parent> {
         @Override
         protected Parent call() throws Exception {
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setControllerFactory(springContext::getBean);
-            fxmlLoader.setLocation(getClass().getResource("/Welcome.fxml"));
-            Parent tableViewParent = fxmlLoader.load();
-            return tableViewParent;
+            return loadScene("/Welcome.fxml");
         }
     }
 
     class MakeAccount extends Task<Integer> {
         @Override
         protected Integer call() throws Exception {
-            boolean isSigned;
             try {
-                isSigned = accountDAO.createAccount(
+                accountDAO.createAccount(
                         loginTextField.getText(),
                         passField.getText(),
                         nameTextField.getText(),
@@ -380,33 +361,24 @@ public class RegistrationController {
                 //showAlert("Błąd!", "Konto nie zostało utworzone. Pola nie moga byc puste lub krotsze niz 3 znaki!", Alert.AlertType.ERROR);
                 return 1;
             } catch (InvalidEmailException e){
-               // showAlert("Błąd!", "Konto nie zostało utworzone. Błędny adres e-mail!", Alert.AlertType.ERROR);
+                // showAlert("Błąd!", "Konto nie zostało utworzone. Błędny adres e-mail!", Alert.AlertType.ERROR);
                 return 2;
             } catch (InvalidPhoneNumberException e){
-               // showAlert("Błąd!", "Konto nie zostało utworzone. Błędny numer telefonu!", Alert.AlertType.ERROR);
+                // showAlert("Błąd!", "Konto nie zostało utworzone. Błędny numer telefonu!", Alert.AlertType.ERROR);
                 return 3;
             } catch (InvalidCreditCardNumberException e){
-               // showAlert("Błąd!", "Konto nie zostało utworzone. Błędny numer karty kredytowej!", Alert.AlertType.ERROR);
+                // showAlert("Błąd!", "Konto nie zostało utworzone. Błędny numer karty kredytowej!", Alert.AlertType.ERROR);
                 return 4;
             } catch (InvalidPeselException e){
-               // showAlert("Błąd!", "Konto nie zostało utworzone. Błędny numer pesel!", Alert.AlertType.ERROR);
+                // showAlert("Błąd!", "Konto nie zostało utworzone. Błędny numer pesel!", Alert.AlertType.ERROR);
                 return 5;
             }  catch (DuplicateKeyException e){
-               // showAlert("Błąd!", "Konto nie zostało utworzone. Login lub adres e-mail są już w użyciu!", Alert.AlertType.ERROR);
+                // showAlert("Błąd!", "Konto nie zostało utworzone. Login lub adres e-mail są już w użyciu!", Alert.AlertType.ERROR);
                 return 6;
             }
 
             return 0;
         }
-    }
-
-    private void makeFadeIn() {
-        FadeTransition fadeTransition = new FadeTransition();
-        fadeTransition.setDuration((Duration.seconds(1)));
-        fadeTransition.setNode(mainVBox);
-        fadeTransition.setFromValue(0);
-        fadeTransition.setToValue(1);
-        fadeTransition.play();
     }
 }
 

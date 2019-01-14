@@ -5,7 +5,7 @@ import fx.booking.dao.AccountDAO;
 import fx.booking.repository.ReservationKeeper;
 import fx.booking.repository.Room;
 import fx.booking.repository.RoomKeeper;
-import javafx.animation.FadeTransition;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
@@ -13,9 +13,7 @@ import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -24,9 +22,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
-import javafx.util.Duration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -35,7 +31,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 
 @Controller
-public class PlanController {
+public class PlanController extends SuperController{
 
     @Autowired
     private ConfigurableApplicationContext springContext;
@@ -272,7 +268,7 @@ public class PlanController {
         allRoomButtons = FXCollections.observableArrayList();
         allRoomButtons.addAll(room101Button, room102Button, room103Button, room104Button,
                 room105Button, room106Button, room107Button, room108Button, room109Button,
-               room110Button, room111Button, room112Button, room113Button, room114Button, room115Button,
+                room110Button, room111Button, room112Button, room113Button, room114Button, room115Button,
                 room116Button, room117Button, room118Button, room119Button, room120Button, room121Button,
                 room201Button, room202Button, room203Button, room204Button,
                 room205Button, room206Button, room207Button, room208Button, room209Button,
@@ -300,11 +296,11 @@ public class PlanController {
         progressIndicator.setVisible(false);
 
         mainVBox.setOpacity(0);
-        makeFadeIn();
+        makeFadeIn(mainVBox);
     }
 
     @FXML
-    public void setFloor1ButtonsVisible() {
+    private void setFloor1ButtonsVisible() {
         for(Button button: allRoomButtons) {
             if((roomList.get(button)).getNumber() < 200) {
                 button.setVisible(true);
@@ -313,7 +309,7 @@ public class PlanController {
     }
 
     @FXML
-    public void setFloor2ButtonsVisible() {
+    private void setFloor2ButtonsVisible() {
         for(Button button: allRoomButtons) {
             if((roomList.get(button)).getNumber() >= 200) {
                 button.setVisible(true);
@@ -322,7 +318,7 @@ public class PlanController {
     }
 
     @FXML
-    public void setFloor1ButtonsInvisible() {
+    private void setFloor1ButtonsInvisible() {
         for(Button button: allRoomButtons) {
             if((roomList.get(button)).getNumber() < 200) {
                 button.setVisible(false);
@@ -331,7 +327,7 @@ public class PlanController {
     }
 
     @FXML
-    public void setFloor2ButtonsInvisible() {
+    private void setFloor2ButtonsInvisible() {
         for(Button button: allRoomButtons) {
             if((roomList.get(button)).getNumber() >= 200) {
                 button.setVisible(false);
@@ -340,7 +336,7 @@ public class PlanController {
     }
 
     @FXML
-    public void filter() {
+    private void filter() {
 
         for(Button b: allRoomButtons) {
             b.setStyle("-fx-color: red");
@@ -381,12 +377,12 @@ public class PlanController {
     }
 
     @FXML
-    public void peopleCheckBoxEntered(ActionEvent event) throws IOException {
+    public void peopleCheckBoxEntered(){
         filter();
     }
 
     @FXML
-    public void priceTextFieldEntered(ActionEvent event) throws IOException {
+    public void priceTextFieldEntered(){
         try {
             filter();
         }
@@ -397,7 +393,7 @@ public class PlanController {
     }
 
     @FXML
-    public void menuButtonClicked(ActionEvent event) throws IOException {
+    public void menuButtonClicked(ActionEvent event){
         disableWhileProgressing();
         logOut = new LogOut();
         progressIndicator.visibleProperty().bind(logOut.runningProperty());
@@ -405,11 +401,8 @@ public class PlanController {
             enableWhileProgressing();
             Parent parent = logOut.getValue();
             enableWhileProgressing();
-            Scene scene = new Scene(parent);
 
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            window.setScene(scene);
-            window.show();
+            changeScene(event, parent);
         });
 
         logOut.setOnFailed(e -> {
@@ -429,11 +422,8 @@ public class PlanController {
             enableWhileProgressing();
             Parent parent = roomDetail.getValue();
             enableWhileProgressing();
-            Scene scene = new Scene(parent);
 
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            window.setScene(scene);
-            window.show();
+            changeScene(event, parent);
         });
 
         roomDetail.setOnFailed(e -> {
@@ -480,11 +470,8 @@ public class PlanController {
             enableWhileProgressing();
             Parent parent = clientPanel.getValue();
             enableWhileProgressing();
-            Scene scene = new Scene(parent);
 
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            window.setScene(scene);
-            window.show();
+            changeScene(event, parent);
         });
 
         clientPanel.setOnFailed(e -> {
@@ -516,9 +503,7 @@ public class PlanController {
 
         @Override
         protected Parent call() throws Exception {
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setControllerFactory(springContext::getBean);
-            fxmlLoader.setLocation(getClass().getResource("/Booking.fxml"));
+            FXMLLoader fxmlLoader = setFxmlLoader("/Booking.fxml");
             Parent tableViewParent = fxmlLoader.load();
 
             BookingController controller = fxmlLoader.getController();
@@ -534,11 +519,7 @@ public class PlanController {
     class LogOut extends Task<Parent> {
         @Override
         protected Parent call() throws Exception {
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setControllerFactory(springContext::getBean);
-            fxmlLoader.setLocation(getClass().getResource("/Welcome.fxml"));
-            Parent tableViewParent = fxmlLoader.load();
-            return tableViewParent;
+            return loadScene("/Welcome.fxml");
         }
     }
 
@@ -561,14 +542,5 @@ public class PlanController {
 
             return tableViewParent;
         }
-    }
-
-    private void makeFadeIn() {
-        FadeTransition fadeTransition = new FadeTransition();
-        fadeTransition.setDuration((Duration.seconds(1)));
-        fadeTransition.setNode(mainVBox);
-        fadeTransition.setFromValue(0);
-        fadeTransition.setToValue(1);
-        fadeTransition.play();
     }
 }
