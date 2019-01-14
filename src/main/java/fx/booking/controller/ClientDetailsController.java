@@ -66,9 +66,6 @@ public class ClientDetailsController extends SuperController {
     private ProgressIndicator progressIndicator;
 
     @FXML
-    private Back back;
-
-    @FXML
     private DeleteReservation deleteReservation;
 
     @FXML
@@ -105,29 +102,6 @@ public class ClientDetailsController extends SuperController {
     }
 
     @FXML
-    void backButtonClicked(ActionEvent event) {
-        disableWhileProgressing(true);
-        back = new Back();
-        progressIndicator.visibleProperty().bind(back.runningProperty());
-        back.setOnSucceeded(e -> {
-            disableWhileProgressing(false);
-            Parent parent = back.getValue();
-            Scene scene = new Scene(parent);
-
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            window.setScene(scene);
-            window.show();
-        });
-
-        back.setOnFailed(e -> {
-            back.getException().printStackTrace();
-        });
-
-        Thread thread = new Thread(back);
-        thread.start();
-    }
-
-    @FXML
     void deleteButtonPressed() {
         disableWhileProgressing(true);
         deleteReservation = new DeleteReservation();
@@ -157,13 +131,6 @@ public class ClientDetailsController extends SuperController {
             allReservations.remove(selectedReservation);
 
             return null;
-        }
-    }
-
-    class Back extends Task<Parent> {
-        @Override
-        protected Parent call() throws Exception {
-            return loadScene("/AdminPanel.fxml");
         }
     }
 

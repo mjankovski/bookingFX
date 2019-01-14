@@ -30,12 +30,6 @@ abstract class SuperController {
     private HBox footerHBox;
 
     @FXML
-    private Plan plan;
-
-    @FXML
-    private LogOut logOut;
-
-    @FXML
     private ProgressIndicator progressIndicator;
 
     @Autowired
@@ -98,44 +92,23 @@ abstract class SuperController {
     @FXML
     public void planButtonClicked(ActionEvent event) {
         disableWhileProgressing(true);
-        plan = new Plan();
-        progressIndicator.visibleProperty().bind(plan.runningProperty());
-        plan.setOnSucceeded(e -> {
-            disableWhileProgressing(false);
-            Parent parent = plan.getValue();
-
-            changeScene(event, parent);
-        });
-
-        plan.setOnFailed(e -> {
-            plan.getException().printStackTrace();
-        });
-
-        Thread thread = new Thread(plan);
-        thread.start();
+        Plan plan = new Plan();
+        startThreadWithEndingAction(plan, event);
     }
 
     @FXML
     public void menuButtonClicked(ActionEvent event) throws IOException {
         disableWhileProgressing(true);
-        logOut = new LogOut();
-        progressIndicator.visibleProperty().bind(logOut.runningProperty());
-        logOut.setOnSucceeded(e -> {
-            disableWhileProgressing(false);
-            Parent parent = logOut.getValue();
-
-            changeScene(event, parent);
-        });
-
-        logOut.setOnFailed(e -> {
-            logOut.getException().printStackTrace();
-        });
-
-        Thread thread = new Thread(logOut);
-        thread.start();
+        LogOut logOut = new LogOut();
+        startThreadWithEndingAction(logOut, event);
     }
 
-
+    @FXML
+    void backButtonClicked(ActionEvent event) {
+        disableWhileProgressing(true);
+        Back back = new Back();
+        startThreadWithEndingAction(back, event);
+    }
 
     class Plan extends Task<Parent> {
         @Override
@@ -149,5 +122,29 @@ abstract class SuperController {
         protected Parent call() throws Exception {
             return loadScene("/Welcome.fxml");
         }
+    }
+
+    class Back extends Task<Parent> {
+        @Override
+        protected Parent call() throws Exception {
+            return loadScene("/AdminPanel.fxml");
+        }
+    }
+
+    void startThreadWithEndingAction(Task<Parent> task, Event event){
+        progressIndicator.visibleProperty().bind(task.runningProperty());
+        task.setOnSucceeded(e -> {
+            disableWhileProgressing(false);
+            Parent parent = task.getValue();
+
+            changeScene(event, parent);
+        });
+
+        task.setOnFailed(e -> {
+            task.getException().printStackTrace();
+        });
+
+        Thread thread = new Thread(task);
+        thread.start();
     }
 }

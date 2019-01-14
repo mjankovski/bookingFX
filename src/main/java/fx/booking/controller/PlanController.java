@@ -201,12 +201,6 @@ public class PlanController extends SuperController {
     @FXML
     private ProgressIndicator progressIndicator;
 
-    @FXML
-    private RoomDetail roomDetail;
-
-    @FXML
-    private ClientPanel clientPanel;
-
 
     @FXML
     public void initialize() {
@@ -292,6 +286,7 @@ public class PlanController extends SuperController {
         BigDecimal minPrice = new BigDecimal(fromPriceTextField.getText());
         BigDecimal maxPrice = new BigDecimal(toPriceTextField.getText());
 
+        //TODO
         for (Button button : allRoomButtons) {
             BigDecimal roomPrice = roomList.get(button).getDailyCost();
             if ((onePeopleCheckBox.isSelected()) && (roomList.get(button)).getPeopleSize() == 1 && (roomPrice.compareTo(minPrice) > 0 || roomPrice.compareTo(minPrice) == 0) &&
@@ -329,20 +324,8 @@ public class PlanController extends SuperController {
     @FXML
     public void roomButtonPressed(MouseEvent event) {
         disableWhileProgressing(true);
-        roomDetail = new RoomDetail(event);
-        progressIndicator.visibleProperty().bind(roomDetail.runningProperty());
-        roomDetail.setOnSucceeded(e -> {
-            disableWhileProgressing(false);
-            Parent parent = roomDetail.getValue();
-            changeScene(event, parent);
-        });
-
-        roomDetail.setOnFailed(e -> {
-            roomDetail.getException().printStackTrace();
-        });
-
-        Thread thread = new Thread(roomDetail);
-        thread.start();
+        RoomDetail roomDetail = new RoomDetail(event);
+        startThreadWithEndingAction(roomDetail, event);
     }
 
     @FXML
@@ -375,20 +358,8 @@ public class PlanController extends SuperController {
     @FXML
     public void avatarClicked(MouseEvent event) {
         disableWhileProgressing(true);
-        clientPanel = new ClientPanel();
-        progressIndicator.visibleProperty().bind(clientPanel.runningProperty());
-        clientPanel.setOnSucceeded(e -> {
-            disableWhileProgressing(false);
-            Parent parent = clientPanel.getValue();
-            changeScene(event, parent);
-        });
-
-        clientPanel.setOnFailed(e -> {
-            clientPanel.getException().printStackTrace();
-        });
-
-        Thread thread = new Thread(clientPanel);
-        thread.start();
+        ClientPanel clientPanel = new ClientPanel();
+        startThreadWithEndingAction(clientPanel, event);
     }
 
     class RoomDetail extends Task<Parent> {

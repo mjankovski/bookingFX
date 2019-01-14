@@ -131,20 +131,7 @@ public class AdminPanelController extends SuperController {
     public void detailButtonClicked(ActionEvent event) {
         disableWhileProgressing(true);
         clientDetail = new ClientDetail();
-        progressIndicator.visibleProperty().bind(clientDetail.runningProperty());
-        clientDetail.setOnSucceeded(e -> {
-            disableWhileProgressing(false);
-            Parent parent = clientDetail.getValue();
-
-            changeScene(event, parent);
-        });
-
-        clientDetail.setOnFailed(e -> {
-            clientDetail.getException().printStackTrace();
-        });
-
-        Thread thread = new Thread(clientDetail);
-        thread.start();
+        startThreadWithEndingAction(clientDetail, event);
     }
 
     class ClientDetail extends Task<Parent> {

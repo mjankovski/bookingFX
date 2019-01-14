@@ -4,6 +4,7 @@ import fx.booking.dao.AccountDAO;
 
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
@@ -34,9 +35,6 @@ public class WelcomeController extends SuperController{
     private Logging logging;
 
     @FXML
-    private MakeAccount makeAccount;
-
-    @FXML
     private ProgressIndicator progressIndicator;
 
     @FXML
@@ -51,48 +49,21 @@ public class WelcomeController extends SuperController{
     public void loginButtonClicked(ActionEvent event) {
         disableWhileProgressing(true);
         logging = new Logging();
-        progressIndicator.visibleProperty().bind(logging.runningProperty());
-        logging.setOnSucceeded(e -> {
-            disableWhileProgressing(false);
-            Parent parent = logging.getValue();
-            if(parent == null) {
-                showAlertInfo("Błędne dane logowania!");
-                return;
-            }
-            changeScene(event, parent);
-        });
-
-        logging.setOnFailed(e -> {
-            logging.getException().printStackTrace();
-        });
-
-        Thread thread = new Thread(logging);
-        thread.start();
+        startThreadWithCondition(logging, event);
     }
 
     @FXML
     public void makeAccountButtonClicked(ActionEvent event) {
         disableWhileProgressing(true);
-        makeAccount = new MakeAccount();
-        progressIndicator.visibleProperty().bind(makeAccount.runningProperty());
-        makeAccount.setOnSucceeded(e -> {
-            disableWhileProgressing(false);
-            Parent parent = makeAccount.getValue();
-            changeScene(event, parent);
-        });
-
-        makeAccount.setOnFailed(e -> {
-            makeAccount.getException().printStackTrace();
-        });
-
-        Thread thread = new Thread(makeAccount);
-        thread.start();
+        MakeAccount makeAccount = new MakeAccount();
+        startThreadWithEndingAction(makeAccount, event);
     }
 
     class Logging extends Task<Parent> {
         @Override
         protected Parent call() throws Exception {
             int login = accountDAO.login(loginTextField.getText(),passTextField.getText());
+
             if(login==1) {
                 accountDAO.getAccountInformation(loginTextField.getText());
                 return loadScene("/Plan.fxml");
@@ -111,5 +82,26 @@ public class WelcomeController extends SuperController{
         protected Parent call() throws Exception {
             return loadScene("/Registration.fxml");
         }
+    }
+
+    private void startThreadWithCondition(Task<Parent> task, Event event){
+        progressIndicator.visibleProperty().bind(logging.runningProperty());
+
+        logging.setOnSucceeded(e -> {
+            disableWhileProgressing(false);
+            Parent parent = logging.getValue();
+            if(parent == null) {
+                showAlertInfo("Błędne dane logowania!");
+                return;
+            }
+            changeScene(event, parent);
+        });
+
+        logging.setOnFailed(e -> {
+            logging.getException().printStackTrace();
+        });
+
+        Thread thread = new Thread(logging);
+        thread.start();
     }
 }

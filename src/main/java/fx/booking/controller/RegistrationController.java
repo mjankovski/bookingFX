@@ -217,25 +217,6 @@ public class RegistrationController extends SuperController{
         thread.start();
     }
 
-    @FXML
-    public void menuButtonClicked(ActionEvent event) throws IOException {
-        disableWhileProgressing(true);
-        back = new Back();
-        progressIndicator.visibleProperty().bind(back.runningProperty());
-        back.setOnSucceeded(e -> {
-            disableWhileProgressing(false);
-            Parent parent = back.getValue();
-            changeScene(event, parent);
-        });
-
-        back.setOnFailed(e -> {
-            back.getException().printStackTrace();
-        });
-
-        Thread thread = new Thread(back);
-        thread.start();
-    }
-
     private void showAlert(String title, String header, Alert.AlertType type){
         Alert alert = new Alert(type);
         alert.setTitle(title);
