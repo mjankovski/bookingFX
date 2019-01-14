@@ -1,14 +1,11 @@
 package fx.booking.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.Local;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -19,9 +16,6 @@ public class ReservationDAO {
 
     @Autowired
     private DocumentDAO documentDAO;
-
-    @Autowired
-    private RoomDAO roomDAO;
 
     @Autowired
     private AccountDAO accountDAO;

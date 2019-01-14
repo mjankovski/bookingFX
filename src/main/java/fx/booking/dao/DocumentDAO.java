@@ -2,7 +2,6 @@ package fx.booking.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
@@ -11,6 +10,7 @@ import java.math.BigDecimal;
 import java.sql.*;
 import java.util.Calendar;
 import java.util.Map;
+import java.util.Objects;
 
 @Repository
 public class DocumentDAO {
@@ -24,18 +24,14 @@ public class DocumentDAO {
     public int createDocument(BigDecimal cost){
         KeyHolder key = new GeneratedKeyHolder();
 
-        jdbcTemplate.update(new PreparedStatementCreator() {
-
-                @Override
-                public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-                    final PreparedStatement ps = connection.prepareStatement("INSERT INTO Faktury (DATA_WYSTAWIENIA, KWOTA_FAKTURY) VALUES (?, ?)",
-                            new String[] {"NR_FAKTURA"});
-                    ps.setTimestamp(1, new Timestamp(Calendar.getInstance().getTimeInMillis()));
-                    ps.setBigDecimal(2, cost);
-                    return ps;
-                }
-            }, key);
-        return (int)key.getKey().longValue();
+        jdbcTemplate.update(connection -> {
+            final PreparedStatement ps = connection.prepareStatement("INSERT INTO Faktury (DATA_WYSTAWIENIA, KWOTA_FAKTURY) VALUES (?, ?)",
+                    new String[] {"NR_FAKTURA"});
+            ps.setTimestamp(1, new Timestamp(Calendar.getInstance().getTimeInMillis()));
+            ps.setBigDecimal(2, cost);
+            return ps;
+        }, key);
+        return (int) Objects.requireNonNull(key.getKey()).longValue();
     }
 
     public Map<String, Object> getDocumentsInformation(int docNumber){
