@@ -2,7 +2,8 @@ package fx.booking.controller;
 
 import fx.booking.dao.AccountDAO;
 import fx.booking.repository.User;
-import fx.booking.repository.UserKeeper;
+import fx.booking.repository.UserRepository;
+
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -12,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -24,7 +26,7 @@ public class AdminPanelController extends SuperController {
     private AccountDAO accountDAO;
 
     @Autowired
-    private UserKeeper userKeeper;
+    private UserRepository userRepository;
 
     @FXML
     private Button deleteButton;
@@ -90,7 +92,7 @@ public class AdminPanelController extends SuperController {
     @FXML
     private void initUserTable() {
         userTable.getItems().clear();
-        List<User> list = userKeeper.getUserList();
+        List<User> list = userRepository.getUserList();
         for (User user : list) {
             userTable.getItems().add(user);
         }

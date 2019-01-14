@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public class RoomKeeper {
+public class RoomRepository {
 
     @Autowired
     private RoomDAO roomDAO;

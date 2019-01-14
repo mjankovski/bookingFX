@@ -1,10 +1,11 @@
 package fx.booking.controller;
 
 
-import fx.booking.dao.AccountDAO;
-import fx.booking.repository.ReservationKeeper;
+import fx.booking.repository.AccountRepository;
+import fx.booking.repository.ReservationRepository;
 import fx.booking.repository.Room;
-import fx.booking.repository.RoomKeeper;
+import fx.booking.repository.RoomRepository;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
@@ -18,6 +19,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -31,13 +33,13 @@ public class PlanController extends SuperController {
     private ConfigurableApplicationContext springContext;
 
     @Autowired
-    private RoomKeeper roomKeeper;
+    private AccountRepository accountRepository;
 
     @Autowired
-    private ReservationKeeper reservationKeeper;
+    private RoomRepository roomRepository;
 
     @Autowired
-    private AccountDAO accountDAO;
+    private ReservationRepository reservationRepository;
 
     @FXML
     private VBox mainVBox;
@@ -225,7 +227,7 @@ public class PlanController extends SuperController {
         }
         //przypisanie przyciskow poszczegolnym pokojom
         roomList = FXCollections.observableHashMap();
-        ObservableList<Room> rooms = roomKeeper.getRoomList();
+        ObservableList<Room> rooms = roomRepository.getRoomList();
         for (int i = 0; i < allRoomButtons.size(); ++i) {
             Button button = allRoomButtons.get(i);
             Room room = rooms.get(i);
@@ -375,7 +377,7 @@ public class PlanController extends SuperController {
             Room room = roomList.get(button);
 
             controller.initRoom(room);
-            controller.initReservationTable(reservationKeeper.getReservationList(room.getNumber()));
+            controller.initReservationTable(reservationRepository.getReservationList(room.getNumber()));
             return tableViewParent;
         }
     }
@@ -389,8 +391,8 @@ public class PlanController extends SuperController {
             Parent tableViewParent = fxmlLoader.load();
 
             ClientPanelController controller = fxmlLoader.getController();
-            controller.initReservationTable(reservationKeeper.getReservationList(accountDAO.getLogin()));
-
+            controller.initReservationTable(reservationRepository.getReservationList(accountRepository.getLogin()));
+//TODO accRep
             return tableViewParent;
         }
     }

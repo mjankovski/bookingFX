@@ -3,14 +3,16 @@ package fx.booking.controller;
 import fx.booking.api.NbpApi;
 import fx.booking.dao.ReservationDAO;
 import fx.booking.repository.Reservation;
-import fx.booking.repository.ReservationKeeper;
+import fx.booking.repository.ReservationRepository;
 import fx.booking.repository.Room;
+
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -24,7 +26,7 @@ public class BookingController extends SuperController {
     private ReservationDAO reservationDAO;
 
     @Autowired
-    private ReservationKeeper reservationKeeper;
+    private ReservationRepository reservationRepository;
 
     @Autowired
     private NbpApi nbpApi;
@@ -174,14 +176,14 @@ public class BookingController extends SuperController {
                 try {
                     ObservableList<Reservation> reservationsList;
                     reservationDAO.insertReservation(Integer.valueOf(roomNumberLabel.getText()), fromDatePicker.getValue().toString(), toDatePicker.getValue().toString(), new BigDecimal(costLabel.getText()), actualCurrency);
-                    reservationsList = reservationKeeper.getReservationList(selectedRoom.getNumber());
+                    reservationsList = reservationRepository.getReservationList(selectedRoom.getNumber());
                     reservationTable.getItems().add(reservationsList.get(reservationsList.size() - 1));
                     return 1;
                 } catch (IllegalArgumentException e) {
                     return 2;
                 }
             } else {
-                initReservationTable(reservationKeeper.getReservationList(selectedRoom.getNumber()));
+                initReservationTable(reservationRepository.getReservationList(selectedRoom.getNumber()));
                 return 3;
             }
         }

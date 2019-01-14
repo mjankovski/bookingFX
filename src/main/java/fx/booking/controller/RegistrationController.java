@@ -215,7 +215,7 @@ public class RegistrationController extends SuperController{
             disableWhileProgressing(false);
             switch(makeAccount.getValue()) {
                 case 0: {
-                    showAlert("Info", "Konto zostało utworzone. Sprawdź e-mail.", Alert.AlertType.INFORMATION);
+                    showAlert();
                     FXMLLoader fxmlLoader = new FXMLLoader();
                     fxmlLoader.setControllerFactory(springContext::getBean);
                     fxmlLoader.setLocation(getClass().getResource("/Welcome.fxml"));
@@ -229,22 +229,22 @@ public class RegistrationController extends SuperController{
                     break;
                 }
                 case 1:
-                    showAlert("Błąd!", "Konto nie zostało utworzone. Pola nie moga byc puste lub krotsze niz 3 znaki!", Alert.AlertType.ERROR);
+                    showAlertInfo("Konto nie zostało utworzone. Pola nie moga byc puste lub krotsze niz 3 znaki!");
                     break;
                 case 2:
-                    showAlert("Błąd!", "Konto nie zostało utworzone. Błędny adres e-mail!", Alert.AlertType.ERROR);
+                    showAlertInfo("Konto nie zostało utworzone. Błędny adres e-mail!");
                     break;
                 case 3:
-                    showAlert("Błąd!", "Konto nie zostało utworzone. Błędny numer telefonu!", Alert.AlertType.ERROR);
+                    showAlertInfo("Konto nie zostało utworzone. Błędny numer telefonu!");
                     break;
                 case 4:
-                    showAlert("Błąd!", "Konto nie zostało utworzone. Błędny numer karty kredytowej!", Alert.AlertType.ERROR);
+                    showAlertInfo("Konto nie zostało utworzone. Błędny numer karty kredytowej!");
                     break;
                 case 5:
-                    showAlert("Błąd!", "Konto nie zostało utworzone. Błędny numer pesel!", Alert.AlertType.ERROR);
+                    showAlertInfo("Konto nie zostało utworzone. Błędny numer pesel!");
                     break;
                 case 6:
-                    showAlert("Błąd!", "Konto nie zostało utworzone. Login lub adres e-mail są już w użyciu!", Alert.AlertType.ERROR);
+                    showAlertInfo( "Konto nie zostało utworzone. Login lub adres e-mail są już w użyciu!");
                     break;
             }
         });
@@ -257,6 +257,36 @@ public class RegistrationController extends SuperController{
         thread.start();
     }
 
+    private void showAlert(){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Info");
+        alert.setHeaderText("Konto zostało utworzone. Sprawdź e-mail.");
+        alert.showAndWait();
+    }
+
+    private void sendMail(String clientEmail){
+        Email email = EmailBuilder.startingBlank()
+                .from("BookingFX", Objects.requireNonNull(env.getProperty("mail.from")))
+                .to("Klient", clientEmail)
+                .withSubject(env.getProperty("mail.subject"))
+                .withPlainText(env.getProperty("mail.text"))
+                .buildEmail();
+
+        Mailer mailer = MailerBuilder
+                .withSMTPServer(env.getProperty("mail.host"), 587, env.getProperty("mail.from"), env.getProperty("mail.password"))
+                .withTransportStrategy(TransportStrategy.SMTP)
+                .buildMailer();
+
+        mailer.sendMail(email);
+    }
+
+    class Back extends Task<Parent> {
+        @Override
+        protected Parent call() throws Exception {
+            return loadScene("/Welcome.fxml");
+        }
+    }
+  
     class MakeAccount extends Task<Integer> {
         @Override
         protected Integer call() throws Exception {

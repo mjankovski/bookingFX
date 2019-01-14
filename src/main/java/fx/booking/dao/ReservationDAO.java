@@ -1,5 +1,7 @@
 package fx.booking.dao;
 
+import fx.booking.repository.AccountRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -15,10 +17,10 @@ import static java.time.temporal.ChronoUnit.DAYS;
 public class ReservationDAO {
 
     @Autowired
-    private DocumentDAO documentDAO;
+    private AccountRepository accountRepository;
 
     @Autowired
-    private AccountDAO accountDAO;
+    private DocumentDAO documentDAO;
 
     private JdbcTemplate jdbcTemplate;
 
@@ -37,8 +39,7 @@ public class ReservationDAO {
 
     public Boolean checkIfRoomFree(int roomNumber, String fromDate, String toDate){
         int count = jdbcTemplate.queryForObject("SELECT COUNT(ID_REZERWACJA) FROM Rezerwacje WHERE NR_POKOJ=? AND ((DATA_OD>=? AND DATA_OD<?) OR (DATA_OD<=? AND DATA_DO>?) OR (DATA_OD>=? AND DATA_DO<=?) OR (DATA_OD<=? AND DATA_DO>?))", Integer.class, roomNumber, fromDate, toDate, fromDate, fromDate, toDate, toDate, fromDate, toDate);
-        if(count>0) return false;
-        return true;
+        return count <= 0;
     }
 
     public void insertReservation(int roomNumber, String fromDate, String toDate, BigDecimal dailyCost, String currency){
@@ -52,10 +53,10 @@ public class ReservationDAO {
             long days = DAYS.between(fromDateFormatted,toDateFormatted);
             BigDecimal cost = dailyCost.multiply(new BigDecimal(days));
             int docId = documentDAO.createDocument(cost);
-
+            //TODO accRep
             jdbcTemplate.update(
                     "INSERT INTO Rezerwacje (NR_FAKTURA,NR_POKOJ,LOGIN,DATA_OD,DATA_DO,WALUTA, KWOTA_REZERWACJI) VALUES (?, ?, ?, ?, ?, ? ,? )",
-                    docId, roomNumber, accountDAO.getLogin(), fromDate, toDate, currency, cost
+                    docId, roomNumber, accountRepository.getLogin(), fromDate, toDate, currency, cost
             );
         }
     }

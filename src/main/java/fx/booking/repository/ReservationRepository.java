@@ -1,8 +1,10 @@
 package fx.booking.repository;
 
 import fx.booking.dao.ReservationDAO;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -11,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public class ReservationKeeper {
+public class ReservationRepository {
 
     @Autowired
     private ReservationDAO reservationDAO;

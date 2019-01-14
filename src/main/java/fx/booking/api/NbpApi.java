@@ -4,26 +4,41 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+
+import fx.booking.dao.CurrencyDAO;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 
 @Service
 public class NbpApi {
-    private HttpResponse<JsonNode> jsonResponse;
+    @Autowired
+    private CurrencyDAO currencyDAO;
 
     public BigDecimal getPlnToEuroCurrency(){
         try {
-            jsonResponse = Unirest.get("http://api.nbp.pl/api/exchangerates/rates/C/EUR")
+            HttpResponse<JsonNode> jsonResponse = Unirest
+                    .get("http://api.nbp.pl/api/exchangerates/rates/C/EUR")
                     .asJson();
-        } catch (
-                UnirestException e) {
-            e.printStackTrace();
-        }
+            JSONArray rates = (JSONArray) jsonResponse
+                    .getBody()
+                    .getObject()
+                    .get("rates");
 
-        JSONArray rates = (JSONArray) jsonResponse.getBody().getObject().get("rates");
-        return new BigDecimal((double)((JSONObject) rates.get(0)).get("bid"));
+            BigDecimal currency = new BigDecimal((double)((JSONObject) rates
+                    .get(0))
+                    .get("bid"));
+
+            currencyDAO.updateCurrency(currency);
+
+            return currency;
+        } catch (UnirestException e) {
+            return currencyDAO.getCurrency();
+        }
     }
 }

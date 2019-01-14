@@ -1,4 +1,4 @@
-package fx.booking.dao;
+package fx.booking.helpers;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -6,16 +6,14 @@ import java.security.SecureRandom;
 
 public class Hash {
 
-    public static byte[] getSalt() throws NoSuchAlgorithmException
-    {
+    public static byte[] getSalt() {
         SecureRandom sr = new SecureRandom();
         byte[] salt = new byte[16];
         sr.nextBytes(salt);
         return salt;
     }
 
-    public static String getSHA256(String passwordToHash, byte[] salt)
-    {
+    public static String getSHA256(String passwordToHash, byte[] salt) {
         String generatedPassword = null;
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
@@ -27,8 +25,7 @@ public class Hash {
             }
             generatedPassword = sb.toString();
         }
-        catch (NoSuchAlgorithmException e)
-        {
+        catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
         return generatedPassword;

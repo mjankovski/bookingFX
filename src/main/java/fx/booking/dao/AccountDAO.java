@@ -1,6 +1,7 @@
 package fx.booking.dao;
 
-import lombok.Getter;
+import fx.booking.helpers.Hash;
+import fx.booking.repository.AccountRepository;
 import lombok.SneakyThrows;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,25 +16,10 @@ import java.util.Map;
 
 @Repository
 public class AccountDAO{
-
     private JdbcTemplate jdbcTemplate;
 
-    @Getter
-    private String login;
-    @Getter
-    private String firstname;
-    @Getter
-    private String lastname;
-    @Getter
-    private String email;
-    @Getter
-    private String creditCardNumber;
-    @Getter
-    private String pesel;
-    @Getter
-    private String phoneNumber;
-    @Getter
-    private int permissions;
+    @Autowired
+    private AccountRepository accountRepository;
 
     @Autowired
     private void setJdbcTemplate(JdbcTemplate jdbcTemplate){
@@ -63,16 +49,8 @@ public class AccountDAO{
         return jdbcTemplate.queryForObject("select (case when(count(LOGIN) = 1) THEN UPRAWNIENIA ELSE 0 END) FROM Uzytkownicy WHERE Uzytkownicy.LOGIN=? AND Uzytkownicy.HASLO=?", Integer.class,login,Hash.getSHA256(pw,getSalt(login)));
     }
 
-    public void getAccountInformation(String login){
-        this.login = login;
-        Map<String,Object> results = jdbcTemplate.queryForMap("SELECT IMIE,NAZWISKO,EMAIL,NR_KARTY_KRED,PESEL,NR_TEL,UPRAWNIENIA FROM Uzytkownicy WHERE LOGIN=?", login);
-        this.firstname=(String)results.get("IMIE");
-        this.lastname=(String)results.get("NAZWISKO");
-        this.email=(String)results.get("EMAIL");
-        this.creditCardNumber=results.get("NR_KARTY_KRED").toString();
-        this.pesel=results.get("PESEL").toString();
-        this.phoneNumber=results.get("NR_TEL").toString();
-        this.permissions=(int)results.get("UPRAWNIENIA");
+    public Map<String,Object> getAccountInformation(String login){
+        return jdbcTemplate.queryForMap("SELECT IMIE,NAZWISKO,EMAIL,NR_KARTY_KRED,PESEL,NR_TEL,UPRAWNIENIA FROM Uzytkownicy WHERE LOGIN=?", login);
     }
 
     private void checkDataFormat(String login, String pw, String firstname, String lastname, String email,
@@ -125,10 +103,10 @@ public class AccountDAO{
                     "SET IMIE = ?, NAZWISKO = ?, EMAIL = ?, NR_KARTY_KRED = ?, NR_TEL = ? " +
                     "WHERE LOGIN = ?", firstname, lastname, email, creditCardNumber, phoneNumber, login);
         }
-        this.firstname=firstname;
-        this.lastname=lastname;
-        this.email=email;
-        this.creditCardNumber=creditCardNumber;
-        this.phoneNumber=phoneNumber;
+        accountRepository.setFirstname(firstname);
+        accountRepository.setLastname(lastname);
+        accountRepository.setEmail(email);
+        accountRepository.setCreditCardNumber(creditCardNumber);
+        accountRepository.setPhoneNumber(phoneNumber);
     }
 }

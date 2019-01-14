@@ -20,7 +20,6 @@ import javafx.util.Duration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 
-
 abstract class SuperController {
     @FXML
     private VBox mainVBox;
