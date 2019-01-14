@@ -26,7 +26,7 @@
             <Label alignment="CENTER" text="Rejestracja" />
          </children>
       </HBox>
-      <HBox fx:id="dataHBox" alignment="CENTER" prefHeight="569.0" prefWidth="1200.0">
+      <HBox fx:id="dataHBox" alignment="CENTER" prefHeight="569.0" prefWidth="1200.0" VBox.vgrow="ALWAYS">
          <children>
             <VBox fx:id="formVBox" alignment="CENTER" prefHeight="571.0" prefWidth="1000.0" HBox.hgrow="ALWAYS">
                <children>
@@ -211,24 +211,24 @@
             </VBox>
          </children>
       </HBox>
-      <HBox fx:id="footerHBox" alignment="CENTER" prefHeight="98.0" prefWidth="1200.0">
+      <HBox fx:id="footerHBox" alignment="CENTER_LEFT" prefHeight="98.0" prefWidth="1200.0">
          <children>
             <Button fx:id="menuButton" mnemonicParsing="false" onAction="#menuButtonClicked" text="POWRÓT">
                <font>
                   <Font size="15.0" />
                </font>
                <HBox.margin>
-                  <Insets left="100.0" />
+                  <Insets bottom="10.0" left="100.0" />
                </HBox.margin>
             </Button>
-            <ProgressIndicator fx:id="progressIndicator" prefHeight="89.0" prefWidth="214.0" progress="0.0">
+            <ProgressIndicator fx:id="progressIndicator" prefHeight="89.0" prefWidth="214.0" progress="0.0" HBox.hgrow="ALWAYS">
                <HBox.margin>
-                  <Insets right="200.0" />
+                  <Insets right="180.0" />
                </HBox.margin>
             </ProgressIndicator>
          </children>
          <VBox.margin>
-            <Insets />
+            <Insets top="10.0" />
          </VBox.margin>
       </HBox>
    </children>
