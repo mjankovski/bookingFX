@@ -66,8 +66,8 @@ public class WelcomeController extends SuperController{
     @FXML
     public void makeAccountButtonClicked(ActionEvent event) {
         disableWhileProgressing(true);
-        logging = new Logging();
-        startThreadWithCondition(event);
+        MakeAccount makeAccount = new MakeAccount();
+        startThreadWithEndingAction(makeAccount, event);
     }
 
     @FXML
