@@ -197,7 +197,7 @@
                               <Insets bottom="20.0" right="20.0" />
                            </HBox.margin>
                         </TextField>
-                        <Button fx:id="makeAccountButton" alignment="CENTER" mnemonicParsing="false" onAction="#registerButtonPressed" prefHeight="54.0" prefWidth="283.0" text="ZAŁÓŻ KONTO" HBox.hgrow="ALWAYS">
+                        <Button fx:id="makeAccountButton" alignment="CENTER" mnemonicParsing="false" onAction="#registerButtonClicked" onKeyPressed="#registerButtonPressed" prefHeight="54.0" prefWidth="283.0" text="ZAŁÓŻ KONTO" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets bottom="20.0" left="180.0" right="20.0" />
                            </HBox.margin>
@@ -213,7 +213,7 @@
       </HBox>
       <HBox fx:id="footerHBox" alignment="CENTER_LEFT" prefHeight="98.0" prefWidth="1200.0">
          <children>
-            <Button fx:id="menuButton" mnemonicParsing="false" onAction="#menuButtonClicked" text="POWRÓT">
+            <Button fx:id="menuButton" mnemonicParsing="false" onAction="#menuButtonClicked" onKeyPressed="#menuButtonPressed" text="POWRÓT">
                <font>
                   <Font size="15.0" />
                </font>

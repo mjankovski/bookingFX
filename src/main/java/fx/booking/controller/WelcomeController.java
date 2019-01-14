@@ -8,10 +8,9 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.ProgressIndicator;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +52,16 @@ public class WelcomeController extends SuperController{
     public void loginButtonClicked(ActionEvent event) {
         disableWhileProgressing(true);
         logging = new Logging();
-        startThreadWithCondition(logging, event);
+        startThreadWithCondition(event);
+    }
+
+    @FXML
+    public void loginButtonPressed(KeyEvent event) {
+        if(event.getCode() == KeyCode.ENTER) {
+            disableWhileProgressing(true);
+            logging = new Logging();
+            startThreadWithCondition(event);
+        }
     }
 
     @FXML
@@ -61,6 +69,15 @@ public class WelcomeController extends SuperController{
         disableWhileProgressing(true);
         MakeAccount makeAccount = new MakeAccount();
         startThreadWithEndingAction(makeAccount, event);
+    }
+
+    @FXML
+    public void makeAccountButtonPressed(KeyEvent event) {
+        if(event.getCode() == KeyCode.ENTER) {
+            disableWhileProgressing(true);
+            MakeAccount makeAccount = new MakeAccount();
+            startThreadWithEndingAction(makeAccount, event);
+        }
     }
 
     class Logging extends Task<Parent> {
@@ -88,8 +105,8 @@ public class WelcomeController extends SuperController{
         }
     }
 
-    private void startThreadWithCondition(Task<Parent> task, Event event){
-        progressIndicator.visibleProperty().bind(task.runningProperty());
+    private void startThreadWithCondition(Event event){
+        progressIndicator.visibleProperty().bind(logging.runningProperty());
 
         task.setOnSucceeded(e -> {
             disableWhileProgressing(false);

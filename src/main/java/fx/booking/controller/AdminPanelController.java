@@ -65,12 +65,6 @@ public class AdminPanelController extends SuperController {
     private ProgressIndicator progressIndicator;
 
     @FXML
-    private ClientDetail clientDetail;
-
-    @FXML
-    private DeleteUser deleteUser;
-
-    @FXML
     public void initialize() {
         surnameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
 
@@ -114,14 +108,14 @@ public class AdminPanelController extends SuperController {
     @FXML
     public void deleteButtonPressed() {
         disableWhileProgressing(true);
-        deleteUser = new DeleteUser();
+        DeleteUser deleteUser = new DeleteUser();
         startThreadWithEndingAction(deleteUser);
     }
 
     @FXML
     public void detailButtonClicked(ActionEvent event) {
         disableWhileProgressing(true);
-        clientDetail = new ClientDetail();
+        ClientDetail clientDetail = new ClientDetail();
         startThreadWithEndingAction(clientDetail, event);
     }
 

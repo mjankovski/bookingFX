@@ -88,14 +88,14 @@ abstract class SuperController {
     }
 
     @FXML
-    public void planButtonClicked(ActionEvent event) {
+    void planButtonClicked(ActionEvent event) {
         disableWhileProgressing(true);
         Plan plan = new Plan();
         startThreadWithEndingAction(plan, event);
     }
 
     @FXML
-    public void menuButtonClicked(ActionEvent event) {
+    void menuButtonClicked(ActionEvent event) {
         disableWhileProgressing(true);
         LogOut logOut = new LogOut();
         startThreadWithEndingAction(logOut, event);
