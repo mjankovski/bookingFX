@@ -18,6 +18,8 @@ import java.time.LocalDate;
 @Controller
 public class ClientPanelController extends SuperController {
 
+    //TODO tutaj trzeba bedzie wstawic AccountRepository
+
     @Autowired
     private DocumentDAO documentDAO;
 
