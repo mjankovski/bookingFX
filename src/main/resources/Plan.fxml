@@ -173,9 +173,9 @@
             <Insets left="50.0" right="50.0" />
          </VBox.margin>
       </HBox>
-      <HBox fx:id="footerHBox" alignment="CENTER" prefHeight="1.0" prefWidth="1200.0" VBox.vgrow="ALWAYS">
+      <HBox fx:id="footerHBox" alignment="CENTER" prefHeight="100.0" prefWidth="1200.0">
          <children>
-            <Button fx:id="logOutButton" mnemonicParsing="false" onAction="#menuButtonClicked" prefHeight="55.0" prefWidth="262.0" text="WYLOGUJ" HBox.hgrow="ALWAYS">
+            <Button fx:id="logOutButton" mnemonicParsing="false" onAction="#menuButtonClicked" prefHeight="55.0" prefWidth="290.0" text="WYLOGUJ" HBox.hgrow="ALWAYS">
                <font>
                   <Font size="15.0" />
                </font>
@@ -188,7 +188,7 @@
             </Button>
             <ProgressIndicator fx:id="progressIndicator" prefWidth="925.0" progress="0.0" HBox.hgrow="ALWAYS">
                <HBox.margin>
-                  <Insets right="180.0" />
+                  <Insets right="200.0" />
                </HBox.margin>
             </ProgressIndicator>
          </children>
