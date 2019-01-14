@@ -20,6 +20,7 @@ import javafx.util.Duration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 
 abstract class SuperController {
@@ -90,14 +91,14 @@ abstract class SuperController {
     }
 
     @FXML
-    public void planButtonClicked(ActionEvent event) {
+    void planButtonClicked(ActionEvent event) {
         disableWhileProgressing(true);
         Plan plan = new Plan();
         startThreadWithEndingAction(plan, event);
     }
 
     @FXML
-    public void menuButtonClicked(ActionEvent event) {
+    void menuButtonClicked(ActionEvent event) {
         disableWhileProgressing(true);
         LogOut logOut = new LogOut();
         startThreadWithEndingAction(logOut, event);

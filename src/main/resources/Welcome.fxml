@@ -64,7 +64,7 @@
                         <Insets left="100.0" right="100.0" />
                      </VBox.margin>
                   </PasswordField>
-                  <Button fx:id="logButton" alignment="CENTER" mnemonicParsing="false" onAction="#loginButtonClicked" prefHeight="66.0" prefWidth="434.0" text="ZALOGUJ" VBox.vgrow="ALWAYS">
+                  <Button fx:id="logButton" alignment="CENTER" mnemonicParsing="false" onAction="#loginButtonClicked" onKeyPressed="#loginButtonPressed" prefHeight="66.0" prefWidth="434.0" text="ZALOGUJ" VBox.vgrow="ALWAYS">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -72,7 +72,7 @@
                         <Insets bottom="20.0" top="20.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="makeAccountButton" alignment="CENTER" mnemonicParsing="false" onAction="#makeAccountButtonClicked" prefHeight="66.0" prefWidth="434.0" text="ZAŁÓŻ KONTO" textFill="WHITE" VBox.vgrow="ALWAYS">
+                  <Button fx:id="makeAccountButton" alignment="CENTER" mnemonicParsing="false" onAction="#makeAccountButtonClicked" onKeyPressed="#makeAccountButtonPressed" prefHeight="66.0" prefWidth="434.0" text="ZAŁÓŻ KONTO" textFill="WHITE" VBox.vgrow="ALWAYS">
                      <font>
                         <Font size="15.0" />
                      </font>

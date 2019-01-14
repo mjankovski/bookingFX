@@ -4,6 +4,7 @@ import fx.booking.dao.*;
 
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -88,9 +89,6 @@ public class RegistrationController extends SuperController{
     private ProgressIndicator progressIndicator;
 
     @FXML
-    private Back back;
-
-    @FXML
     private MakeAccount makeAccount;
 
     @FXML
@@ -167,7 +165,50 @@ public class RegistrationController extends SuperController{
     }
 
     @FXML
-    public void registerButtonPressed(ActionEvent event){
+    public void menuButtonPressed(KeyEvent event) {
+        if(event.getCode() == KeyCode.ENTER) {
+            disableWhileProgressing(true);
+            LogOut logOut = new LogOut();
+            startThreadWithEndingAction(logOut, event);
+        }
+    }
+
+    @FXML
+    public void registerButtonClicked(ActionEvent event){
+        makeAccount(event);
+    }
+
+    @FXML
+    public void registerButtonPressed(KeyEvent event) {
+        if(event.getCode() == KeyCode.ENTER) {
+            makeAccount(event);
+        }
+    }
+
+    private void showAlert(String title, String header, Alert.AlertType type){
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.showAndWait();
+    }
+
+    private void sendMail(String clientEmail){
+        Email email = EmailBuilder.startingBlank()
+                .from("BookingFX", Objects.requireNonNull(env.getProperty("mail.from")))
+                .to("Klient", clientEmail)
+                .withSubject(env.getProperty("mail.subject"))
+                .withPlainText(env.getProperty("mail.text"))
+                .buildEmail();
+
+        Mailer mailer = MailerBuilder
+                .withSMTPServer(env.getProperty("mail.host"), 587, env.getProperty("mail.from"), env.getProperty("mail.password"))
+                .withTransportStrategy(TransportStrategy.SMTP)
+                .buildMailer();
+
+        mailer.sendMail(email);
+    }
+
+    private void makeAccount(Event event) {
         disableWhileProgressing(true);
         makeAccount = new MakeAccount();
         progressIndicator.visibleProperty().bind(makeAccount.runningProperty());
@@ -215,36 +256,6 @@ public class RegistrationController extends SuperController{
 
         Thread thread = new Thread(makeAccount);
         thread.start();
-    }
-
-    private void showAlert(String title, String header, Alert.AlertType type){
-        Alert alert = new Alert(type);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
-        alert.showAndWait();
-    }
-
-    private void sendMail(String clientEmail){
-        Email email = EmailBuilder.startingBlank()
-                .from("BookingFX", Objects.requireNonNull(env.getProperty("mail.from")))
-                .to("Klient", clientEmail)
-                .withSubject(env.getProperty("mail.subject"))
-                .withPlainText(env.getProperty("mail.text"))
-                .buildEmail();
-
-        Mailer mailer = MailerBuilder
-                .withSMTPServer(env.getProperty("mail.host"), 587, env.getProperty("mail.from"), env.getProperty("mail.password"))
-                .withTransportStrategy(TransportStrategy.SMTP)
-                .buildMailer();
-
-        mailer.sendMail(email);
-    }
-
-    class Back extends Task<Parent> {
-        @Override
-        protected Parent call() throws Exception {
-            return loadScene("/Welcome.fxml");
-        }
     }
 
     class MakeAccount extends Task<Integer> {

@@ -8,6 +8,8 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -49,14 +51,32 @@ public class WelcomeController extends SuperController{
     public void loginButtonClicked(ActionEvent event) {
         disableWhileProgressing(true);
         logging = new Logging();
-        startThreadWithCondition(logging, event);
+        startThreadWithCondition(event);
+    }
+
+    @FXML
+    public void loginButtonPressed(KeyEvent event) {
+        if(event.getCode() == KeyCode.ENTER) {
+            disableWhileProgressing(true);
+            logging = new Logging();
+            startThreadWithCondition(event);
+        }
     }
 
     @FXML
     public void makeAccountButtonClicked(ActionEvent event) {
         disableWhileProgressing(true);
-        MakeAccount makeAccount = new MakeAccount();
-        startThreadWithEndingAction(makeAccount, event);
+        logging = new Logging();
+        startThreadWithCondition(event);
+    }
+
+    @FXML
+    public void makeAccountButtonPressed(KeyEvent event) {
+        if(event.getCode() == KeyCode.ENTER) {
+            disableWhileProgressing(true);
+            MakeAccount makeAccount = new MakeAccount();
+            startThreadWithEndingAction(makeAccount, event);
+        }
     }
 
     class Logging extends Task<Parent> {
@@ -84,7 +104,7 @@ public class WelcomeController extends SuperController{
         }
     }
 
-    private void startThreadWithCondition(Task<Parent> task, Event event){
+    private void startThreadWithCondition(Event event){
         progressIndicator.visibleProperty().bind(logging.runningProperty());
 
         logging.setOnSucceeded(e -> {

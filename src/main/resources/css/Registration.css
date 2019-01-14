@@ -46,7 +46,7 @@
     -fx-text-alignment: center;
 }
 
-.button:hover
+.button:hover, .button:focused
 {
     -fx-background-color: #1177AA;
 }
