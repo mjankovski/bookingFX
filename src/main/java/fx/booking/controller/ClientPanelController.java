@@ -104,6 +104,7 @@ public class ClientPanelController extends SuperController {
 
         progressIndicator.setProgress(ProgressBar.INDETERMINATE_PROGRESS);
         progressIndicator.setVisible(false);
+        invoiceButton.setDisable(true);
 
         setClientInfo();
         disableData(true);
@@ -125,7 +126,6 @@ public class ClientPanelController extends SuperController {
 
     @FXML
     public void invoiceButtonClicked() {
-        System.out.println(reservationTable.getSelectionModel().getSelectedItem().getId());
         documentGenerator.generateDocument(documentDAO.getDocumentsInformation(reservationTable.getSelectionModel().getSelectedItem().getId()));
     }
 
@@ -153,7 +153,7 @@ public class ClientPanelController extends SuperController {
                 showAlertInfo("Błędny adres e-mail!");
                 defaultDataTableState();
             } else if (edit.getValue() == 4) {
-                showAlertInfo("Błędny adres e-mail!");
+                showAlertInfo("Błędny numer telefonu!");
                 defaultDataTableState();
             } else if (edit.getValue() == 5) {
                 showAlertInfo("Błędny numer karty kredytowej!");

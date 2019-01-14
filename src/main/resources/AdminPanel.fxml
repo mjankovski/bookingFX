@@ -66,7 +66,7 @@
             <Insets />
          </opaqueInsets>
       </HBox>
-      <HBox fx:id="footerHBox" alignment="CENTER" prefHeight="97.0" prefWidth="1200.0" VBox.vgrow="ALWAYS">
+      <HBox fx:id="footerHBox" alignment="CENTER" prefHeight="97.0" prefWidth="1200.0">
          <children>
             <Button fx:id="logOutButton" mnemonicParsing="false" onAction="#menuButtonClicked" prefHeight="49.0" prefWidth="112.0" text="WYLOGUJ" HBox.hgrow="ALWAYS">
                <HBox.margin>
