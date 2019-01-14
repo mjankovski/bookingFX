@@ -74,7 +74,7 @@ public class RegistrationController extends SuperController{
     private TextField emailTextField;
 
     @FXML
-    private Button menuButton;
+    private Button makeAccountButton;
 
     @FXML
     private TextField partFourCardNumberTextField4;
@@ -160,7 +160,7 @@ public class RegistrationController extends SuperController{
             }
             String text = phoneNumberTextField.getText().substring(0,9);
             phoneNumberTextField.setText(text);
-            menuButton.requestFocus();
+            makeAccountButton.requestFocus();
         }
     }
 
