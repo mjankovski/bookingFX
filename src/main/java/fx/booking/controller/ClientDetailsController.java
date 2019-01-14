@@ -3,35 +3,25 @@ package fx.booking.controller;
 import fx.booking.dao.ReservationDAO;
 import fx.booking.repository.Reservation;
 import fx.booking.repository.ReservationKeeper;
-
-import javafx.animation.FadeTransition;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.util.Duration;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
 @Controller
-public class ClientDetailsController extends SuperController{
+public class ClientDetailsController extends SuperController {
 
-    @Autowired
-    private ConfigurableApplicationContext springContext;
 
     @Autowired
     private ReservationKeeper reservationKeeper;
@@ -103,7 +93,8 @@ public class ClientDetailsController extends SuperController{
         progressIndicator.setVisible(false);
     }
 
-    @FXML void initReservationTable(String login) {
+    @FXML
+    void initReservationTable(String login) {
         reservationTable.getItems().clear();
         List<Reservation> list = reservationKeeper.getReservationList(login);
         for (Reservation reservation : list) {
@@ -137,7 +128,7 @@ public class ClientDetailsController extends SuperController{
     }
 
     @FXML
-    void deleteButtonPressed(ActionEvent event) {
+    void deleteButtonPressed() {
         disableWhileProgressing(true);
         deleteReservation = new DeleteReservation();
         progressIndicator.visibleProperty().bind(deleteReservation.runningProperty());
@@ -177,7 +168,7 @@ public class ClientDetailsController extends SuperController{
     }
 
     @FXML
-    void userSelected(MouseEvent event) {
+    void userSelected() {
         deleteButton.setDisable(false);
     }
 }

@@ -14,16 +14,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
 @Controller
-public class AdminPanelController extends SuperController{
-
-    @Autowired
-    private ConfigurableApplicationContext springContext;
+public class AdminPanelController extends SuperController {
 
     @Autowired
     private AccountDAO accountDAO;
@@ -109,13 +105,13 @@ public class AdminPanelController extends SuperController{
     }
 
     @FXML
-    public void userSelected(MouseEvent event) {
+    public void userSelected() {
         deleteButton.setDisable(false);
         detailButton.setDisable(false);
     }
 
     @FXML
-    public void deleteButtonPressed(ActionEvent event) {
+    public void deleteButtonPressed() {
         disableWhileProgressing(true);
         deleteUser = new DeleteUser();
         progressIndicator.visibleProperty().bind(deleteUser.runningProperty());
@@ -154,12 +150,9 @@ public class AdminPanelController extends SuperController{
     class ClientDetail extends Task<Parent> {
         @Override
         protected Parent call() throws Exception {
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setControllerFactory(springContext::getBean);
-            fxmlLoader.setLocation(getClass().getResource("/ClientDetails.fxml"));
+            FXMLLoader fxmlLoader = setFxmlLoader("/ClientDetails.fxml");
             Parent tableViewParent = fxmlLoader.load();
 
-            //przekazywanie informacji o kliencie
             ClientDetailsController controller = fxmlLoader.getController();
             User selectedUser = userTable.getSelectionModel().getSelectedItem();
             String login = selectedUser.getLogin();
@@ -175,7 +168,7 @@ public class AdminPanelController extends SuperController{
             ObservableList<User> allUsers = userTable.getItems();
             User selectedUser = userTable.getSelectionModel().getSelectedItem();
 
-            if(selectedUser.getPermissions()!=2) {
+            if (selectedUser.getPermissions() != 2) {
                 accountDAO.deleteUser(selectedUser.getLogin());
                 allUsers.remove(selectedUser);
             }

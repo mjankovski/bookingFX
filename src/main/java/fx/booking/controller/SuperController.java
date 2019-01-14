@@ -97,7 +97,7 @@ abstract class SuperController {
     }
 
     @FXML
-    public void planButtonClicked(ActionEvent event) throws IOException {
+    public void planButtonClicked(ActionEvent event) {
         disableWhileProgressing(true);
         plan = new Plan();
         progressIndicator.visibleProperty().bind(plan.runningProperty());
