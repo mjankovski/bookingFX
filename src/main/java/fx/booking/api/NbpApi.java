@@ -4,6 +4,7 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import fx.booking.dao.CurrencyDAO;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,9 @@ import java.math.BigDecimal;
 public class NbpApi {
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    private CurrencyDAO currencyDAO;
 
     public BigDecimal getPlnToEuroCurrency(){
         try {
@@ -31,15 +35,11 @@ public class NbpApi {
                     .get(0))
                     .get("bid"));
 
-            jdbcTemplate.update(
-                    "UPDATE Kursy " +
-                    "SET KURS = ?, DATA_KURSU = ?" +
-                    "WHERE WALUTA = ?"
-                    , currency, java.time.LocalDate.now(), "EUR");
+            currencyDAO.updateCurrency(currency);
 
             return currency;
         } catch (UnirestException e) {
-            return jdbcTemplate.queryForObject("SELECT KURS FROM Kursy WHERE WALUTA = ?", BigDecimal.class, "EUR");
+            return currencyDAO.getCurrency();
         }
     }
 }
