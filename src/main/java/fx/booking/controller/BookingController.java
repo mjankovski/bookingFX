@@ -216,54 +216,12 @@ public class BookingController extends SuperController{
     }
 
     @FXML
-    public void menuButtonClicked(ActionEvent event) throws IOException {
-        disableWhileProgressing();
-        logOut = new LogOut();
-        progressIndicator.visibleProperty().bind(logOut.runningProperty());
-        logOut.setOnSucceeded(e -> {
-            enableWhileProgressing();
-            Parent parent = logOut.getValue();
-            enableWhileProgressing();
-
-            changeScene(event, parent);
-        });
-
-        logOut.setOnFailed(e -> {
-            logOut.getException().printStackTrace();
-        });
-
-        Thread thread = new Thread(logOut);
-        thread.start();
-    }
-
-    @FXML
-    public void planButtonClicked(ActionEvent event) throws IOException {
-        disableWhileProgressing();
-        plan = new Plan();
-        progressIndicator.visibleProperty().bind(plan.runningProperty());
-        plan.setOnSucceeded(e -> {
-            enableWhileProgressing();
-            Parent parent = plan.getValue();
-            enableWhileProgressing();
-
-            changeScene(event, parent);
-        });
-
-        plan.setOnFailed(e -> {
-            plan.getException().printStackTrace();
-        });
-
-        Thread thread = new Thread(plan);
-        thread.start();
-    }
-
-    @FXML
     public void reservationButtonClicked(ActionEvent event) throws IOException {
-        disableWhileProgressing();
+        disableWhileProgressing(true);
         makeReservation = new MakeReservation();
         progressIndicator.visibleProperty().bind(makeReservation.runningProperty());
         makeReservation.setOnSucceeded(e -> {
-            enableWhileProgressing();
+            disableWhileProgressing(false);
             if(makeReservation.getValue() == 2) {
                 showAlertInfo("Nie dokonano rezerwacji, ponieważ podano błędną datę!");
             }
@@ -296,37 +254,10 @@ public class BookingController extends SuperController{
         currencyLabel.setText("PLN");
     }
 
-    private void disableWhileProgressing() {
-        titleHBox.setDisable(true);
-        roomInfoHBox.setDisable(true);
-        descriptionHBox.setDisable(true);;
-        reservationTitleHBox.setDisable(true);
-        tableHBox.setDisable(true);
-        menuButton.setDisable(true);
-        planButton.setDisable(true);
-    }
-
-    private void enableWhileProgressing() {
-        titleHBox.setDisable(false);
-        roomInfoHBox.setDisable(false);
-        descriptionHBox.setDisable(false);;
-        reservationTitleHBox.setDisable(false);
-        tableHBox.setDisable(false);
-        menuButton.setDisable(false);
-        planButton.setDisable(false);
-    }
-
     class LogOut extends Task<Parent> {
         @Override
         protected Parent call() throws Exception {
             return loadScene("/Welcome.fxml");
-        }
-    }
-
-    class Plan extends Task<Parent> {
-        @Override
-        protected Parent call() throws Exception {
-            return loadScene("/Plan.fxml");
         }
     }
 

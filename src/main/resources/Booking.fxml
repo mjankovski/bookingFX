@@ -138,7 +138,7 @@
             <Insets />
          </VBox.margin>
       </HBox>
-      <HBox fx:id="buttonHBox" alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="137.0" prefWidth="1200.0" style="-fx-spacing: 100;" VBox.vgrow="ALWAYS">
+      <HBox fx:id="footerHBox" alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="137.0" prefWidth="1200.0" style="-fx-spacing: 100;" VBox.vgrow="ALWAYS">
          <children>
           <Button fx:id="menuButton" mnemonicParsing="false" onAction="#menuButtonClicked" prefHeight="44.0" prefWidth="170.0" text="WYLOGUJ" textFill="WHITE" HBox.hgrow="ALWAYS">
                <font>

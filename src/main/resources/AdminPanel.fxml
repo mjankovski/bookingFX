@@ -66,15 +66,15 @@
             <Insets />
          </opaqueInsets>
       </HBox>
-      <HBox alignment="CENTER" prefHeight="97.0" prefWidth="1200.0" VBox.vgrow="ALWAYS">
+      <HBox fx:id="footerHBox" alignment="CENTER" prefHeight="97.0" prefWidth="1200.0" VBox.vgrow="ALWAYS">
          <children>
-            <Button fx:id="logOutButton" mnemonicParsing="false" onAction="#logOutButtonClicked" prefHeight="49.0" prefWidth="112.0" text="WYLOGUJ" HBox.hgrow="ALWAYS">
+            <Button fx:id="logOutButton" mnemonicParsing="false" onAction="#menuButtonClicked" prefHeight="49.0" prefWidth="112.0" text="WYLOGUJ" HBox.hgrow="ALWAYS">
                <HBox.margin>
                   <Insets left="50.0" />
                </HBox.margin></Button>
             <ProgressIndicator fx:id="progressIndicator" prefHeight="81.0" prefWidth="882.0" progress="0.0" HBox.hgrow="ALWAYS">
                <HBox.margin>
-                  <Insets right="100.0" />
+                  <Insets right="150.0" />
                </HBox.margin>
             </ProgressIndicator>
          </children>

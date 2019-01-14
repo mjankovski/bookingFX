@@ -132,28 +132,6 @@ public class AdminPanelController extends SuperController{
         makeFadeIn(mainVBox);
     }
 
-
-    @FXML
-    public void logOutButtonClicked(ActionEvent event) {
-        disableWhileProgressing();
-        logOut = new LogOut();
-        progressIndicator.visibleProperty().bind(logOut.runningProperty());
-        logOut.setOnSucceeded(e -> {
-            enableWhileProgressing();
-            Parent parent = logOut.getValue();
-            enableWhileProgressing();
-
-            changeScene(event, parent);
-        });
-
-        logOut.setOnFailed(e -> {
-            logOut.getException().printStackTrace();
-        });
-
-        Thread thread = new Thread(logOut);
-        thread.start();
-    }
-
     @FXML
     public void userSelected(MouseEvent event) {
         deleteButton.setDisable(false);
@@ -162,11 +140,11 @@ public class AdminPanelController extends SuperController{
 
     @FXML
     public void deleteButtonPressed(ActionEvent event) {
-        disableWhileProgressing();
+        disableWhileProgressing(true);
         deleteUser = new DeleteUser();
         progressIndicator.visibleProperty().bind(deleteUser.runningProperty());
         deleteUser.setOnSucceeded(e -> {
-            enableWhileProgressing();
+            disableWhileProgressing(false);
         });
 
         deleteUser.setOnFailed(e -> {
@@ -179,13 +157,12 @@ public class AdminPanelController extends SuperController{
 
     @FXML
     public void detailButtonClicked(ActionEvent event) {
-        disableWhileProgressing();
+        disableWhileProgressing(true);
         clientDetail = new ClientDetail();
         progressIndicator.visibleProperty().bind(clientDetail.runningProperty());
         clientDetail.setOnSucceeded(e -> {
-            enableWhileProgressing();
+            disableWhileProgressing(false);
             Parent parent = clientDetail.getValue();
-            enableWhileProgressing();
 
             changeScene(event, parent);
         });
@@ -235,22 +212,6 @@ public class AdminPanelController extends SuperController{
             }
             return null;
         }
-    }
-
-    private void disableWhileProgressing() {
-        titleHBox.setDisable(true);
-        panelLabelHBox.setDisable(true);
-        tabelHBox.setDisable(true);
-        buttonsHBox.setDisable(true);
-        logOutButton.setDisable(true);
-    }
-
-    private void enableWhileProgressing() {
-            titleHBox.setDisable(false);
-            panelLabelHBox.setDisable(false);
-            tabelHBox.setDisable(false);
-            buttonsHBox.setDisable(false);
-            logOutButton.setDisable(false);
     }
 }
 
