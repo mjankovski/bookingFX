@@ -24,17 +24,12 @@ import java.time.LocalDate;
 
 @Controller
 public class ClientPanelController extends SuperController{
-    @Autowired
-    private ConfigurableApplicationContext springContext;
 
     @Autowired
     private DocumentDAO documentDAO;
 
     @Autowired
     private AccountDAO accountDAO;
-
-    @FXML
-    private VBox formVBox;
 
     @FXML
     private TableView<Reservation> reservationTable;
@@ -58,9 +53,6 @@ public class ClientPanelController extends SuperController{
     private VBox mainVBox;
 
     @FXML
-    private HBox dataHBox;
-
-    @FXML
     private ProgressIndicator progressIndicator;
 
     @FXML
@@ -82,13 +74,7 @@ public class ClientPanelController extends SuperController{
     private Label peselLabel;
 
     @FXML
-    private Label emailLabel;
-
-    @FXML
     private TextField emailTextField;
-
-    @FXML
-    private Label creditCardLabel;
 
     @FXML
     private TextField partFourCardNumberTextField1;
@@ -110,9 +96,6 @@ public class ClientPanelController extends SuperController{
 
     @FXML
     private TextField phoneNumberTextField;
-
-    @FXML
-    private Plan plan;
 
     @FXML
     private Edit edit;
@@ -237,7 +220,7 @@ public class ClientPanelController extends SuperController{
         }
 
         @Override
-        protected Integer call() throws Exception {
+        protected Integer call() {
             Button button = (Button) event.getSource();
             if (button.getText().equals("EDYTUJ")) {
                 disableData(false);

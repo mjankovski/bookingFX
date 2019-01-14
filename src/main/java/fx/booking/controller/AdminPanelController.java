@@ -3,7 +3,6 @@ package fx.booking.controller;
 import fx.booking.dao.AccountDAO;
 import fx.booking.repository.User;
 import fx.booking.repository.UserKeeper;
-
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -13,9 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -44,21 +41,6 @@ public class AdminPanelController extends SuperController{
     private Button detailButton;
 
     @FXML
-    private HBox titleHBox;
-
-    @FXML
-    private Label hotelLabel;
-
-    @FXML
-    private HBox panelLabelHBox;
-
-    @FXML
-    private HBox tabelHBox;
-
-    @FXML
-    private HBox buttonsHBox;
-
-    @FXML
     private TableView<User> userTable;
 
     @FXML
@@ -83,16 +65,10 @@ public class AdminPanelController extends SuperController{
     private TableColumn<User, String> phoneNumberColumn;
 
     @FXML
-    private Button logOutButton;
-
-    @FXML
     private ProgressIndicator progressIndicator;
 
     @FXML
     private ClientDetail clientDetail;
-
-    @FXML
-    private LogOut logOut;
 
     @FXML
     private DeleteUser deleteUser;
@@ -190,13 +166,6 @@ public class AdminPanelController extends SuperController{
             controller.initReservationTable(login);
 
             return tableViewParent;
-        }
-    }
-
-    class LogOut extends Task<Parent> {
-        @Override
-        protected Parent call() throws Exception {
-            return loadScene("/Welcome.fxml");
         }
     }
 

@@ -71,7 +71,7 @@ abstract class SuperController {
         return fxmlLoader.load();
     }
 
-    FXMLLoader setFxmlLoader(String path) throws Exception{
+    FXMLLoader setFxmlLoader(String path) {
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setControllerFactory(springContext::getBean);
         fxmlLoader.setLocation(getClass().getResource(path));

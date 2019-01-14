@@ -43,23 +43,7 @@ public class ClientDetailsController extends SuperController{
     private VBox mainVBox;
 
     @FXML
-    private HBox titleHBox;
-
-    @FXML
     private Label loginLabel;
-
-    @FXML
-    private Label hotelLabel;
-
-    @FXML
-    private HBox panelLabelHBox;
-
-    @FXML
-    private HBox tabelHBox;
-
-    @FXML
-    private HBox deleteButtonHBox;
-
 
     @FXML
     private TableView<Reservation> reservationTable;
@@ -89,16 +73,7 @@ public class ClientDetailsController extends SuperController{
     private Button deleteButton;
 
     @FXML
-    private Button logOutButton;
-
-    @FXML
-    private Button backButton;
-
-    @FXML
     private ProgressIndicator progressIndicator;
-
-    @FXML
-    private LogOut logOut;
 
     @FXML
     private Back back;
@@ -180,7 +155,7 @@ public class ClientDetailsController extends SuperController{
 
     class DeleteReservation extends Task<Void> {
         @Override
-        protected Void call() throws Exception {
+        protected Void call() {
             ObservableList<Reservation> allReservations;
             Reservation selectedReservation;
             allReservations = reservationTable.getItems();
@@ -191,17 +166,6 @@ public class ClientDetailsController extends SuperController{
             allReservations.remove(selectedReservation);
 
             return null;
-        }
-    }
-
-    class LogOut extends Task<Parent> {
-        @Override
-        protected Parent call() throws Exception {
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setControllerFactory(springContext::getBean);
-            fxmlLoader.setLocation(getClass().getResource("/Welcome.fxml"));
-            Parent tableViewParent = fxmlLoader.load();
-            return tableViewParent;
         }
     }
 

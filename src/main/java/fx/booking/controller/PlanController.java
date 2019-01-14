@@ -50,28 +50,7 @@ public class PlanController extends SuperController{
     private VBox mainVBox;
 
     @FXML
-    private HBox titleHBox;
-
-    @FXML
-    private HBox planHBox;
-
-    @FXML
-    private ScrollPane planScrollPane;
-
-    @FXML
-    private AnchorPane imageAnchorPane;
-
-    @FXML
-    private ImageView planImageView;
-
-    @FXML
-    private Label titleLabel;
-
-    @FXML
     private ComboBox<Integer> floorComboBox;
-
-    @FXML
-    private Label filtersLabel;
 
     @FXML
     private CheckBox onePeopleCheckBox;
@@ -83,22 +62,10 @@ public class PlanController extends SuperController{
     private CheckBox fourPeopleCheckBox;
 
     @FXML
-    private Label pepoleNumberLabel;
-
-    @FXML
-    private Button menuButton;
-
-    @FXML
     private TextField fromPriceTextField;
 
     @FXML
     private TextField toPriceTextField;
-
-    @FXML
-    private DatePicker fromDatePicker;
-
-    @FXML
-    private DatePicker toDatePicker;
 
     @FXML
     private Pane mapPane;
@@ -245,9 +212,6 @@ public class PlanController extends SuperController{
     private RoomDetail roomDetail;
 
     @FXML
-    private LogOut logOut;
-
-    @FXML
     private ClientPanel clientPanel;
 
 
@@ -388,7 +352,7 @@ public class PlanController extends SuperController{
     }
 
     @FXML
-    public void roomButtonPressed(MouseEvent event) throws IOException {
+    public void roomButtonPressed(MouseEvent event) {
         disableWhileProgressing(true);
         roomDetail = new RoomDetail(event);
         progressIndicator.visibleProperty().bind(roomDetail.runningProperty());
@@ -436,7 +400,7 @@ public class PlanController extends SuperController{
     @FXML
     public void avatarClicked(MouseEvent event) {
         disableWhileProgressing(true);
-        clientPanel = new ClientPanel(event);
+        clientPanel = new ClientPanel();
         progressIndicator.visibleProperty().bind(clientPanel.runningProperty());
         clientPanel.setOnSucceeded(e -> {
             disableWhileProgressing(false);
@@ -475,12 +439,6 @@ public class PlanController extends SuperController{
     }
 
     class ClientPanel extends Task<Parent> {
-        private MouseEvent event;
-
-        ClientPanel(MouseEvent event) {
-            this.event = event;
-        }
-
         @Override
         protected Parent call() throws Exception {
             FXMLLoader fxmlLoader = new FXMLLoader();
