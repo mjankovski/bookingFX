@@ -66,9 +66,6 @@ public class ClientDetailsController extends SuperController {
     private ProgressIndicator progressIndicator;
 
     @FXML
-    private DeleteReservation deleteReservation;
-
-    @FXML
     public void initialize() {
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
 
@@ -104,7 +101,7 @@ public class ClientDetailsController extends SuperController {
     @FXML
     void deleteButtonPressed() {
         disableWhileProgressing(true);
-        deleteReservation = new DeleteReservation();
+        DeleteReservation deleteReservation = new DeleteReservation();
         startThreadWithEndingAction(deleteReservation);
     }
 

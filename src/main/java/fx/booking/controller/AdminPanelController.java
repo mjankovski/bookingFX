@@ -11,7 +11,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -64,12 +63,6 @@ public class AdminPanelController extends SuperController {
     private ProgressIndicator progressIndicator;
 
     @FXML
-    private ClientDetail clientDetail;
-
-    @FXML
-    private DeleteUser deleteUser;
-
-    @FXML
     public void initialize() {
         surnameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
 
@@ -113,14 +106,14 @@ public class AdminPanelController extends SuperController {
     @FXML
     public void deleteButtonPressed() {
         disableWhileProgressing(true);
-        deleteUser = new DeleteUser();
+        DeleteUser deleteUser = new DeleteUser();
         startThreadWithEndingAction(deleteUser);
     }
 
     @FXML
     public void detailButtonClicked(ActionEvent event) {
         disableWhileProgressing(true);
-        clientDetail = new ClientDetail();
+        ClientDetail clientDetail = new ClientDetail();
         startThreadWithEndingAction(clientDetail, event);
     }
 
