@@ -114,17 +114,7 @@ public class AdminPanelController extends SuperController {
     public void deleteButtonPressed() {
         disableWhileProgressing(true);
         deleteUser = new DeleteUser();
-        progressIndicator.visibleProperty().bind(deleteUser.runningProperty());
-        deleteUser.setOnSucceeded(e -> {
-            disableWhileProgressing(false);
-        });
-
-        deleteUser.setOnFailed(e -> {
-            deleteUser.getException().printStackTrace();
-        });
-
-        Thread thread = new Thread(deleteUser);
-        thread.start();
+        startThreadWithEndingAction(deleteUser);
     }
 
     @FXML

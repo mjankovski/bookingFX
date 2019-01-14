@@ -97,7 +97,7 @@ abstract class SuperController {
     }
 
     @FXML
-    public void menuButtonClicked(ActionEvent event) throws IOException {
+    public void menuButtonClicked(ActionEvent event) {
         disableWhileProgressing(true);
         LogOut logOut = new LogOut();
         startThreadWithEndingAction(logOut, event);
@@ -138,6 +138,20 @@ abstract class SuperController {
             Parent parent = task.getValue();
 
             changeScene(event, parent);
+        });
+
+        task.setOnFailed(e -> {
+            task.getException().printStackTrace();
+        });
+
+        Thread thread = new Thread(task);
+        thread.start();
+    }
+
+    void startThreadWithEndingAction(Task<Void> task){
+        progressIndicator.visibleProperty().bind(task.runningProperty());
+        task.setOnSucceeded(e -> {
+            disableWhileProgressing(false);
         });
 
         task.setOnFailed(e -> {

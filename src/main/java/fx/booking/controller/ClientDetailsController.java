@@ -105,17 +105,7 @@ public class ClientDetailsController extends SuperController {
     void deleteButtonPressed() {
         disableWhileProgressing(true);
         deleteReservation = new DeleteReservation();
-        progressIndicator.visibleProperty().bind(deleteReservation.runningProperty());
-        deleteReservation.setOnSucceeded(e -> {
-            disableWhileProgressing(false);
-        });
-
-        deleteReservation.setOnFailed(e -> {
-            deleteReservation.getException().printStackTrace();
-        });
-
-        Thread thread = new Thread(deleteReservation);
-        thread.start();
+        startThreadWithEndingAction(deleteReservation);
     }
 
     class DeleteReservation extends Task<Void> {
