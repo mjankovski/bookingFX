@@ -102,6 +102,7 @@ public class ClientPanelController extends SuperController {
 
         progressIndicator.setProgress(ProgressBar.INDETERMINATE_PROGRESS);
         progressIndicator.setVisible(false);
+        invoiceButton.setDisable(true);
 
         setClientInfo();
         disableData(true);
