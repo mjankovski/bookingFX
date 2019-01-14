@@ -59,6 +59,12 @@ public class ClientPanelController {
     private Button planButton;
 
     @FXML
+    private Button resetButton;
+
+    @FXML
+    private Button editButton;
+
+    @FXML
     private VBox mainVBox;
 
     @FXML
@@ -97,12 +103,6 @@ public class ClientPanelController {
     private Label loginLabel;
 
     @FXML
-    private Label passwordLabel;
-
-    @FXML
-    private TextField loginTextField;
-
-    @FXML
     private PasswordField passField;
 
     @FXML
@@ -110,9 +110,6 @@ public class ClientPanelController {
 
     @FXML
     private Label emailLabel;
-
-    @FXML
-    private TextField peselTextField;
 
     @FXML
     private TextField emailTextField;
@@ -154,44 +151,10 @@ public class ClientPanelController {
         fromDateColumn.setCellValueFactory(new PropertyValueFactory<>("beginningDate"));
         toDateColumn.setCellValueFactory(new PropertyValueFactory<>("endingDate"));
 
-        nameTextfield.setText(accountDAO.getFirstname());
-        nameTextfield.setDisable(true);
-
-        surnameTextField.setText(accountDAO.getLastname());
-        surnameTextField.setDisable(true);
-
-        loginTextField.setText(accountDAO.getLogin());
-        loginTextField.setDisable(true);
-
-        passField.setText("");
-        passField.setDisable(true);
-
-        peselTextField.setText(accountDAO.getPesel());
-        peselTextField.setDisable(true);
-
-        emailTextField.setText(accountDAO.getEmail());
-        emailTextField.setDisable(true);
-
-        partFourCardNumberTextField1.setText(accountDAO.getCreditCardNumber().substring(0, 4));
-        partFourCardNumberTextField1.setDisable(true);
-
-        partFourCardNumberTextField2.setText(accountDAO.getCreditCardNumber().substring(4, 8));
-        partFourCardNumberTextField2.setDisable(true);
-
-        partFourCardNumberTextField3.setText(accountDAO.getCreditCardNumber().substring(8, 12));
-        partFourCardNumberTextField3.setDisable(true);
-
-        partFourCardNumberTextField4.setText(accountDAO.getCreditCardNumber().substring(12, 16));
-        partFourCardNumberTextField4.setDisable(true);
-
-        directionNumbertextField.setText(accountDAO.getPhoneNumber().substring(0,2));
-        directionNumbertextField.setDisable(true);
-
-        phoneNumberTextField.setText(accountDAO.getPhoneNumber().substring(2,11));
-        phoneNumberTextField.setDisable(true);
-
         progressIndicator.setProgress(ProgressBar.INDETERMINATE_PROGRESS);
         progressIndicator.setVisible(false);
+
+        initTextFields();
     }
 
     @FXML void initReservationTable(ObservableList<Reservation> list) {
@@ -211,6 +174,10 @@ public class ClientPanelController {
     public void invoiceButtonClicked(ActionEvent event) throws IOException {
         System.out.println(reservationTable.getSelectionModel().getSelectedItem().getId());
         documentGenerator.generateDocument(documentDAO.getDocumentsInformation(reservationTable.getSelectionModel().getSelectedItem().getId()));
+    }
+    @FXML
+    public void resetButtonClicked(ActionEvent event) {
+        initTextFields();
     }
 
     @FXML
@@ -322,9 +289,7 @@ public class ClientPanelController {
         private void setFields(boolean isDisabled) {
             nameTextfield.setDisable(isDisabled);
             surnameTextField.setDisable(isDisabled);
-            loginTextField.setDisable(isDisabled);
             passField.setDisable(isDisabled);
-            peselTextField.setDisable(isDisabled);
             emailTextField.setDisable(isDisabled);
             partFourCardNumberTextField1.setDisable(isDisabled);
             partFourCardNumberTextField2.setDisable(isDisabled);
@@ -332,6 +297,7 @@ public class ClientPanelController {
             partFourCardNumberTextField4.setDisable(isDisabled);
             directionNumbertextField.setDisable(isDisabled);
             phoneNumberTextField.setDisable(isDisabled);
+            resetButton.setDisable(isDisabled);
         }
 
         private void updateInformations(String login, String pw, String firstname, String lastname, String email,
@@ -402,20 +368,23 @@ public class ClientPanelController {
     }
 
     private void initTextFields() {
+        resetButton.setDisable(true);
+        invoiceButton.setDisable(true);
+        editButton.setDisable(false);
+        editButton.setText("EDYTUJ");
+
         nameTextfield.setText(accountDAO.getFirstname());
         nameTextfield.setDisable(true);
 
         surnameTextField.setText(accountDAO.getLastname());
         surnameTextField.setDisable(true);
 
-        loginTextField.setText(accountDAO.getLogin());
-        loginTextField.setDisable(true);
+        loginLabel.setText(accountDAO.getLogin());
 
         passField.setText("");
         passField.setDisable(true);
 
-        peselTextField.setText(accountDAO.getPesel());
-        peselTextField.setDisable(true);
+        peselLabel.setText(accountDAO.getPesel());
 
         emailTextField.setText(accountDAO.getEmail());
         emailTextField.setDisable(true);

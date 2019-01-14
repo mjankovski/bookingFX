@@ -11,6 +11,11 @@
     -fx-text-fill: #595959;
 }
 
+#peselLabel, #loginLabel
+{
+    -fx-text-fill: #000000;
+}
+
 #titleHBox
 {
     -fx-background-color: #3399FF;
