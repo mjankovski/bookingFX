@@ -224,9 +224,6 @@ public class PlanController extends SuperController {
                 room210Button, room211Button, room212Button, room213Button, room214Button, room215Button,
                 room216Button, room217Button, room218Button, room219Button, room220Button, room221Button);
 
-        for (Button button : allRoomButtons) {
-            button.setStyle("-fx-background-color: green");
-        }
         //przypisanie przyciskow poszczegolnym pokojom
         roomList = FXCollections.observableHashMap();
         ObservableList<Room> rooms = roomRepository.getRoomList();
@@ -236,9 +233,7 @@ public class PlanController extends SuperController {
             roomList.put(button, room);
         }
 
-        onePeopleCheckBox.setSelected(true);
-        twoPeopleCheckBox.setSelected(true);
-        fourPeopleCheckBox.setSelected(true);
+        initFilterState();
         setFloor2ButtonsInvisible();
 
         progressIndicator.setProgress(ProgressBar.INDETERMINATE_PROGRESS);
@@ -301,14 +296,18 @@ public class PlanController extends SuperController {
             else if ((fourPeopleCheckBox.isSelected()) && (roomList.get(button)).getPeopleSize() == 4 && priceCondition) {
                 button.setStyle("-fx-background-color: green");
             } else {
-                button.setStyle("-fx-background-color: red");
             }
         }
     }
 
     @FXML
     public void peopleCheckBoxEntered() {
-        filter();
+        try {
+            filter();
+        } catch (IllegalArgumentException e) {
+            showAlertInfo("Podaj wartość minimalnej oraz maksymalnej ceny!");
+            initFilterState();
+        }
     }
 
     @FXML
@@ -316,8 +315,8 @@ public class PlanController extends SuperController {
         try {
             filter();
         } catch (IllegalArgumentException e) {
-            fromPriceTextField.setText("0");
-            toPriceTextField.setText("0");
+            showAlertInfo("Podaj wartość minimalnej oraz maksymalnej ceny!");
+            initFilterState();
         }
     }
 
@@ -369,6 +368,18 @@ public class PlanController extends SuperController {
         disableWhileProgressing(true);
         ClientPanel clientPanel = new ClientPanel();
         startThreadWithEndingAction(clientPanel, event);
+    }
+
+    private void initFilterState() {
+        for (Button button : allRoomButtons) {
+            button.setStyle("-fx-background-color: green");
+        }
+
+        onePeopleCheckBox.setSelected(true);
+        twoPeopleCheckBox.setSelected(true);
+        fourPeopleCheckBox.setSelected(true);
+        fromPriceTextField.setText("0");
+        toPriceTextField.setText("1000");
     }
 
     class RoomDetail extends Task<Parent> {
