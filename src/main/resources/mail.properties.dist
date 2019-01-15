@@ -1,0 +1,5 @@
+mail.password=
+mail.text=Gratulujemy! Twoje konto na bookingFX zostalo utworzone. Od teraz mozesz logowac sie do naszego systemu za pomoca danych, ktorych uzyles podczas rejestracji. W razie problemow prosimy kontaktowac sie na adres admin@bookingfx.cba.pl
+mail.subject=Rejestracja zostala zakonczona pomyslnie!
+mail.from=
+mail.host=
