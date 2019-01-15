@@ -181,6 +181,9 @@ public class BookingController extends SuperController {
     class MakeReservation extends Task<Integer> {
         @Override
         protected Integer call() {
+            if (fromDatePicker.getValue() == null || toDatePicker.getValue() == null) {
+                return 2;
+            }
             if (reservationDAO.checkIfRoomFree(Integer.valueOf(roomNumberLabel.getText()), fromDatePicker.getValue().toString(), toDatePicker.getValue().toString())) {
                 try {
                     ObservableList<Reservation> reservationsList;
