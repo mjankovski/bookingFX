@@ -173,6 +173,15 @@ public class RegistrationController extends SuperController{
     }
 
     @FXML
+    public void mainVBoxKeyPressed(KeyEvent event) {
+        if(event.getCode() == KeyCode.ESCAPE) {
+            disableWhileProgressing(true);
+            LogOut logOut = new LogOut();
+            startThreadWithEndingAction(logOut, event);
+        }
+    }
+
+    @FXML
     public void registerButtonClicked(ActionEvent event){
         makeAccount(event);
     }

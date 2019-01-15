@@ -9,6 +9,8 @@ import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -118,7 +120,25 @@ public class ClientDetailsController extends SuperController {
     }
 
     @FXML
-    void userSelected() {
+    public void userSelected(KeyEvent event) {
+        if(event.getCode() == KeyCode.ESCAPE) {
+            disableWhileProgressing(true);
+            LoadScene loadScene = new LoadScene("/AdminPanel.fxml");
+            startThreadWithEndingAction(loadScene, event);
+        }
+        else if(event.getCode() == KeyCode.DELETE) {
+            disableWhileProgressing(true);
+            DeleteReservation deleteReservation = new DeleteReservation();
+            startThreadWithEndingAction(deleteReservation);
+        }
         deleteButton.setDisable(false);
+    }
+
+
+    @FXML
+    public void mainVBoxKeyPressed(KeyEvent event) {
+        disableWhileProgressing(true);
+        LoadScene loadScene = new LoadScene("/AdminPanel.fxml");
+        startThreadWithEndingAction(loadScene, event);
     }
 }

@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -12,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ProgressIndicator;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -19,6 +21,8 @@ import javafx.util.Duration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
+
+import java.awt.event.KeyEvent;
 
 abstract class SuperController {
     @FXML
@@ -88,21 +92,21 @@ abstract class SuperController {
     }
 
     @FXML
-    void planButtonClicked(ActionEvent event) {
+    void planButtonClicked(Event event) {
         disableWhileProgressing(true);
         Plan plan = new Plan();
         startThreadWithEndingAction(plan, event);
     }
 
     @FXML
-    void menuButtonClicked(ActionEvent event) {
+    void menuButtonClicked(Event event) {
         disableWhileProgressing(true);
         LogOut logOut = new LogOut();
         startThreadWithEndingAction(logOut, event);
     }
 
     @FXML
-    void backButtonClicked(ActionEvent event) {
+    void backButtonClicked(Event event) {
         disableWhileProgressing(true);
         Back back = new Back();
         startThreadWithEndingAction(back, event);
@@ -126,6 +130,18 @@ abstract class SuperController {
         @Override
         protected Parent call() throws Exception {
             return loadScene("/AdminPanel.fxml");
+        }
+    }
+
+    class LoadScene extends Task<Parent> {
+        private String path;
+
+        LoadScene(String path) {
+            this.path = path;
+        }
+        @Override
+        protected Parent call() throws Exception {
+            return loadScene(path);
         }
     }
 

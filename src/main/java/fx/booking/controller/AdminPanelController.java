@@ -12,6 +12,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,7 +102,22 @@ public class AdminPanelController extends SuperController {
     }
 
     @FXML
-    public void userSelected() {
+    public void userSelected(KeyEvent event) {
+        if(event.getCode() == KeyCode.ESCAPE) {
+            disableWhileProgressing(true);
+            LogOut logOut = new LogOut();
+            startThreadWithEndingAction(logOut, event);
+        }
+        else if(event.getCode() == KeyCode.ENTER) {
+            disableWhileProgressing(true);
+            ClientDetail clientDetail = new ClientDetail();
+            startThreadWithEndingAction(clientDetail, event);
+        }
+        else if(event.getCode() == KeyCode.DELETE) {
+            disableWhileProgressing(true);
+            DeleteUser deleteUser = new DeleteUser();
+            startThreadWithEndingAction(deleteUser);
+        }
         deleteButton.setDisable(false);
         detailButton.setDisable(false);
     }
@@ -117,6 +134,15 @@ public class AdminPanelController extends SuperController {
         disableWhileProgressing(true);
         ClientDetail clientDetail = new ClientDetail();
         startThreadWithEndingAction(clientDetail, event);
+    }
+
+    @FXML
+    public void mainVBoxKeyPressed(KeyEvent event) {
+        if(event.getCode() == KeyCode.ESCAPE) {
+            disableWhileProgressing(true);
+            LogOut logOut = new LogOut();
+            startThreadWithEndingAction(logOut, event);
+        }
     }
 
     class ClientDetail extends Task<Parent> {

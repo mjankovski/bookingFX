@@ -11,6 +11,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -170,6 +172,16 @@ public class ClientPanelController extends SuperController {
         Thread thread = new Thread(edit);
         thread.start();
     }
+
+    @FXML
+    public void mainVBoxKeyPressed(KeyEvent event) {
+        if(event.getCode() == KeyCode.ESCAPE) {
+            disableWhileProgressing(true);
+            LoadScene loadScene = new LoadScene("/Plan.fxml");
+            startThreadWithEndingAction(loadScene, event);
+        }
+    }
+
 
     class Edit extends Task<Integer> {
         private ActionEvent event;

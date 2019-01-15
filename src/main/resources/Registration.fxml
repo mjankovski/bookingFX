@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="mainVBox" prefHeight="799.0" prefWidth="1200.0" stylesheets="@/css/Registration.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fx.booking.controller.RegistrationController">
+<VBox fx:id="mainVBox" onKeyPressed="#mainVBoxKeyPressed" prefHeight="799.0" prefWidth="1200.0" stylesheets="@/css/Registration.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fx.booking.controller.RegistrationController">
    <children>
       <HBox fx:id="titleHBox" prefHeight="37.0" prefWidth="740.0" style="-fx-background-color: #3399FF;">
          <children>

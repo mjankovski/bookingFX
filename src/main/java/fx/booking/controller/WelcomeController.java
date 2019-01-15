@@ -99,6 +99,7 @@ public class WelcomeController extends SuperController{
                 return loadScene("/Plan.fxml");
             }
             else if(login==2){
+                accountRepository.setAccountInformation(loginTextField.getText());
                 return loadScene("/AdminPanel.fxml");
             }
             else {
