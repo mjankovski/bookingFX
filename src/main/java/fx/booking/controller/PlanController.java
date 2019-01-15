@@ -296,6 +296,7 @@ public class PlanController extends SuperController {
             else if ((fourPeopleCheckBox.isSelected()) && (roomList.get(button)).getPeopleSize() == 4 && priceCondition) {
                 button.setStyle("-fx-background-color: green");
             } else {
+                button.setStyle("-fx-background-color: red");
             }
         }
     }
