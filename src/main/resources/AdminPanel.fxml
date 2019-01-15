@@ -29,7 +29,7 @@
          <children>
             <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                <children>
-                  <TableView fx:id="userTable" editable="true" onKeyPressed="#userSelected" prefHeight="466.0" prefWidth="855.0" VBox.vgrow="ALWAYS">
+                  <TableView fx:id="userTable" editable="true" onKeyPressed="#userSelected" onMouseClicked="#userClicked" prefHeight="466.0" prefWidth="855.0" VBox.vgrow="ALWAYS">
                      <columns>
                         <TableColumn fx:id="surnameColumn" prefWidth="94.0" text="Nazwisko" />
                         <TableColumn fx:id="nameColumn" prefWidth="85.0" text="Imię" />

@@ -226,7 +226,7 @@
       </HBox>
       <HBox fx:id="tableHBox" alignment="CENTER" prefHeight="186.0" prefWidth="1200.0">
          <children>
-            <TableView fx:id="reservationTable" editable="true" onMouseClicked="#reservationSelected" prefHeight="153.0" prefWidth="789.0" HBox.hgrow="ALWAYS">
+            <TableView fx:id="reservationTable" editable="true" onKeyPressed="#reservationPressed" onMouseClicked="#reservationSelected" prefHeight="153.0" prefWidth="789.0" HBox.hgrow="ALWAYS">
                <columns>
                   <TableColumn fx:id="roomNumberColumn" prefWidth="75.0" text="Numer pokoju" />
                   <TableColumn fx:id="fromDateColumn" prefWidth="75.0" text="Data od" />

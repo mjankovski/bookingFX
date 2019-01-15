@@ -30,7 +30,7 @@
          <children>
             <VBox prefHeight="503.0" prefWidth="900.0" HBox.hgrow="ALWAYS">
                <children>
-                  <TableView fx:id="reservationTable" editable="true" onKeyPressed="#userSelected" prefHeight="501.0" prefWidth="900.0">
+                  <TableView fx:id="reservationTable" editable="true" onKeyPressed="#reservationSelected" onMousePressed="#reservationClicked" prefHeight="501.0" prefWidth="900.0">
                      <columns>
                         <TableColumn fx:id="idColumn" prefWidth="75.0" text="Id" />
                         <TableColumn fx:id="invoiceColumn" prefWidth="75.0" text="Nr faktury" />

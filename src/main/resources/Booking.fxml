@@ -120,7 +120,7 @@
       </HBox>
       <HBox fx:id="tableHBox" prefHeight="304.0" prefWidth="1196.0">
          <children>
-            <TableView fx:id="reservationTable" editable="true" prefHeight="239.0" prefWidth="1100.0" HBox.hgrow="ALWAYS">
+            <TableView fx:id="reservationTable" editable="true" onKeyPressed="#tableSelected" prefHeight="239.0" prefWidth="1100.0" HBox.hgrow="ALWAYS">
               <columns>
                 <TableColumn fx:id="reservationNumberColumn" prefWidth="75.0" text="Numer rezerwacji" />
                   <TableColumn fx:id="fromDateColumn" prefWidth="75.0" text="Data od" />

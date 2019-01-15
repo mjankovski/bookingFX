@@ -102,6 +102,12 @@ public class AdminPanelController extends SuperController {
     }
 
     @FXML
+    public void userClicked() {
+        deleteButton.setDisable(false);
+        detailButton.setDisable(false);
+    }
+
+    @FXML
     public void userSelected(KeyEvent event) {
         if(event.getCode() == KeyCode.ESCAPE) {
             disableWhileProgressing(true);

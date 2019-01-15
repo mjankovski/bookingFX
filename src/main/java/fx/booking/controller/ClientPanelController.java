@@ -131,6 +131,19 @@ public class ClientPanelController extends SuperController {
     }
 
     @FXML
+    public void reservationPressed(KeyEvent event) {
+        if(event.getCode() == KeyCode.ESCAPE) {
+            disableWhileProgressing(true);
+            LoadScene loadScene = new LoadScene("/Plan.fxml");
+            startThreadWithEndingAction(loadScene, event);
+        }
+        else if(event.getCode() == KeyCode.ENTER) {
+            documentGenerator.generateDocument(documentDAO.getDocumentsInformation(reservationTable.getSelectionModel().getSelectedItem().getId()));
+        }
+        invoiceButton.setDisable(false);
+    }
+
+    @FXML
     public void invoiceButtonClicked() {
         documentGenerator.generateDocument(documentDAO.getDocumentsInformation(reservationTable.getSelectionModel().getSelectedItem().getId()));
     }

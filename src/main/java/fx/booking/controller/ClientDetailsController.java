@@ -15,7 +15,6 @@ import javafx.scene.layout.VBox;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-
 import java.util.List;
 
 @Controller
@@ -120,7 +119,7 @@ public class ClientDetailsController extends SuperController {
     }
 
     @FXML
-    public void userSelected(KeyEvent event) {
+    public void reservationSelected(KeyEvent event) {
         if(event.getCode() == KeyCode.ESCAPE) {
             disableWhileProgressing(true);
             LoadScene loadScene = new LoadScene("/AdminPanel.fxml");
@@ -134,11 +133,18 @@ public class ClientDetailsController extends SuperController {
         deleteButton.setDisable(false);
     }
 
+    @FXML
+    public void reservationClicked() {
+        deleteButton.setDisable(false);
+    }
+
 
     @FXML
     public void mainVBoxKeyPressed(KeyEvent event) {
-        disableWhileProgressing(true);
-        LoadScene loadScene = new LoadScene("/AdminPanel.fxml");
-        startThreadWithEndingAction(loadScene, event);
+        if(event.getCode() == KeyCode.ESCAPE) {
+            disableWhileProgressing(true);
+            LoadScene loadScene = new LoadScene("/AdminPanel.fxml");
+            startThreadWithEndingAction(loadScene, event);
+        }
     }
 }

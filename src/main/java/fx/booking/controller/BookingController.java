@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import java.math.BigDecimal;
+import java.security.Key;
 import java.time.LocalDate;
 
 @Controller
@@ -155,6 +156,15 @@ public class BookingController extends SuperController {
 
     @FXML
     public void mainVBoxKeyPressed(KeyEvent event) {
+        if(event.getCode() == KeyCode.ESCAPE) {
+            disableWhileProgressing(true);
+            LoadScene loadScene = new LoadScene("/Plan.fxml");
+            startThreadWithEndingAction(loadScene, event);
+        }
+    }
+
+    @FXML
+    public void tableSelected(KeyEvent event) {
         if(event.getCode() == KeyCode.ESCAPE) {
             disableWhileProgressing(true);
             LoadScene loadScene = new LoadScene("/Plan.fxml");
