@@ -17,9 +17,9 @@ import com.itextpdf.text.pdf.PdfWriter;
 import javafx.stage.FileChooser;
 
 public class DocumentGenerator {
-    private static Font redFont = new Font(Font.FontFamily.TIMES_ROMAN, 12,
+    private Font redFont = new Font(Font.FontFamily.TIMES_ROMAN, 12,
             Font.NORMAL);
-    private static Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12,
+    private Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12,
             Font.BOLD);
 
     public void generateDocument(Map<String, Object> documentInfo) {
@@ -36,13 +36,13 @@ public class DocumentGenerator {
         }
     }
 
-    private static void addMetaData(Document document) {
+    private void addMetaData(Document document) {
         document.addTitle("Faktura");
         document.addAuthor("BookingFX");
         document.addCreator("BookingFX");
     }
 
-    private static void addTitlePage(Document document, Map<String, Object> documentInfo)
+    private void addTitlePage(Document document, Map<String, Object> documentInfo)
             throws DocumentException {
         Paragraph preface = new Paragraph();
 
@@ -135,13 +135,13 @@ public class DocumentGenerator {
         document.newPage();
     }
 
-    private static Paragraph getParagraph(String text){
+    private Paragraph getParagraph(String text){
         Paragraph paragraph = new Paragraph(text);
         paragraph.setAlignment(Element.ALIGN_RIGHT);
         return paragraph;
     }
 
-    private static PdfPCell getCell(String text, int alignment) {
+    private PdfPCell getCell(String text, int alignment) {
         PdfPCell cell = new PdfPCell(new Phrase(text));
         cell.setPadding(0);
         cell.setHorizontalAlignment(alignment);
@@ -149,7 +149,7 @@ public class DocumentGenerator {
         return cell;
     }
 
-    private static PdfPCell getCell2(String text) {
+    private PdfPCell getCell2(String text) {
         PdfPCell cell = new PdfPCell(new Phrase(text));
         cell.setPaddingTop(2);
         cell.setPaddingBottom(5);
@@ -157,7 +157,7 @@ public class DocumentGenerator {
         return cell;
     }
 
-    private static void addEmptyLine(Paragraph paragraph, int number) {
+    private void addEmptyLine(Paragraph paragraph, int number) {
         for (int i = 0; i < number; i++) {
             paragraph.add(new Paragraph(" "));
         }
